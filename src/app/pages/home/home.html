@@ -1,0 +1,35 @@
+<ion-header no-border>
+  <ion-toolbar color='primary'>
+      <ion-title>Movies List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-item class="item-info">
+      <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
+  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let movie of movies; let i = index" detail="true" tappable routerLink="/detail/{{ movie.title }}">
+      <ion-thumbnail slot="start">
+        <img [src]='"https://picsum.photos/200/300?image=" + i' alt="">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ movie.title }}</h2>
+        <h3>{{ movie.notes }}</h3>
+      </ion-label>
+      
+      <ion-note slot="end">
+      </ion-note>  
+    </ion-item>
+  </ion-list> 
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="primary">
+        <ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>
+        <ion-buttons slot="end">
+          <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach%2Fangular-ionic-master-detail&amp;title=&amp;aria-label=Star%20abritopach%2Fangular-ionic-master-detail%20on%20GitHub&amp;data-icon=octicon-star&amp;data-text=Star" style="width: 50px; height: 20px; border: none;"></iframe></div>
+          <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach&amp;title=&amp;aria-label=Follow%20%40abritopach%20on%20GitHub&amp;data-text=GitHub" style="width: 67px; height: 20px; border: none;"></iframe></div>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

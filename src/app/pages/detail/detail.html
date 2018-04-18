@@ -1,0 +1,52 @@
+<ion-header no-border>
+  <ion-toolbar color='primary'>
+      <ion-buttons slot="start">
+        <ion-back-button text="home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Movie Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce>
+    <ion-card *ngIf="item">
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="item?.image">
+          </ion-avatar>
+          <h2>{{ item?.title }}</h2>
+        </ion-item>
+      
+        <img src="https://placeimg.com/640/480/nature">
+      
+        <ion-card-content>
+          <p>{{ item?.description }}</p>
+        </ion-card-content>
+      
+        <ion-row>
+          <ion-item>
+          <ion-button icon-left clear small class="action-button">
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </ion-button>
+          <ion-button icon-left clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </ion-button>
+          <ion-note slot="end">
+              11h ago
+          </ion-note>
+          </ion-item>
+        </ion-row>
+      
+      </ion-card>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="primary">
+        <ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>
+        <ion-buttons slot="end">
+          <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach%2Fangular-ionic-master-detail&amp;title=&amp;aria-label=Star%20abritopach%2Fangular-ionic-master-detail%20on%20GitHub&amp;data-icon=octicon-star&amp;data-text=Star" style="width: 50px; height: 20px; border: none;"></iframe></div>
+          <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach&amp;title=&amp;aria-label=Follow%20%40abritopach%20on%20GitHub&amp;data-text=GitHub" style="width: 67px; height: 20px; border: none;"></iframe></div>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

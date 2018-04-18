@@ -1,0 +1,6 @@
+{
+  "appId": "com.ionic.movies",
+  "appName": "angular-ionic-ngxs-movies",
+  "bundledWebRuntime": false,
+  "webDir": "dist"
+}
