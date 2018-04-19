@@ -5,4 +5,5 @@ export interface Movie {
     cast: string | null;
     genre: string | null;
     notes: string | null;
+    poster: string | null;
 }

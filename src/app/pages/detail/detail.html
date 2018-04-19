@@ -8,18 +8,20 @@
 </ion-header>
 
 <ion-content no-bounce>
-    <ion-card *ngIf="item">
+    <ion-card *ngIf="movie">
         <ion-item>
+          <!--
           <ion-avatar item-start>
-            <img [src]="item?.image">
+            <img [src]="movie?.image">
           </ion-avatar>
-          <h2>{{ item?.title }}</h2>
+          -->
+          <h2>{{ movie?.title }}</h2>
         </ion-item>
       
-        <img src="https://placeimg.com/640/480/nature">
+        <img [src]="movie?.poster" height="300px">
       
         <ion-card-content>
-          <p>{{ item?.description }}</p>
+          <p>{{ movie?.notes }}</p>
         </ion-card-content>
       
         <ion-row>
@@ -33,7 +35,7 @@
             <div>4 Comments</div>
           </ion-button>
           <ion-note slot="end">
-              11h ago
+            {{ movie?.year }}
           </ion-note>
           </ion-item>
         </ion-row>
