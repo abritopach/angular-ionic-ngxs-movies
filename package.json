@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^6.0.0-rc.5",
     "@angular/router": "^6.0.0-rc.5",
     "@angular/service-worker": "^6.0.0-rc.5",
-    "@capacitor/android": "^1.0.0-alpha.34",
+    "@capacitor/android": "^1.0.0-alpha.35",
     "@capacitor/cli": "^1.0.0-alpha.34",
     "@capacitor/core": "^1.0.0-alpha.34",
     "@capacitor/ios": "^1.0.0-alpha.34",

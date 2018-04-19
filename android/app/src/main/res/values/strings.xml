@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">angular-ionic-ngxs-movies</string>
+    <string name="title_activity_main">angular-ionic-ngxs-movies</string>
+    <string name="package_name">com.ionic.movies</string>
+    <string name="fileprovider_authority">com.ionic.movies.fileprovider</string>
+    <string name="custom_url_scheme">com.ionic.movies</string>
+</resources>
