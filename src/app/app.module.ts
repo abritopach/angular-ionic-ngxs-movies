@@ -1,5 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+// NGXS
+import { MovieState } from '../app/store/state/movies.state';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -18,7 +25,10 @@ import { MoviesService } from './providers/movies-service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    NgxsModule.forRoot([ MovieState ]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot()
   ],
   providers: [MoviesService],
   bootstrap: [AppComponent]

@@ -8,6 +8,9 @@ import { Movie } from '../../models/movie.model';
 
 import { InfiniteScroll } from '@ionic/angular';
 
+import { Store } from '@ngxs/store';
+import { FetchMovies } from '../../store/actions/movies.actions';
+
 @Component({
   selector: 'app-page-home',
   templateUrl: './home.html',
@@ -21,7 +24,7 @@ export class HomeComponent {
   end: number;
   items = [];
 
-  constructor(private moviesService: MoviesService) {
+  constructor(private moviesService: MoviesService, private store: Store) {
     this.start = 0;
     this.end = 20;
     this.moviesService.getMovies(this.start, this.end)
@@ -34,6 +37,7 @@ export class HomeComponent {
             console.log(<any>error);
       }
     );
+    this.fetchMovies(this.start, this.end);
     /*
     for (let i = 0; i < 30; i++) {
       this.items.push( this.items.length );
@@ -83,5 +87,9 @@ export class HomeComponent {
   }, 500);
 }
 */
+
+  fetchMovies(name, url) {
+    this.store.dispatch(new FetchMovies({start: this.start, end: this.end}));
+  }
 
 }
