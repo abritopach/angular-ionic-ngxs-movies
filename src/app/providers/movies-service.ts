@@ -24,7 +24,7 @@ export class MoviesService {
   }
 
   getMovie(title: string): Observable<Movie> {
-    console.log(encodeURI(this.URL_BASE + `movies?title=${title}`));
+    // console.log(encodeURI(this.URL_BASE + `movies?title=${title}`));
     return this.http
     // Type-checking the response => .get<Movie>
     .get<Movie>(encodeURI(this.URL_BASE + `movies?title=${title}`))

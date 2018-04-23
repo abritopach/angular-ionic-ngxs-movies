@@ -1,17 +1,16 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MoviesService } from '../../providers/movies-service';
 
 import { Movie } from '../../models/movie.model';
 import { MoviesStateModel } from '../../store/state/movies.state';
 
-// import { InfiniteScroll } from '@ionic/core';
-
 import { InfiniteScroll } from '@ionic/angular';
 
 import { Store, Select } from '@ngxs/store';
 
-import { FetchMovies } from '../../store/actions/movies.actions';
+import { FetchMovies, SelectedMovie } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -28,7 +27,7 @@ export class HomeComponent {
   start: number;
   end: number;
 
-  constructor(private moviesService: MoviesService, private store: Store) {
+  constructor(private moviesService: MoviesService, private store: Store, private router: Router) {
     this.start = 0;
     this.end = 20;
     this.movies$ = this.store.select(state => state.catalog.movies);
@@ -37,6 +36,12 @@ export class HomeComponent {
 
   fetchMovies(name, url) {
     this.store.dispatch(new FetchMovies({start: this.start, end: this.end}));
+  }
+
+  viewMovieDetails(movie: Movie) {
+    // console.log('viewMovieDetails', movie);
+    this.store.dispatch(new SelectedMovie({title: movie.title}));
+    this.router.navigateByUrl(`/detail`);
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {

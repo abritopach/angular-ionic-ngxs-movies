@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MoviesService } from '../../providers/movies-service';
 
 import { Movie } from '../../models/movie.model';
+
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-detail',
@@ -12,30 +13,27 @@ import { Movie } from '../../models/movie.model';
 })
 export class DetailComponent {
 
+  selectedMovie: Observable<Movie>;
   movie: Movie;
 
-  constructor(private route: ActivatedRoute, private movieService: MoviesService) {
+  constructor(private store: Store) {
 
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
-    console.log('this.route.snapshot', this.route.snapshot);
-    const movieTitle = this.route.snapshot.paramMap.get('title');
-    console.log('movieTitle', movieTitle);
-    this.getMovie(movieTitle);
-  }
+    // console.log('ionViewWillEnter');
 
-  getMovie(title: string) {
-    this.movieService.getMovie(title)
-    .subscribe(
-        data => {
-            console.log('movie', data);
-            this.movie = data[0];
-        },
-        error => {
-            console.log(<any>error);
+    this.selectedMovie = this.store.select(state => state.catalog.selectedMovie);
+
+    this.selectedMovie.subscribe(
+      data => {
+          // console.log(data);
+          this.movie = data;
+      },
+      error => {
+          console.log(<any>error);
       }
     );
   }
+
 }

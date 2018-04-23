@@ -11,7 +11,8 @@
 
   <!-- Movies List. -->
   <ion-list>
-    <ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">
+    <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
+    <ion-item *ngFor="let movie of movies$ | async" detail="true" tappable (click)="viewMovieDetails(movie)">
       <ion-thumbnail slot="start">
         <img [src]="movie.poster" alt="">
       </ion-thumbnail>
