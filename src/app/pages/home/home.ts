@@ -3,13 +3,16 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { MoviesService } from '../../providers/movies-service';
 
 import { Movie } from '../../models/movie.model';
+import { MoviesStateModel } from '../../store/state/movies.state';
 
 // import { InfiniteScroll } from '@ionic/core';
 
 import { InfiniteScroll } from '@ionic/angular';
 
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
+
 import { FetchMovies } from '../../store/actions/movies.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-home',
@@ -19,31 +22,21 @@ import { FetchMovies } from '../../store/actions/movies.actions';
 })
 export class HomeComponent {
 
-  movies: Movie[] = [];
+  // Reads the name of the store from the store class.
+  // @Select(MoviesStateModel) movies$: Observable<Movie[]>;
+  movies$: Observable<Movie[]>;
   start: number;
   end: number;
-  items = [];
 
   constructor(private moviesService: MoviesService, private store: Store) {
     this.start = 0;
     this.end = 20;
-    this.moviesService.getMovies(this.start, this.end)
-    .subscribe(
-        data => {
-            console.log(data);
-            this.movies = data;
-        },
-        error => {
-            console.log(<any>error);
-      }
-    );
+    this.movies$ = this.store.select(state => state.catalog.movies);
     this.fetchMovies(this.start, this.end);
-    /*
-    for (let i = 0; i < 30; i++) {
-      this.items.push( this.items.length );
-    }
-    console.log('items', this.items);
-    */
+  }
+
+  fetchMovies(name, url) {
+    this.store.dispatch(new FetchMovies({start: this.start, end: this.end}));
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {
@@ -51,6 +44,8 @@ export class HomeComponent {
     console.log(infiniteScroll);
     this.start = this.end;
     this.end += 20;
+    this.fetchMovies(this.start, this.end);
+    /*
     this.moviesService.getMovies(this.start, this.end)
     .subscribe(
         data => {
@@ -68,28 +63,7 @@ export class HomeComponent {
             infiniteScroll.complete();
       }
     );
-  }
-
-  /*
- doInfinite(infiniteScroll: InfiniteScroll) {
-  console.log('Begin async operation');
-  console.log(infiniteScroll);
-
-  setTimeout(() => {
-    for (let i = 0; i < 30; i++) {
-      this.items.push( this.items.length );
-    }
-
-    console.log('items', this.items);
-
-    console.log('Async operation has ended');
-    infiniteScroll.complete();
-  }, 500);
-}
-*/
-
-  fetchMovies(name, url) {
-    this.store.dispatch(new FetchMovies({start: this.start, end: this.end}));
+    */
   }
 
 }

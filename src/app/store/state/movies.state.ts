@@ -10,7 +10,7 @@ export class MoviesStateModel {
 }
 
 @State<MoviesStateModel>({
-    name: 'movies',
+    name: 'catalog',
     defaults: {
         movies: []
     }
@@ -29,20 +29,14 @@ export class MovieState {
     fetchMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
         console.log('fetchMovies payload', payload);
         const { start, end } = payload;
-        return this.moviesService.getMovies(start, end).pipe(tap((result: Movie[]) => {
+        return this.moviesService.getMovies(start, end).pipe(tap((result) => {
             console.log('fetchMovies result', result);
             const state = getState();
-            /*
+            console.log('state', state);
             setState({
                 ...state,
-                movies: [ ...state.movies, result ]
+                movies: [ ...state.movies, ...result ]
             });
-            */
-           /*
-           patchState({
-                movies: [...state.movies, result]
-            });
-            */
         }));
     }
 }
