@@ -5,6 +5,14 @@
 </ion-header>
 
 <ion-content no-bounce>
+
+  <!-- Add movie fab button. -->
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+    <ion-fab-button mini color="secondary" (click)="presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-item class="item-info">
       <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
   </ion-item>

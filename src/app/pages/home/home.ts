@@ -6,12 +6,14 @@ import { MoviesService } from '../../providers/movies-service';
 import { Movie } from '../../models/movie.model';
 import { MoviesStateModel } from '../../store/state/movies.state';
 
-import { InfiniteScroll } from '@ionic/angular';
+import { InfiniteScroll, ModalController } from '@ionic/angular';
 
 import { Store, Select } from '@ngxs/store';
 
 import { FetchMovies, SelectedMovie } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
+
+import { AddMovieModalComponent } from '../../modals/add-movie.modal';
 
 @Component({
   selector: 'app-page-home',
@@ -27,7 +29,7 @@ export class HomeComponent {
   start: number;
   end: number;
 
-  constructor(private moviesService: MoviesService, private store: Store, private router: Router) {
+  constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController) {
     this.start = 0;
     this.end = 20;
     this.movies$ = this.store.select(state => state.catalog.movies);
@@ -42,6 +44,23 @@ export class HomeComponent {
     // console.log('viewMovieDetails', movie);
     this.store.dispatch(new SelectedMovie({title: movie.title}));
     this.router.navigateByUrl(`/detail`);
+  }
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: AddMovieModalComponent,
+      // componentProps: { excludedTracks: this.excludeTracks }
+    });
+    await modal.present();
+
+    const {data} = await modal.onWillDismiss();
+    if (data) {
+      console.log(data);
+    }
+  }
+
+  addMovie() {
+    console.log('addMovie');
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {
