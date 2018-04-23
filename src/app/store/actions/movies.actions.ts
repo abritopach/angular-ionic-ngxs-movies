@@ -11,3 +11,9 @@ export class SelectedMovie {
 
     constructor(public payload: { title: string}) {}
 }
+
+export class AddMovie {
+    static readonly type = '[Movies] Add movie';
+
+    constructor(public payload: Movie) {}
+}

@@ -1,7 +1,7 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-        <ion-button (click)="dismiss()">Cancel</ion-button>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="end">
+            <ion-icon name="close" (click)="dismiss()" color="light"></ion-icon>
         </ion-buttons>
         <ion-title>
         Add Movie
@@ -10,7 +10,37 @@
 </ion-header>
       
 <ion-content class="outer-content">
-    <h1>Content of doom</h1>
-    <div>Here's some more content</div>
-    <ion-button class="dismiss">Dismiss Modal</ion-button>
+    <form (ngSubmit)="movieForm()">
+    <ion-list>
+        <ion-item>
+          <ion-label position="floating">Title</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.title" name="title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Year</ion-label>
+          <ion-input type="number" [(ngModel)]="movie.year" name="year"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Director</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.director" name="director"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cast</ion-label>
+          <ion-textarea [(ngModel)]="movie.cast" name="cast"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Genre</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.genre" name="genre"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <ion-textarea [(ngModel)]="movie.notes" name="notes"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">URL Poster</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.poster" name="poster"></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-button type="submit" color="primary">Add Movie</ion-button>
+    </form>
 </ion-content>
