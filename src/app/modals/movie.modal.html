@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="end">
+            <ion-icon name="close" (click)="dismiss()" color="light"></ion-icon>
+        </ion-buttons>
+        <ion-title>
+          {{ modal.title }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+      
+<ion-content class="outer-content">
+    <form (ngSubmit)="movieForm()">
+    <ion-list>
+        <ion-item>
+          <ion-label position="fixed">Title</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.title" name="title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Year</ion-label>
+          <ion-input type="number" [(ngModel)]="movie.year" name="year"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Director</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.director" name="director"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Cast</ion-label>
+          <ion-textarea [(ngModel)]="movie.cast" name="cast"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Genre</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.genre" name="genre"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Notes</ion-label>
+            <ion-textarea [(ngModel)]="movie.notes" name="notes"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">URL Poster</ion-label>
+          <ion-input type="text" [(ngModel)]="movie.poster" name="poster"></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-button type="submit" color="primary">{{ modal.buttonText }}</ion-button>
+    </form>
+</ion-content>

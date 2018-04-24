@@ -17,3 +17,9 @@ export class AddMovie {
 
     constructor(public payload: Movie) {}
 }
+
+export class EditMovie {
+    static readonly type = '[Movies] Edit movie';
+
+    constructor(public payload: Movie) {}
+}

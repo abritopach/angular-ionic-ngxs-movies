@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home';
-import { AddMovieModalComponent  } from '../../modals/add-movie.modal';
+import { MovieModalComponent  } from '../../modals/movie.modal';
 import { HomeComponentRoutingModule } from './home-routing.module';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { HomeComponentRoutingModule } from './home-routing.module';
     HomeComponentRoutingModule,
     FormsModule
   ],
-  declarations: [HomeComponent, AddMovieModalComponent],
-  entryComponents: [HomeComponent, AddMovieModalComponent],
+  declarations: [HomeComponent, MovieModalComponent],
+  entryComponents: [HomeComponent, MovieModalComponent],
 })
 export class HomeModule {}

@@ -8,7 +8,7 @@
 
   <!-- Add movie fab button. -->
   <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-    <ion-fab-button mini color="secondary" (click)="presentModal()">
+    <ion-fab-button mini color="secondary" (click)="addMovie()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -20,7 +20,9 @@
   <!-- Movies List. -->
   <ion-list>
     <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
-    <ion-item *ngFor="let movie of movies$ | async" detail="true" tappable (click)="viewMovieDetails(movie)">
+    <ion-item-sliding *ngFor="let movie of movies$ | async" detail="true">
+
+      <ion-item tappable (click)="viewMovieDetails(movie)">
       <ion-thumbnail slot="start">
         <img [src]="movie.poster" alt="">
       </ion-thumbnail>
@@ -30,8 +32,16 @@
         <h4>{{ movie.notes }}</h4>
       </ion-label>
       <ion-note slot="end">
-      </ion-note>  
-    </ion-item>
+      </ion-note>
+      </ion-item>
+
+      <!-- Sliding options. -->
+      <ion-item-options side="end">
+        <ion-item-option (click)="editMovie(movie)">Edit</ion-item-option>
+        <ion-item-option color="danger" (click)="deleteMovie(movie)">Delete</ion-item-option>
+      </ion-item-options>
+  
+    </ion-item-sliding>
   </ion-list> 
   
   <!--

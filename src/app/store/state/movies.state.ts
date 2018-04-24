@@ -1,7 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Movie } from '../../models/movie.model';
-import { FetchMovies, SelectedMovie, AddMovie } from './../actions/movies.actions';
+import { FetchMovies, SelectedMovie, AddMovie, EditMovie } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 
@@ -62,5 +62,15 @@ export class MovieState {
         return this.moviesService.addMovie(payload).pipe(tap((result) => {
             console.log('result addMovie', result);
         }));
+    }
+
+    @Action(EditMovie)
+    editMovie({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
+        console.log('payload', payload);
+        /*
+        return this.moviesService.addMovie(payload).pipe(tap((result) => {
+            console.log('result addMovie', result);
+        }));
+        */
     }
 }

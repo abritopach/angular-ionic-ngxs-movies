@@ -54,4 +54,22 @@ export class MoviesService {
       timeout(5000)
     );
   }
+
+  editMovie(movie: Movie): Observable<Movie> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    console.log('movie in addMovie', movie);
+    return this.http
+      // Type-checking the response => .post<Movie>
+    .put<Movie>(encodeURI(this.URL_BASE + `movies/${movie['id']}`), movie, httpOptions)
+    .pipe(
+      retryWhen(error => error.pipe(delay(500))),
+      timeout(5000)
+    );
+  }
 }

@@ -13,7 +13,7 @@ import { Store, Select } from '@ngxs/store';
 import { FetchMovies, SelectedMovie } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
-import { AddMovieModalComponent } from '../../modals/add-movie.modal';
+import { MovieModalComponent } from '../../modals/movie.modal';
 
 @Component({
   selector: 'app-page-home',
@@ -46,21 +46,33 @@ export class HomeComponent {
     this.router.navigateByUrl(`/detail`);
   }
 
-  async presentModal() {
+  async presentModal(componentProps: any) {
     const modal = await this.modalCtrl.create({
-      component: AddMovieModalComponent,
-      // componentProps: { excludedTracks: this.excludeTracks }
+      component: MovieModalComponent,
+      componentProps: componentProps
     });
     await modal.present();
 
     const {data} = await modal.onWillDismiss();
     if (data) {
-      console.log(data);
+      console.log('data', data);
     }
   }
 
   addMovie() {
     console.log('addMovie');
+    const componentProps = { modalProps: { title: 'Add Movie', buttonText: 'Add Movie'}, option: 'add'};
+    this.presentModal(componentProps);
+  }
+
+  editMovie(movie: Movie) {
+    console.log('editMovie', movie);
+    const componentProps = { modalProps: { title: 'Edit Movie', buttonText: 'Edit Movie', movie: movie}, option: 'edit'};
+    this.presentModal(componentProps);
+  }
+
+  deleteMovie(movie: Movie) {
+    console.log('deleteMovie', movie);
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {
