@@ -10,7 +10,7 @@ import { InfiniteScroll, ModalController } from '@ionic/angular';
 
 import { Store, Select } from '@ngxs/store';
 
-import { FetchMovies, SelectedMovie } from '../../store/actions/movies.actions';
+import { FetchMovies, SelectedMovie, DeleteMovie } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie.modal';
@@ -65,14 +65,16 @@ export class HomeComponent {
     this.presentModal(componentProps);
   }
 
-  editMovie(movie: Movie) {
-    console.log('editMovie', movie);
+  editMovie(movie: Movie, index: number) {
+    console.log('editMovie', movie, 'index', index);
+    movie['index'] = index;
     const componentProps = { modalProps: { title: 'Edit Movie', buttonText: 'Edit Movie', movie: movie}, option: 'edit'};
     this.presentModal(componentProps);
   }
 
   deleteMovie(movie: Movie) {
     console.log('deleteMovie', movie);
+    this.store.dispatch(new DeleteMovie(movie));
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {

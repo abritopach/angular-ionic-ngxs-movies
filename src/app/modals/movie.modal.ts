@@ -1,7 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
-import { Store } from '@ngxs/store';
+import { Store, Actions, ofActionCompleted } from '@ngxs/store';
 import { AddMovie, EditMovie } from '../store/actions/movies.actions';
 import { Movie } from '../models/movie.model';
 
@@ -11,7 +11,7 @@ import { Movie } from '../models/movie.model';
   styleUrls: ['./movie.modal.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MovieModalComponent {
+export class MovieModalComponent implements OnInit {
 
   movie: Movie = {
     title: '',
@@ -28,7 +28,12 @@ export class MovieModalComponent {
     buttonText: ''
   };
 
-  constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store) { }
+  constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private actions$: Actions) { }
+
+  ngOnInit() {
+    this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => this.dismiss());
+    this.actions$.pipe(ofActionCompleted(EditMovie)).subscribe(() => this.dismiss());
+  }
 
   ionViewDidEnter() {
     this.modal = { ...this.navParams.data.modalProps};

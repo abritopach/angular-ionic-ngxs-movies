@@ -17,7 +17,7 @@ export class MoviesService {
   getMovies(start: number, end: number): Observable<Movie[]> {
     return this.http
     // Type-checking the response => .get<Movie[]>
-    .get<Movie[]>(this.URL_BASE + `movies?_start=${start}&_end=${end}`)
+    .get<Movie[]>(this.URL_BASE + `movies?_start=${start}&_end=${end}&_sort=year,title&_order=desc,asc`)
     .pipe(
       retryWhen(error => error.pipe(delay(500))),
       timeout(5000)
@@ -63,10 +63,22 @@ export class MoviesService {
       })
     };
 
-    console.log('movie in addMovie', movie);
+    console.log('movie in editMovie', movie);
     return this.http
       // Type-checking the response => .post<Movie>
     .put<Movie>(encodeURI(this.URL_BASE + `movies/${movie['id']}`), movie, httpOptions)
+    .pipe(
+      retryWhen(error => error.pipe(delay(500))),
+      timeout(5000)
+    );
+  }
+
+  deleteMovie(movie: Movie): Observable<Movie> {
+
+    console.log('movie in addMovie', movie);
+    return this.http
+      // Type-checking the response => .post<Movie>
+    .delete<Movie>(encodeURI(this.URL_BASE + `movies/${movie['id']}`))
     .pipe(
       retryWhen(error => error.pipe(delay(500))),
       timeout(5000)
