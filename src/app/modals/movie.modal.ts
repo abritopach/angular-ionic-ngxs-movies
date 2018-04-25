@@ -5,6 +5,8 @@ import { Store, Actions, ofActionCompleted } from '@ngxs/store';
 import { AddMovie, EditMovie } from '../store/actions/movies.actions';
 import { Movie } from '../models/movie.model';
 
+import {default as iziToast, IziToastSettings} from 'izitoast';
+
 @Component({
   selector: 'app-movie-modal',
   templateUrl: 'movie.modal.html',
@@ -31,8 +33,16 @@ export class MovieModalComponent implements OnInit {
   constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private actions$: Actions) { }
 
   ngOnInit() {
-    this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => this.dismiss());
-    this.actions$.pipe(ofActionCompleted(EditMovie)).subscribe(() => this.dismiss());
+    this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => {
+      this.dismiss();
+      const {title, message, position} = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
+      iziToast.success({title, message, position} as IziToastSettings);
+    });
+    this.actions$.pipe(ofActionCompleted(EditMovie)).subscribe(() => {
+      this.dismiss();
+      const {title, message, position} = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
+      iziToast.success({title, message, position} as IziToastSettings);
+    });
   }
 
   ionViewDidEnter() {

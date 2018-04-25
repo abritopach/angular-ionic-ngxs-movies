@@ -33,6 +33,7 @@
     "@ionic/schematics-angular": "^1.0.0-rc.5",
     "@ngxs/store": "^3.0.0-rc.1",
     "core-js": "^2.5.3",
+    "izitoast": "^1.3.0",
     "rxjs": "6.0.0-uncanny-rc.7",
     "rxjs-compat": "6.0.0-uncanny-rc.7",
     "zone.js": "^0.8.20"

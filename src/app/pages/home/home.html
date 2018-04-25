@@ -13,7 +13,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-item class="item-info">
+  <ion-item no-lines class="item-info">
       <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
   </ion-item>
 
@@ -32,13 +32,14 @@
         <h4>{{ movie.notes }}</h4>
       </ion-label>
       <ion-note slot="end">
+          <ion-icon name="swap"></ion-icon>
       </ion-note>
       </ion-item>
 
       <!-- Sliding options. -->
       <ion-item-options side="end">
-        <ion-item-option (click)="editMovie(movie, i)">Edit</ion-item-option>
-        <ion-item-option color="danger" (click)="deleteMovie(movie)">Delete</ion-item-option>
+        <ion-item-option color="secondary" (click)="editMovie(movie, i)"><ion-icon name="create"></ion-icon></ion-item-option>
+        <ion-item-option color="danger" (click)="deleteMovie(movie)"><ion-icon name="trash"></ion-icon></ion-item-option>
       </ion-item-options>
   
     </ion-item-sliding>

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -8,12 +8,14 @@ import { MoviesStateModel } from '../../store/state/movies.state';
 
 import { InfiniteScroll, ModalController } from '@ionic/angular';
 
-import { Store, Select } from '@ngxs/store';
+import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
 
 import { FetchMovies, SelectedMovie, DeleteMovie } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie.modal';
+
+import {default as iziToast, IziToastSettings} from 'izitoast';
 
 @Component({
   selector: 'app-page-home',
@@ -21,7 +23,7 @@ import { MovieModalComponent } from '../../modals/movie.modal';
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   // Reads the name of the store from the store class.
   // @Select(MoviesStateModel) movies$: Observable<Movie[]>;
@@ -29,11 +31,19 @@ export class HomeComponent {
   start: number;
   end: number;
 
-  constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController) {
+  constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
+              private actions$: Actions) {
     this.start = 0;
     this.end = 20;
     this.movies$ = this.store.select(state => state.catalog.movies);
     this.fetchMovies(this.start, this.end);
+  }
+
+  ngOnInit() {
+    this.actions$.pipe(ofActionCompleted(DeleteMovie)).subscribe(() => {
+      const {title, message, position} = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
+      iziToast.success({title, message, position} as IziToastSettings);
+    });
   }
 
   fetchMovies(name, url) {
