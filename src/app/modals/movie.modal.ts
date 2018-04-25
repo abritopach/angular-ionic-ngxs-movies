@@ -5,6 +5,8 @@ import { Store, Actions, ofActionCompleted } from '@ngxs/store';
 import { AddMovie, EditMovie } from '../store/actions/movies.actions';
 import { Movie } from '../models/movie.model';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import {default as iziToast, IziToastSettings} from 'izitoast';
 
 @Component({
@@ -16,6 +18,7 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
 export class MovieModalComponent implements OnInit {
 
   movie: Movie = {
+    id: '',
     title: '',
     year: new Date().getFullYear(),
     director: '',
@@ -30,9 +33,35 @@ export class MovieModalComponent implements OnInit {
     buttonText: ''
   };
 
-  constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private actions$: Actions) { }
+  movieForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, private navParams: NavParams, private store: Store,
+              private actions$: Actions) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.movieForm = this.formBuilder.group({
+      id: '',
+      index: 0,
+      title: ['', Validators.required],
+      year: [new Date().getFullYear(), Validators.required],
+      director: [''],
+      cast: [''],
+      genre: [''],
+      notes: [''],
+      poster: ['']
+    });
+  }
 
   ngOnInit() {
+
+    this.modal = { ...this.navParams.data.modalProps};
+    if (this.navParams.data.option === 'edit') {
+      // this.movie = { ...this.navParams.data.modalProps.movie };
+      this.movieForm.patchValue(this.navParams.data.modalProps.movie);
+    }
+
     this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => {
       this.dismiss();
       const {title, message, position} = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
@@ -45,22 +74,14 @@ export class MovieModalComponent implements OnInit {
     });
   }
 
-  ionViewDidEnter() {
-    this.modal = { ...this.navParams.data.modalProps};
-    if (this.navParams.data.option === 'edit') {
-      this.movie = { ...this.navParams.data.modalProps.movie };
-    }
-  }
-
   dismiss(data?: any) {
     // Using the injected ModalController this page
     // can "dismiss" itself and pass back data.
     this.modalCtrl.dismiss(data);
   }
 
-  movieForm() {
-    console.log(this.movie);
-
+  movieFormSubmit() {
+    this.movie = this.movieForm.value;
     if (this.navParams.data.option === 'add') {
       this.store.dispatch(new AddMovie(this.movie));
     } else if (this.navParams.data.option === 'edit') {

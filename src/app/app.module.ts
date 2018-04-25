@@ -8,6 +8,7 @@ import { MovieState } from '../app/store/state/movies.state';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -27,7 +28,8 @@ import { MoviesService } from './providers/movies-service';
     IonicModule.forRoot(),
     NgxsModule.forRoot([ MovieState ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsFormPluginModule.forRoot()
   ],
   providers: [MoviesService],
   bootstrap: [AppComponent]

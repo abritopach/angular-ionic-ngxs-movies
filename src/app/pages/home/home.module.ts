@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home';
 import { MovieModalComponent  } from '../../modals/movie.modal';
 import { HomeComponentRoutingModule } from './home-routing.module';
@@ -12,7 +12,7 @@ import { HomeComponentRoutingModule } from './home-routing.module';
     CommonModule,
     IonicModule,
     HomeComponentRoutingModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   declarations: [HomeComponent, MovieModalComponent],
   entryComponents: [HomeComponent, MovieModalComponent],

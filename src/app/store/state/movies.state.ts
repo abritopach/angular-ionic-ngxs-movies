@@ -8,13 +8,25 @@ import { MoviesService } from '../../providers/movies-service';
 export class MoviesStateModel {
     movies: Movie[];
     selectedMovie: Movie;
+    movieForm: {
+        model: Movie,
+        dirty: boolean,
+        status: string,
+        errors: {}
+    };
 }
 
 @State<MoviesStateModel>({
     name: 'catalog',
     defaults: {
         movies: [],
-        selectedMovie: null
+        selectedMovie: null,
+        movieForm: {
+            model: null,
+            dirty: false,
+            status: '',
+            errors: {}
+          }
     }
 })
 
@@ -27,7 +39,7 @@ export class MovieState {
         return state.movies;
     }
 
-    @Action(FetchMovies)
+    @Action(FetchMovies, { cancelUncompleted: true })
     fetchMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('fetchMovies payload', payload);
         const { start, end } = payload;
@@ -39,6 +51,9 @@ export class MovieState {
                 ...state,
                 movies: [ ...state.movies, ...result ]
             });
+        },
+        (error) => {
+            console.log('error', error.message);
         }));
     }
 

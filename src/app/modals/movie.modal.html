@@ -10,37 +10,39 @@
 </ion-header>
       
 <ion-content class="outer-content">
-    <form (ngSubmit)="movieForm()">
+    <form [formGroup]="movieForm" novalidate ngxsForm="catalog.movieForm" (ngSubmit)="movieFormSubmit()">
     <ion-list>
-        <ion-item>
-          <ion-label position="fixed">Title</ion-label>
-          <ion-input type="text" [(ngModel)]="movie.title" name="title"></ion-input>
+        <ion-item [ngClass]="{
+          'has-danger': movieForm.controls.title.invalid && movieForm.controls.title.dirty,
+          'has-success': movieForm.controls.title.valid && movieForm.controls.title.dirty}">
+          <ion-label position="fixed">Title *</ion-label>
+          <ion-input type="text" formControlName="title" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="fixed">Year</ion-label>
-          <ion-input type="number" [(ngModel)]="movie.year" name="year"></ion-input>
+          <ion-label position="fixed">Year *</ion-label>
+          <ion-input type="number" formControlName="year" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Director</ion-label>
-          <ion-input type="text" [(ngModel)]="movie.director" name="director"></ion-input>
+          <ion-input type="text" formControlName="director"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Cast</ion-label>
-          <ion-textarea [(ngModel)]="movie.cast" name="cast"></ion-textarea>
+          <ion-textarea formControlName="cast"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Genre</ion-label>
-          <ion-input type="text" [(ngModel)]="movie.genre" name="genre"></ion-input>
+          <ion-input type="text" formControlName="genre"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="fixed">Notes</ion-label>
-            <ion-textarea [(ngModel)]="movie.notes" name="notes"></ion-textarea>
+            <ion-textarea formControlName="notes"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">URL Poster</ion-label>
-          <ion-input type="text" [(ngModel)]="movie.poster" name="poster"></ion-input>
+          <ion-input type="text" formControlName="poster"></ion-input>
         </ion-item>
     </ion-list>
-    <ion-button type="submit" color="primary">{{ modal.buttonText }}</ion-button>
+    <ion-button type="submit" color="primary" [disabled]='!movieForm.valid' >{{ modal.buttonText }}</ion-button>
     </form>
 </ion-content>
