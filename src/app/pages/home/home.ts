@@ -6,7 +6,7 @@ import { MoviesService } from '../../providers/movies-service';
 import { Movie } from '../../models/movie.model';
 import { MoviesStateModel } from '../../store/state/movies.state';
 
-import { InfiniteScroll, ModalController } from '@ionic/angular';
+import { InfiniteScroll, ModalController, PopoverController } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
 
@@ -14,6 +14,7 @@ import { FetchMovies, SelectedMovie, DeleteMovie } from '../../store/actions/mov
 import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie.modal';
+import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
 
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
   end: number;
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
-              private actions$: Actions) {
+              private actions$: Actions, private popoverCtrl: PopoverController) {
     this.start = 0;
     this.end = 20;
     this.movies$ = this.store.select(state => state.catalog.movies);
@@ -112,6 +113,23 @@ export class HomeComponent implements OnInit {
       }
     );
     */
+  }
+
+  async presentPopover(event) {
+    console.log('presentPopover');
+    const popover = await this.popoverCtrl.create({
+      component: FilterMoviePopoverComponent,
+      ev: event
+    });
+
+    await popover.present();
+
+    const { data } = await popover.onWillDismiss();
+
+    if (data) {
+      console.log('data popover.onWillDismiss', data);
+    }
+
   }
 
 }
