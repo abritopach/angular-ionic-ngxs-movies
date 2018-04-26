@@ -70,26 +70,26 @@ export class HomeComponent implements OnInit {
   }
 
   addMovie() {
-    console.log('addMovie');
+    // console.log('addMovie');
     const componentProps = { modalProps: { title: 'Add Movie', buttonText: 'Add Movie'}, option: 'add'};
     this.presentModal(componentProps);
   }
 
   editMovie(movie: Movie, index: number) {
-    console.log('editMovie', movie, 'index', index);
+    // console.log('editMovie', movie, 'index', index);
     movie['index'] = index;
     const componentProps = { modalProps: { title: 'Edit Movie', buttonText: 'Edit Movie', movie: movie}, option: 'edit'};
     this.presentModal(componentProps);
   }
 
   deleteMovie(movie: Movie) {
-    console.log('deleteMovie', movie);
+    // console.log('deleteMovie', movie);
     this.store.dispatch(new DeleteMovie(movie));
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {
-    console.log('Begin async operation');
-    console.log(infiniteScroll);
+    // console.log('Begin async operation');
+    // console.log(infiniteScroll);
     this.start = this.end;
     this.end += 20;
     this.fetchMovies(this.start, this.end);

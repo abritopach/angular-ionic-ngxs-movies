@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="end">
-            <ion-icon name="close" (click)="dismiss()" color="light"></ion-icon>
+            <ion-icon name="close" (click)="dismiss(movieForm.value)" color="light"></ion-icon>
         </ion-buttons>
         <ion-title>
           {{ modal.title }}
@@ -44,5 +44,6 @@
         </ion-item>
     </ion-list>
     <ion-button type="submit" color="primary" [disabled]='!movieForm.valid' >{{ modal.buttonText }}</ion-button>
+    <ion-button color="danger" [disabled]='!movieForm.valid' (click)="clearMovieForm()" *ngIf="navParams.data.option === 'add'">Clear</ion-button>
     </form>
 </ion-content>
