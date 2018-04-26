@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home';
 import { MovieModalComponent  } from '../../modals/movie.modal';
 import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
@@ -13,7 +13,8 @@ import { HomeComponentRoutingModule } from './home-routing.module';
     CommonModule,
     IonicModule,
     HomeComponentRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent],
   entryComponents: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent],

@@ -29,3 +29,9 @@ export class DeleteMovie {
 
     constructor(public payload: Movie) {}
 }
+
+export class FilterMovies {
+    static readonly type = '[Movies] Filter movies';
+
+    constructor(public payload: {filters: {}}) {}
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { timeout, retryWhen, delay, map } from 'rxjs/operators';
+import { timeout, retryWhen, delay, map, filter } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
 
 import { Movie } from '../models/movie.model';
@@ -83,5 +83,34 @@ export class MoviesService {
       retryWhen(error => error.pipe(delay(500))),
       timeout(5000)
     );
+  }
+
+  filterMovies(filters): Observable<Movie[]> {
+    console.log('filterMovies in movies-services', filters);
+
+    const strFilters = this.checkFilters(filters);
+    console.log('strFilters', strFilters);
+    return this.http
+    // Type-checking the response => .get<Movie[]>
+    .get<Movie[]>(this.URL_BASE + `movies${strFilters}&_sort=year,title&_order=desc,asc`)
+    .pipe(
+      retryWhen(error => error.pipe(delay(500))),
+      timeout(5000)
+    );
+  }
+
+  checkFilters(filters: any) {
+    let strFilters = '';
+    if (typeof filters['genre'] !== 'undefined') {
+      strFilters += `?genre=${filters.genre}&`;
+    } else {
+      strFilters += '?';
+    }
+
+    if (typeof filters['years'] !== 'undefined') {
+      strFilters += `year_gte=${filters.years.lower}&year_lte=${filters.years.upper}`;
+    }
+
+    return strFilters;
   }
 }
