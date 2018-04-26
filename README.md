@@ -4,7 +4,25 @@ Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
+This project shows you how to:
+
+    * Use Capacitor in Ionic 4.
+    * Use NGXS for state management in Ionic 4.
+    * Use NGXS plugins:
+        * Devtools: Plugin with integration with the Redux Devtools extension.
+        * Logger: A simple console log plugin to log actions as they are processed.
+        * Forms: Plugin that helps to keep your forms and state in sync.
+    * Show movies list.
+    * Show movie detail.
+    * CRUD operations:
+        * Add movie.
+        * Update movie.
+        * Delete movie.
+    * Infinite scroll in movies list.
+
 Technologies: Angular, Ionic, Capacitor, NGXS, TypeScript.
+
+![Technologies](readme_resources/technologies.jpg "Technologies")
 
 ## Development server
 
