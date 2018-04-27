@@ -92,7 +92,7 @@ export class MoviesService {
     console.log('strFilters', strFilters);
     return this.http
     // Type-checking the response => .get<Movie[]>
-    .get<Movie[]>(this.URL_BASE + `movies${strFilters}&_sort=year,title&_order=desc,asc`)
+    .get<Movie[]>(this.URL_BASE + `movies${strFilters}&_sort=year,title&_order=desc,asc&_limit=20`)
     .pipe(
       retryWhen(error => error.pipe(delay(500))),
       timeout(5000)

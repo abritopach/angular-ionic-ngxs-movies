@@ -40,6 +40,8 @@ export class MovieModalComponent implements OnInit {
 
   // Reads the name of the store from the store class.
   movieForm$: Observable<Movie[]>;
+  subscriptionAdd: any;
+  subscriptionEdit: any;
 
   constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, private navParams: NavParams, private store: Store,
               private actions$: Actions) {
@@ -69,19 +71,28 @@ export class MovieModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.modal = { ...this.navParams.data.modalProps};
     if (this.navParams.data.option === 'edit') {
       // this.movie = { ...this.navParams.data.modalProps.movie };
       this.movieForm.patchValue(this.navParams.data.modalProps.movie);
     }
 
-    this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => {
+    this.subscriptionAdd = this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => {
       this.dismiss();
       const {title, message, position} = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
+      this.store.dispatch([
+        new UpdateFormValue({
+          value: null,
+          path: 'catalog.movieForm'
+        }),
+        new UpdateFormStatus({
+          status: '',
+          path: 'catalog.movieForm'
+        })
+      ]);
       iziToast.success({title, message, position} as IziToastSettings);
     });
-    this.actions$.pipe(ofActionCompleted(EditMovie)).subscribe(() => {
+    this.subscriptionEdit = this.actions$.pipe(ofActionCompleted(EditMovie)).subscribe(() => {
       this.dismiss();
       const {title, message, position} = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
       iziToast.success({title, message, position} as IziToastSettings);
@@ -104,12 +115,15 @@ export class MovieModalComponent implements OnInit {
         })
       ]);
     }
+    this.subscriptionAdd.unsubscribe();
+    this.subscriptionEdit.unsubscribe();
     this.modalCtrl.dismiss(data);
   }
 
   movieFormSubmit() {
     this.movie = this.movieForm.value;
     if (this.navParams.data.option === 'add') {
+      console.log('movieFormSubmit add');
       this.store.dispatch([
         new AddMovie(this.movie)/*,
         new UpdateFormValue({
@@ -124,6 +138,7 @@ export class MovieModalComponent implements OnInit {
       ]);
 
     } else if (this.navParams.data.option === 'edit') {
+      console.log('movieFormSubmit edit');
       this.store.dispatch(new EditMovie(this.movie));
     }
   }

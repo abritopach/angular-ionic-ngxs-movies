@@ -15,7 +15,11 @@
             <img [src]="movie?.image">
           </ion-avatar>
           -->
-          <h2>{{ movie?.title }}</h2>
+          <h2><b>{{ movie?.title }}</b></h2>
+          <ion-chip color="secondary" slot="end">
+              <ion-icon name="pricetag" color="secondary"></ion-icon>
+              <ion-label>{{ movie?.genre }}</ion-label>
+            </ion-chip>
         </ion-item>
       
         <img [src]="movie?.poster" height="300px">

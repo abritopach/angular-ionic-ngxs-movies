@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 import { Store } from '@ngxs/store';
-import { FilterMovies } from '../store/actions/movies.actions';
+import { FilterMovies, FetchMovies } from '../store/actions/movies.actions';
 
 @Component({
   selector: 'app-filter-movie-popover',
@@ -35,5 +35,10 @@ export class FilterMoviePopoverComponent {
     this.popoverCtrl.dismiss();
   }
 
+  clearFilterMovies() {
+    console.log('clearFilterMovies');
+    this.store.dispatch(new FetchMovies({start: 0, end: 20}));
+    this.popoverCtrl.dismiss();
+  }
 
 }

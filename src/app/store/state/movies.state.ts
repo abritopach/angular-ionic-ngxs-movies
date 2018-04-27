@@ -14,6 +14,13 @@ export class MoviesStateModel {
         status: string,
         errors: {}
     };
+    filter: {
+        genre: string,
+        years: {
+            lower: number,
+            upper: number
+        }
+    };
 }
 
 @State<MoviesStateModel>({
@@ -26,7 +33,14 @@ export class MoviesStateModel {
             dirty: false,
             status: '',
             errors: {}
-          }
+        },
+        filter: {
+            genre: '',
+            years: {
+                lower: 1900,
+                upper: new Date().getFullYear()
+            }
+        }
     }
 })
 
@@ -90,7 +104,13 @@ export class MovieState {
         return this.moviesService.editMovie(payload).pipe(tap((result) => {
             console.log('result editMovie', result);
             const state = getState();
-            state.movies[result['index']] = {...result};
+            const movies = state.movies;
+            movies[result['index']] = result;
+            setState({
+                ...state,
+                movies: [ ...movies ]
+            });
+            // state.movies[result['index']] = {...result};
         }));
     }
 
@@ -110,7 +130,7 @@ export class MovieState {
     @Action(FilterMovies, { cancelUncompleted: true })
     filterMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.filterMovies(payload).pipe(tap((result) => {
-            // console.log('filterMovies result', result);
+            console.log('filterMovies result', result);
             const state = getState();
             setState({
                 ...state,

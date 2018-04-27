@@ -1,19 +1,27 @@
 <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="secondary">
         <ion-title>
-          Popover
+          Filter Movies
         </ion-title>
     </ion-toolbar>
 </ion-header>
       
 <ion-content>
   <ion-list>
-    <ion-list-header>Filter by</ion-list-header>
+    <!--<ion-list-header>Filter by</ion-list-header>-->
     <ion-item>
       <ion-label>Genre</ion-label>
-      <ion-select id="genre" [(ngModel)]="filters.genre" placeholder="Select One">
-        <ion-select-option value="Comedy">Comedy</ion-select-option>
-        <ion-select-option value="Action">Action</ion-select-option>
+      <ion-select id="genre" [(ngModel)]="filters.genre" placeholder="Select One" interface="popover">
+          <ion-select-option value="Action">Action</ion-select-option>
+          <ion-select-option value="Adventure">Adventure</ion-select-option>
+          <ion-select-option value="Comedy">Comedy</ion-select-option>
+          <ion-select-option value="Crime">Crime</ion-select-option>
+          <ion-select-option value="Drama">Drama</ion-select-option>
+          <ion-select-option value="Horror">Horror</ion-select-option>
+          <ion-select-option value="Musicals">Musicals</ion-select-option>
+          <ion-select-option value="Science Fiction">Science Fiction</ion-select-option>
+          <ion-select-option value="War">War</ion-select-option>
+          <ion-select-option value="Westerns">Westerns</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -23,5 +31,12 @@
       </ion-range>
     </ion-item>
   </ion-list>
-  <ion-button (click)="filterMovies()">Accept</ion-button>
+  <ion-row justify-content-center>
+    <ion-col col-3>
+        <ion-button (click)="filterMovies()">Accept</ion-button>      
+    </ion-col>
+    <ion-col col-3>
+        <ion-button color="danger" (click)="clearFilterMovies()">Clear</ion-button>      
+    </ion-col>
+  </ion-row>
 </ion-content>
