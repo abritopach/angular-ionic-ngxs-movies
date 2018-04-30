@@ -45,7 +45,7 @@ export class MoviesService {
       })
     };
 
-    console.log('movie in addMovie', movie);
+    // console.log('movie in addMovie', movie);
     return this.http
       // Type-checking the response => .post<Movie>
     .post<Movie>(encodeURI(this.URL_BASE + `movies/`), movie, httpOptions)
@@ -63,7 +63,7 @@ export class MoviesService {
       })
     };
 
-    console.log('movie in editMovie', movie);
+    // console.log('movie in editMovie', movie);
     return this.http
       // Type-checking the response => .post<Movie>
     .put<Movie>(encodeURI(this.URL_BASE + `movies/${movie['id']}`), movie, httpOptions)
@@ -75,7 +75,7 @@ export class MoviesService {
 
   deleteMovie(movie: Movie): Observable<Movie> {
 
-    console.log('movie in addMovie', movie);
+    // console.log('movie in deleteMovie', movie);
     return this.http
       // Type-checking the response => .post<Movie>
     .delete<Movie>(encodeURI(this.URL_BASE + `movies/${movie['id']}`))
@@ -92,7 +92,7 @@ export class MoviesService {
     console.log('strFilters', strFilters);
     return this.http
     // Type-checking the response => .get<Movie[]>
-    .get<Movie[]>(this.URL_BASE + `movies${strFilters}&_sort=year,title&_order=desc,asc&_limit=20`)
+    .get<Movie[]>(this.URL_BASE + `movies${strFilters}_sort=year,title&_order=desc,asc&_limit=20`)
     .pipe(
       retryWhen(error => error.pipe(delay(500))),
       timeout(5000)
@@ -101,16 +101,8 @@ export class MoviesService {
 
   checkFilters(filters: any) {
     let strFilters = '';
-    if (typeof filters['genre'] !== 'undefined') {
-      strFilters += `?genre=${filters.genre}&`;
-    } else {
-      strFilters += '?';
-    }
-
-    if (typeof filters['years'] !== 'undefined') {
-      strFilters += `year_gte=${filters.years.lower}&year_lte=${filters.years.upper}`;
-    }
-
+    strFilters += typeof filters['genre'] !== 'undefined' ? `?genre=${filters.genre}&` : '?';
+    strFilters += typeof filters['years'] !== 'undefined' ? `year_gte=${filters.years.lower}&year_lte=${filters.years.upper}&` : '';
     return strFilters;
   }
 }

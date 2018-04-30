@@ -1,7 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Movie } from '../../models/movie.model';
-import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies } from './../actions/movies.actions';
+import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 
@@ -72,7 +72,7 @@ export class MovieState {
     }
 
     @Action(SelectedMovie)
-    selectedMovie({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
+    selectedMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('selectedMovie payload', payload);
         const { title } = payload;
         return this.moviesService.getMovie(title).pipe(tap((result) => {
@@ -86,10 +86,10 @@ export class MovieState {
     }
 
     @Action(AddMovie)
-    addMovie({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
-        console.log('payload', payload);
+    addMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        // console.log('payload', payload);
         return this.moviesService.addMovie(payload).pipe(tap((result) => {
-            console.log('result addMovie', result);
+            // console.log('result addMovie', result);
             const state = getState();
             setState({
                 ...state,
@@ -99,10 +99,10 @@ export class MovieState {
     }
 
     @Action(EditMovie)
-    editMovie({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
-        console.log('payload', payload);
+    editMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        // console.log('payload', payload);
         return this.moviesService.editMovie(payload).pipe(tap((result) => {
-            console.log('result editMovie', result);
+            // console.log('result editMovie', result);
             const state = getState();
             const movies = state.movies;
             movies[result['index']] = result;
@@ -115,10 +115,10 @@ export class MovieState {
     }
 
     @Action(DeleteMovie)
-    deleteMovie({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
-        console.log('payload', payload);
+    deleteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        // console.log('payload', payload);
         return this.moviesService.deleteMovie(payload).pipe(tap((result) => {
-            console.log('result deleteMovie', result);
+            // console.log('result deleteMovie', result);
             const state = getState();
             setState({
                  ...state,
@@ -128,9 +128,9 @@ export class MovieState {
     }
 
     @Action(FilterMovies, { cancelUncompleted: true })
-    filterMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
+    filterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.filterMovies(payload).pipe(tap((result) => {
-            console.log('filterMovies result', result);
+            // console.log('filterMovies result', result);
             const state = getState();
             setState({
                 ...state,
@@ -140,5 +140,15 @@ export class MovieState {
         (error) => {
             console.log('error', error.message);
         }));
+    }
+
+    @Action(SaveFilterMovies)
+    saveFilterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        console.log('payload saveFilterMovies', payload);
+        const state = getState();
+        setState({
+            ...state,
+            filter: {...payload}
+        });
     }
 }

@@ -35,3 +35,9 @@ export class FilterMovies {
 
     constructor(public payload: {filters: {}}) {}
 }
+
+export class SaveFilterMovies {
+    static readonly type = '[Movies] Save Filter movies';
+
+    constructor(public payload: {filters: {}}) {}
+}

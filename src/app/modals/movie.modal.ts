@@ -101,8 +101,8 @@ export class MovieModalComponent implements OnInit {
       console.log('movieFormSubmit add');
       this.store.dispatch(
         new AddMovie(this.movie)
+      ).subscribe(() => this.clearMovieForm()
       );
-      this.clearMovieForm();
 
     } else if (this.navParams.data.option === 'edit') {
       console.log('movieFormSubmit edit');
