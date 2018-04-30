@@ -18,6 +18,12 @@
     </ion-fab-button>
   </ion-fab>
 
+  <ion-fab [hidden]="!showScrollTop" vertical="bottom" horizontal="end" edge slot="fixed">
+    <ion-fab-button mini color="secondary" (click)="scrollToTop()">
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-item no-lines class="item-info">
       <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
   </ion-item>
@@ -57,7 +63,7 @@
   -->
 
   <!-- Infinite Scroll. -->
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Loading more movies...">

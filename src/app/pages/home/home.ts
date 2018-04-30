@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -32,6 +32,9 @@ export class HomeComponent implements OnInit {
   movies$: Observable<Movie[]>;
   start: number;
   end: number;
+  showScrollTop: Boolean = false;
+  // infiniteScroll: any;
+  @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController) {
@@ -59,10 +62,16 @@ export class HomeComponent implements OnInit {
       const {title, message, position} = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
       iziToast.success({title, message, position} as IziToastSettings);
     });
+
+    // this.infiniteScroll = document.getElementById('infinite-scroll');
   }
 
   fetchMovies(name, url) {
-    this.store.dispatch(new FetchMovies({start: this.start, end: this.end}));
+    this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe(() => {
+      if (this.infiniteScroll) {
+        this.infiniteScroll.nativeElement.complete();
+      }
+    });
   }
 
   viewMovieDetails(movie: Movie) {
@@ -102,31 +111,12 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(new DeleteMovie(movie));
   }
 
-  doInfinite(infiniteScroll: InfiniteScroll) {
+  doInfinite() {
     // console.log('Begin async operation');
-    // console.log(infiniteScroll);
     this.start = this.end;
     this.end += 20;
+    this.showScrollTop = true;
     this.fetchMovies(this.start, this.end);
-    /*
-    this.moviesService.getMovies(this.start, this.end)
-    .subscribe(
-        data => {
-            console.log(data);
-            setTimeout(() => {
-              console.log('Async operation has ended');
-              this.movies = [...this.movies, ...data];
-              if (infiniteScroll) {
-                infiniteScroll.complete();
-              }
-            }, 500);
-        },
-        error => {
-            console.log(<any>error);
-            infiniteScroll.complete();
-      }
-    );
-    */
   }
 
   async presentPopover(event) {
@@ -144,6 +134,11 @@ export class HomeComponent implements OnInit {
       console.log('data popover.onWillDismiss', data);
     }
 
+  }
+
+  scrollToTop() {
+    console.log('scrollToTop');
+    setTimeout( () => {window.scrollTo(0, 0); }, 1000);
   }
 
 }
