@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
 import { Store, Actions, ofActionCompleted } from '@ngxs/store';
@@ -6,7 +6,7 @@ import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 import { AddMovie, EditMovie } from '../store/actions/movies.actions';
 import { Movie } from '../models/movie.model';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./movie.modal.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MovieModalComponent implements OnInit {
+export class MovieModalComponent implements OnInit, AfterViewInit {
 
   movie: Movie = {
     id: '',
@@ -42,7 +42,7 @@ export class MovieModalComponent implements OnInit {
   movieForm$: Observable<Movie[]>;
 
   constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, private navParams: NavParams, private store: Store,
-              private actions$: Actions) {
+              private actions$: Actions, private renderer: Renderer2) {
     this.emptyMovie = this.movie;
     this.createForm();
   }
@@ -51,14 +51,15 @@ export class MovieModalComponent implements OnInit {
     this.movieForm = this.formBuilder.group({
       id: '',
       index: 0,
-      title: ['', Validators.required],
-      year: [new Date().getFullYear(), Validators.required],
-      director: [''],
-      cast: [''],
-      genre: [''],
-      notes: [''],
-      poster: ['']
+      title: new FormControl('', Validators.required),
+      year: new FormControl(new Date().getFullYear(), Validators.required),
+      director: new FormControl(''),
+      cast: new FormControl(''),
+      genre: new FormControl(''),
+      notes: new FormControl(''),
+      poster: new FormControl('')
     });
+
     this.movieForm$ = this.store.select(state => state.catalog.movieForm);
     this.movieForm$.subscribe((data => {
       if ((data['model'] !== null) && (data['status'] === 'PENDING')) {
@@ -74,6 +75,13 @@ export class MovieModalComponent implements OnInit {
       // this.movie = { ...this.navParams.data.modalProps.movie };
       this.movieForm.patchValue(this.navParams.data.modalProps.movie);
     }
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit movie.modal');
+    const element = this.renderer.selectRootElement('#myInput');
+    console.log('element', element);
+    setTimeout(() => element.focus(), 3000);
   }
 
   dismiss(data?: any) {

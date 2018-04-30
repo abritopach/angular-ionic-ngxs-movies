@@ -1,11 +1,7 @@
-form {
-    margin-top: 10px;
+.has-error {
+    border-bottom: solid 1px#ea6153;
 }
 
-.has-danger {
-    border: solid 1px red;
-}
-
-.has-sucess {
-    border: solid 1px green;
+.error-message {
+    color:#ea6153!important;
 }

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 import { Store } from '@ngxs/store';
@@ -31,13 +31,13 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   filter$: Observable<any>;
   filterSubscription: any;
 
-  constructor(private popoverCtrl: PopoverController, private store: Store) {
+  constructor(private popoverCtrl: PopoverController, private store: Store, private zone: NgZone) {
   }
 
   ngOnInit() {
     this.filter$ = this.store.select(state => state.catalog.filter);
     this.filterSubscription = this.filter$.subscribe((filter => {
-      console.log('filter', filter);
+      // console.log('filter', filter);
       this.filters = {...filter};
     }));
   }
@@ -61,6 +61,14 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
       new SaveFilterMovies(this.filters)
     ]);
     this.popoverCtrl.dismiss();
+  }
+
+  updateRange(e) {
+    console.log('updateRange', e, this.filters.years);
+    /// Refresh the UI
+    this.zone.run(() => {
+          console.log('UI has refreshed');
+    });
   }
 
 }

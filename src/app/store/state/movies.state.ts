@@ -144,7 +144,7 @@ export class MovieState {
 
     @Action(SaveFilterMovies)
     saveFilterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        console.log('payload saveFilterMovies', payload);
+        // console.log('payload saveFilterMovies', payload);
         const state = getState();
         setState({
             ...state,

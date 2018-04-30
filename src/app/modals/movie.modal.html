@@ -9,37 +9,45 @@
     </ion-toolbar>
 </ion-header>
       
-<ion-content class="outer-content">
+<ion-content class="outer-content" padding>
     <form [formGroup]="movieForm" novalidate ngxsForm="catalog.movieForm" (ngSubmit)="movieFormSubmit()">
-    <ion-list>
-        <ion-item [ngClass]="{
-          'has-danger': movieForm.controls.title.invalid && movieForm.controls.title.dirty,
-          'has-success': movieForm.controls.title.valid && movieForm.controls.title.dirty}">
-          <ion-label position="fixed">Title *</ion-label>
-          <ion-input type="text" formControlName="title" required></ion-input>
+    <ion-list inset>
+        <ion-item [class.has-error]="movieForm.get('title').hasError('required') && movieForm.get('title').touched">
+          <ion-label position="floating">Title *</ion-label>
+          <ion-input #myInput id='myInput' type="text" formControlName="title" required></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="fixed">Year *</ion-label>
+        <ion-item *ngIf="movieForm.get('title').hasError('required') && movieForm.get('title').touched" no-lines>
+          <div class="error-message">
+              This field is required.
+          </div>
+        </ion-item>
+        <ion-item [class.has-error]="movieForm.get('year').hasError('required') && movieForm.get('year').touched">
+          <ion-label position="floating">Year *</ion-label>
           <ion-input type="number" formControlName="year" required></ion-input>
         </ion-item>
+        <ion-item *ngIf="movieForm.get('year').hasError('required') && movieForm.get('year').touched" no-lines>
+            <div class="error-message">
+                This field is required.
+            </div>
+        </ion-item>
         <ion-item>
-          <ion-label position="fixed">Director</ion-label>
+          <ion-label position="floating">Director</ion-label>
           <ion-input type="text" formControlName="director"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="fixed">Cast</ion-label>
+          <ion-label position="floating">Cast</ion-label>
           <ion-textarea formControlName="cast"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label position="fixed">Genre</ion-label>
+          <ion-label position="floating">Genre</ion-label>
           <ion-input type="text" formControlName="genre"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label position="fixed">Notes</ion-label>
+            <ion-label position="floating">Notes</ion-label>
             <ion-textarea formControlName="notes"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label position="fixed">URL Poster</ion-label>
+          <ion-label position="floating">URL Poster</ion-label>
           <ion-input type="text" formControlName="poster"></ion-input>
         </ion-item>
     </ion-list>
