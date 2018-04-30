@@ -9,8 +9,9 @@ import { MoviesStateModel } from '../../store/state/movies.state';
 import { InfiniteScroll, ModalController, PopoverController } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionCompleted } from '@ngxs/store';
+import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 
-import { FetchMovies, SelectedMovie, DeleteMovie } from '../../store/actions/movies.actions';
+import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie.modal';
@@ -41,6 +42,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => {
+      const {title, message, position} = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
+      this.modalCtrl.dismiss();
+      iziToast.success({title, message, position} as IziToastSettings);
+    });
+
+    this.actions$.pipe(ofActionCompleted(EditMovie)).subscribe(() => {
+      this.modalCtrl.dismiss();
+      const {title, message, position} = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
+      iziToast.success({title, message, position} as IziToastSettings);
+    });
+
     this.actions$.pipe(ofActionCompleted(DeleteMovie)).subscribe(() => {
       const {title, message, position} = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
       iziToast.success({title, message, position} as IziToastSettings);

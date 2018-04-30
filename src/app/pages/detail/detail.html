@@ -22,7 +22,8 @@
             </ion-chip>
         </ion-item>
       
-        <img [src]="movie?.poster" height="300px">
+        <img *ngIf="movie.poster" [src]="movie?.poster" height="300px">
+        <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px">
       
         <ion-card-content>
           <p>{{ movie?.notes }}</p>
