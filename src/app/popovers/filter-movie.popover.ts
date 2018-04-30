@@ -16,14 +16,14 @@ import { withLatestFrom } from 'rxjs/operators';
 export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
 
   range: any = {
-    min: '1900',
-    max: new Date().getFullYear().toString()
+    lower: 1900,
+    upper: new Date().getFullYear()
   };
 
   filters: any = {
     years: {
-      lower: '1900',
-      upper: new Date().getFullYear().toString()
+      lower: 1900,
+      upper: new Date().getFullYear()
     },
     genre: ''
   };
@@ -61,14 +61,6 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
       new SaveFilterMovies(this.filters)
     ]);
     this.popoverCtrl.dismiss();
-  }
-
-  updateRange(e) {
-    console.log('updateRange', e, this.filters.years);
-    /// Refresh the UI
-    this.zone.run(() => {
-          console.log('UI has refreshed');
-    });
   }
 
 }
