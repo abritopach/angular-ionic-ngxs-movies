@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   showScrollTop: Boolean = false;
   // infiniteScroll: any;
   @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
+  showSkeleton: Boolean = true;
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController) {
@@ -68,6 +69,9 @@ export class HomeComponent implements OnInit {
 
   fetchMovies(name, url) {
     this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe(() => {
+      setTimeout( () => {
+        this.showSkeleton = false;
+      }, 1000);
       if (this.infiniteScroll) {
         this.infiniteScroll.nativeElement.complete();
       }

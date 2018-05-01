@@ -28,8 +28,26 @@
       <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
   </ion-item>
 
+  <ion-list *ngIf="showSkeleton">
+
+    <ion-item *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
+      <ion-thumbnail slot="start">
+        <img [src]="" alt="">
+      </ion-thumbnail>
+      <ion-label>
+        <h2><ion-skeleton-text width=200px></ion-skeleton-text></h2>
+        <h3><ion-skeleton-text width=80px></ion-skeleton-text></h3>
+        <h4><ion-skeleton-text width=500px></ion-skeleton-text></h4>
+      </ion-label>
+      <ion-note slot="end">
+        <ion-icon name="swap"></ion-icon>
+      </ion-note>
+    </ion-item>
+
+  </ion-list>
+
   <!-- Movies List. -->
-  <ion-list>
+  <ion-list *ngIf="!showSkeleton">
     <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
     <ion-item-sliding *ngFor="let movie of movies$ | async; let i = index" detail="true">
 
