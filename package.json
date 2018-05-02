@@ -32,6 +32,7 @@
     "@ionic/cli-hooks": "1.0.0-rc.1",
     "@ionic/schematics-angular": "^1.0.0-rc.5",
     "@ngxs/form-plugin": "^3.0.0-rc.2",
+    "@ngxs/storage-plugin": "^3.0.0-rc.3",
     "@ngxs/store": "^3.0.0-rc.2",
     "core-js": "^2.5.3",
     "hoek": "^5.0.3",

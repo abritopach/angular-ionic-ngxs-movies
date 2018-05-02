@@ -26,7 +26,10 @@
         <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px">
       
         <ion-card-content>
-          <p>{{ movie?.notes }}</p>
+          <ion-item>
+            <p>{{ movie?.notes }}</p>
+            <ion-badge slot="end"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
+          </ion-item>
         </ion-card-content>
       
         <ion-row>

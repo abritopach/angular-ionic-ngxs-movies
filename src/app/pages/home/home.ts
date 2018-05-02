@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -25,7 +25,7 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   // Reads the name of the store from the store class.
   // @Select(MoviesStateModel) movies$: Observable<Movie[]>;
@@ -47,6 +47,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
+    /*
+    console.log('ngOnInit home');
+     // Check if we have movies in local storage.
+     if (localStorage.getItem('@@STATE') !== 'undefined') {
+      const state = JSON.parse(localStorage.getItem('@@STATE'));
+      const { movies } = state.catalog;
+      console.log('movies', movies);
+    }
+    */
+
     this.actions$.pipe(ofActionCompleted(AddMovie)).subscribe(() => {
       const {title, message, position} = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
       this.modalCtrl.dismiss();
@@ -65,6 +75,11 @@ export class HomeComponent implements OnInit {
     });
 
     // this.infiniteScroll = document.getElementById('infinite-scroll');
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy home');
+    // localStorage.removeItem('@@STATE');
   }
 
   fetchMovies(name, url) {

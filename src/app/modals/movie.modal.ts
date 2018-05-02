@@ -133,4 +133,8 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
     ]);
   }
 
+  takePicture() {
+    console.log('takePicture');
+  }
+
 }

@@ -50,6 +50,10 @@
           <ion-label position="floating">URL Poster</ion-label>
           <ion-input type="text" formControlName="poster"></ion-input>
         </ion-item>
+        <ion-item class="take-picture">
+            <p><b>NOTE</b>: Select movie picture from your device or take a movie picture.</p>
+            <ion-button (click)="takePicture()" color="secondary">Select / Take Picture</ion-button>
+        </ion-item>
     </ion-list>
     <ion-button type="submit" color="primary" [disabled]='!movieForm.valid' >{{ modal.buttonText }}</ion-button>
     <ion-button color="danger" [disabled]='!movieForm.valid' (click)="clearMovieForm()" *ngIf="navParams.data.option === 'add'">Clear</ion-button>
