@@ -8,47 +8,48 @@
 </ion-header>
 
 <ion-content no-bounce>
-    <ion-card *ngIf="movie">
-        <ion-item>
-          <!--
-          <ion-avatar item-start>
-            <img [src]="movie?.image">
-          </ion-avatar>
-          -->
-          <h2><b>{{ movie?.title }}</b></h2>
-          <ion-chip color="secondary" slot="end">
+    <ion-grid>
+    <ion-row>
+    <ion-col col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3>
+      <ion-card *ngIf="movie">
+          <ion-item>
+            <h2><b>{{ movie?.title }}</b></h2>
+            <ion-chip color="secondary" slot="end">
               <ion-icon name="pricetag" color="secondary"></ion-icon>
               <ion-label>{{ movie?.genre }}</ion-label>
             </ion-chip>
-        </ion-item>
-      
-        <img *ngIf="movie.poster" [src]="movie?.poster" height="300px">
-        <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px">
-      
-        <ion-card-content>
-          <ion-item>
-            <p>{{ movie?.notes }}</p>
-            <ion-badge slot="end"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
           </ion-item>
-        </ion-card-content>
-      
-        <ion-row>
-          <ion-item>
-          <ion-button icon-left clear small class="action-button">
-            <ion-icon name="thumbs-up"></ion-icon>
-            <div>12 Likes</div>
-          </ion-button>
-          <ion-button icon-left clear small>
-            <ion-icon name="text"></ion-icon>
-            <div>4 Comments</div>
-          </ion-button>
-          <ion-note slot="end">
-            {{ movie?.year }}
-          </ion-note>
-          </ion-item>
-        </ion-row>
-      
-      </ion-card>
+        
+          <img *ngIf="movie.poster" [src]="movie?.poster" height="300px">
+          <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px">
+        
+          <ion-card-content>
+            <ion-item>
+              <p>{{ movie?.notes }}</p>
+              <ion-badge slot="end"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
+            </ion-item>
+          </ion-card-content>
+        
+          <ion-row>
+            <ion-item style="width: 100%">
+              <ion-button icon-left clear small class="action-button">
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>12 Likes</div>
+              </ion-button>
+              <ion-button icon-left clear small>
+                <ion-icon name="text"></ion-icon>
+                <div>4 Comments</div>
+              </ion-button>
+              <ion-note slot="end">
+                {{ movie?.year }}
+              </ion-note>
+            </ion-item>
+          </ion-row>
+        
+        </ion-card>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>

@@ -28,7 +28,7 @@ import { MoviesService } from './providers/movies-service';
     AppRoutingModule,
     IonicModule.forRoot(),
     NgxsModule.forRoot([ MovieState ]),
-    NgxsStoragePluginModule.forRoot(),
+    // NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsFormPluginModule.forRoot()

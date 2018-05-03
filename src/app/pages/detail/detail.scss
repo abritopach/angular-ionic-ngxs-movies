@@ -8,3 +8,11 @@
     padding-right: 5px;
     display: inline;
 }
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+    ion-card img {
+        width: calc(100% - 250px);;
+        margin: auto;
+    }
+}
