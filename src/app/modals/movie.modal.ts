@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
-import { Store, Actions, ofActionCompleted } from '@ngxs/store';
+import { Store, Actions } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 import { AddMovie, EditMovie } from '../store/actions/movies.actions';
 import { Movie } from '../models/movie.model';
