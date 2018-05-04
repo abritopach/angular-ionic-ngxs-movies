@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5929,7 +5929,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  *
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('6.0.0-rc.5');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('6.0.0-rc.6');
 
 /**
  * @license
@@ -6013,7 +6013,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8523,7 +8523,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeSummaryDuplicates", function() { return removeSummaryDuplicates; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8786,7 +8786,6 @@ function utf8Encode(str) {
     }
     return encoded;
 }
-var MAX_LENGTH_STRINGIFY = 100;
 function stringify(token) {
     if (typeof token === 'string') {
         return token;
@@ -8803,24 +8802,14 @@ function stringify(token) {
     if (token.name) {
         return "" + token.name;
     }
-    var res;
-    try {
-        res = JSON.stringify(token);
-    }
-    catch (_a) {
-        res = token.toString();
-    }
+    // WARNING: do not try to `JSON.stringify(token)` here
+    // see https://github.com/angular/angular/issues/23440
+    var res = token.toString();
     if (res == null) {
         return '' + res;
     }
     var newLineIndex = res.indexOf('\n');
-    if (0 < newLineIndex) {
-        res = res.substring(0, newLineIndex);
-    }
-    if (MAX_LENGTH_STRINGIFY < res.length) {
-        res = res.substring(0, MAX_LENGTH_STRINGIFY) + '...';
-    }
-    return res;
+    return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
 }
 /**
  * Lazily retrieves the reference value from a forwardRef.
@@ -8867,7 +8856,7 @@ var Version = /** @class */ (function () {
 /**
  *
  */
-var VERSION = new Version('6.0.0-rc.5');
+var VERSION = new Version('6.0.0-rc.6');
 
 /**
  * @license
@@ -29399,7 +29388,9 @@ var StaticReflector = /** @class */ (function () {
             var ownAnnotations_1 = [];
             if (classMetadata['decorators']) {
                 ownAnnotations_1 = simplify(type, classMetadata['decorators']);
-                annotations.push.apply(annotations, Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"])(ownAnnotations_1));
+                if (ownAnnotations_1) {
+                    annotations.push.apply(annotations, Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"])(ownAnnotations_1));
+                }
             }
             if (parentType && !this.summaryResolver.isLibraryFile(type.filePath) &&
                 this.summaryResolver.isLibraryFile(parentType.filePath)) {
@@ -31769,7 +31760,7 @@ var Extractor = /** @class */ (function () {
 /*!**************************************************!*\
   !*** ./node_modules/@angular/core/fesm5/core.js ***!
   \**************************************************/
-/*! exports provided: ɵangular_packages_core_core_j, ɵangular_packages_core_core_k, ɵangular_packages_core_core_l, ɵangular_packages_core_core_f, ɵangular_packages_core_core_g, ɵangular_packages_core_core_h, ɵangular_packages_core_core_i, ɵangular_packages_core_core_c, ɵangular_packages_core_core_d, ɵangular_packages_core_core_e, ɵangular_packages_core_core_m, ɵangular_packages_core_core_o, ɵangular_packages_core_core_n, ɵangular_packages_core_core_r, ɵangular_packages_core_core_p, ɵangular_packages_core_core_q, ɵangular_packages_core_core_v, ɵangular_packages_core_core_x, ɵangular_packages_core_core_w, ɵangular_packages_core_core_u, ɵangular_packages_core_core_y, ɵangular_packages_core_core_bb, ɵangular_packages_core_core_bd, ɵangular_packages_core_core_be, ɵangular_packages_core_core_bc, ɵangular_packages_core_core_ba, ɵangular_packages_core_core_z, ɵangular_packages_core_core_a, ɵangular_packages_core_core_b, ɵangular_packages_core_core_s, ɵangular_packages_core_core_t, createPlatform, assertPlatform, destroyPlatform, getPlatform, PlatformRef, ApplicationRef, enableProdMode, isDevMode, createPlatformFactory, NgProbeToken, APP_ID, PACKAGE_ROOT_URL, PLATFORM_INITIALIZER, PLATFORM_ID, APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, ApplicationInitStatus, DebugElement, DebugNode, asNativeElements, getDebugNode, Testability, TestabilityRegistry, setTestabilityGetter, TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID, MissingTranslationStrategy, ApplicationModule, wtfCreateScope, wtfLeave, wtfStartTimeRange, wtfEndTimeRange, Type, EventEmitter, ErrorHandler, Sanitizer, SecurityContext, ANALYZE_FOR_ENTRY_COMPONENTS, Attribute, ContentChild, ContentChildren, Query, ViewChild, ViewChildren, Component, Directive, HostBinding, HostListener, Input, Output, Pipe, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule, ViewEncapsulation, Version, VERSION, forwardRef, resolveForwardRef, Injectable, inject, INJECTOR, Injector, ReflectiveInjector, createInjector, ResolvedReflectiveFactory, ReflectiveKey, InjectionToken, Inject, Optional, Self, SkipSelf, Host, defineInjectable, defineInjector, NgZone, RenderComponentType, Renderer, Renderer2, RendererFactory2, RendererStyleFlags2, RootRenderer, COMPILER_OPTIONS, Compiler, CompilerFactory, ModuleWithComponentFactories, ComponentFactory, ComponentRef, ComponentFactoryResolver, ElementRef, NgModuleFactory, NgModuleRef, NgModuleFactoryLoader, getModuleFactory, QueryList, SystemJsNgModuleLoader, SystemJsNgModuleLoaderConfig, TemplateRef, ViewContainerRef, EmbeddedViewRef, ViewRef, ChangeDetectionStrategy, ChangeDetectorRef, DefaultIterableDiffer, IterableDiffers, KeyValueDiffers, SimpleChange, WrappedValue, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, ɵAPP_ID_RANDOM_PROVIDER, ɵdefaultIterableDiffers, ɵdevModeEqual, ɵisListLikeIterable, ɵChangeDetectorStatus, ɵisDefaultChangeDetectionStrategy, ɵConsole, ɵinject, ɵsetCurrentInjector, ɵAPP_ROOT, ɵComponentFactory, ɵCodegenComponentFactoryResolver, ɵReflectionCapabilities, ɵRenderDebugInfo, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal, ɵlooseIdentical, ɵstringify, ɵmakeDecorator, ɵisObservable, ɵisPromise, ɵclearOverrides, ɵoverrideComponentView, ɵoverrideProvider, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR, ɵdefineComponent, ɵdefineDirective, ɵdefinePipe, ɵdetectChanges, ɵrenderComponent, ɵdirectiveInject, ɵinjectTemplateRef, ɵinjectViewContainerRef, ɵinjectChangeDetectorRef, ɵinjectAttribute, ɵPublicFeature, ɵNgOnChangesFeature, ɵmarkDirty, ɵNC, ɵC, ɵE, ɵL, ɵT, ɵV, ɵQ, ɵd, ɵP, ɵb, ɵi1, ɵi2, ɵi3, ɵi4, ɵi5, ɵi6, ɵi7, ɵi8, ɵiV, ɵpb1, ɵpb2, ɵpb3, ɵpb4, ɵpbV, ɵf0, ɵf1, ɵf2, ɵf3, ɵf4, ɵf5, ɵf6, ɵf7, ɵf8, ɵfV, ɵcR, ɵcr, ɵqR, ɵe, ɵp, ɵpD, ɵa, ɵs, ɵsn, ɵk, ɵkn, ɵt, ɵv, ɵst, ɵld, ɵPp, ɵwhenRendered, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ɵsanitizeHtml, ɵsanitizeStyle, ɵsanitizeUrl, ɵsanitizeResourceUrl, ɵregisterModuleFactory, ɵEMPTY_ARRAY, ɵEMPTY_MAP, ɵand, ɵccf, ɵcmf, ɵcrt, ɵdid, ɵeld, ɵelementEventFullName, ɵgetComponentViewDefinitionFactory, ɵinlineInterpolate, ɵinterpolate, ɵmod, ɵmpd, ɵncd, ɵnov, ɵpid, ɵprd, ɵpad, ɵpod, ɵppd, ɵqud, ɵted, ɵunv, ɵvid */
+/*! exports provided: ɵangular_packages_core_core_j, ɵangular_packages_core_core_k, ɵangular_packages_core_core_l, ɵangular_packages_core_core_f, ɵangular_packages_core_core_g, ɵangular_packages_core_core_h, ɵangular_packages_core_core_i, ɵangular_packages_core_core_c, ɵangular_packages_core_core_d, ɵangular_packages_core_core_e, ɵangular_packages_core_core_m, ɵangular_packages_core_core_o, ɵangular_packages_core_core_n, ɵangular_packages_core_core_r, ɵangular_packages_core_core_p, ɵangular_packages_core_core_q, ɵangular_packages_core_core_v, ɵangular_packages_core_core_x, ɵangular_packages_core_core_w, ɵangular_packages_core_core_u, ɵangular_packages_core_core_y, ɵangular_packages_core_core_bb, ɵangular_packages_core_core_bd, ɵangular_packages_core_core_be, ɵangular_packages_core_core_bc, ɵangular_packages_core_core_ba, ɵangular_packages_core_core_z, ɵangular_packages_core_core_a, ɵangular_packages_core_core_b, ɵangular_packages_core_core_s, ɵangular_packages_core_core_t, createPlatform, assertPlatform, destroyPlatform, getPlatform, PlatformRef, ApplicationRef, enableProdMode, isDevMode, createPlatformFactory, NgProbeToken, APP_ID, PACKAGE_ROOT_URL, PLATFORM_INITIALIZER, PLATFORM_ID, APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, ApplicationInitStatus, DebugElement, DebugNode, asNativeElements, getDebugNode, Testability, TestabilityRegistry, setTestabilityGetter, TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID, MissingTranslationStrategy, ApplicationModule, wtfCreateScope, wtfLeave, wtfStartTimeRange, wtfEndTimeRange, Type, EventEmitter, ErrorHandler, Sanitizer, SecurityContext, ANALYZE_FOR_ENTRY_COMPONENTS, Attribute, ContentChild, ContentChildren, Query, ViewChild, ViewChildren, Component, Directive, HostBinding, HostListener, Input, Output, Pipe, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule, ViewEncapsulation, Version, VERSION, defineInjectable, defineInjector, forwardRef, resolveForwardRef, Injectable, inject, INJECTOR, Injector, ReflectiveInjector, createInjector, ResolvedReflectiveFactory, ReflectiveKey, InjectionToken, Inject, Optional, Self, SkipSelf, Host, NgZone, RenderComponentType, Renderer, Renderer2, RendererFactory2, RendererStyleFlags2, RootRenderer, COMPILER_OPTIONS, Compiler, CompilerFactory, ModuleWithComponentFactories, ComponentFactory, ComponentRef, ComponentFactoryResolver, ElementRef, NgModuleFactory, NgModuleRef, NgModuleFactoryLoader, getModuleFactory, QueryList, SystemJsNgModuleLoader, SystemJsNgModuleLoaderConfig, TemplateRef, ViewContainerRef, EmbeddedViewRef, ViewRef, ChangeDetectionStrategy, ChangeDetectorRef, DefaultIterableDiffer, IterableDiffers, KeyValueDiffers, SimpleChange, WrappedValue, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, ɵAPP_ID_RANDOM_PROVIDER, ɵdefaultIterableDiffers, ɵdevModeEqual, ɵisListLikeIterable, ɵChangeDetectorStatus, ɵisDefaultChangeDetectionStrategy, ɵConsole, ɵinject, ɵsetCurrentInjector, ɵAPP_ROOT, ɵComponentFactory, ɵCodegenComponentFactoryResolver, ɵReflectionCapabilities, ɵRenderDebugInfo, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal, ɵlooseIdentical, ɵstringify, ɵmakeDecorator, ɵisObservable, ɵisPromise, ɵclearOverrides, ɵoverrideComponentView, ɵoverrideProvider, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR, ɵdefineComponent, ɵdefineDirective, ɵdefinePipe, ɵdetectChanges, ɵrenderComponent, ɵdirectiveInject, ɵinjectTemplateRef, ɵinjectViewContainerRef, ɵinjectChangeDetectorRef, ɵinjectAttribute, ɵPublicFeature, ɵNgOnChangesFeature, ɵmarkDirty, ɵNC, ɵC, ɵE, ɵL, ɵT, ɵV, ɵQ, ɵd, ɵP, ɵb, ɵi1, ɵi2, ɵi3, ɵi4, ɵi5, ɵi6, ɵi7, ɵi8, ɵiV, ɵpb1, ɵpb2, ɵpb3, ɵpb4, ɵpbV, ɵf0, ɵf1, ɵf2, ɵf3, ɵf4, ɵf5, ɵf6, ɵf7, ɵf8, ɵfV, ɵcR, ɵcr, ɵqR, ɵe, ɵp, ɵpD, ɵa, ɵs, ɵsn, ɵk, ɵkn, ɵt, ɵv, ɵst, ɵld, ɵPp, ɵwhenRendered, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ɵsanitizeHtml, ɵsanitizeStyle, ɵsanitizeUrl, ɵsanitizeResourceUrl, ɵregisterModuleFactory, ɵEMPTY_ARRAY, ɵEMPTY_MAP, ɵand, ɵccf, ɵcmf, ɵcrt, ɵdid, ɵeld, ɵelementEventFullName, ɵgetComponentViewDefinitionFactory, ɵinlineInterpolate, ɵinterpolate, ɵmod, ɵmpd, ɵncd, ɵnov, ɵpid, ɵprd, ɵpad, ɵpod, ɵppd, ɵqud, ɵted, ɵunv, ɵvid */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31863,6 +31854,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewEncapsulation", function() { return ViewEncapsulation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Version", function() { return Version; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return VERSION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineInjectable", function() { return defineInjectable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineInjector", function() { return defineInjector; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forwardRef", function() { return forwardRef; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resolveForwardRef", function() { return resolveForwardRef; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Injectable", function() { return Injectable; });
@@ -31879,8 +31872,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Self", function() { return Self; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SkipSelf", function() { return SkipSelf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Host", function() { return Host; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineInjectable", function() { return defineInjectable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineInjector", function() { return defineInjector; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgZone", function() { return NgZone; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderComponentType", function() { return RenderComponentType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Renderer", function() { return Renderer; });
@@ -32046,7 +32037,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -32080,9 +32071,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function defineInjectable(opts) {
     return {
-        providedIn: opts.providedIn || null,
-        factory: opts.factory,
-        value: undefined,
+        providedIn: opts.providedIn || null, factory: opts.factory, value: undefined,
     };
 }
 /**
@@ -32107,9 +32096,7 @@ function defineInjectable(opts) {
  */
 function defineInjector(options) {
     return {
-        factory: options.factory,
-        providers: options.providers || [],
-        imports: options.imports || [],
+        factory: options.factory, providers: options.providers || [], imports: options.imports || [],
     };
 }
 
@@ -33621,7 +33608,7 @@ var Version = /** @class */ (function () {
 /**
  *
  */
-var VERSION = new Version('6.0.0-rc.5');
+var VERSION = new Version('6.0.0-rc.6');
 
 /**
  * @license
@@ -49798,7 +49785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -55898,7 +55885,7 @@ var FormBuilder = /** @class */ (function () {
 /**
  *
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.5');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.6');
 
 /**
  * @license
@@ -56095,7 +56082,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -56527,7 +56514,7 @@ var CachedResourceLoader = /** @class */ (function (_super) {
 /**
  *
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.5');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.6');
 
 /**
  * @license
@@ -56634,7 +56621,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -59161,7 +59148,7 @@ var By = /** @class */ (function () {
 /**
  *
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.5');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.6');
 
 /**
  * @license
@@ -59275,7 +59262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /**
- * @license Angular v6.0.0-rc.5
+ * @license Angular v6.0.0-rc.6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -61524,15 +61511,18 @@ function createNode(routeReuseStrategy, curr, prevState) {
         return new TreeNode(value, children);
         // retrieve an activated route that is used to be displayed, but is not currently displayed
     }
-    else if (routeReuseStrategy.retrieve(curr.value)) {
-        var tree = routeReuseStrategy.retrieve(curr.value).route;
-        setFutureSnapshotsOfActivatedRoutes(curr, tree);
-        return tree;
-    }
     else {
-        var value = createActivatedRoute(curr.value);
-        var children = curr.children.map(function (c) { return createNode(routeReuseStrategy, c); });
-        return new TreeNode(value, children);
+        var detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
+        if (detachedRouteHandle) {
+            var tree = detachedRouteHandle.route;
+            setFutureSnapshotsOfActivatedRoutes(curr, tree);
+            return tree;
+        }
+        else {
+            var value = createActivatedRoute(curr.value);
+            var children = curr.children.map(function (c) { return createNode(routeReuseStrategy, c); });
+            return new TreeNode(value, children);
+        }
     }
 }
 function setFutureSnapshotsOfActivatedRoutes(curr, result) {
@@ -64809,7 +64799,7 @@ function provideRouterInitializer() {
 /**
  *
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.5');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('6.0.0-rc.6');
 
 /**
  * @license
@@ -65758,9 +65748,9 @@ var IonRouterOutlet = /** @class */ (function () {
     };
     IonRouterOutlet.prototype.activateWith = function (activatedRoute, resolver) {
         return __awaiter(this, void 0, void 0, function () {
-            var enteringView, snapshot, component, factory, childContexts, injector, cmp, direction;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var enteringView, snapshot, component, factory, childContexts, injector, cmp, _a, direction, animated;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         if (this.isActivated) {
                             throw new Error('Cannot activate an already activated outlet');
@@ -65784,10 +65774,10 @@ var IonRouterOutlet = /** @class */ (function () {
                             this.changeDetector.markForCheck();
                             enteringView = this.stackCtrl.createView(this.activated, activatedRoute);
                         }
-                        direction = this.navCtrl.consumeDirection();
-                        return [4 /*yield*/, this.stackCtrl.setActive(enteringView, direction)];
+                        _a = this.navCtrl.consumeTransition(), direction = _a.direction, animated = _a.animated;
+                        return [4 /*yield*/, this.stackCtrl.setActive(enteringView, direction, animated)];
                     case 1:
-                        _a.sent();
+                        _b.sent();
                         this.activateEvents.emit(this.activated.instance);
                         emitEvent(this.elementRef.nativeElement);
                         return [2 /*return*/];
@@ -66102,17 +66092,15 @@ var StackController = /** @class */ (function () {
     StackController.prototype.canGoBack = function (deep) {
         return this.views.length > deep;
     };
-    StackController.prototype.setActive = function (enteringView, direction) {
+    StackController.prototype.setActive = function (enteringView, direction, animated) {
         return __awaiter(this, void 0, void 0, function () {
-            var leavingView, forcedGoBack, reused;
+            var leavingView;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         leavingView = this.getActive();
-                        forcedGoBack = direction === -1;
-                        reused = this.insertView(enteringView, forcedGoBack);
-                        direction = direction != null ? direction : (reused ? -1 : 1);
-                        return [4 /*yield*/, this.transition(enteringView, leavingView, direction, this.canGoBack(1))];
+                        this.insertView(enteringView, direction);
+                        return [4 /*yield*/, this.transition(enteringView, leavingView, direction, animated, this.canGoBack(1))];
                     case 1:
                         _a.sent();
                         this.cleanup();
@@ -66125,26 +66113,29 @@ var StackController = /** @class */ (function () {
         var view = this.views[this.views.length - deep - 1];
         this.navCtrl.goBack(view.url);
     };
-    StackController.prototype.insertView = function (enteringView, forcedGoBack) {
-        if (this.stack) {
-            var index = this.views.indexOf(enteringView);
-            if (index >= 0) {
-                this.views = this.views.slice(0, index + 1);
-                return true;
-            }
-            else {
-                if (forcedGoBack) {
-                    this.views = [enteringView];
-                }
-                else {
-                    this.views.push(enteringView);
-                }
-                return false;
-            }
+    StackController.prototype.insertView = function (enteringView, direction) {
+        // no stack
+        if (!this.stack) {
+            this.views = [enteringView];
+            return;
+        }
+        // stack setRoot
+        if (direction === 0) {
+            this.views = [enteringView];
+            return;
+        }
+        // stack
+        var index = this.views.indexOf(enteringView);
+        if (index >= 0) {
+            this.views = this.views.slice(0, index + 1);
         }
         else {
-            this.views = [enteringView];
-            return false;
+            if (direction === 1) {
+                this.views.push(enteringView);
+            }
+            else {
+                this.views = [enteringView];
+            }
         }
     };
     StackController.prototype.cleanup = function () {
@@ -66160,7 +66151,7 @@ var StackController = /** @class */ (function () {
     StackController.prototype.getActive = function () {
         return this.views.length > 0 ? this.views[this.views.length - 1] : null;
     };
-    StackController.prototype.transition = function (enteringView, leavingView, direction, showGoBack) {
+    StackController.prototype.transition = function (enteringView, leavingView, direction, animated, showGoBack) {
         return __awaiter(this, void 0, void 0, function () {
             var enteringEl, leavingEl, containerEl;
             return __generator(this, function (_a) {
@@ -66176,8 +66167,8 @@ var StackController = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, containerEl.commit(enteringEl, leavingEl, {
-                                duration: direction === 0 ? 0 : undefined,
-                                direction: direction === -1 ? "back" /* Back */ : "forward" /* Forward */,
+                                duration: !animated ? 0 : undefined,
+                                direction: direction === 1 ? 'forward' : 'back',
                                 deepWait: true,
                                 showGoBack: showGoBack
                             })];
@@ -66517,14 +66508,16 @@ function methods(instance, ref, methods) {
     methods.forEach(function (methodName) {
         Object.defineProperty(instance, methodName, {
             get: function () {
-                var args = arguments;
-                return el.componentOnReady()
-                    .then(function (el) { return el[methodName].apply(el, args); });
+                return function () {
+                    var args = arguments;
+                    return el.componentOnReady()
+                        .then(function (el) { return el[methodName].apply(el, args); });
+                };
             }
         });
     });
 }
-var accept = 'accept', activated = 'activated', active = 'active', addRipple = 'addRipple', allowEmptySelection = 'allowEmptySelection', animated = 'animated', autoHide = 'autoHide', autocapitalize = 'autocapitalize', autocomplete = 'autocomplete', autocorrect = 'autocorrect', autofocus = 'autofocus', badge = 'badge', badgeStyle = 'badgeStyle', btnId = 'btnId', button = 'button', buttonType = 'buttonType', canGoBack = 'canGoBack', cancel = 'cancel', cancelButtonText = 'cancelButtonText', cancelText = 'cancelText', checked = 'checked', clearInput = 'clearInput', clearOnEdit = 'clearOnEdit', close = 'close', closeDuration = 'closeDuration', closeOpened = 'closeOpened', closeSlidingItems = 'closeSlidingItems', color = 'color', cols = 'cols', complete = 'complete', component = 'component', componentProps = 'componentProps', contentId = 'contentId', dayNames = 'dayNames', dayShortNames = 'dayShortNames', dayValues = 'dayValues', debounce = 'debounce', defaultHref = 'defaultHref', delegate = 'delegate', detail = 'detail', disabled = 'disabled', displayFormat = 'displayFormat', doneText = 'doneText', dualKnobs = 'dualKnobs', duration = 'duration', edge = 'edge', expand = 'expand', expandable = 'expandable', fill = 'fill', fireSwipeEvent = 'fireSwipeEvent', forceOverscroll = 'forceOverscroll', fullscreen = 'fullscreen', getActive = 'getActive', getActiveIndex = 'getActiveIndex', getByIndex = 'getByIndex', getOpenAmount = 'getOpenAmount', getOpenItem = 'getOpenItem', getPrevious = 'getPrevious', getPreviousIndex = 'getPreviousIndex', getProgress = 'getProgress', getRouteId = 'getRouteId', getSelected = 'getSelected', getSlidingRatio = 'getSlidingRatio', getTab = 'getTab', getTabId = 'getTabId', getText = 'getText', header = 'header', horizontal = 'horizontal', hourValues = 'hourValues', href = 'href', icon = 'icon', inputmode = 'inputmode', insert = 'insert', insertPages = 'insertPages', interfaceOptions = 'interfaceOptions', ionBlur = 'ionBlur', ionCancel = 'ionCancel', ionChange = 'ionChange', ionClear = 'ionClear', ionClick = 'ionClick', ionClose = 'ionClose', ionDrag = 'ionDrag', ionFocus = 'ionFocus', ionInfinite = 'ionInfinite', ionInput = 'ionInput', ionInputDidLoad = 'ionInputDidLoad', ionInputDidUnload = 'ionInputDidUnload', ionMenuChange = 'ionMenuChange', ionNavDidChange = 'ionNavDidChange', ionNavWillChange = 'ionNavWillChange', ionOpen = 'ionOpen', ionPull = 'ionPull', ionRadioDidLoad = 'ionRadioDidLoad', ionRadioDidUnload = 'ionRadioDidUnload', ionRefresh = 'ionRefresh', ionScroll = 'ionScroll', ionScrollEnd = 'ionScrollEnd', ionScrollStart = 'ionScrollStart', ionSelect = 'ionSelect', ionSelectOptionDidLoad = 'ionSelectOptionDidLoad', ionSelectOptionDidUnload = 'ionSelectOptionDidUnload', ionSlideDidChange = 'ionSlideDidChange', ionSlideDrag = 'ionSlideDrag', ionSlideNextEnd = 'ionSlideNextEnd', ionSlideNextStart = 'ionSlideNextStart', ionSlidePrevEnd = 'ionSlidePrevEnd', ionSlidePrevStart = 'ionSlidePrevStart', ionSlideReachEnd = 'ionSlideReachEnd', ionSlideReachStart = 'ionSlideReachStart', ionSlideTouchEnd = 'ionSlideTouchEnd', ionSlideTouchStart = 'ionSlideTouchStart', ionSlideTransitionEnd = 'ionSlideTransitionEnd', ionSlideTransitionStart = 'ionSlideTransitionStart', ionSlideWillChange = 'ionSlideWillChange', ionSplitPaneVisible = 'ionSplitPaneVisible', ionStart = 'ionStart', ionStyle = 'ionStyle', ionSwipe = 'ionSwipe', isActive = 'isActive', isBeginning = 'isBeginning', isEnd = 'isEnd', isOpen = 'isOpen', isPane = 'isPane', isRightSide = 'isRightSide', isVisible = 'isVisible', label = 'label', length = 'length', loadingSpinner = 'loadingSpinner', loadingText = 'loadingText', lockSwipeToNext = 'lockSwipeToNext', lockSwipeToPrev = 'lockSwipeToPrev', lockSwipes = 'lockSwipes', max = 'max', maxEdgeStart = 'maxEdgeStart', maxlength = 'maxlength', mediaQuery = 'mediaQuery', menu = 'menu', menuId = 'menuId', message = 'message', min = 'min', minlength = 'minlength', minuteValues = 'minuteValues', mode = 'mode', monthNames = 'monthNames', monthShortNames = 'monthShortNames', monthValues = 'monthValues', multiple = 'multiple', name = 'name', okText = 'okText', open = 'open', options = 'options', or = 'or', orientation = 'orientation', pager = 'pager', pattern = 'pattern', paused = 'paused', persistent = 'persistent', pickerFormat = 'pickerFormat', pickerOptions = 'pickerOptions', pin = 'pin', placeholder = 'placeholder', platform = 'platform', pop = 'pop', popTo = 'popTo', popToRoot = 'popToRoot', position = 'position', pullMax = 'pullMax', pullMin = 'pullMin', pullingIcon = 'pullingIcon', pullingText = 'pullingText', push = 'push', ratio = 'ratio', ratioUpper = 'ratioUpper', readonly = 'readonly', refreshingSpinner = 'refreshingSpinner', refreshingText = 'refreshingText', removeIndex = 'removeIndex', required = 'required', results = 'results', root = 'root', rootParams = 'rootParams', round = 'round', routerDirection = 'routerDirection', rows = 'rows', scrollByPoint = 'scrollByPoint', scrollEnabled = 'scrollEnabled', scrollEvents = 'scrollEvents', scrollToBottom = 'scrollToBottom', scrollToPoint = 'scrollToPoint', scrollToTop = 'scrollToTop', scrollable = 'scrollable', select = 'select', selected = 'selected', selectedText = 'selectedText', setActive = 'setActive', setOpen = 'setOpen', setOpenItem = 'setOpenItem', setPages = 'setPages', setRoot = 'setRoot', setRouteId = 'setRouteId', show = 'show', showCancelButton = 'showCancelButton', side = 'side', size = 'size', slideNext = 'slideNext', slidePrev = 'slidePrev', slideTo = 'slideTo', snapbackDuration = 'snapbackDuration', snaps = 'snaps', spellcheck = 'spellcheck', startAutoplay = 'startAutoplay', step = 'step', stopAutoplay = 'stopAutoplay', strong = 'strong', subHeader = 'subHeader', swipeBackEnabled = 'swipeBackEnabled', swipeEnabled = 'swipeEnabled', tabbarHidden = 'tabbarHidden', tabbarHighlight = 'tabbarHighlight', tabbarLayout = 'tabbarLayout', tabbarPlacement = 'tabbarPlacement', tabsHideOnSubPages = 'tabsHideOnSubPages', tapClick = 'tapClick', text = 'text', threshold = 'threshold', toggle = 'toggle', translucent = 'translucent', type = 'type', update = 'update', url = 'url', useRouter = 'useRouter', value = 'value', vertical = 'vertical', waitFor = 'waitFor', when = 'when', width = 'width', wrap = 'wrap', yearValues = 'yearValues';
+var accept = 'accept', activated = 'activated', active = 'active', addRipple = 'addRipple', allowEmptySelection = 'allowEmptySelection', animated = 'animated', autoHide = 'autoHide', autocapitalize = 'autocapitalize', autocomplete = 'autocomplete', autocorrect = 'autocorrect', autofocus = 'autofocus', badge = 'badge', badgeStyle = 'badgeStyle', btnId = 'btnId', button = 'button', buttonType = 'buttonType', canGoBack = 'canGoBack', cancel = 'cancel', cancelButtonText = 'cancelButtonText', cancelText = 'cancelText', checked = 'checked', clearInput = 'clearInput', clearOnEdit = 'clearOnEdit', close = 'close', closeDuration = 'closeDuration', closeOpened = 'closeOpened', closeSlidingItems = 'closeSlidingItems', color = 'color', cols = 'cols', complete = 'complete', component = 'component', componentProps = 'componentProps', contentId = 'contentId', dayNames = 'dayNames', dayShortNames = 'dayShortNames', dayValues = 'dayValues', debounce = 'debounce', defaultHref = 'defaultHref', delegate = 'delegate', detail = 'detail', disabled = 'disabled', displayFormat = 'displayFormat', doneText = 'doneText', dualKnobs = 'dualKnobs', duration = 'duration', edge = 'edge', expand = 'expand', expandable = 'expandable', fill = 'fill', fireSwipeEvent = 'fireSwipeEvent', forceOverscroll = 'forceOverscroll', fullscreen = 'fullscreen', getActive = 'getActive', getActiveIndex = 'getActiveIndex', getByIndex = 'getByIndex', getOpenAmount = 'getOpenAmount', getOpenItem = 'getOpenItem', getPrevious = 'getPrevious', getPreviousIndex = 'getPreviousIndex', getProgress = 'getProgress', getRouteId = 'getRouteId', getSelected = 'getSelected', getSlidingRatio = 'getSlidingRatio', getTab = 'getTab', getTabId = 'getTabId', getText = 'getText', header = 'header', horizontal = 'horizontal', hourValues = 'hourValues', href = 'href', icon = 'icon', inputmode = 'inputmode', insert = 'insert', insertPages = 'insertPages', interfaceOptions = 'interfaceOptions', ionBlur = 'ionBlur', ionCancel = 'ionCancel', ionChange = 'ionChange', ionClear = 'ionClear', ionClose = 'ionClose', ionDrag = 'ionDrag', ionFocus = 'ionFocus', ionInfinite = 'ionInfinite', ionInput = 'ionInput', ionInputDidLoad = 'ionInputDidLoad', ionInputDidUnload = 'ionInputDidUnload', ionMenuChange = 'ionMenuChange', ionNavDidChange = 'ionNavDidChange', ionNavWillChange = 'ionNavWillChange', ionNavWillLoad = 'ionNavWillLoad', ionOpen = 'ionOpen', ionPull = 'ionPull', ionRadioDidLoad = 'ionRadioDidLoad', ionRadioDidUnload = 'ionRadioDidUnload', ionRefresh = 'ionRefresh', ionScroll = 'ionScroll', ionScrollEnd = 'ionScrollEnd', ionScrollStart = 'ionScrollStart', ionSelect = 'ionSelect', ionSelectOptionDidLoad = 'ionSelectOptionDidLoad', ionSelectOptionDidUnload = 'ionSelectOptionDidUnload', ionSlideDidChange = 'ionSlideDidChange', ionSlideDrag = 'ionSlideDrag', ionSlideNextEnd = 'ionSlideNextEnd', ionSlideNextStart = 'ionSlideNextStart', ionSlidePrevEnd = 'ionSlidePrevEnd', ionSlidePrevStart = 'ionSlidePrevStart', ionSlideReachEnd = 'ionSlideReachEnd', ionSlideReachStart = 'ionSlideReachStart', ionSlideTouchEnd = 'ionSlideTouchEnd', ionSlideTouchStart = 'ionSlideTouchStart', ionSlideTransitionEnd = 'ionSlideTransitionEnd', ionSlideTransitionStart = 'ionSlideTransitionStart', ionSlideWillChange = 'ionSlideWillChange', ionSplitPaneVisible = 'ionSplitPaneVisible', ionStart = 'ionStart', ionStyle = 'ionStyle', ionSwipe = 'ionSwipe', isActive = 'isActive', isBeginning = 'isBeginning', isEnd = 'isEnd', isOpen = 'isOpen', isPane = 'isPane', isRightSide = 'isRightSide', isVisible = 'isVisible', label = 'label', length = 'length', loadingSpinner = 'loadingSpinner', loadingText = 'loadingText', lockSwipeToNext = 'lockSwipeToNext', lockSwipeToPrev = 'lockSwipeToPrev', lockSwipes = 'lockSwipes', max = 'max', maxEdgeStart = 'maxEdgeStart', maxlength = 'maxlength', mediaQuery = 'mediaQuery', menu = 'menu', menuId = 'menuId', message = 'message', min = 'min', minlength = 'minlength', minuteValues = 'minuteValues', mode = 'mode', monthNames = 'monthNames', monthShortNames = 'monthShortNames', monthValues = 'monthValues', multiple = 'multiple', name = 'name', okText = 'okText', open = 'open', options = 'options', or = 'or', orientation = 'orientation', pager = 'pager', pattern = 'pattern', paused = 'paused', persistent = 'persistent', pickerFormat = 'pickerFormat', pickerOptions = 'pickerOptions', pin = 'pin', placeholder = 'placeholder', platform = 'platform', pop = 'pop', popTo = 'popTo', popToRoot = 'popToRoot', position = 'position', pullMax = 'pullMax', pullMin = 'pullMin', pullingIcon = 'pullingIcon', pullingText = 'pullingText', push = 'push', ratio = 'ratio', ratioUpper = 'ratioUpper', readonly = 'readonly', refreshingSpinner = 'refreshingSpinner', refreshingText = 'refreshingText', removeIndex = 'removeIndex', required = 'required', results = 'results', root = 'root', rootParams = 'rootParams', round = 'round', routerDirection = 'routerDirection', rows = 'rows', scrollByPoint = 'scrollByPoint', scrollEnabled = 'scrollEnabled', scrollEvents = 'scrollEvents', scrollToBottom = 'scrollToBottom', scrollToPoint = 'scrollToPoint', scrollToTop = 'scrollToTop', scrollable = 'scrollable', select = 'select', selected = 'selected', selectedText = 'selectedText', setActive = 'setActive', setOpen = 'setOpen', setOpenItem = 'setOpenItem', setPages = 'setPages', setRoot = 'setRoot', setRouteId = 'setRouteId', show = 'show', showCancelButton = 'showCancelButton', side = 'side', size = 'size', slideNext = 'slideNext', slidePrev = 'slidePrev', slideTo = 'slideTo', snapbackDuration = 'snapbackDuration', snaps = 'snaps', spellcheck = 'spellcheck', startAutoplay = 'startAutoplay', step = 'step', stopAutoplay = 'stopAutoplay', strong = 'strong', subHeader = 'subHeader', swipeBackEnabled = 'swipeBackEnabled', swipeEnabled = 'swipeEnabled', tabbarHidden = 'tabbarHidden', tabbarHighlight = 'tabbarHighlight', tabbarLayout = 'tabbarLayout', tabbarPlacement = 'tabbarPlacement', tabsHideOnSubPages = 'tabsHideOnSubPages', tapClick = 'tapClick', text = 'text', threshold = 'threshold', toggle = 'toggle', translucent = 'translucent', type = 'type', update = 'update', useRouter = 'useRouter', value = 'value', vertical = 'vertical', waitFor = 'waitFor', when = 'when', width = 'width', wrap = 'wrap', yearValues = 'yearValues';
 var App = /** @class */ (function () {
     function App() {
     }
@@ -66829,10 +66822,10 @@ var Header = /** @class */ (function () {
 
 var HideWhen = /** @class */ (function () {
     function HideWhen(r) {
-        inputs(this, r, [orientation, mediaQuery, size, mode, platform, or]);
+        inputs(this, r, [orientation, mediaQuery, size, platform, or]);
     }
     HideWhen.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-hide-when', inputs: [orientation, mediaQuery, size, mode, platform, or] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-hide-when', inputs: [orientation, mediaQuery, size, platform, or] },] },
     ];
     /** @nocollapse */
     HideWhen.ctorParameters = function () { return [
@@ -66873,11 +66866,11 @@ var InfiniteScrollContent = /** @class */ (function () {
 
 var Input = /** @class */ (function () {
     function Input(r) {
-        inputs(this, r, [accept, autocapitalize, autocomplete, autocorrect, autofocus, checked, clearInput, clearOnEdit, debounce, disabled, inputmode, max, maxlength, min, minlength, multiple, name, pattern, placeholder, readonly, required, results, spellcheck, step, size, type, value]);
-        outputs(this, [ionInput, ionStyle, ionBlur, ionFocus, ionInputDidLoad, ionInputDidUnload]);
+        inputs(this, r, [accept, autocapitalize, autocomplete, autocorrect, autofocus, clearInput, clearOnEdit, debounce, disabled, inputmode, max, maxlength, min, minlength, multiple, name, pattern, placeholder, readonly, required, results, spellcheck, step, size, type, value]);
+        outputs(this, [ionInput, ionChange, ionStyle, ionBlur, ionFocus, ionInputDidLoad, ionInputDidUnload]);
     }
     Input.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-input', inputs: [accept, autocapitalize, autocomplete, autocorrect, autofocus, checked, clearInput, clearOnEdit, debounce, disabled, inputmode, max, maxlength, min, minlength, multiple, name, pattern, placeholder, readonly, required, results, spellcheck, step, size, type, value], outputs: [ionInput, ionStyle, ionBlur, ionFocus, ionInputDidLoad, ionInputDidUnload] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-input', inputs: [accept, autocapitalize, autocomplete, autocorrect, autofocus, clearInput, clearOnEdit, debounce, disabled, inputmode, max, maxlength, min, minlength, multiple, name, pattern, placeholder, readonly, required, results, spellcheck, step, size, type, value], outputs: [ionInput, ionChange, ionStyle, ionBlur, ionFocus, ionInputDidLoad, ionInputDidUnload] },] },
     ];
     /** @nocollapse */
     Input.ctorParameters = function () { return [
@@ -66888,10 +66881,10 @@ var Input = /** @class */ (function () {
 
 var Item = /** @class */ (function () {
     function Item(r) {
-        inputs(this, r, [color, mode, detail, disabled, href, button, routerDirection]);
+        inputs(this, r, [color, mode, button, detail, disabled, href, routerDirection]);
     }
     Item.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-item', inputs: [color, mode, detail, disabled, href, button, routerDirection] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-item', inputs: [color, mode, button, detail, disabled, href, routerDirection] },] },
     ];
     /** @nocollapse */
     Item.ctorParameters = function () { return [
@@ -67060,10 +67053,10 @@ var Nav = /** @class */ (function () {
     function Nav(r) {
         methods(this, r, [push, insert, insertPages, pop, popTo, popToRoot, removeIndex, setRoot, setPages, setRouteId, getRouteId, canGoBack, getActive, getByIndex, getPrevious, length]);
         inputs(this, r, [swipeBackEnabled, animated, delegate, rootParams, root]);
-        outputs(this, [ionNavWillChange, ionNavDidChange]);
+        outputs(this, [ionNavWillLoad, ionNavWillChange, ionNavDidChange]);
     }
     Nav.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-nav', inputs: [swipeBackEnabled, animated, delegate, rootParams, root], outputs: [ionNavWillChange, ionNavDidChange] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-nav', inputs: [swipeBackEnabled, animated, delegate, rootParams, root], outputs: [ionNavWillLoad, ionNavWillChange, ionNavDidChange] },] },
     ];
     /** @nocollapse */
     Nav.ctorParameters = function () { return [
@@ -67083,10 +67076,10 @@ var NavPop = /** @class */ (function () {
 
 var NavPush = /** @class */ (function () {
     function NavPush(r) {
-        inputs(this, r, [component, componentProps, url]);
+        inputs(this, r, [component, componentProps]);
     }
     NavPush.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-nav-push', inputs: [component, componentProps, url] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-nav-push', inputs: [component, componentProps] },] },
     ];
     /** @nocollapse */
     NavPush.ctorParameters = function () { return [
@@ -67097,10 +67090,10 @@ var NavPush = /** @class */ (function () {
 
 var NavSetRoot = /** @class */ (function () {
     function NavSetRoot(r) {
-        inputs(this, r, [component, componentProps, url]);
+        inputs(this, r, [component, componentProps]);
     }
     NavSetRoot.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-nav-set-root', inputs: [component, componentProps, url] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-nav-set-root', inputs: [component, componentProps] },] },
     ];
     /** @nocollapse */
     NavSetRoot.ctorParameters = function () { return [
@@ -67140,11 +67133,11 @@ var Radio = /** @class */ (function () {
 
 var RadioGroup = /** @class */ (function () {
     function RadioGroup(r) {
-        inputs(this, r, [allowEmptySelection, disabled, name, value]);
+        inputs(this, r, [allowEmptySelection, name, disabled, value]);
         outputs(this, [ionChange]);
     }
     RadioGroup.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-radio-group', inputs: [allowEmptySelection, disabled, name, value], outputs: [ionChange] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-radio-group', inputs: [allowEmptySelection, name, disabled, value], outputs: [ionChange] },] },
     ];
     /** @nocollapse */
     RadioGroup.ctorParameters = function () { return [
@@ -67156,11 +67149,11 @@ var RadioGroup = /** @class */ (function () {
 var Range = /** @class */ (function () {
     function Range(r) {
         methods(this, r, [ratio, ratioUpper]);
-        inputs(this, r, [color, mode, debounce, disabled, dualKnobs, max, min, pin, snaps, step, value]);
+        inputs(this, r, [color, mode, debounce, name, dualKnobs, max, min, pin, snaps, step, disabled, value]);
         outputs(this, [ionChange, ionStyle, ionFocus, ionBlur]);
     }
     Range.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-range', inputs: [color, mode, debounce, disabled, dualKnobs, max, min, pin, snaps, step, value], outputs: [ionChange, ionStyle, ionFocus, ionBlur] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-range', inputs: [color, mode, debounce, name, dualKnobs, max, min, pin, snaps, step, disabled, value], outputs: [ionChange, ionStyle, ionFocus, ionBlur] },] },
     ];
     /** @nocollapse */
     Range.ctorParameters = function () { return [
@@ -67265,10 +67258,10 @@ var Scroll = /** @class */ (function () {
 var Searchbar = /** @class */ (function () {
     function Searchbar(r) {
         inputs(this, r, [color, mode, animated, autocomplete, autocorrect, cancelButtonText, debounce, placeholder, showCancelButton, spellcheck, type, value]);
-        outputs(this, [ionInput, ionCancel, ionClear, ionBlur, ionFocus]);
+        outputs(this, [ionInput, ionChange, ionCancel, ionClear, ionBlur, ionFocus]);
     }
     Searchbar.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-searchbar', inputs: [color, mode, animated, autocomplete, autocorrect, cancelButtonText, debounce, placeholder, showCancelButton, spellcheck, type, value], outputs: [ionInput, ionCancel, ionClear, ionBlur, ionFocus] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-searchbar', inputs: [color, mode, animated, autocomplete, autocorrect, cancelButtonText, debounce, placeholder, showCancelButton, spellcheck, type, value], outputs: [ionInput, ionChange, ionCancel, ionClear, ionBlur, ionFocus] },] },
     ];
     /** @nocollapse */
     Searchbar.ctorParameters = function () { return [
@@ -67294,11 +67287,11 @@ var Segment = /** @class */ (function () {
 
 var SegmentButton = /** @class */ (function () {
     function SegmentButton(r) {
-        inputs(this, r, [activated, color, mode, checked, disabled, href, value]);
-        outputs(this, [ionClick]);
+        inputs(this, r, [color, mode, checked, disabled, href, value]);
+        outputs(this, [ionSelect]);
     }
     SegmentButton.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-segment-button', inputs: [activated, color, mode, checked, disabled, href, value], outputs: [ionClick] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-segment-button', inputs: [color, mode, checked, disabled, href, value], outputs: [ionSelect] },] },
     ];
     /** @nocollapse */
     SegmentButton.ctorParameters = function () { return [
@@ -67353,10 +67346,10 @@ var SelectPopover = /** @class */ (function () {
 
 var ShowWhen = /** @class */ (function () {
     function ShowWhen(r) {
-        inputs(this, r, [orientation, mediaQuery, size, mode, platform, or]);
+        inputs(this, r, [orientation, mediaQuery, size, platform, or]);
     }
     ShowWhen.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-show-when', inputs: [orientation, mediaQuery, size, mode, platform, or] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-show-when', inputs: [orientation, mediaQuery, size, platform, or] },] },
     ];
     /** @nocollapse */
     ShowWhen.ctorParameters = function () { return [
@@ -67454,10 +67447,10 @@ var Tabs = /** @class */ (function () {
     function Tabs(r) {
         methods(this, r, [select, setRouteId, getRouteId, getTab, getSelected]);
         inputs(this, r, [color, name, tabbarHidden, tabbarLayout, tabbarPlacement, tabbarHighlight, translucent, scrollable, useRouter]);
-        outputs(this, [ionChange, ionNavWillChange, ionNavDidChange]);
+        outputs(this, [ionChange, ionNavWillLoad, ionNavWillChange, ionNavDidChange]);
     }
     Tabs.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-tabs', inputs: [color, name, tabbarHidden, tabbarLayout, tabbarPlacement, tabbarHighlight, translucent, scrollable, useRouter], outputs: [ionChange, ionNavWillChange, ionNavDidChange] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-tabs', inputs: [color, name, tabbarHidden, tabbarLayout, tabbarPlacement, tabbarHighlight, translucent, scrollable, useRouter], outputs: [ionChange, ionNavWillLoad, ionNavWillChange, ionNavDidChange] },] },
     ];
     /** @nocollapse */
     Tabs.ctorParameters = function () { return [
@@ -67483,10 +67476,10 @@ var Text = /** @class */ (function () {
 var Textarea = /** @class */ (function () {
     function Textarea(r) {
         inputs(this, r, [autocapitalize, autocomplete, autofocus, clearOnEdit, debounce, disabled, maxlength, minlength, name, placeholder, readonly, required, spellcheck, cols, rows, wrap, value]);
-        outputs(this, [ionInput, ionStyle, ionBlur, ionFocus]);
+        outputs(this, [ionChange, ionInput, ionStyle, ionBlur, ionFocus]);
     }
     Textarea.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-textarea', inputs: [autocapitalize, autocomplete, autofocus, clearOnEdit, debounce, disabled, maxlength, minlength, name, placeholder, readonly, required, spellcheck, cols, rows, wrap, value], outputs: [ionInput, ionStyle, ionBlur, ionFocus] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: 'ion-textarea', inputs: [autocapitalize, autocomplete, autofocus, clearOnEdit, debounce, disabled, maxlength, minlength, name, placeholder, readonly, required, spellcheck, cols, rows, wrap, value], outputs: [ionChange, ionInput, ionStyle, ionBlur, ionFocus] },] },
     ];
     /** @nocollapse */
     Textarea.ctorParameters = function () { return [
@@ -67772,7 +67765,7 @@ var VirtualContext = /** @class */ (function () {
 /*!***************************************************!*\
   !*** ./node_modules/@ionic/angular/dist/index.js ***!
   \***************************************************/
-/*! exports provided: IonicModule, App, Avatar, BackButton, Badge, Button, Buttons, Card, CardContent, CardHeader, CardSubtitle, CardTitle, Checkbox, Chip, ChipButton, Col, Content, Datetime, Fab, FabButton, FabList, Footer, Grid, Header, HideWhen, InfiniteScroll, InfiniteScrollContent, Input, Item, ItemDivider, ItemGroup, ItemOption, ItemOptions, ItemSliding, Label, List, ListHeader, Menu, MenuButton, MenuToggle, Nav, NavPop, NavPush, NavSetRoot, Note, Radio, RadioGroup, Range, Refresher, RefresherContent, Reorder, ReorderGroup, RippleEffect, Row, Scroll, Searchbar, Segment, SegmentButton, Select, SelectOption, SelectPopover, ShowWhen, SkeletonText, Slide, Slides, Spinner, SplitPane, Tab, Tabs, Text, Textarea, Thumbnail, Toggle, Toolbar, ToolbarTitle, BooleanValueAccessor, NumericValueAccessor, RadioValueAccessor, SelectValueAccessor, TextValueAccessor, RouterDirection, IonBackButton, NavDelegate, TabDelegate, TabsDelegate, IonRouterOutlet, HrefDelegate, NavParams, Icon, VirtualScroll, VirtualItem, VirtualHeader, VirtualFooter, AngularDelegate, ActionSheetController, AlertController, Events, LoadingController, MenuController, PickerController, ModalController, Platform, PopoverController, ToastController, NavController, DomController, IonicRouteStrategy */
+/*! exports provided: IonicModule, App, Avatar, BackButton, Badge, Button, Buttons, Card, CardContent, CardHeader, CardSubtitle, CardTitle, Checkbox, Chip, ChipButton, Col, Content, Datetime, Fab, FabButton, FabList, Footer, Grid, Header, HideWhen, InfiniteScroll, InfiniteScrollContent, Input, Item, ItemDivider, ItemGroup, ItemOption, ItemOptions, ItemSliding, Label, List, ListHeader, Menu, MenuButton, MenuToggle, Nav, NavPop, NavPush, NavSetRoot, Note, Radio, RadioGroup, Range, Refresher, RefresherContent, Reorder, ReorderGroup, RippleEffect, Row, Scroll, Searchbar, Segment, SegmentButton, Select, SelectOption, SelectPopover, ShowWhen, SkeletonText, Slide, Slides, Spinner, SplitPane, Tab, Tabs, Text, Textarea, Thumbnail, Toggle, Toolbar, ToolbarTitle, BooleanValueAccessor, NumericValueAccessor, RadioValueAccessor, SelectValueAccessor, TextValueAccessor, RouterDirection, IonBackButton, NavDelegate, TabDelegate, TabsDelegate, IonRouterOutlet, HrefDelegate, NavParams, Icon, VirtualScroll, VirtualItem, VirtualHeader, VirtualFooter, AngularDelegate, ActionSheetController, AlertController, Events, LoadingController, MenuController, PickerController, ModalController, Platform, PopoverController, ToastController, NavController, DomController, Config, IonicRouteStrategy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67993,6 +67986,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomController", function() { return _providers__WEBPACK_IMPORTED_MODULE_3__["DomController"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Config", function() { return _providers__WEBPACK_IMPORTED_MODULE_3__["Config"]; });
+
 /* harmony import */ var _util_ionic_router_reuse_strategy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/ionic-router-reuse-strategy */ "./node_modules/@ionic/angular/dist/util/ionic-router-reuse-strategy.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IonicRouteStrategy", function() { return _util_ionic_router_reuse_strategy__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]; });
 
@@ -68062,7 +68057,7 @@ if (Ionic) {
  * (C) Ionic http://ionicframework.com - MIT License
  * Built with http://stenciljs.com
  */
-!function(e,o,i,n,t,s,l,a,r,d,c,m,p,u,b){for((c=e.Ionic=e.Ionic||{}).components=r,(p=r.filter(function(e){return e[2]}).map(function(e){return e[0]})).length&&((m=o.createElement("style")).innerHTML=p.join()+"{visibility:hidden}.hydrated{visibility:inherit}",m.setAttribute("data-styles",""),o.head.insertBefore(m,o.head.firstChild)),c.$r=[],b=d.componentOnReady,d.componentOnReady=function(o){const i=this;function n(e){c.$r?c.$r.push([i,e]):c.componentOnReady(i,e)}return b&&b.call(i),o?n(o):e.Promise?new Promise(n):{then:n}},m=(p=o.querySelectorAll("script")).length-1;m>=0&&!(u=p[m]).src&&!u.hasAttribute("data-resources-url");m--);(p=u.getAttribute("data-resources-url"))&&(t=p),!t&&u.src&&(t=(p=u.src.split("/").slice(0,-1)).join("/")+(p.length?"/":"")+"ionic/"),m=o.createElement("script"),function(e,o,i,n){return!(o.search.indexOf("core=esm")>0)&&(!(!(o.search.indexOf("core=es5")>0||"file:"===o.protocol)&&e.customElements&&e.customElements.define&&e.fetch&&e.CSS&&e.CSS.supports&&e.CSS.supports("color","var(--c)")&&"noModule"in i)||function(e){try{return new Function('import("")'),!1}catch(e){}return!0}())}(e,e.location,m)?m.src=t+"ionic.6dkgpg69.js":(m.src=t+"ionic.9wjwcxzt.js",m.setAttribute("type","module"),m.setAttribute("crossorigin",!0)),m.setAttribute("data-resources-url",t),m.setAttribute("data-namespace","ionic"),o.head.appendChild(m)}(window,document,0,0,0,0,0,0,[["ion-action-sheet",{ios:"5vnig1ps",md:"yrqmxefs"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["buttons",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["header",1,0,1,2],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["subHeader",1,0,"sub-header",2],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"],["ionActionSheetWillDismiss","dispatchCancelHandler"]]],["ion-action-sheet-controller",{ios:"5vnig1ps",md:"yrqmxefs"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionActionSheetWillPresent","actionSheetWillPresent"],["body:ionActionSheetWillDismiss","actionSheetWillDismiss"],["body:ionActionSheetDidUnload","actionSheetWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-alert",{ios:"rqedpdpx",md:"zpimwq5z"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["buttons",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["header",1,0,1,2],["inputs",2],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["message",1,0,1,2],["mode",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["subHeader",1,0,"sub-header",2],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"],["ionAlertWillDismiss","dispatchCancelHandler"]]],["ion-alert-controller",{ios:"rqedpdpx",md:"zpimwq5z"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionAlertWillPresent","alertWillPresent"],["body:ionAlertWillDismiss","alertWillDismiss"],["body:ionAlertDidUnload","alertWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-anchor","uk48bcyp",0,[["href",1,0,1,2],["routerDirection",1,0,"router-direction",2]]],["ion-animation-controller","h7hla8uh",0,[["create",6]]],["ion-app",{ios:"nipuzrpd",md:"i0feqxss"},1,[["config",3,0,0,0,"config"],["el",7]]],["ion-avatar",{ios:"r1bocw4w",md:"tapajnfv"},1],["ion-back-button",{ios:"7okrijvt",md:"hutjmhsn"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["defaultHref",1,0,"default-href",2],["el",7],["icon",1,0,1,2],["mode",1,0,1,2],["text",1,0,1,2]]],["ion-backdrop",{ios:"eip2ngpw",md:"crrjyduq"},1,[["stopPropagation",1,0,"stop-propagation",3],["tappable",1,0,1,3],["visible",1,0,1,3]],0,[["touchstart","onTouchStart",0,0,1],["mousedown","onMouseDown",0,0,1]]],["ion-badge",{ios:"r1bocw4w",md:"tapajnfv"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-button",{ios:"anjhvirj",md:"sb7ktl9a"},1,[["buttonType",2,0,"button-type",2],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["expand",1,0,1,2],["fill",1,0,1,2],["href",1,0,1,2],["keyFocus",5],["mode",1,0,1,2],["round",1,0,1,3],["routerDirection",1,0,"router-direction",2],["size",1,0,1,2],["strong",1,0,1,3],["type",1,0,1,2]]],["ion-buttons","1duv9bkw"],["ion-card",{ios:"hdaynwjk",md:"2ywa2upj"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-card-content",{ios:"hdaynwjk",md:"2ywa2upj"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-card-header",{ios:"hdaynwjk",md:"2ywa2upj"},1,[["color",1,0,1,2],["mode",1,0,1,2],["translucent",1,0,1,3]]],["ion-card-subtitle",{ios:"hdaynwjk",md:"2ywa2upj"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-card-title",{ios:"hdaynwjk",md:"2ywa2upj"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-checkbox",{ios:"eiscjzz5",md:"500j8gni"},1,[["checked",2,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["keyFocus",5],["mode",1,0,1,2],["name",2,0,1,2],["value",1,0,1,2]]],["ion-chip",{ios:"tdvqcpjn",md:"05sk5cch"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-chip-button",{ios:"tdvqcpjn",md:"05sk5cch"},1,[["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["fill",1,0,1,2],["href",1,0,1,2],["mode",1,0,1,2]]],["ion-col",{ios:"hlfan8ma",md:"1p6hiyxe"}],["ion-content",{ios:"nipuzrpd",md:"i0feqxss"},1,[["config",3,0,0,0,"config"],["el",7],["forceOverscroll",1,0,"force-overscroll",3],["fullscreen",1,0,1,3],["queue",3,0,0,0,"queue"],["scrollByPoint",6],["scrollEnabled",1,0,"scroll-enabled",3],["scrollEvents",1,0,"scroll-events",3],["scrollToBottom",6],["scrollToPoint",6],["scrollToTop",6]],0,[["body:ionNavDidChange","onNavChanged"]]],["ion-cordova-platform","lpfgymov",0,[["exitCordovaApp",6],["ready",6]],0,[["document:deviceready","deviceReadyHandler"],["body:exitApp","exitCordovaApp"]]],["ion-datetime",{ios:"k5gwsye8",md:"ptcuhrtb"},1,[["cancelText",1,0,"cancel-text",2],["dayNames",1,0,"day-names",2],["dayShortNames",1,0,"day-short-names",2],["dayValues",1,0,"day-values",2],["disabled",1,0,1,3],["displayFormat",1,0,"display-format",2],["doneText",1,0,"done-text",2],["hourValues",1,0,"hour-values",2],["max",2,0,1,2],["min",2,0,1,2],["minuteValues",1,0,"minute-values",2],["monthNames",1,0,"month-names",2],["monthShortNames",1,0,"month-short-names",2],["monthValues",1,0,"month-values",2],["pickerCtrl",4,0,0,0,"ion-picker-controller"],["pickerFormat",1,0,"picker-format",2],["pickerOptions",1],["placeholder",1,0,1,2],["text",5],["value",2,0,1,2],["yearValues",1,0,"year-values",2]]],["ion-fab",{ios:"lzdcfgi8",md:"y4xvtxz3"},1,[["activated",2,0,1,3],["close",6],["edge",1,0,1,3],["el",7],["horizontal",1,0,1,2],["vertical",1,0,1,2]],0,[["click","onClick"]]],["ion-fab-button",{ios:"lzdcfgi8",md:"y4xvtxz3"},1,[["activated",1,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["href",1,0,1,2],["mode",1,0,1,2],["show",1,0,1,3],["translucent",1,0,1,3]]],["ion-fab-list",{ios:"lzdcfgi8",md:"y4xvtxz3"},1,[["activated",1,0,1,3],["el",7],["side",1,0,1,2]]],["ion-footer",{ios:"nipuzrpd",md:"i0feqxss"},1,[["translucent",1,0,1,3]]],["ion-gesture","tsfnfeq5",0,[["attachTo",1,0,"attach-to",2],["autoBlockAll",1,0,"auto-block-all",3],["canStart",1],["direction",1,0,1,2],["disableScroll",1,0,"disable-scroll",3],["disabled",1,0,1,3],["enableListener",3,0,0,0,"enableListener"],["gestureCtrl",4,0,0,0,"ion-gesture-controller"],["gestureName",1,0,"gesture-name",2],["gesturePriority",1,0,"gesture-priority",4],["maxAngle",1,0,"max-angle",4],["notCaptured",1],["onEnd",1],["onMove",1],["onPress",1],["onStart",1],["onWillStart",1],["passive",1,0,1,3],["queue",3,0,0,0,"queue"],["threshold",1,0,1,4],["type",1,0,1,2]],0,[["touchstart","onTouchStart",1,1],["mousedown","onMouseDown",1,1],["touchmove","onTouchMove",1,1],["document:mousemove","onMoveMove",1,1],["touchcancel","onTouchCancel",1,1],["touchend","onTouchCancel",1,1],["document:mouseup","onMouseUp",1,1]]],["ion-gesture-controller","tsfnfeq5",0,[["create",6],["createBlocker",6]]],["ion-grid",{ios:"hlfan8ma",md:"1p6hiyxe"},1],["ion-header",{ios:"nipuzrpd",md:"i0feqxss"},1,[["translucent",1,0,1,3]]],["ion-hide-when","ocwni7t1",1,[["calculatedPlatforms",3,0,0,0,"platforms"],["config",3,0,0,0,"config"],["element",7],["mediaQuery",1,0,"media-query",2],["mode",1,0,1,2],["or",1,0,1,3],["orientation",1,0,1,2],["passesTest",5],["platform",1,0,1,2],["size",1,0,1,2]],0,[["window:resize","componentWillLoad",0,1]]],["ion-icon","kbsihpqb",1,[["ariaLabel",1,0,1,2],["color",1,0,1,2],["ios",1,0,1,2],["isServer",3,0,0,0,"isServer"],["md",1,0,1,2],["mode",3,0,0,0,"mode"],["name",1,0,1,2],["publicPath",3,0,0,0,"publicPath"],["size",1,0,1,2],["svgContent",5]]],["ion-infinite-scroll",{ios:"opu2inx3",md:"fq2lqub4"},1,[["complete",6],["disabled",1,0,1,3],["el",7],["enableListener",3,0,0,0,"enableListener"],["isLoading",5],["position",1,0,1,2],["queue",3,0,0,0,"queue"],["threshold",1,0,1,2],["waitFor",6]],0,[["scroll","onScroll",1,1]]],["ion-infinite-scroll-content",{ios:"opu2inx3",md:"fq2lqub4"},1,[["config",3,0,0,0,"config"],["loadingSpinner",2,0,"loading-spinner",2],["loadingText",1,0,"loading-text",2]]],["ion-input",{ios:"q6q59u9a",md:"zzfpj1vu"},1,[["accept",1,0,1,2],["autocapitalize",1,0,1,2],["autocomplete",1,0,1,2],["autocorrect",1,0,1,2],["autofocus",1,0,1,3],["checked",1,0,1,3],["clearInput",1,0,"clear-input",3],["clearOnEdit",2,0,"clear-on-edit",3],["debounce",1,0,1,4],["disabled",1,0,1,3],["el",7],["inputmode",1,0,1,2],["max",1,0,1,2],["maxlength",1,0,1,4],["min",1,0,1,2],["minlength",1,0,1,4],["multiple",1,0,1,3],["name",1,0,1,2],["pattern",1,0,1,2],["placeholder",1,0,1,2],["readonly",1,0,1,3],["required",1,0,1,3],["results",1,0,1,4],["size",1,0,1,4],["spellcheck",1,0,1,3],["step",1,0,1,2],["type",1,0,1,2],["value",2,0,1,2]]],["ion-input-shims","si5bu5eb",0,[["config",3,0,0,0,"config"]],0,[["body:ionInputDidLoad","onInputDidLoad"],["body:ionInputDidUnload","onInputDidUnload"]]],["ion-item",{ios:"20xmt7ue",md:"nateq86y"},1,[["button",1,0,1,3],["color",1,0,1,2],["detail",1,0,1,3],["disabled",1,0,1,3],["el",7],["href",1,0,1,2],["mode",1,0,1,2],["routerDirection",1,0,"router-direction",2]],0,[["ionStyle","itemStyle"]]],["ion-item-divider",{ios:"20xmt7ue",md:"nateq86y"},1,[["color",1,0,1,2],["el",7],["mode",1,0,1,2]]],["ion-item-group",{ios:"20xmt7ue",md:"nateq86y"},1],["ion-item-option",{ios:"mvinsjbv",md:"mwppwnj3"},1,[["color",1,0,1,2],["disabled",1,0,1,3],["expandable",1,0,1,3],["href",1,0,1,2],["mode",1,0,1,2]]],["ion-item-options",{ios:"mvinsjbv",md:"mwppwnj3"},1,[["el",7],["fireSwipeEvent",6],["isRightSide",6],["side",1,0,1,2],["width",6]]],["ion-item-sliding",{ios:"mvinsjbv",md:"mwppwnj3"},1,[["close",6],["closeOpened",6],["el",7],["getOpenAmount",6],["getSlidingRatio",6],["state",5]]],["ion-label",{ios:"20xmt7ue",md:"nateq86y"},1,[["color",1,0,1,2],["el",7],["getText",6],["mode",1,0,1,2],["position",1,0,1,2]]],["ion-list",{ios:"20xmt7ue",md:"nateq86y"},1,[["closeSlidingItems",6],["getOpenItem",6],["setOpenItem",6]]],["ion-list-header",{ios:"20xmt7ue",md:"nateq86y"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-loading",{ios:"oewbjsut",md:"iwdopilj"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["config",3,0,0,0,"config"],["content",1,0,1,2],["cssClass",1,0,"css-class",2],["dismiss",6],["dismissOnPageChange",1,0,"dismiss-on-page-change",3],["duration",1,0,1,4],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["spinner",1,0,1,2],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"]]],["ion-loading-controller",{ios:"oewbjsut",md:"iwdopilj"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionLoadingWillPresent","loadingWillPresent"],["body:ionLoadingWillDismiss","loadingWillDismiss"],["body:ionLoadingDidUnload","loadingWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-menu",{ios:"ssxmbjhp",md:"qkooat5f"},1,[["close",6],["config",3,0,0,0,"config"],["contentId",1,0,"content-id",2],["disabled",2,0,1,3],["el",7],["enableListener",3,0,0,0,"enableListener"],["isActive",6],["isOpen",6],["isRightSide",5],["isServer",3,0,0,0,"isServer"],["lazyMenuCtrl",4,0,0,0,"ion-menu-controller"],["maxEdgeStart",1,0,"max-edge-start",4],["menuId",1,0,"menu-id",2],["open",6],["persistent",1,0,1,3],["setOpen",6],["side",1,0,1,2],["swipeEnabled",1,0,"swipe-enabled",3],["toggle",6],["type",2,0,1,2]],0,[["body:ionSplitPaneVisible","splitPaneChanged"],["body:click","onBackdropClick",1,0,1]]],["ion-menu-button",{ios:"ssxmbjhp",md:"qkooat5f"},1,[["autoHide",1,0,"auto-hide",3],["config",3,0,0,0,"config"],["el",7],["menu",1,0,1,2]]],["ion-menu-controller",{ios:"ssxmbjhp",md:"qkooat5f"},0,[["_register",6],["_setActiveMenu",6],["_setOpen",6],["_unregister",6],["animationCtrl",4,0,0,0,"ion-animation-controller"],["close",6],["createAnimation",6],["enable",6],["get",6],["getMenus",6],["getOpen",6],["isAnimating",6],["isEnabled",6],["isOpen",6],["open",6],["registerAnimation",6],["swipeEnable",6],["toggle",6]]],["ion-menu-toggle",{ios:"ssxmbjhp",md:"qkooat5f"},1,[["autoHide",1,0,"auto-hide",3],["menu",1,0,1,2],["visible",5]],0,[["child:click","onClick"],["body:ionMenuChange","updateVisibility"],["body:ionSplitPaneVisible","updateVisibility"]]],["ion-modal",{ios:"ejr5uetb",md:"ihqfl2ep"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["color",1,0,1,2],["component",1,0,1,2],["componentProps",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["delegate",1],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["mode",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["willAnimate",1,0,"will-animate",3]],0,[["ionDismiss","onDismiss"],["ionBackdropTap","onBackdropTap"],["ionModalDidPresent","lifecycle"],["ionModalWillPresent","lifecycle"],["ionModalWillDismiss","lifecycle"],["ionModalDidDismiss","lifecycle"]]],["ion-modal-controller",{ios:"ejr5uetb",md:"ihqfl2ep"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionModalWillPresent","modalWillPresent"],["body:ionModalWillDismiss","modalWillDismiss"],["body:ionModalDidUnload","modalWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-nav","y9gygmgs",0,[["animated",2,0,1,3],["animationCtrl",4,0,0,0,"ion-animation-controller"],["canGoBack",6],["config",3,0,0,0,"config"],["delegate",1],["el",7],["getActive",6],["getByIndex",6],["getPrevious",6],["getRouteId",6],["insert",6],["insertPages",6],["length",6],["pop",6],["popTo",6],["popToRoot",6],["push",6],["queue",3,0,0,0,"queue"],["removeIndex",6],["root",1,0,1,2],["rootParams",1],["setPages",6],["setRoot",6],["setRouteId",6],["swipeBackEnabled",2,0,"swipe-back-enabled",3],["win",3,0,0,0,"window"]]],["ion-nav-pop","nzjvoog0",0,[["el",7]],0,[["child:click","pop"]]],["ion-nav-push","dxuprlqs",0,[["component",1,0,1,2],["componentProps",1],["el",7],["url",1,0,1,2]],0,[["child:click","push"]]],["ion-nav-set-root","6dug2jdb",0,[["component",1,0,1,2],["componentProps",1],["el",7],["url",1,0,1,2]],0,[["child:click","push"]]],["ion-note",{ios:"fccmbelk",md:"nh4hjssz"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-picker",{ios:"k5gwsye8",md:"ptcuhrtb"},1,[["addButton",6],["addColumn",6],["animationCtrl",4,0,0,0,"ion-animation-controller"],["buttons",1],["columns",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["duration",1,0,1,4],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["getColumn",6],["getColumns",6],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["showSpinner",5],["spinner",5],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"]]],["ion-picker-column",{ios:"k5gwsye8",md:"ptcuhrtb"},0,[["col",1],["el",7],["queue",3,0,0,0,"queue"]]],["ion-picker-controller",{ios:"k5gwsye8",md:"ptcuhrtb"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionPickerWillPresent","pickerWillPresent"],["body:ionPickerWillDismiss","pickerWillDismiss"],["body:ionPickerDidUnload","pickerWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-platform","lpfgymov",0,[["_platforms",3,0,0,0,"platforms"],["el",7],["getQueryParam",6],["is",6],["isLandscape",6],["isPortrait",6],["platforms",6],["readQueryParam",3,0,0,0,"readQueryParam"],["ready",6],["versions",6]]],["ion-popover",{ios:"rd4hgggc",md:"e38j9iwa"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["color",1,0,1,2],["component",1,0,1,2],["componentProps",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["delegate",1],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["ev",1,0,1,1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["mode",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionDismiss","onDismiss"],["ionBackdropTap","onBackdropTap"],["ionPopoverDidPresent","lifecycle"],["ionPopoverWillPresent","lifecycle"],["ionPopoverWillDismiss","lifecycle"],["ionPopoverDidDismiss","lifecycle"]]],["ion-popover-controller",{ios:"rd4hgggc",md:"e38j9iwa"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionPopoverWillPresent","popoverWillPresent"],["body:ionPopoverWillDismiss","popoverWillDismiss"],["body:ionPopoverDidUnload","popoverWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-radio",{ios:"19xzoseg",md:"dlful6u8"},1,[["checked",2,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["keyFocus",5],["mode",1,0,1,2],["name",1,0,1,2],["value",2,0,1,2]]],["ion-radio-group",{ios:"19xzoseg",md:"dlful6u8"},0,[["allowEmptySelection",1,0,"allow-empty-selection",3],["disabled",1,0,1,3],["el",7],["labelId",5],["name",2,0,1,2],["value",2,0,1,2]],0,[["ionRadioDidLoad","onRadioDidLoad"],["ionRadioDidUnload","onRadioDidUnload"],["ionSelect","onRadioSelect"]]],["ion-range",{ios:"ycycymvi",md:"wkgtqq2q"},1,[["activeB",5],["barL",5],["barR",5],["color",1,0,1,2],["debounce",1,0,1,4],["disabled",1,0,1,3],["dualKnobs",1,0,"dual-knobs",3],["el",7],["max",1,0,1,4],["min",1,0,1,4],["mode",1,0,1,2],["pin",1,0,1,3],["pressed",5],["pressedA",5],["pressedB",5],["ratio",6],["ratioA",5],["ratioB",5],["ratioUpper",6],["rect",5],["snaps",1,0,1,3],["step",1,0,1,4],["ticks",5],["valA",5],["valB",5],["value",2,0,1,1]],0,[["ionIncrease","keyChng"],["ionDecrease","keyChng"]]],["ion-range-knob",{ios:"ycycymvi",md:"wkgtqq2q"},0,[["disabled",1,0,1,3],["knob",1,0,1,2],["labelId",1,0,"label-id",2],["max",1,0,1,4],["min",1,0,1,4],["pin",1,0,1,3],["pressed",1,0,1,3],["ratio",1,0,1,4],["val",1,0,1,4]],0,[["keydown","handleKeyBoard"]]],["ion-refresher",{ios:"wfbnouhb",md:"bb0jq00y"},1,[["cancel",6],["closeDuration",1,0,"close-duration",2],["complete",6],["disabled",1,0,1,3],["el",7],["getProgress",6],["pullMax",1,0,"pull-max",4],["pullMin",1,0,"pull-min",4],["queue",3,0,0,0,"queue"],["snapbackDuration",1,0,"snapback-duration",2],["state",5]]],["ion-refresher-content",{ios:"wfbnouhb",md:"bb0jq00y"},0,[["config",3,0,0,0,"config"],["pullingIcon",2,0,"pulling-icon",2],["pullingText",1,0,"pulling-text",2],["refreshingSpinner",2,0,"refreshing-spinner",2],["refreshingText",1,0,"refreshing-text",2]]],["ion-reorder",{ios:"jnqj1nny",md:"zrwrqkmq"},1,[["el",7]]],["ion-reorder-group",{ios:"jnqj1nny",md:"zrwrqkmq"},1,[["activated",5],["disabled",1,0,1,3],["el",7],["enabled",5],["iconVisible",5],["queue",3,0,0,0,"queue"]]],["ion-ripple-effect","vdnx9agp",1,[["addRipple",6],["el",7],["enableListener",3,0,0,0,"enableListener"],["queue",3,0,0,0,"queue"],["tapClick",1,0,"tap-click",3]],0,[["parent:ionActivated","ionActivated",1],["touchstart","touchStart",1,1],["mousedown","mouseDown",1,1]]],["ion-route","qhjpqa5e",0,[["component",1,0,1,2],["componentProps",1],["url",1,0,1,2]]],["ion-route-redirect","qhjpqa5e",0,[["from",1,0,1,2],["to",1,0,1,2]]],["ion-router","qhjpqa5e",0,[["base",1,0,1,2],["config",3,0,0,0,"config"],["el",7],["navChanged",6],["push",6],["queue",3,0,0,0,"queue"],["useHash",1,0,"use-hash",3]],0,[["ionRouteRedirectChanged","onRedirectChanged"],["ionRouteDataChanged","onRoutesChanged"],["window:popstate","onPopState"]]],["ion-router-outlet","f34exkj2",0,[["animated",2,0,1,3],["animationBuilder",1],["animationCtrl",4,0,0,0,"ion-animation-controller"],["commit",6],["config",3,0,0,0,"config"],["delegate",1],["el",7],["getRouteId",6],["setRoot",6],["setRouteId",6],["window",3,0,0,0,"window"]]],["ion-row",{ios:"hlfan8ma",md:"1p6hiyxe"}],["ion-scroll",{ios:"nipuzrpd",md:"i0feqxss"},1,[["config",3,0,0,0,"config"],["el",7],["forceOverscroll",2,0,"force-overscroll",3],["mode",1,0,1,2],["queue",3,0,0,0,"queue"],["scrollByPoint",6],["scrollEvents",1,0,"scroll-events",3],["scrollToBottom",6],["scrollToPoint",6],["scrollToTop",6]],0,[["scroll","onScroll",0,1]]],["ion-searchbar",{ios:"vsf6ssvm",md:"csds5ien"},1,[["activated",5],["animated",1,0,1,3],["autocomplete",1,0,1,2],["autocorrect",1,0,1,2],["cancelButtonText",1,0,"cancel-button-text",2],["color",1,0,1,2],["debounce",1,0,1,4],["el",7],["focused",5],["mode",1,0,1,2],["placeholder",1,0,1,2],["showCancelButton",1,0,"show-cancel-button",3],["spellcheck",1,0,1,3],["type",1,0,1,2],["value",2,0,1,2]]],["ion-segment",{ios:"jp44mxcl",md:"fh80iqgs"},1,[["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["mode",1,0,1,2],["value",2,0,1,2]],0,[["ionClick","segmentClick"]]],["ion-segment-button",{ios:"jp44mxcl",md:"fh80iqgs"},1,[["activated",2,0,1,3],["checked",1,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["href",1,0,1,2],["mode",1,0,1,2],["value",2,0,1,2]]],["ion-select",{ios:"91fzmvgy",md:"wgm3zo86"},1,[["actionSheetCtrl",4,0,0,0,"ion-action-sheet-controller"],["alertCtrl",4,0,0,0,"ion-alert-controller"],["cancelText",1,0,"cancel-text",2],["disabled",1,0,1,3],["el",7],["interface",1,0,1,2],["interfaceOptions",1,0,"interface-options",1],["isExpanded",5],["keyFocus",5],["multiple",1,0,1,3],["name",2,0,1,2],["okText",1,0,"ok-text",2],["placeholder",1,0,1,2],["popoverCtrl",4,0,0,0,"ion-popover-controller"],["selectedText",1,0,"selected-text",2],["text",5],["value",2,0,1,2]],0,[["ionSelectOptionDidLoad","optLoad"],["ionSelectOptionDidUnload","optUnload"],["ionSelect","onSelect"]]],["ion-select-option",{ios:"91fzmvgy",md:"wgm3zo86"},0,[["disabled",1,0,1,3],["el",7],["selected",2,0,1,3],["value",2,0,1,2]]],["ion-select-popover",{ios:"91fzmvgy",md:"wgm3zo86"},0,[["header",1,0,1,2],["message",1,0,1,2],["options",1],["subHeader",1,0,"sub-header",2]],0,[["ionSelect","onSelect"]]],["ion-show-when","ocwni7t1",1,[["calculatedPlatforms",3,0,0,0,"platforms"],["config",3,0,0,0,"config"],["element",7],["mediaQuery",1,0,"media-query",2],["mode",1,0,1,2],["or",1,0,1,3],["orientation",1,0,1,2],["passesTest",5],["platform",1,0,1,2],["size",1,0,1,2]],0,[["window:resize","componentWillLoad",0,1]]],["ion-skeleton-text",{ios:"20xmt7ue",md:"nateq86y"},1,[["width",1,0,1,2]]],["ion-slide",{ios:"wp4ov8c1",md:"on0vweat"},1],["ion-slides",{ios:"wp4ov8c1",md:"on0vweat"},1,[["el",7],["getActiveIndex",6],["getPreviousIndex",6],["isBeginning",6],["isEnd",6],["length",6],["lockSwipeToNext",6],["lockSwipeToPrev",6],["lockSwipes",6],["options",1,0,1,1],["pager",1,0,1,3],["slideNext",6],["slidePrev",6],["slideTo",6],["startAutoplay",6],["stopAutoplay",6],["update",6]]],["ion-spinner",{ios:"lulthoux",md:"sko0vzyv"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["duration",1,0,1,4],["mode",1,0,1,2],["name",1,0,1,2],["paused",1,0,1,3]]],["ion-split-pane",{ios:"lzcw2nvj",md:"tzjjlmvl"},1,[["disabled",1,0,1,3],["el",7],["isPane",6],["isServer",3,0,0,0,"isServer"],["isVisible",6],["visible",5],["when",1,0,1,2]]],["ion-status-tap","jlnjift8",0,[["duration",1,0,1,4],["queue",3,0,0,0,"queue"]],0,[["window:statusTap","onStatusTap"]]],["ion-tab",{ios:"emackhy2",md:"cbvrjgq3"},0,[["active",2,0,1,3],["badge",1,0,1,2],["badgeStyle",1,0,"badge-style",2],["btnId",1,0,"btn-id",2],["component",1,0,1,2],["delegate",1],["disabled",1,0,1,3],["el",7],["getTabId",6],["href",1,0,1,2],["icon",1,0,1,2],["label",1,0,1,2],["name",1,0,1,2],["selected",2,0,1,3],["setActive",6],["show",1,0,1,3],["tabsHideOnSubPages",1,0,"tabs-hide-on-sub-pages",3]]],["ion-tab-button",{ios:"emackhy2",md:"cbvrjgq3"},1,[["el",7],["keyFocus",5],["selected",1,0,1,3],["tab",1]],0,[["click","onClick"]]],["ion-tabbar",{ios:"emackhy2",md:"cbvrjgq3"},1,[["canScrollLeft",5],["canScrollRight",5],["el",7],["hidden",5],["highlight",1,0,1,3],["layout",1,0,1,2],["placement",1,0,1,2],["queue",3,0,0,0,"queue"],["scrollable",1,0,1,3],["selectedTab",1],["tabs",1],["translucent",1,0,1,3]],0,[["body:keyboardWillHide","onKeyboardWillHide"],["body:keyboardWillShow","onKeyboardWillShow"],["window:resize","onResize",0,1],["ionTabButtonDidLoad","onTabButtonLoad"],["ionTabButtonDidUnload","onTabButtonLoad"]]],["ion-tabs",{ios:"emackhy2",md:"cbvrjgq3"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["el",7],["getRouteId",6],["getSelected",6],["getTab",6],["name",1,0,1,2],["scrollable",1,0,1,3],["select",6],["selectedTab",5],["setRouteId",6],["tabbarHidden",1,0,"tabbar-hidden",3],["tabbarHighlight",2,0,"tabbar-highlight",3],["tabbarLayout",2,0,"tabbar-layout",2],["tabbarPlacement",2,0,"tabbar-placement",2],["tabs",5],["translucent",1,0,1,3],["useRouter",2,0,"use-router",3]],0,[["ionTabbarClick","tabChange"]]],["ion-tap-click",{ios:"nipuzrpd",md:"i0feqxss"},0,[["el",7],["enableListener",3,0,0,0,"enableListener"],["isServer",3,0,0,0,"isServer"]],0,[["body:click","onBodyClick",0,0,1],["document:touchstart","onTouchStart",0,1,1],["document:touchcancel","onTouchEnd",0,0,1],["document:touchend","onTouchEnd",0,0,1],["document:mousedown","onMouseDown",0,1,1],["document:mouseup","onMouseUp",0,0,1],["body:ionScrollStart","cancelActive"],["body:ionGestureCaptured","cancelActive"]]],["ion-text",{ios:"ppliw44q",md:"nxgxomj5"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-textarea",{ios:"g1v6du1c",md:"cwjlirip"},1,[["autocapitalize",1,0,1,2],["autocomplete",1,0,1,2],["autofocus",1,0,1,3],["clearOnEdit",2,0,"clear-on-edit",3],["cols",1,0,1,4],["debounce",1,0,1,4],["disabled",1,0,1,3],["el",7],["maxlength",1,0,1,4],["minlength",1,0,1,4],["name",1,0,1,2],["placeholder",1,0,1,2],["readonly",1,0,1,3],["required",1,0,1,3],["rows",1,0,1,4],["spellcheck",1,0,1,3],["value",2,0,1,2],["wrap",1,0,1,2]]],["ion-thumbnail",{ios:"r1bocw4w",md:"tapajnfv"},1],["ion-title",{ios:"nipuzrpd",md:"i0feqxss"},1],["ion-toast",{ios:"kydclqkc",md:"jxywrugl"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["closeButtonText",1,0,"close-button-text",2],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["dismissOnPageChange",1,0,"dismiss-on-page-change",3],["duration",1,0,1,4],["el",7],["enterAnimation",1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["message",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["position",1,0,1,2],["present",6],["showCloseButton",1,0,"show-close-button",3],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionDismiss","onDismiss"]]],["ion-toast-controller",{ios:"kydclqkc",md:"jxywrugl"},0,[["create",6],["dismiss",6],["getTop",6]],0,[["body:ionToastWillPresent","toastWillPresent"],["body:ionToastWillDismiss","toastWillDismiss"],["body:ionToastDidUnload","toastWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-toggle",{ios:"meutkwqd",md:"u6nkmfqt"},1,[["activated",5],["checked",2,0,1,3],["color",1,0,1,2],["disabled",2,0,1,3],["keyFocus",5],["mode",1,0,1,2],["name",2,0,1,2],["value",1,0,1,2]]],["ion-toolbar",{ios:"nipuzrpd",md:"i0feqxss"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["mode",1,0,1,2],["translucent",1,0,1,3]]],["ion-virtual-scroll","vkpvqdfe",1,[["approxFooterHeight",1,0,"approx-footer-height",4],["approxHeaderHeight",1,0,"approx-header-height",4],["approxItemHeight",1,0,"approx-item-height",4],["domRender",1],["el",7],["enableListener",3,0,0,0,"enableListener"],["footerFn",1],["headerFn",1],["itemHeight",1],["itemRender",1],["items",1],["markDirty",6],["markDirtyTail",6],["nodeHeight",1],["positionForItem",6],["queue",3,0,0,0,"queue"],["renderer",1]],0,[["scroll","onScroll",1],["window:resize","onResize",0,1]]]],HTMLElement.prototype);
+!function(e,o,i,n,t,s,l,a,r,d,c,m,u,p,b){for((c=e.Ionic=e.Ionic||{}).components=r,(u=r.filter(function(e){return e[2]}).map(function(e){return e[0]})).length&&((m=o.createElement("style")).innerHTML=u.join()+"{visibility:hidden}.hydrated{visibility:inherit}",m.setAttribute("data-styles",""),o.head.insertBefore(m,o.head.firstChild)),c.$r=[],b=d.componentOnReady,d.componentOnReady=function(o){const i=this;function n(e){c.$r?c.$r.push([i,e]):c.componentOnReady(i,e)}return b&&b.call(i),o?n(o):e.Promise?new Promise(n):{then:n}},m=(u=o.querySelectorAll("script")).length-1;m>=0&&!(p=u[m]).src&&!p.hasAttribute("data-resources-url");m--);(u=p.getAttribute("data-resources-url"))&&(t=u),!t&&p.src&&(t=(u=p.src.split("/").slice(0,-1)).join("/")+(u.length?"/":"")+"ionic/"),m=o.createElement("script"),function(e,o,i,n){return!(o.search.indexOf("core=esm")>0)&&(!(!(o.search.indexOf("core=es5")>0||"file:"===o.protocol)&&e.customElements&&e.customElements.define&&e.fetch&&e.CSS&&e.CSS.supports&&e.CSS.supports("color","var(--c)")&&"noModule"in i)||function(e){try{return new Function('import("")'),!1}catch(e){}return!0}())}(e,e.location,m)?m.src=t+"ionic.kuds4a3l.js":(m.src=t+"ionic.dtdxjdv4.js",m.setAttribute("type","module"),m.setAttribute("crossorigin",!0)),m.setAttribute("data-resources-url",t),m.setAttribute("data-namespace","ionic"),o.head.appendChild(m)}(window,document,0,0,0,0,0,0,[["ion-action-sheet",{ios:"kv1atjbp",md:"chji3lzz"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["buttons",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["header",1,0,1,2],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["subHeader",1,0,"sub-header",2],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"],["ionActionSheetWillDismiss","dispatchCancelHandler"]]],["ion-action-sheet-controller",{ios:"kv1atjbp",md:"chji3lzz"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionActionSheetWillPresent","actionSheetWillPresent"],["body:ionActionSheetWillDismiss","actionSheetWillDismiss"],["body:ionActionSheetDidUnload","actionSheetWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-alert",{ios:"tuetgqdx",md:"nysbrquj"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["buttons",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["header",1,0,1,2],["inputs",2],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["message",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["subHeader",1,0,"sub-header",2],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"],["ionAlertWillDismiss","dispatchCancelHandler"]]],["ion-alert-controller",{ios:"tuetgqdx",md:"nysbrquj"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionAlertWillPresent","alertWillPresent"],["body:ionAlertWillDismiss","alertWillDismiss"],["body:ionAlertDidUnload","alertWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-anchor","ffxoxmjm",0,[["href",1,0,1,2],["routerDirection",1,0,"router-direction",2],["win",3,0,0,0,"window"]]],["ion-animation-controller","fy7ko5ny",0,[["create",6]]],["ion-app",{ios:"oakuqbo0",md:"vb3jtkaj"},1,[["config",3,0,0,0,"config"],["el",7],["win",3,0,0,0,"window"]]],["ion-avatar",{ios:"r1bocw4w",md:"tapajnfv"},1],["ion-back-button",{ios:"m1up39wp",md:"ilxna4zm"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["defaultHref",1,0,"default-href",2],["el",7],["icon",1,0,1,2],["mode",1,0,1,2],["text",1,0,1,2],["win",3,0,0,0,"window"]]],["ion-backdrop",{ios:"9odfdsfd",md:"c2r9nj7j"},1,[["doc",3,0,0,0,"document"],["stopPropagation",1,0,"stop-propagation",3],["tappable",1,0,1,3],["visible",1,0,1,3]],0,[["touchstart","onTouchStart",0,0,1],["mousedown","onMouseDown",0,0,1]]],["ion-badge",{ios:"r1bocw4w",md:"tapajnfv"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-button",{ios:"hiz9v3gy",md:"fb4b8ggs"},1,[["buttonType",2,0,"button-type",2],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["expand",1,0,1,2],["fill",1,0,1,2],["href",1,0,1,2],["keyFocus",5],["mode",1,0,1,2],["round",1,0,1,3],["routerDirection",1,0,"router-direction",2],["size",1,0,1,2],["strong",1,0,1,3],["type",1,0,1,2],["win",3,0,0,0,"window"]]],["ion-buttons","1duv9bkw"],["ion-card",{ios:"g1ccq721",md:"6rguerlo"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-card-content",{ios:"g1ccq721",md:"6rguerlo"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-card-header",{ios:"g1ccq721",md:"6rguerlo"},1,[["color",1,0,1,2],["mode",1,0,1,2],["translucent",1,0,1,3]]],["ion-card-subtitle",{ios:"g1ccq721",md:"6rguerlo"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-card-title",{ios:"g1ccq721",md:"6rguerlo"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-checkbox",{ios:"fwjtwrge",md:"oapt2qis"},1,[["checked",2,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["keyFocus",5],["mode",1,0,1,2],["name",1,0,1,2],["value",1,0,1,2]]],["ion-chip",{ios:"5sru0lts",md:"oofrfjlb"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-chip-button",{ios:"5sru0lts",md:"oofrfjlb"},1,[["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["fill",1,0,1,2],["href",1,0,1,2],["mode",1,0,1,2]]],["ion-col",{ios:"hlfan8ma",md:"1p6hiyxe"}],["ion-content",{ios:"oakuqbo0",md:"vb3jtkaj"},1,[["config",3,0,0,0,"config"],["el",7],["forceOverscroll",1,0,"force-overscroll",3],["fullscreen",1,0,1,3],["queue",3,0,0,0,"queue"],["scrollByPoint",6],["scrollEnabled",1,0,"scroll-enabled",3],["scrollEvents",1,0,"scroll-events",3],["scrollToBottom",6],["scrollToPoint",6],["scrollToTop",6]],0,[["body:ionNavDidChange","onNavChanged"]]],["ion-datetime",{ios:"nribsri2",md:"cjjn9jtn"},1,[["cancelText",1,0,"cancel-text",2],["dayNames",1,0,"day-names",2],["dayShortNames",1,0,"day-short-names",2],["dayValues",1,0,"day-values",1],["disabled",1,0,1,3],["displayFormat",1,0,"display-format",2],["doneText",1,0,"done-text",2],["hourValues",1,0,"hour-values",1],["max",2,0,1,2],["min",2,0,1,2],["minuteValues",1,0,"minute-values",1],["monthNames",1,0,"month-names",2],["monthShortNames",1,0,"month-short-names",2],["monthValues",1,0,"month-values",1],["pickerCtrl",4,0,0,0,"ion-picker-controller"],["pickerFormat",1,0,"picker-format",2],["pickerOptions",1],["placeholder",1,0,1,2],["text",5],["value",2,0,1,2],["yearValues",1,0,"year-values",1]]],["ion-fab",{ios:"1fzatbom",md:"oweylagb"},1,[["activated",2,0,1,3],["close",6],["edge",1,0,1,3],["el",7],["horizontal",1,0,1,2],["vertical",1,0,1,2]],0,[["click","onClick"]]],["ion-fab-button",{ios:"1fzatbom",md:"oweylagb"},1,[["activated",1,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["href",1,0,1,2],["mode",1,0,1,2],["show",1,0,1,3],["translucent",1,0,1,3]]],["ion-fab-list",{ios:"1fzatbom",md:"oweylagb"},1,[["activated",1,0,1,3],["el",7],["side",1,0,1,2]]],["ion-footer",{ios:"oakuqbo0",md:"vb3jtkaj"},1,[["translucent",1,0,1,3]]],["ion-gesture","9yjw80r1",0,[["attachTo",1,0,"attach-to",2],["autoBlockAll",1,0,"auto-block-all",3],["canStart",1],["direction",1,0,1,2],["disableScroll",1,0,"disable-scroll",3],["disabled",1,0,1,3],["enableListener",3,0,0,0,"enableListener"],["gestureCtrl",4,0,0,0,"ion-gesture-controller"],["gestureName",1,0,"gesture-name",2],["gesturePriority",1,0,"gesture-priority",4],["isServer",3,0,0,0,"isServer"],["maxAngle",1,0,"max-angle",4],["notCaptured",1],["onEnd",1],["onMove",1],["onStart",1],["onWillStart",1],["passive",1,0,1,3],["queue",3,0,0,0,"queue"],["threshold",1,0,1,4]],0,[["touchstart","onTouchStart",1,1],["mousedown","onMouseDown",1,1],["touchmove","onTouchMove",1,1],["document:mousemove","onMoveMove",1,1],["touchcancel","onTouchCancel",1,1],["touchend","onTouchCancel",1,1],["document:mouseup","onMouseUp",1,1]]],["ion-gesture-controller","9yjw80r1",0,[["create",6],["createBlocker",6]]],["ion-grid",{ios:"hlfan8ma",md:"1p6hiyxe"},1],["ion-header",{ios:"oakuqbo0",md:"vb3jtkaj"},1,[["translucent",1,0,1,3]]],["ion-hide-when","uc41zbwp",1,[["config",3,0,0,0,"config"],["element",7],["mediaQuery",1,0,"media-query",2],["or",1,0,1,3],["orientation",1,0,1,2],["passesTest",5],["platform",1,0,1,2],["size",1,0,1,2],["win",3,0,0,0,"window"]],0,[["window:resize","onResize",0,1]]],["ion-icon","kbsihpqb",1,[["ariaLabel",1,0,"aria-label",2],["color",1,0,1,2],["ios",1,0,1,2],["isServer",3,0,0,0,"isServer"],["md",1,0,1,2],["mode",3,0,0,0,"mode"],["name",1,0,1,2],["publicPath",3,0,0,0,"publicPath"],["size",1,0,1,2],["svgContent",5]]],["ion-infinite-scroll",{ios:"qulsebje",md:"tkbkkmaa"},1,[["complete",6],["disabled",1,0,1,3],["el",7],["enableListener",3,0,0,0,"enableListener"],["isLoading",5],["position",1,0,1,2],["queue",3,0,0,0,"queue"],["threshold",1,0,1,2],["waitFor",6]],0,[["scroll","onScroll",1,1]]],["ion-infinite-scroll-content",{ios:"qulsebje",md:"tkbkkmaa"},1,[["config",3,0,0,0,"config"],["loadingSpinner",2,0,"loading-spinner",2],["loadingText",1,0,"loading-text",2]]],["ion-input",{ios:"cd04ebrn",md:"hbeyca0m"},1,[["accept",1,0,1,2],["autocapitalize",1,0,1,2],["autocomplete",1,0,1,2],["autocorrect",1,0,1,2],["autofocus",1,0,1,3],["clearInput",1,0,"clear-input",3],["clearOnEdit",2,0,"clear-on-edit",3],["debounce",1,0,1,4],["disabled",1,0,1,3],["el",7],["inputmode",1,0,1,2],["max",1,0,1,2],["maxlength",1,0,1,4],["min",1,0,1,2],["minlength",1,0,1,4],["multiple",1,0,1,3],["name",1,0,1,2],["pattern",1,0,1,2],["placeholder",1,0,1,2],["readonly",1,0,1,3],["required",1,0,1,3],["results",1,0,1,4],["size",1,0,1,4],["spellcheck",1,0,1,3],["step",1,0,1,2],["type",1,0,1,2],["value",2,0,1,2]]],["ion-input-shims","jh5bgkej",0,[["config",3,0,0,0,"config"],["doc",3,0,0,0,"document"]],0,[["body:ionInputDidLoad","onInputDidLoad"],["body:ionInputDidUnload","onInputDidUnload"]]],["ion-item",{ios:"9kgawmxt",md:"owvx169m"},1,[["button",1,0,1,3],["color",1,0,1,2],["detail",1,0,1,3],["disabled",1,0,1,3],["el",7],["href",1,0,1,2],["mode",1,0,1,2],["routerDirection",1,0,"router-direction",2],["win",3,0,0,0,"window"]],0,[["ionStyle","itemStyle"]]],["ion-item-divider",{ios:"9kgawmxt",md:"owvx169m"},1,[["color",1,0,1,2],["el",7],["mode",1,0,1,2]]],["ion-item-group",{ios:"9kgawmxt",md:"owvx169m"},1],["ion-item-option",{ios:"wbsbih9f",md:"mvuwgmwp"},1,[["color",1,0,1,2],["disabled",1,0,1,3],["expandable",1,0,1,3],["href",1,0,1,2],["mode",1,0,1,2]]],["ion-item-options",{ios:"wbsbih9f",md:"mvuwgmwp"},1,[["el",7],["fireSwipeEvent",6],["isRightSide",6],["side",1,0,1,2],["width",6],["win",3,0,0,0,"window"]]],["ion-item-sliding",{ios:"wbsbih9f",md:"mvuwgmwp"},1,[["close",6],["closeOpened",6],["el",7],["getOpenAmount",6],["getSlidingRatio",6],["state",5]]],["ion-label",{ios:"9kgawmxt",md:"owvx169m"},1,[["color",1,0,1,2],["el",7],["getText",6],["mode",1,0,1,2],["position",1,0,1,2]]],["ion-list",{ios:"9kgawmxt",md:"owvx169m"},1,[["closeSlidingItems",6],["getOpenItem",6],["setOpenItem",6]]],["ion-list-header",{ios:"9kgawmxt",md:"owvx169m"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-loading",{ios:"p9mejuok",md:"t2961bud"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["config",3,0,0,0,"config"],["content",1,0,1,2],["cssClass",1,0,"css-class",2],["dismiss",6],["dismissOnPageChange",1,0,"dismiss-on-page-change",3],["duration",1,0,1,4],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["spinner",1,0,1,2],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"]]],["ion-loading-controller",{ios:"p9mejuok",md:"t2961bud"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionLoadingWillPresent","loadingWillPresent"],["body:ionLoadingWillDismiss","loadingWillDismiss"],["body:ionLoadingDidUnload","loadingWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-menu",{ios:"ay4qn8v6",md:"b2osvlnt"},1,[["close",6],["config",3,0,0,0,"config"],["contentId",1,0,"content-id",2],["disabled",2,0,1,3],["el",7],["enableListener",3,0,0,0,"enableListener"],["isActive",6],["isOpen",6],["isRightSide",5],["isServer",3,0,0,0,"isServer"],["lazyMenuCtrl",4,0,0,0,"ion-menu-controller"],["maxEdgeStart",1,0,"max-edge-start",4],["menuId",1,0,"menu-id",2],["open",6],["persistent",1,0,1,3],["setOpen",6],["side",1,0,1,2],["swipeEnabled",1,0,"swipe-enabled",3],["toggle",6],["type",2,0,1,2],["win",3,0,0,0,"window"]],0,[["body:ionSplitPaneVisible","splitPaneChanged"],["body:click","onBackdropClick",1,0,1]]],["ion-menu-button",{ios:"ay4qn8v6",md:"b2osvlnt"},1,[["autoHide",1,0,"auto-hide",3],["config",3,0,0,0,"config"],["menu",1,0,1,2]]],["ion-menu-controller",{ios:"ay4qn8v6",md:"b2osvlnt"},0,[["_register",6],["_setActiveMenu",6],["_setOpen",6],["_unregister",6],["animationCtrl",4,0,0,0,"ion-animation-controller"],["close",6],["createAnimation",6],["enable",6],["get",6],["getMenus",6],["getOpen",6],["isAnimating",6],["isEnabled",6],["isOpen",6],["open",6],["registerAnimation",6],["swipeEnable",6],["toggle",6]]],["ion-menu-toggle",{ios:"ay4qn8v6",md:"b2osvlnt"},1,[["autoHide",1,0,"auto-hide",3],["doc",3,0,0,0,"document"],["menu",1,0,1,2],["visible",5]],0,[["child:click","onClick"],["body:ionMenuChange","updateVisibility"],["body:ionSplitPaneVisible","updateVisibility"]]],["ion-modal",{ios:"jcvixeca",md:"ntep4h30"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["color",1,0,1,2],["component",1,0,1,2],["componentProps",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["delegate",1],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["mode",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["willAnimate",1,0,"will-animate",3]],0,[["ionDismiss","onDismiss"],["ionBackdropTap","onBackdropTap"],["ionModalDidPresent","lifecycle"],["ionModalWillPresent","lifecycle"],["ionModalWillDismiss","lifecycle"],["ionModalDidDismiss","lifecycle"]]],["ion-modal-controller",{ios:"jcvixeca",md:"ntep4h30"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionModalWillPresent","modalWillPresent"],["body:ionModalWillDismiss","modalWillDismiss"],["body:ionModalDidUnload","modalWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-nav","cd08sf2w",0,[["animated",2,0,1,3],["animationCtrl",4,0,0,0,"ion-animation-controller"],["canGoBack",6],["config",3,0,0,0,"config"],["delegate",1],["el",7],["getActive",6],["getByIndex",6],["getPrevious",6],["getRouteId",6],["insert",6],["insertPages",6],["length",6],["pop",6],["popTo",6],["popToRoot",6],["push",6],["queue",3,0,0,0,"queue"],["removeIndex",6],["root",1,0,1,2],["rootParams",1],["setPages",6],["setRoot",6],["setRouteId",6],["swipeBackEnabled",2,0,"swipe-back-enabled",3],["win",3,0,0,0,"window"]]],["ion-nav-pop","nzjvoog0",0,[["el",7]],0,[["child:click","pop"]]],["ion-nav-push","nud8lxwe",0,[["component",1,0,1,2],["componentProps",1],["el",7]],0,[["child:click","push"]]],["ion-nav-set-root","m1wtxzu9",0,[["component",1,0,1,2],["componentProps",1],["el",7]],0,[["child:click","push"]]],["ion-note",{ios:"fccmbelk",md:"nh4hjssz"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-picker",{ios:"nribsri2",md:"cjjn9jtn"},1,[["addButton",6],["addColumn",6],["animationCtrl",4,0,0,0,"ion-animation-controller"],["buttons",1],["columns",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["duration",1,0,1,4],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["getColumn",6],["getColumns",6],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["showSpinner",5],["spinner",5],["willAnimate",1,0,"will-animate",3]],0,[["ionBackdropTap","onBackdropTap"]]],["ion-picker-column",{ios:"nribsri2",md:"cjjn9jtn"},0,[["col",1],["el",7],["queue",3,0,0,0,"queue"]]],["ion-picker-controller",{ios:"nribsri2",md:"cjjn9jtn"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionPickerWillPresent","pickerWillPresent"],["body:ionPickerWillDismiss","pickerWillDismiss"],["body:ionPickerDidUnload","pickerWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-popover",{ios:"6gwsl9rl",md:"aqpynahj"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["color",1,0,1,2],["component",1,0,1,2],["componentProps",1],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["delegate",1],["dismiss",6],["el",7],["enableBackdropDismiss",1,0,"enable-backdrop-dismiss",3],["enterAnimation",1],["ev",1,0,1,1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["mode",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["present",6],["showBackdrop",1,0,"show-backdrop",3],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionDismiss","onDismiss"],["ionBackdropTap","onBackdropTap"],["ionPopoverDidPresent","lifecycle"],["ionPopoverWillPresent","lifecycle"],["ionPopoverWillDismiss","lifecycle"],["ionPopoverDidDismiss","lifecycle"]]],["ion-popover-controller",{ios:"6gwsl9rl",md:"aqpynahj"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionPopoverWillPresent","popoverWillPresent"],["body:ionPopoverWillDismiss","popoverWillDismiss"],["body:ionPopoverDidUnload","popoverWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-radio",{ios:"ppjjuwxq",md:"6akxldvp"},1,[["checked",2,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["keyFocus",5],["mode",1,0,1,2],["name",1,0,1,2],["value",2,0,1,2]]],["ion-radio-group",{ios:"ppjjuwxq",md:"6akxldvp"},0,[["allowEmptySelection",1,0,"allow-empty-selection",3],["disabled",1,0,1,3],["el",7],["name",1,0,1,2],["value",2,0,1,2]],0,[["ionRadioDidLoad","onRadioDidLoad"],["ionRadioDidUnload","onRadioDidUnload"],["ionSelect","onRadioSelect"]]],["ion-range",{ios:"3uuzr4tj",md:"xhaf8jr5"},1,[["activeB",5],["barL",5],["barR",5],["color",1,0,1,2],["debounce",1,0,1,4],["disabled",1,0,1,3],["dualKnobs",1,0,"dual-knobs",3],["el",7],["max",1,0,1,4],["min",1,0,1,4],["mode",1,0,1,2],["name",1,0,1,2],["pin",1,0,1,3],["pressed",5],["pressedA",5],["pressedB",5],["ratio",6],["ratioA",5],["ratioB",5],["ratioUpper",6],["rect",5],["snaps",1,0,1,3],["step",1,0,1,4],["ticks",5],["valA",5],["valB",5],["value",2,0,1,1]],0,[["ionIncrease","keyChng"],["ionDecrease","keyChng"]]],["ion-range-knob",{ios:"3uuzr4tj",md:"xhaf8jr5"},0,[["disabled",1,0,1,3],["knob",1,0,1,2],["labelId",1,0,"label-id",2],["max",1,0,1,4],["min",1,0,1,4],["pin",1,0,1,3],["pressed",1,0,1,3],["ratio",1,0,1,4],["val",1,0,1,4]],0,[["keydown","handleKeyBoard"]]],["ion-refresher",{ios:"gxumexji",md:"yucxnc5v"},1,[["cancel",6],["closeDuration",1,0,"close-duration",2],["complete",6],["disabled",1,0,1,3],["el",7],["getProgress",6],["pullMax",1,0,"pull-max",4],["pullMin",1,0,"pull-min",4],["queue",3,0,0,0,"queue"],["snapbackDuration",1,0,"snapback-duration",2],["state",5]]],["ion-refresher-content",{ios:"gxumexji",md:"yucxnc5v"},0,[["config",3,0,0,0,"config"],["pullingIcon",2,0,"pulling-icon",2],["pullingText",1,0,"pulling-text",2],["refreshingSpinner",2,0,"refreshing-spinner",2],["refreshingText",1,0,"refreshing-text",2]]],["ion-reorder",{ios:"t81xagha",md:"f83x2dk9"},1],["ion-reorder-group",{ios:"t81xagha",md:"f83x2dk9"},1,[["activated",5],["disabled",1,0,1,3],["el",7],["enabled",5],["iconVisible",5],["queue",3,0,0,0,"queue"]]],["ion-ripple-effect","yq1yeptl",1,[["addRipple",6],["doc",3,0,0,0,"document"],["el",7],["enableListener",3,0,0,0,"enableListener"],["queue",3,0,0,0,"queue"],["tapClick",1,0,"tap-click",3]],0,[["parent:ionActivated","ionActivated",1],["touchstart","touchStart",1,1],["mousedown","mouseDown",1,1]]],["ion-route","zlpiprc6",0,[["component",1,0,1,2],["componentProps",1],["url",1,0,1,2]]],["ion-route-redirect","zlpiprc6",0,[["from",1,0,1,2],["to",1,0,1,2]]],["ion-router","zlpiprc6",0,[["config",3,0,0,0,"config"],["el",7],["navChanged",6],["push",6],["queue",3,0,0,0,"queue"],["root",1,0,1,2],["useHash",1,0,"use-hash",3],["win",3,0,0,0,"window"]],0,[["ionRouteRedirectChanged","onRedirectChanged"],["ionRouteDataChanged","onRoutesChanged"],["window:popstate","onPopState"]]],["ion-router-outlet","7evseiph",0,[["animated",2,0,1,3],["animationBuilder",1],["animationCtrl",4,0,0,0,"ion-animation-controller"],["commit",6],["config",3,0,0,0,"config"],["delegate",1],["el",7],["getRouteId",6],["setRoot",6],["setRouteId",6],["win",3,0,0,0,"window"]]],["ion-row",{ios:"hlfan8ma",md:"1p6hiyxe"}],["ion-scroll",{ios:"oakuqbo0",md:"vb3jtkaj"},1,[["config",3,0,0,0,"config"],["el",7],["forceOverscroll",2,0,"force-overscroll",3],["mode",1,0,1,2],["queue",3,0,0,0,"queue"],["scrollByPoint",6],["scrollEvents",1,0,"scroll-events",3],["scrollToBottom",6],["scrollToPoint",6],["scrollToTop",6],["win",3,0,0,0,"window"]],0,[["scroll","onScroll",0,1]]],["ion-searchbar",{ios:"zxia8lm6",md:"z0xw02xv"},1,[["activated",5],["animated",1,0,1,3],["autocomplete",1,0,1,2],["autocorrect",1,0,1,2],["cancelButtonText",1,0,"cancel-button-text",2],["color",1,0,1,2],["debounce",1,0,1,4],["doc",3,0,0,0,"document"],["el",7],["focused",5],["mode",1,0,1,2],["placeholder",1,0,1,2],["showCancelButton",1,0,"show-cancel-button",3],["spellcheck",1,0,1,3],["type",1,0,1,2],["value",2,0,1,2]]],["ion-segment",{ios:"fktrg3xe",md:"wogtuad5"},1,[["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["mode",1,0,1,2],["value",2,0,1,2]],0,[["ionSelect","segmentClick"]]],["ion-segment-button",{ios:"fktrg3xe",md:"wogtuad5"},1,[["checked",2,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["el",7],["href",1,0,1,2],["mode",1,0,1,2],["value",1,0,1,2]]],["ion-select",{ios:"ude9vsej",md:"dk291wah"},1,[["actionSheetCtrl",4,0,0,0,"ion-action-sheet-controller"],["alertCtrl",4,0,0,0,"ion-alert-controller"],["cancelText",1,0,"cancel-text",2],["disabled",1,0,1,3],["el",7],["interface",1,0,1,2],["interfaceOptions",1,0,"interface-options",1],["isExpanded",5],["keyFocus",5],["multiple",1,0,1,3],["name",2,0,1,2],["okText",1,0,"ok-text",2],["placeholder",1,0,1,2],["popoverCtrl",4,0,0,0,"ion-popover-controller"],["selectedText",1,0,"selected-text",2],["text",5],["value",2,0,1,2]],0,[["ionSelectOptionDidLoad","optLoad"],["ionSelectOptionDidUnload","optUnload"],["ionSelect","onSelect"]]],["ion-select-option",{ios:"ude9vsej",md:"dk291wah"},0,[["disabled",1,0,1,3],["el",7],["selected",1,0,1,3],["value",2,0,1,2]]],["ion-select-popover",{ios:"ude9vsej",md:"dk291wah"},0,[["header",1,0,1,2],["message",1,0,1,2],["options",1],["subHeader",1,0,"sub-header",2]],0,[["ionSelect","onSelect"]]],["ion-show-when","uc41zbwp",1,[["calculatedPlatforms",3,0,0,0,"platforms"],["config",3,0,0,0,"config"],["element",7],["mediaQuery",1,0,"media-query",2],["or",1,0,1,3],["orientation",1,0,1,2],["passesTest",5],["platform",1,0,1,2],["size",1,0,1,2],["win",3,0,0,0,"window"]],0,[["window:resize","onResize",0,1]]],["ion-skeleton-text",{ios:"9kgawmxt",md:"owvx169m"},1,[["width",1,0,1,2]]],["ion-slide",{ios:"odbes8za",md:"m5xbwivb"},1],["ion-slides",{ios:"odbes8za",md:"m5xbwivb"},1,[["el",7],["getActiveIndex",6],["getPreviousIndex",6],["isBeginning",6],["isEnd",6],["length",6],["lockSwipeToNext",6],["lockSwipeToPrev",6],["lockSwipes",6],["options",1,0,1,1],["pager",1,0,1,3],["slideNext",6],["slidePrev",6],["slideTo",6],["startAutoplay",6],["stopAutoplay",6],["update",6]]],["ion-spinner",{ios:"mzvctsxi",md:"eawcrapa"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["duration",1,0,1,4],["mode",1,0,1,2],["name",1,0,1,2],["paused",1,0,1,3]]],["ion-split-pane",{ios:"6iyfrthp",md:"hkprhlhn"},1,[["disabled",1,0,1,3],["el",7],["isPane",6],["isServer",3,0,0,0,"isServer"],["isVisible",6],["visible",5],["when",1,0,1,1],["win",3,0,0,0,"window"]]],["ion-status-tap","ggtoqmf3",0,[["duration",1,0,1,4],["queue",3,0,0,0,"queue"],["win",3,0,0,0,"window"]],0,[["window:statusTap","onStatusTap"]]],["ion-tab",{ios:"4blz08bu",md:"qh6rseej"},0,[["active",2,0,1,3],["badge",1,0,1,2],["badgeStyle",1,0,"badge-style",2],["btnId",1,0,"btn-id",2],["component",1,0,1,2],["delegate",1],["disabled",1,0,1,3],["el",7],["getTabId",6],["href",1,0,1,2],["icon",1,0,1,2],["label",1,0,1,2],["name",1,0,1,2],["selected",2,0,1,3],["setActive",6],["show",1,0,1,3],["tabsHideOnSubPages",1,0,"tabs-hide-on-sub-pages",3]]],["ion-tab-button",{ios:"4blz08bu",md:"qh6rseej"},1,[["el",7],["keyFocus",5],["selected",1,0,1,3],["tab",1]],0,[["click","onClick"]]],["ion-tabbar",{ios:"4blz08bu",md:"qh6rseej"},1,[["canScrollLeft",5],["canScrollRight",5],["doc",3,0,0,0,"document"],["el",7],["hidden",5],["highlight",1,0,1,3],["layout",1,0,1,2],["placement",1,0,1,2],["queue",3,0,0,0,"queue"],["scrollable",1,0,1,3],["selectedTab",1],["tabs",1],["translucent",1,0,1,3]],0,[["body:keyboardWillHide","onKeyboardWillHide"],["body:keyboardWillShow","onKeyboardWillShow"],["window:resize","onResize",0,1],["ionTabButtonDidLoad","onTabButtonLoad"],["ionTabButtonDidUnload","onTabButtonLoad"]]],["ion-tabs",{ios:"4blz08bu",md:"qh6rseej"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["doc",3,0,0,0,"document"],["el",7],["getRouteId",6],["getSelected",6],["getTab",6],["name",1,0,1,2],["scrollable",1,0,1,3],["select",6],["selectedTab",5],["setRouteId",6],["tabbarHidden",1,0,"tabbar-hidden",3],["tabbarHighlight",2,0,"tabbar-highlight",3],["tabbarLayout",2,0,"tabbar-layout",2],["tabbarPlacement",2,0,"tabbar-placement",2],["tabs",5],["translucent",1,0,1,3],["useRouter",2,0,"use-router",3]],0,[["ionTabbarClick","tabChange"]]],["ion-tap-click",{ios:"oakuqbo0",md:"vb3jtkaj"},0,[["el",7],["enableListener",3,0,0,0,"enableListener"],["isServer",3,0,0,0,"isServer"]],0,[["body:click","onBodyClick",0,0,1],["document:touchstart","onTouchStart",0,1,1],["document:touchcancel","onTouchEnd",0,0,1],["document:touchend","onTouchEnd",0,0,1],["document:mousedown","onMouseDown",0,1,1],["document:mouseup","onMouseUp",0,0,1],["body:ionScrollStart","cancelActive"],["body:ionGestureCaptured","cancelActive"]]],["ion-text",{ios:"ppliw44q",md:"nxgxomj5"},1,[["color",1,0,1,2],["mode",1,0,1,2]]],["ion-textarea",{ios:"fcdw8xaq",md:"ptu36ocu"},1,[["autocapitalize",1,0,1,2],["autocomplete",1,0,1,2],["autofocus",1,0,1,3],["clearOnEdit",2,0,"clear-on-edit",3],["cols",1,0,1,4],["debounce",1,0,1,4],["disabled",1,0,1,3],["el",7],["maxlength",1,0,1,4],["minlength",1,0,1,4],["name",1,0,1,2],["placeholder",1,0,1,2],["readonly",1,0,1,3],["required",1,0,1,3],["rows",1,0,1,4],["spellcheck",1,0,1,3],["value",2,0,1,2],["wrap",1,0,1,2]]],["ion-thumbnail",{ios:"r1bocw4w",md:"tapajnfv"},1],["ion-title",{ios:"oakuqbo0",md:"vb3jtkaj"},1],["ion-toast",{ios:"hgf6utr8",md:"llep0hnd"},1,[["animationCtrl",4,0,0,0,"ion-animation-controller"],["closeButtonText",1,0,"close-button-text",2],["config",3,0,0,0,"config"],["cssClass",1,0,"css-class",2],["dismiss",6],["duration",1,0,1,4],["el",7],["enterAnimation",1],["keyboardClose",1,0,"keyboard-close",3],["leaveAnimation",1],["message",1,0,1,2],["onDidDismiss",6],["onWillDismiss",6],["overlayId",1,0,"overlay-id",4],["position",1,0,1,2],["present",6],["showCloseButton",1,0,"show-close-button",3],["translucent",1,0,1,3],["willAnimate",1,0,"will-animate",3]],0,[["ionDismiss","onDismiss"]]],["ion-toast-controller",{ios:"hgf6utr8",md:"llep0hnd"},0,[["create",6],["dismiss",6],["doc",3,0,0,0,"document"],["getTop",6]],0,[["body:ionToastWillPresent","toastWillPresent"],["body:ionToastWillDismiss","toastWillDismiss"],["body:ionToastDidUnload","toastWillDismiss"],["body:keyup.escape","escapeKeyUp"]]],["ion-toggle",{ios:"5giqxlqf",md:"gnbekp2j"},1,[["activated",5],["checked",2,0,1,3],["color",1,0,1,2],["disabled",1,0,1,3],["keyFocus",5],["mode",1,0,1,2],["name",1,0,1,2],["value",1,0,1,2]]],["ion-toolbar",{ios:"oakuqbo0",md:"vb3jtkaj"},1,[["color",1,0,1,2],["config",3,0,0,0,"config"],["mode",1,0,1,2],["translucent",1,0,1,3]]],["ion-virtual-scroll","waveypz7",1,[["approxFooterHeight",1,0,"approx-footer-height",4],["approxHeaderHeight",1,0,"approx-header-height",4],["approxItemHeight",1,0,"approx-item-height",4],["domRender",1],["el",7],["enableListener",3,0,0,0,"enableListener"],["footerFn",1],["headerFn",1],["itemHeight",1],["itemRender",1],["items",1],["markDirty",6],["markDirtyTail",6],["nodeHeight",1],["positionForItem",6],["queue",3,0,0,0,"queue"],["renderer",1],["win",3,0,0,0,"window"]],0,[["scroll","onScroll",1],["window:resize","onResize",0,1]]]],HTMLElement.prototype);
 
 /***/ }),
 
@@ -68070,17 +68065,20 @@ if (Ionic) {
 /*!****************************************************!*\
   !*** ./node_modules/@ionic/angular/dist/module.js ***!
   \****************************************************/
-/*! exports provided: IonicModule */
+/*! exports provided: IonicModule, ConfigToken */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IonicModule", function() { return IonicModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigToken", function() { return ConfigToken; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _directives__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./directives */ "./node_modules/@ionic/angular/dist/directives/index.js");
 /* harmony import */ var _directives_proxies__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./directives/proxies */ "./node_modules/@ionic/angular/dist/directives/proxies.js");
 /* harmony import */ var _providers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./providers */ "./node_modules/@ionic/angular/dist/providers/index.js");
+/* harmony import */ var _ionic_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/core */ "./node_modules/@ionic/core/dist/collection/index.js");
+
 
 
 
@@ -68194,15 +68192,17 @@ var PROVIDERS = [
     _providers__WEBPACK_IMPORTED_MODULE_4__["NavController"],
     _providers__WEBPACK_IMPORTED_MODULE_4__["Platform"],
     _providers__WEBPACK_IMPORTED_MODULE_4__["Events"],
-    _providers__WEBPACK_IMPORTED_MODULE_4__["DomController"]
+    _providers__WEBPACK_IMPORTED_MODULE_4__["DomController"],
+    _providers__WEBPACK_IMPORTED_MODULE_4__["Config"]
 ];
 var IonicModule = /** @class */ (function () {
     function IonicModule() {
     }
-    IonicModule.forRoot = function () {
+    IonicModule.forRoot = function (config) {
+        Object(_ionic_core__WEBPACK_IMPORTED_MODULE_5__["setupConfig"])(config);
         return {
             ngModule: IonicModule,
-            providers: PROVIDERS.slice()
+            providers: PROVIDERS
         };
     };
     IonicModule.decorators = [
@@ -68222,6 +68222,7 @@ var IonicModule = /** @class */ (function () {
     return IonicModule;
 }());
 
+var ConfigToken = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('USERCONFIG');
 
 
 /***/ }),
@@ -68435,6 +68436,50 @@ function provideNavParamsInjectable(params) {
 
 /***/ }),
 
+/***/ "./node_modules/@ionic/angular/dist/providers/config.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@ionic/angular/dist/providers/config.js ***!
+  \**************************************************************/
+/*! exports provided: Config */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Config", function() { return Config; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var Config = /** @class */ (function () {
+    function Config() {
+    }
+    Config.prototype.get = function (key, fallback) {
+        return getConfig().get(key, fallback);
+    };
+    Config.prototype.getBoolean = function (key, fallback) {
+        return getConfig().getBoolean(key, fallback);
+    };
+    Config.prototype.getNumber = function (key, fallback) {
+        return getConfig().getNumber(key, fallback);
+    };
+    Config.prototype.set = function (key, value) {
+        getConfig().set(key, value);
+    };
+    Config.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+    ];
+    return Config;
+}());
+
+function getConfig() {
+    var Ionic = window.Ionic;
+    if (Ionic && Ionic.config) {
+        return Ionic.config;
+    }
+    return null;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@ionic/angular/dist/providers/dom-controller.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@ionic/angular/dist/providers/dom-controller.js ***!
@@ -68633,7 +68678,7 @@ function setupProvideEvents() {
 /*!*************************************************************!*\
   !*** ./node_modules/@ionic/angular/dist/providers/index.js ***!
   \*************************************************************/
-/*! exports provided: AngularDelegate, ActionSheetController, AlertController, Events, LoadingController, MenuController, PickerController, ModalController, Platform, PopoverController, ToastController, NavController, DomController */
+/*! exports provided: AngularDelegate, ActionSheetController, AlertController, Events, LoadingController, MenuController, PickerController, ModalController, Platform, PopoverController, ToastController, NavController, DomController, Config */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68676,6 +68721,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _dom_controller__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dom-controller */ "./node_modules/@ionic/angular/dist/providers/dom-controller.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DomController", function() { return _dom_controller__WEBPACK_IMPORTED_MODULE_12__["DomController"]; });
+
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./config */ "./node_modules/@ionic/angular/dist/providers/config.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Config", function() { return _config__WEBPACK_IMPORTED_MODULE_13__["Config"]; });
+
 
 
 
@@ -69040,41 +69089,58 @@ __webpack_require__.r(__webpack_exports__);
 var NavController = /** @class */ (function () {
     function NavController(router) {
         this.router = router;
-        this.direction = 0;
         this.intent = 0 /* Auto */;
+        this.animated = true;
         this.stack = [];
     }
-    NavController.prototype.goForward = function (url, extras) {
-        this.intent = 1 /* Forward */;
+    NavController.prototype.goForward = function (url, animated, extras) {
+        this.setIntent(1 /* Forward */, animated);
         return this.router.navigateByUrl(url, extras);
     };
-    NavController.prototype.goBack = function (url, extras) {
-        this.intent = 2 /* Back */;
+    NavController.prototype.goBack = function (url, animated, extras) {
+        this.setIntent(2 /* Back */, animated);
         return this.router.navigateByUrl(url, extras);
     };
-    NavController.prototype.goRoot = function (url, extras) {
-        this.intent = 3 /* Root */;
+    NavController.prototype.goRoot = function (url, animated, extras) {
+        this.setIntent(3 /* Root */, animated);
         return this.router.navigateByUrl(url, extras);
     };
-    NavController.prototype.setIntent = function (intent) {
+    NavController.prototype.setIntent = function (intent, animated) {
         this.intent = intent;
+        this.animated = (animated === undefined)
+            ? intent !== 3 /* Root */
+            : animated;
     };
-    NavController.prototype.consumeDirection = function () {
-        if (this.direction === 0) {
-            var index = this.stack.indexOf(document.location.href);
-            if (index === -1) {
-                this.stack.push(document.location.href);
-                this.direction = 1;
-            }
-            else if (index < this.stack.length - 1) {
-                this.stack = this.stack.slice(0, index + 1);
-                this.direction = -1;
-            }
+    NavController.prototype.consumeTransition = function () {
+        var guessDirection = this.guessDirection();
+        var direction = 0;
+        var animated = false;
+        if (this.intent === 0 /* Auto */) {
+            direction = guessDirection;
+            animated = direction !== 0;
         }
-        var direction = directionForIntent(this.intent, this.direction);
+        else {
+            animated = this.animated;
+            direction = intentToDirection(this.intent);
+        }
         this.intent = 0 /* Auto */;
-        this.direction = 0;
-        return direction;
+        this.animated = true;
+        return {
+            direction: direction,
+            animated: animated
+        };
+    };
+    NavController.prototype.guessDirection = function () {
+        var index = this.stack.indexOf(document.location.href);
+        if (index === -1) {
+            this.stack.push(document.location.href);
+            return 1;
+        }
+        else if (index < this.stack.length - 1) {
+            this.stack = this.stack.slice(0, index + 1);
+            return -1;
+        }
+        return 0;
     };
     NavController.decorators = [
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
@@ -69086,11 +69152,12 @@ var NavController = /** @class */ (function () {
     return NavController;
 }());
 
-function directionForIntent(intent, nav) {
-    if (intent === 0 /* Auto */) {
-        return nav;
+function intentToDirection(intent) {
+    switch (intent) {
+        case 1 /* Forward */: return 1;
+        case 2 /* Back */: return -1;
+        default: return 0;
     }
-    return intent === 2 /* Back */ ? -1 : 1;
 }
 
 
@@ -69141,149 +69208,313 @@ var PickerController = /** @class */ (function (_super) {
 /*!****************************************************************!*\
   !*** ./node_modules/@ionic/angular/dist/providers/platform.js ***!
   \****************************************************************/
-/*! exports provided: Platform, isImpl, isAsyncImpl, platformsImpl, platformsAsyncImpl, versionsImpl, versionsAsyncImpl, readyImpl, getQueryParamImpl, getQueryParamAsyncImpl, initialize, getHydratedPlatform */
+/*! exports provided: Platform */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Platform", function() { return Platform; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isImpl", function() { return isImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAsyncImpl", function() { return isAsyncImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "platformsImpl", function() { return platformsImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "platformsAsyncImpl", function() { return platformsAsyncImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "versionsImpl", function() { return versionsImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "versionsAsyncImpl", function() { return versionsAsyncImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "readyImpl", function() { return readyImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQueryParamImpl", function() { return getQueryParamImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQueryParamAsyncImpl", function() { return getQueryParamAsyncImpl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialize", function() { return initialize; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHydratedPlatform", function() { return getHydratedPlatform; });
-var dir = 'ltr';
-var isRtl = false;
-var lang = '';
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ "./node_modules/@ionic/angular/dist/util/util.js");
+
+
 var Platform = /** @class */ (function () {
     function Platform() {
-        initialize(this);
+        this._platforms = [];
+        /**
+           * @hidden
+           */
+        this.backButton = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        /**
+           * The pause event emits when the native platform puts the application
+           * into the background, typically when the user switches to a different
+           * application. This event would emit when a Cordova app is put into
+           * the background, however, it would not fire on a standard web browser.
+           */
+        this.pause = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        /**
+           * The resume event emits when the native platform pulls the application
+           * out from the background. This event would emit when a Cordova app comes
+           * out from the background, however, it would not fire on a standard web browser.
+           */
+        this.resume = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        /**
+           * The resize event emits when the browser window has changed dimensions. This
+           * could be from a browser window being physically resized, or from a device
+           * changing orientation.
+           */
+        this.resize = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["proxyEvent"])(this.pause, document, 'pause');
+        Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["proxyEvent"])(this.resume, document, 'resume');
+        Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["proxyEvent"])(this.backButton, document, 'backbutton');
+        Object(_util_util__WEBPACK_IMPORTED_MODULE_1__["proxyEvent"])(this.resize, document, 'resize');
+        var readyResolve;
+        this._readyPromise = new Promise(function (res) { readyResolve = res; });
+        if (window['cordova']) {
+            window.addEventListener('deviceready', function () {
+                readyResolve('cordova');
+            }, { once: true });
+        }
+        else {
+            readyResolve('dom');
+        }
     }
-    Platform.prototype.is = function (platformName) {
-        return isImpl(this, platformName);
+    /**
+     * @returns {boolean} returns true/false based on platform.
+     * @description
+     * Depending on the platform the user is on, `is(platformName)` will
+     * return `true` or `false`. Note that the same app can return `true`
+     * for more than one platform name. For example, an app running from
+     * an iPad would return `true` for the platform names: `mobile`,
+     * `ios`, `ipad`, and `tablet`. Additionally, if the app was running
+     * from Cordova then `cordova` would be true, and if it was running
+     * from a web browser on the iPad then `mobileweb` would be `true`.
+     *
+     * ```
+     * import { Platform } from 'ionic-angular';
+     *
+     * @Component({...})
+     * export MyPage {
+     *   constructor(public platform: Platform) {
+     *     if (this.platform.is('ios')) {
+     *       // This will only print when on iOS
+     *       console.log('I am an iOS device!');
+     *     }
+     *   }
+     * }
+     * ```
+     *
+     * | Platform Name   | Description                        |
+     * |-----------------|------------------------------------|
+     * | android         | on a device running Android.       |
+     * | cordova         | on a device running Cordova.       |
+     * | core            | on a desktop device.               |
+     * | ios             | on a device running iOS.           |
+     * | ipad            | on an iPad device.                 |
+     * | iphone          | on an iPhone device.               |
+     * | mobile          | on a mobile device.                |
+     * | mobileweb       | in a browser on a mobile device.   |
+     * | phablet         | on a phablet device.               |
+     * | tablet          | on a tablet device.                |
+     * | windows         | on a device running Windows.       |
+     * | electron        | in Electron on a desktop device.   |
+     *
+     * @param {string} platformName
+     */
+    /**
+       * @returns {boolean} returns true/false based on platform.
+       * @description
+       * Depending on the platform the user is on, `is(platformName)` will
+       * return `true` or `false`. Note that the same app can return `true`
+       * for more than one platform name. For example, an app running from
+       * an iPad would return `true` for the platform names: `mobile`,
+       * `ios`, `ipad`, and `tablet`. Additionally, if the app was running
+       * from Cordova then `cordova` would be true, and if it was running
+       * from a web browser on the iPad then `mobileweb` would be `true`.
+       *
+       * ```
+       * import { Platform } from 'ionic-angular';
+       *
+       * @Component({...})
+       * export MyPage {
+       *   constructor(public platform: Platform) {
+       *     if (this.platform.is('ios')) {
+       *       // This will only print when on iOS
+       *       console.log('I am an iOS device!');
+       *     }
+       *   }
+       * }
+       * ```
+       *
+       * | Platform Name   | Description                        |
+       * |-----------------|------------------------------------|
+       * | android         | on a device running Android.       |
+       * | cordova         | on a device running Cordova.       |
+       * | core            | on a desktop device.               |
+       * | ios             | on a device running iOS.           |
+       * | ipad            | on an iPad device.                 |
+       * | iphone          | on an iPhone device.               |
+       * | mobile          | on a mobile device.                |
+       * | mobileweb       | in a browser on a mobile device.   |
+       * | phablet         | on a phablet device.               |
+       * | tablet          | on a tablet device.                |
+       * | windows         | on a device running Windows.       |
+       * | electron        | in Electron on a desktop device.   |
+       *
+       * @param {string} platformName
+       */
+    Platform.prototype.is = /**
+       * @returns {boolean} returns true/false based on platform.
+       * @description
+       * Depending on the platform the user is on, `is(platformName)` will
+       * return `true` or `false`. Note that the same app can return `true`
+       * for more than one platform name. For example, an app running from
+       * an iPad would return `true` for the platform names: `mobile`,
+       * `ios`, `ipad`, and `tablet`. Additionally, if the app was running
+       * from Cordova then `cordova` would be true, and if it was running
+       * from a web browser on the iPad then `mobileweb` would be `true`.
+       *
+       * ```
+       * import { Platform } from 'ionic-angular';
+       *
+       * @Component({...})
+       * export MyPage {
+       *   constructor(public platform: Platform) {
+       *     if (this.platform.is('ios')) {
+       *       // This will only print when on iOS
+       *       console.log('I am an iOS device!');
+       *     }
+       *   }
+       * }
+       * ```
+       *
+       * | Platform Name   | Description                        |
+       * |-----------------|------------------------------------|
+       * | android         | on a device running Android.       |
+       * | cordova         | on a device running Cordova.       |
+       * | core            | on a desktop device.               |
+       * | ios             | on a device running iOS.           |
+       * | ipad            | on an iPad device.                 |
+       * | iphone          | on an iPhone device.               |
+       * | mobile          | on a mobile device.                |
+       * | mobileweb       | in a browser on a mobile device.   |
+       * | phablet         | on a phablet device.               |
+       * | tablet          | on a tablet device.                |
+       * | windows         | on a device running Windows.       |
+       * | electron        | in Electron on a desktop device.   |
+       *
+       * @param {string} platformName
+       */
+    function (platformName) {
+        return this._platforms.some(function (p) { return p.name === platformName; });
     };
-    Platform.prototype.isAsync = function (platformName) {
-        return isAsyncImpl(this, platformName);
+    /**
+     * @returns {array} the array of platforms
+     * @description
+     * Depending on what device you are on, `platforms` can return multiple values.
+     * Each possible value is a hierarchy of platforms. For example, on an iPhone,
+     * it would return `mobile`, `ios`, and `iphone`.
+     *
+     * ```
+     * import { Platform } from 'ionic-angular';
+     *
+     * @Component({...})
+     * export MyPage {
+     *   constructor(public platform: Platform) {
+     *     // This will print an array of the current platforms
+     *     console.log(this.platform.platforms());
+     *   }
+     * }
+     * ```
+     */
+    /**
+       * @returns {array} the array of platforms
+       * @description
+       * Depending on what device you are on, `platforms` can return multiple values.
+       * Each possible value is a hierarchy of platforms. For example, on an iPhone,
+       * it would return `mobile`, `ios`, and `iphone`.
+       *
+       * ```
+       * import { Platform } from 'ionic-angular';
+       *
+       * @Component({...})
+       * export MyPage {
+       *   constructor(public platform: Platform) {
+       *     // This will print an array of the current platforms
+       *     console.log(this.platform.platforms());
+       *   }
+       * }
+       * ```
+       */
+    Platform.prototype.platforms = /**
+       * @returns {array} the array of platforms
+       * @description
+       * Depending on what device you are on, `platforms` can return multiple values.
+       * Each possible value is a hierarchy of platforms. For example, on an iPhone,
+       * it would return `mobile`, `ios`, and `iphone`.
+       *
+       * ```
+       * import { Platform } from 'ionic-angular';
+       *
+       * @Component({...})
+       * export MyPage {
+       *   constructor(public platform: Platform) {
+       *     // This will print an array of the current platforms
+       *     console.log(this.platform.platforms());
+       *   }
+       * }
+       * ```
+       */
+    function () {
+        return this._platforms.map(function (platform) { return platform.name; });
     };
-    Platform.prototype.platforms = function () {
-        return platformsImpl(this);
-    };
-    Platform.prototype.platformsAsync = function () {
-        return platformsAsyncImpl(this);
-    };
-    Platform.prototype.versions = function () {
-        return versionsImpl(this);
-    };
-    Platform.prototype.versionsAsync = function () {
-        return versionsAsyncImpl(this);
+    /**
+     * Returns an object containing version information about all of the platforms.
+     *
+     * ```
+     * import { Platform } from 'ionic-angular';
+     *
+     * @Component({...})
+     * export MyPage {
+     *   constructor(public platform: Platform) {
+     *     // This will print an object containing
+     *     // all of the platforms and their versions
+     *     console.log(platform.versions());
+     *   }
+     * }
+     * ```
+     *
+     * @returns {object} An object containing all of the platforms and their versions.
+     */
+    /**
+       * Returns an object containing version information about all of the platforms.
+       *
+       * ```
+       * import { Platform } from 'ionic-angular';
+       *
+       * @Component({...})
+       * export MyPage {
+       *   constructor(public platform: Platform) {
+       *     // This will print an object containing
+       *     // all of the platforms and their versions
+       *     console.log(platform.versions());
+       *   }
+       * }
+       * ```
+       *
+       * @returns {object} An object containing all of the platforms and their versions.
+       */
+    Platform.prototype.versions = /**
+       * Returns an object containing version information about all of the platforms.
+       *
+       * ```
+       * import { Platform } from 'ionic-angular';
+       *
+       * @Component({...})
+       * export MyPage {
+       *   constructor(public platform: Platform) {
+       *     // This will print an object containing
+       *     // all of the platforms and their versions
+       *     console.log(platform.versions());
+       *   }
+       * }
+       * ```
+       *
+       * @returns {object} An object containing all of the platforms and their versions.
+       */
+    function () {
+        return this._platforms.slice();
     };
     Platform.prototype.ready = function () {
-        return readyImpl(this);
+        return this._readyPromise;
     };
     Object.defineProperty(Platform.prototype, "isRTL", {
         get: function () {
-            return isRtl;
+            return document.dir === 'rtl';
         },
         enumerable: true,
         configurable: true
     });
-    Platform.prototype.setDir = function (_dir, updateDocument) {
-        dir = _dir;
-        isRtl = dir === 'rtl';
-        if (updateDocument !== false) {
-            document.documentElement.setAttribute('dir', dir);
-        }
-    };
-    /**
-     * Returns app's language direction.
-     * We recommend the app's `index.html` file already has the correct `dir`
-     * attribute value set, such as `<html dir="ltr">` or `<html dir="rtl">`.
-     * [W3C: Structural markup and right-to-left text in HTML](http://www.w3.org/International/questions/qa-html-dir)
-     * @returns {DocumentDirection}
-     */
-    /**
-       * Returns app's language direction.
-       * We recommend the app's `index.html` file already has the correct `dir`
-       * attribute value set, such as `<html dir="ltr">` or `<html dir="rtl">`.
-       * [W3C: Structural markup and right-to-left text in HTML](http://www.w3.org/International/questions/qa-html-dir)
-       * @returns {DocumentDirection}
-       */
-    Platform.prototype.dir = /**
-       * Returns app's language direction.
-       * We recommend the app's `index.html` file already has the correct `dir`
-       * attribute value set, such as `<html dir="ltr">` or `<html dir="rtl">`.
-       * [W3C: Structural markup and right-to-left text in HTML](http://www.w3.org/International/questions/qa-html-dir)
-       * @returns {DocumentDirection}
-       */
-    function () {
-        return dir;
-    };
-    /**
-     * Set the app's language and optionally the country code, which will update
-     * the `lang` attribute on the app's root `<html>` element.
-     * We recommend the app's `index.html` file already has the correct `lang`
-     * attribute value set, such as `<html lang="en">`. This method is useful if
-     * the language needs to be dynamically changed per user/session.
-     * [W3C: Declaring language in HTML](http://www.w3.org/International/questions/qa-html-language-declarations)
-     * @param {string} language  Examples: `en-US`, `en-GB`, `ar`, `de`, `zh`, `es-MX`
-     * @param {boolean} updateDocument  Specifies whether the `lang` attribute of `<html>` should be updated
-     */
-    /**
-       * Set the app's language and optionally the country code, which will update
-       * the `lang` attribute on the app's root `<html>` element.
-       * We recommend the app's `index.html` file already has the correct `lang`
-       * attribute value set, such as `<html lang="en">`. This method is useful if
-       * the language needs to be dynamically changed per user/session.
-       * [W3C: Declaring language in HTML](http://www.w3.org/International/questions/qa-html-language-declarations)
-       * @param {string} language  Examples: `en-US`, `en-GB`, `ar`, `de`, `zh`, `es-MX`
-       * @param {boolean} updateDocument  Specifies whether the `lang` attribute of `<html>` should be updated
-       */
-    Platform.prototype.setLang = /**
-       * Set the app's language and optionally the country code, which will update
-       * the `lang` attribute on the app's root `<html>` element.
-       * We recommend the app's `index.html` file already has the correct `lang`
-       * attribute value set, such as `<html lang="en">`. This method is useful if
-       * the language needs to be dynamically changed per user/session.
-       * [W3C: Declaring language in HTML](http://www.w3.org/International/questions/qa-html-language-declarations)
-       * @param {string} language  Examples: `en-US`, `en-GB`, `ar`, `de`, `zh`, `es-MX`
-       * @param {boolean} updateDocument  Specifies whether the `lang` attribute of `<html>` should be updated
-       */
-    function (language, updateDocument) {
-        lang = language;
-        if (updateDocument !== false) {
-            document.documentElement.setAttribute('lang', language);
-        }
-    };
-    /**
-     * Returns app's language and optional country code.
-     * We recommend the app's `index.html` file already has the correct `lang`
-     * attribute value set, such as `<html lang="en">`.
-     * [W3C: Declaring language in HTML](http://www.w3.org/International/questions/qa-html-language-declarations)
-     * @returns {string}
-     */
-    /**
-       * Returns app's language and optional country code.
-       * We recommend the app's `index.html` file already has the correct `lang`
-       * attribute value set, such as `<html lang="en">`.
-       * [W3C: Declaring language in HTML](http://www.w3.org/International/questions/qa-html-language-declarations)
-       * @returns {string}
-       */
-    Platform.prototype.lang = /**
-       * Returns app's language and optional country code.
-       * We recommend the app's `index.html` file already has the correct `lang`
-       * attribute value set, such as `<html lang="en">`.
-       * [W3C: Declaring language in HTML](http://www.w3.org/International/questions/qa-html-language-declarations)
-       * @returns {string}
-       */
-    function () {
-        return lang;
-    };
     /**
      * Get the query string parameter
      */
@@ -69294,22 +69525,7 @@ var Platform = /** @class */ (function () {
        * Get the query string parameter
        */
     function (key) {
-        return getQueryParamImpl(this, key);
-    };
-    /**
-     * Get the query string parameter
-     */
-    /**
-       * Get the query string parameter
-       */
-    Platform.prototype.getQueryParamAsync = /**
-       * Get the query string parameter
-       */
-    function (key) {
-        return getQueryParamAsyncImpl(this, key);
-    };
-    Platform.prototype.height = function () {
-        return window.innerHeight;
+        return readQueryParam(window.location.href, key);
     };
     Platform.prototype.isLandscape = function () {
         return !this.isPortrait();
@@ -69326,87 +69542,22 @@ var Platform = /** @class */ (function () {
     Platform.prototype.width = function () {
         return window.innerWidth;
     };
+    Platform.prototype.height = function () {
+        return window.innerHeight;
+    };
+    Platform.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+    ];
+    /** @nocollapse */
+    Platform.ctorParameters = function () { return []; };
     return Platform;
 }());
 
-function isImpl(platform, platformName) {
-    if (platform._element && platform._element.is) {
-        return platform._element.is(platformName);
-    }
-    return false;
-}
-function isAsyncImpl(platform, platformName) {
-    return getHydratedPlatform(platform).then(function () {
-        return platform._element.is(platformName);
-    });
-}
-function platformsImpl(platform) {
-    if (platform._element && platform._element.platforms) {
-        return platform._element.platforms();
-    }
-    return [];
-}
-function platformsAsyncImpl(platform) {
-    return getHydratedPlatform(platform).then(function () {
-        return platform._element.platforms();
-    });
-}
-function versionsImpl(platform) {
-    if (platform._element && platform._element.versions) {
-        return platform._element.versions();
-    }
-    return [];
-}
-function versionsAsyncImpl(platform) {
-    return getHydratedPlatform(platform).then(function () {
-        return platform._element.versions();
-    });
-}
-function readyImpl(platform) {
-    return getHydratedPlatform(platform).then(function () {
-        return platform._element.ready();
-    });
-}
-function getQueryParamImpl(platform, key) {
-    if (platform._element && platform._element.getQueryParam) {
-        return platform._element.getQueryParam(key);
-    }
-    return null;
-}
-function getQueryParamAsyncImpl(platform, key) {
-    return getHydratedPlatform(platform).then(function () {
-        return platform._element.getQueryParam(key);
-    });
-}
-function initialize(platform) {
-    // first see if there is an ion-app, if there is, platform will eventually show up
-    // if not, add platform to the document.body
-    var ionApp = document.querySelector('ion-app');
-    if (ionApp) {
-        return ionApp.componentOnReady(function () {
-            platform._element = ionApp.querySelector('ion-platform');
-        });
-    }
-    // okay, there isn't an ion-app, so add <ion-platform> to the document.body
-    var platformElement = document.querySelector('ion-platform');
-    if (!platformElement) {
-        platformElement = document.createElement('ion-platform');
-        document.body.appendChild(platformElement);
-    }
-    platform._element = platformElement;
-}
-function getHydratedPlatform(platform) {
-    if (!platform._element) {
-        var ionApp_1 = document.querySelector('ion-app');
-        return ionApp_1.componentOnReady(function () {
-            var platformEl = ionApp_1.querySelector('ion-platform');
-            return platformEl.componentOnReady().then(function () {
-                platform._element = platformEl;
-                return platformEl;
-            });
-        });
-    }
-    return platform._element.componentOnReady();
+function readQueryParam(url, key) {
+    key = key.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + key + '=([^&#]*)');
+    var results = regex.exec(url);
+    return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
 }
 
 
@@ -69545,7 +69696,11 @@ var IonicRouteStrategy = /** @class */ (function () {
         return null;
     };
     IonicRouteStrategy.prototype.shouldReuseRoute = function (future, curr) {
-        if (Object(_util__WEBPACK_IMPORTED_MODULE_0__["objectValues"])(future.params) && Object(_util__WEBPACK_IMPORTED_MODULE_0__["objectValues"])(curr.params)) {
+        // checking router params
+        var futureParams = Object(_util__WEBPACK_IMPORTED_MODULE_0__["objectValues"])(future.params);
+        var currParams = Object(_util__WEBPACK_IMPORTED_MODULE_0__["objectValues"])(curr.params);
+        if (futureParams && !!futureParams.length && currParams && currParams.length > 0) {
+            // If the router params do not match, render the new component
             return Object(_util__WEBPACK_IMPORTED_MODULE_0__["deepEqual"])(future.params, curr.params);
         }
         else {
@@ -69596,12 +69751,13 @@ var OverlayBaseController = /** @class */ (function () {
 /*!*******************************************************!*\
   !*** ./node_modules/@ionic/angular/dist/util/util.js ***!
   \*******************************************************/
-/*! exports provided: inputs, proxyMethod, ensureElementInBody, objectValues, deepEqual */
+/*! exports provided: inputs, proxyEvent, proxyMethod, ensureElementInBody, objectValues, deepEqual */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inputs", function() { return inputs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "proxyEvent", function() { return proxyEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "proxyMethod", function() { return proxyMethod; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ensureElementInBody", function() { return ensureElementInBody; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "objectValues", function() { return objectValues; });
@@ -69611,6 +69767,11 @@ function inputs(instance, el, props) {
         Object.defineProperty(instance, propName, {
             get: function () { return el.nativeElement[propName]; }, set: function (val) { return el.nativeElement[propName] = val; }
         });
+    });
+}
+function proxyEvent(emitter, el, eventName) {
+    el.addEventListener(eventName, function (ev) {
+        emitter.emit(ev);
     });
 }
 function proxyMethod(ctrlName, methodName) {
@@ -69653,6 +69814,2887 @@ function deepEqual(x, y) {
     else
         return false;
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/index.js ***!
+  \***********************************************************/
+/*! exports provided: reorderArray, clamp, assert, now, pointerCoord, isRightSide, deferEvent, debounceEvent, debounce, hapticAvailable, hapticSelection, hapticSelectionStart, hapticSelectionChanged, hapticSelectionEnd, hapticNotification, hapticImpact, createOverlay, dismissOverlay, getTopOverlay, getHighestId, removeLastOverlay, present, dismiss, autoFocus, eventMethod, onceEvent, isCancel, BACKDROP, attachComponent, detachComponent, isIpad, isIphone, isIOS, isAndroid, isPhablet, isTablet, isDevice, isHybrid, isCordova, isCapacitor, isElectron, needInputShims, testUserAgent, matchMedia, transition, lifecycle, setupConfig, configFromURL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/helpers */ "./node_modules/@ionic/core/dist/collection/utils/helpers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reorderArray", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["reorderArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "clamp", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["clamp"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "assert", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["assert"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "now", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["now"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pointerCoord", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["pointerCoord"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isRightSide", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["isRightSide"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deferEvent", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["deferEvent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "debounceEvent", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["debounceEvent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "debounce", function() { return _utils_helpers__WEBPACK_IMPORTED_MODULE_0__["debounce"]; });
+
+/* harmony import */ var _utils_haptic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/haptic */ "./node_modules/@ionic/core/dist/collection/utils/haptic.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticAvailable", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticAvailable"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticSelection", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticSelection"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticSelectionStart", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticSelectionStart"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticSelectionChanged", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticSelectionChanged"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticSelectionEnd", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticSelectionEnd"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticNotification", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticNotification"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hapticImpact", function() { return _utils_haptic__WEBPACK_IMPORTED_MODULE_1__["hapticImpact"]; });
+
+/* harmony import */ var _utils_overlays__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/overlays */ "./node_modules/@ionic/core/dist/collection/utils/overlays.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createOverlay", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["createOverlay"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "dismissOverlay", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["dismissOverlay"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTopOverlay", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["getTopOverlay"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getHighestId", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["getHighestId"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeLastOverlay", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["removeLastOverlay"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "present", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["present"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "dismiss", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["dismiss"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "autoFocus", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["autoFocus"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "eventMethod", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["eventMethod"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "onceEvent", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["onceEvent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isCancel", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["isCancel"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BACKDROP", function() { return _utils_overlays__WEBPACK_IMPORTED_MODULE_2__["BACKDROP"]; });
+
+/* harmony import */ var _utils_framework_delegate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/framework-delegate */ "./node_modules/@ionic/core/dist/collection/utils/framework-delegate.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "attachComponent", function() { return _utils_framework_delegate__WEBPACK_IMPORTED_MODULE_3__["attachComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "detachComponent", function() { return _utils_framework_delegate__WEBPACK_IMPORTED_MODULE_3__["detachComponent"]; });
+
+/* harmony import */ var _utils_platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/platform */ "./node_modules/@ionic/core/dist/collection/utils/platform.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isIpad", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isIpad"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isIphone", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isIphone"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isIOS", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isIOS"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isAndroid", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isAndroid"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isPhablet", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isPhablet"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isTablet", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isTablet"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isDevice", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isDevice"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isHybrid", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isHybrid"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isCordova", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isCordova"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isCapacitor", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isCapacitor"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isElectron", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["isElectron"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "needInputShims", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["needInputShims"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "testUserAgent", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["testUserAgent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "matchMedia", function() { return _utils_platform__WEBPACK_IMPORTED_MODULE_4__["matchMedia"]; });
+
+/* harmony import */ var _utils_transition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/transition */ "./node_modules/@ionic/core/dist/collection/utils/transition.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "transition", function() { return _utils_transition__WEBPACK_IMPORTED_MODULE_5__["transition"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lifecycle", function() { return _utils_transition__WEBPACK_IMPORTED_MODULE_5__["lifecycle"]; });
+
+/* harmony import */ var _utils_config__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/config */ "./node_modules/@ionic/core/dist/collection/utils/config.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setupConfig", function() { return _utils_config__WEBPACK_IMPORTED_MODULE_6__["setupConfig"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "configFromURL", function() { return _utils_config__WEBPACK_IMPORTED_MODULE_6__["configFromURL"]; });
+
+// Util functions
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/animations/ios.transition.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/animations/ios.transition.js ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return iosTransitionAnimation; });
+const DURATION = 500;
+const EASING = 'cubic-bezier(0.36,0.66,0.04,1)';
+const OPACITY = 'opacity';
+const TRANSFORM = 'transform';
+const TRANSLATEX = 'translateX';
+const CENTER = '0%';
+const OFF_OPACITY = 0.8;
+function iosTransitionAnimation(Animation, navEl, opts) {
+    const isRTL = document.dir === 'rtl';
+    const OFF_RIGHT = isRTL ? '-99.5%' : '99.5%';
+    const OFF_LEFT = isRTL ? '33%' : '-33%';
+    const enteringEl = opts.enteringEl;
+    const leavingEl = opts.leavingEl;
+    const rootTransition = new Animation();
+    rootTransition
+        .addElement(enteringEl)
+        .duration(opts.duration || DURATION)
+        .easing(opts.easing || EASING)
+        .beforeRemoveClass('hide-page');
+    if (leavingEl && navEl) {
+        const navDecor = new Animation();
+        navDecor
+            .addElement(navEl)
+            .duringAddClass('show-decor');
+        rootTransition.add(navDecor);
+    }
+    const backDirection = (opts.direction === 'back');
+    // setting up enter view
+    if (enteringEl) {
+        const contentEl = enteringEl.querySelector(':scope > ion-content');
+        const headerEls = enteringEl.querySelectorAll(':scope > ion-header > *:not(ion-toolbar), :scope > ion-footer > *');
+        const enteringToolBarEle = enteringEl.querySelector(':scope > ion-header > ion-toolbar');
+        const enteringContent = new Animation();
+        if (!contentEl && !enteringToolBarEle && headerEls.length === 0) {
+            enteringContent.addElement(enteringEl.querySelector(':scope > ion-page, :scope > ion-nav, :scope > ion-tabs'));
+        }
+        else {
+            enteringContent.addElement(contentEl);
+            enteringContent.addElement(headerEls);
+        }
+        rootTransition.add(enteringContent);
+        if (backDirection) {
+            enteringContent
+                .beforeClearStyles([OPACITY])
+                .fromTo(TRANSLATEX, OFF_LEFT, CENTER, true)
+                .fromTo(OPACITY, OFF_OPACITY, 1, true);
+        }
+        else {
+            // entering content, forward direction
+            enteringContent
+                .beforeClearStyles([OPACITY])
+                .fromTo(TRANSLATEX, OFF_RIGHT, CENTER, true);
+        }
+        if (enteringToolBarEle) {
+            const enteringToolBar = new Animation();
+            enteringToolBar.addElement(enteringToolBarEle);
+            rootTransition.add(enteringToolBar);
+            const enteringTitle = new Animation();
+            enteringTitle.addElement(enteringToolBarEle.querySelector('ion-title'));
+            const enteringToolBarItems = new Animation();
+            enteringToolBarItems.addElement(enteringToolBarEle.querySelectorAll('ion-buttons,[menuToggle]'));
+            const enteringToolBarBg = new Animation();
+            enteringToolBarBg.addElement(enteringToolBarEle.querySelector('.toolbar-background'));
+            const enteringBackButton = new Animation();
+            enteringBackButton.addElement(enteringToolBarEle.querySelector('ion-back-button'));
+            enteringToolBar
+                .add(enteringTitle)
+                .add(enteringToolBarItems)
+                .add(enteringToolBarBg)
+                .add(enteringBackButton);
+            enteringTitle.fromTo(OPACITY, 0.01, 1, true);
+            enteringToolBarItems.fromTo(OPACITY, 0.01, 1, true);
+            if (backDirection) {
+                enteringTitle.fromTo(TRANSLATEX, OFF_LEFT, CENTER, true);
+                // back direction, entering page has a back button
+                enteringBackButton.fromTo(OPACITY, 0.01, 1, true);
+            }
+            else {
+                // entering toolbar, forward direction
+                enteringTitle.fromTo(TRANSLATEX, OFF_RIGHT, CENTER, true);
+                enteringToolBarBg
+                    .beforeClearStyles([OPACITY])
+                    .fromTo(OPACITY, 0.01, 1, true);
+                // forward direction, entering page has a back button
+                enteringBackButton.fromTo(OPACITY, 0.01, 1, true);
+                const enteringBackBtnText = new Animation();
+                enteringBackBtnText
+                    .addElement(enteringToolBarEle.querySelector('ion-back-button .button-text'))
+                    .fromTo(TRANSLATEX, (isRTL ? '-100px' : '100px'), '0px');
+                enteringToolBar.add(enteringBackBtnText);
+            }
+        }
+    }
+    // setup leaving view
+    if (leavingEl) {
+        const leavingContent = new Animation();
+        leavingContent.addElement(leavingEl.querySelector(':scope > ion-content'));
+        leavingContent.addElement(leavingEl.querySelectorAll(':scope > ion-header > *:not(ion-toolbar), :scope > ion-footer > *'));
+        rootTransition.add(leavingContent);
+        if (backDirection) {
+            // leaving content, back direction
+            leavingContent
+                .beforeClearStyles([OPACITY])
+                .fromTo(TRANSLATEX, CENTER, (isRTL ? '-100%' : '100%'));
+        }
+        else {
+            // leaving content, forward direction
+            leavingContent
+                .fromTo(TRANSLATEX, CENTER, OFF_LEFT, true)
+                .fromTo(OPACITY, 1, OFF_OPACITY, true);
+        }
+        const leavingToolBarEle = leavingEl.querySelector(':scope > ion-header > ion-toolbar');
+        if (leavingToolBarEle) {
+            const leavingToolBar = new Animation();
+            leavingToolBar.addElement(leavingToolBarEle);
+            const leavingTitle = new Animation();
+            leavingTitle.addElement(leavingToolBarEle.querySelector('ion-title'));
+            const leavingToolBarItems = new Animation();
+            leavingToolBarItems.addElement(leavingToolBarEle.querySelectorAll('ion-buttons,[menuToggle]'));
+            const leavingToolBarBg = new Animation();
+            leavingToolBarBg.addElement(leavingToolBarEle.querySelector('.toolbar-background'));
+            const leavingBackButton = new Animation();
+            leavingBackButton.addElement(leavingToolBarEle.querySelector('ion-back-button'));
+            leavingToolBar
+                .add(leavingTitle)
+                .add(leavingToolBarItems)
+                .add(leavingBackButton)
+                .add(leavingToolBarBg);
+            rootTransition.add(leavingToolBar);
+            // fade out leaving toolbar items
+            leavingBackButton.fromTo(OPACITY, 0.99, 0, true);
+            leavingTitle.fromTo(OPACITY, 0.99, 0, true);
+            leavingToolBarItems.fromTo(OPACITY, 0.99, 0, true);
+            if (backDirection) {
+                // leaving toolbar, back direction
+                leavingTitle.fromTo(TRANSLATEX, CENTER, (isRTL ? '-100%' : '100%'));
+                // leaving toolbar, back direction, and there's no entering toolbar
+                // should just slide out, no fading out
+                leavingToolBarBg
+                    .beforeClearStyles([OPACITY])
+                    .fromTo(OPACITY, 1, 0.01, true);
+                const leavingBackBtnText = new Animation();
+                leavingBackBtnText.addElement(leavingToolBarEle.querySelector('ion-back-button .button-text'));
+                leavingBackBtnText.fromTo(TRANSLATEX, CENTER, (isRTL ? -124 : 124) + 'px');
+                leavingToolBar.add(leavingBackBtnText);
+            }
+            else {
+                // leaving toolbar, forward direction
+                leavingTitle
+                    .fromTo(TRANSLATEX, CENTER, OFF_LEFT)
+                    .afterClearStyles([TRANSFORM]);
+                leavingBackButton.afterClearStyles([OPACITY]);
+                leavingTitle.afterClearStyles([OPACITY]);
+                leavingToolBarItems.afterClearStyles([OPACITY]);
+            }
+        }
+    }
+    // Return the rootTransition promise
+    return Promise.resolve(rootTransition);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/animations/md.transition.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/animations/md.transition.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return mdTransitionAnimation; });
+const TRANSLATEY = 'translateY';
+const OFF_BOTTOM = '40px';
+const CENTER = '0px';
+function mdTransitionAnimation(Animation, _, opts) {
+    const enteringEl = opts.enteringEl;
+    const leavingEl = opts.leavingEl;
+    const ionPageElement = getIonPageElement(enteringEl);
+    const rootTransition = new Animation();
+    rootTransition
+        .addElement(ionPageElement)
+        .beforeRemoveClass('hide-page');
+    const backDirection = (opts.direction === 'back');
+    if (enteringEl) {
+        // animate the component itself
+        if (backDirection) {
+            rootTransition
+                .duration(opts.duration || 200)
+                .easing('cubic-bezier(0.47,0,0.745,0.715)');
+        }
+        else {
+            rootTransition
+                .duration(opts.duration || 280)
+                .easing('cubic-bezier(0.36,0.66,0.04,1)')
+                .fromTo(TRANSLATEY, OFF_BOTTOM, CENTER, true)
+                .fromTo('opacity', 0.01, 1, true);
+        }
+        // Animate toolbar if it's there
+        const enteringToolbarEle = ionPageElement.querySelector('ion-toolbar');
+        if (enteringToolbarEle) {
+            const enteringToolBar = new Animation();
+            enteringToolBar.addElement(enteringToolbarEle);
+            rootTransition.add(enteringToolBar);
+        }
+    }
+    // setup leaving view
+    if (leavingEl && backDirection) {
+        // leaving content
+        rootTransition
+            .duration(opts.duration || 200)
+            .easing('cubic-bezier(0.47,0,0.745,0.715)');
+        const leavingPage = new Animation();
+        leavingPage
+            .addElement(getIonPageElement(leavingEl))
+            .fromTo(TRANSLATEY, CENTER, OFF_BOTTOM)
+            .fromTo('opacity', 1, 0);
+        rootTransition.add(leavingPage);
+    }
+    return Promise.resolve(rootTransition);
+}
+function getIonPageElement(element) {
+    if (element.classList.contains('ion-page')) {
+        return element;
+    }
+    const ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
+    if (ionPage) {
+        return ionPage;
+    }
+    // idk, return the original element so at least something animates and we don't have a null pointer
+    return element;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/config.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/config.js ***!
+  \******************************************************************/
+/*! exports provided: setupConfig, configFromURL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setupConfig", function() { return setupConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configFromURL", function() { return configFromURL; });
+function setupConfig(config) {
+    const win = window;
+    const Ionic = win.Ionic;
+    if (Ionic && Ionic.config && Ionic.config.constructor.name !== 'Object') {
+        console.error('ionic config was already initialized');
+        return;
+    }
+    win.Ionic = win.Ionic || {};
+    win.Ionic.config = Object.assign({}, win.Ionic.config, config);
+    return win.Ionic.config;
+}
+function configFromURL() {
+    const config = {};
+    const win = window;
+    win.location.search.slice(1)
+        .split('&')
+        .filter(entryText => entryText.startsWith('ionic:'))
+        .map(entryText => entryText.split('='))
+        .forEach(entry => {
+        config[entry[0].slice(6)] = decodeURIComponent(entry[1]);
+    });
+    return config;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/framework-delegate.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/framework-delegate.js ***!
+  \******************************************************************************/
+/*! exports provided: attachComponent, detachComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "attachComponent", function() { return attachComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "detachComponent", function() { return detachComponent; });
+function attachComponent(delegate, container, component, cssClasses, componentProps) {
+    if (delegate) {
+        return delegate.attachViewToDom(container, component, componentProps, cssClasses);
+    }
+    if (typeof component !== 'string' && !(component instanceof HTMLElement)) {
+        throw new Error('framework delegate is missing');
+    }
+    const el = (typeof component === 'string')
+        ? container.ownerDocument.createElement(component)
+        : component;
+    cssClasses && cssClasses.forEach(c => el.classList.add(c));
+    componentProps && Object.assign(el, componentProps);
+    container.appendChild(el);
+    if (el.componentOnReady) {
+        return el.componentOnReady();
+    }
+    return Promise.resolve(el);
+}
+function detachComponent(delegate, element) {
+    if (element) {
+        if (delegate) {
+            const container = element.parentElement;
+            return delegate.removeViewFromDom(container, element);
+        }
+        element.remove();
+    }
+    return Promise.resolve();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/haptic.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/haptic.js ***!
+  \******************************************************************/
+/*! exports provided: hapticAvailable, hapticSelection, hapticSelectionStart, hapticSelectionChanged, hapticSelectionEnd, hapticNotification, hapticImpact */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticAvailable", function() { return hapticAvailable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticSelection", function() { return hapticSelection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticSelectionStart", function() { return hapticSelectionStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticSelectionChanged", function() { return hapticSelectionChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticSelectionEnd", function() { return hapticSelectionEnd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticNotification", function() { return hapticNotification; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hapticImpact", function() { return hapticImpact; });
+/**
+ * Check to see if the Haptic Plugin is available
+ * @return Returns true or false if the plugin is available
+ */
+function hapticAvailable() {
+    const engine = window.TapticEngine;
+    return !!engine;
+}
+/**
+ * Trigger a selection changed haptic event. Good for one-time events
+ * (not for gestures)
+ */
+function hapticSelection() {
+    const engine = window.TapticEngine;
+    engine && engine.selection();
+}
+/**
+ * Tell the haptic engine that a gesture for a selection change is starting.
+ */
+function hapticSelectionStart() {
+    const engine = window.TapticEngine;
+    engine && engine.gestureSelectionStart();
+}
+/**
+ * Tell the haptic engine that a selection changed during a gesture.
+ */
+function hapticSelectionChanged() {
+    const engine = window.TapticEngine;
+    engine && engine.gestureSelectionChanged();
+}
+/**
+ * Tell the haptic engine we are done with a gesture. This needs to be
+ * called lest resources are not properly recycled.
+ */
+function hapticSelectionEnd() {
+    const engine = window.TapticEngine;
+    engine && engine.gestureSelectionEnd();
+}
+/**
+ * Use this to indicate success/failure/warning to the user.
+ * options should be of the type `{ type: 'success' }` (or `warning`/`error`)
+ */
+function hapticNotification(options) {
+    const engine = window.TapticEngine;
+    engine && engine.notification(options);
+}
+/**
+ * Use this to indicate success/failure/warning to the user.
+ * options should be of the type `{ style: 'light' }` (or `medium`/`heavy`)
+ */
+function hapticImpact(options) {
+    const engine = window.TapticEngine;
+    engine && engine.impact(options);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/helpers.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/helpers.js ***!
+  \*******************************************************************/
+/*! exports provided: reorderArray, clamp, assert, now, pointerCoord, isRightSide, deferEvent, debounceEvent, debounce */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reorderArray", function() { return reorderArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clamp", function() { return clamp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assert", function() { return assert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "now", function() { return now; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pointerCoord", function() { return pointerCoord; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isRightSide", function() { return isRightSide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deferEvent", function() { return deferEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "debounceEvent", function() { return debounceEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "debounce", function() { return debounce; });
+function reorderArray(array, indexes) {
+    const element = array[indexes.from];
+    array.splice(indexes.from, 1);
+    array.splice(indexes.to, 0, element);
+    return array;
+}
+function clamp(min, n, max) {
+    return Math.max(min, Math.min(n, max));
+}
+function assert(actual, reason) {
+    if (!actual) {
+        const message = 'ASSERT: ' + reason;
+        console.error(message);
+        debugger; // tslint:disable-line
+        throw new Error(message);
+    }
+}
+function now(ev) {
+    return ev.timeStamp || Date.now();
+}
+function pointerCoord(ev) {
+    // get X coordinates for either a mouse click
+    // or a touch depending on the given event
+    if (ev) {
+        const changedTouches = ev.changedTouches;
+        if (changedTouches && changedTouches.length > 0) {
+            const touch = changedTouches[0];
+            return { x: touch.clientX, y: touch.clientY };
+        }
+        if (ev.pageX !== undefined) {
+            return { x: ev.pageX, y: ev.pageY };
+        }
+    }
+    return { x: 0, y: 0 };
+}
+/**
+ * @hidden
+ * Given a side, return if it should be on the right
+ * based on the value of dir
+ * @param side the side
+ * @param isRTL whether the application dir is rtl
+ */
+function isRightSide(win, side) {
+    const isRTL = win.document.dir === 'rtl';
+    switch (side) {
+        case 'start': return isRTL;
+        case 'end': return !isRTL;
+        default:
+            throw new Error(`"${side}" is not a valid value for [side]. Use "start" or "end" instead.`);
+    }
+}
+function deferEvent(event) {
+    return debounceEvent(event, 0);
+}
+function debounceEvent(event, wait) {
+    const original = event._original || event;
+    return {
+        _original: event,
+        emit: debounce(original.emit.bind(original), wait)
+    };
+}
+function debounce(func, wait = 0) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(func, wait, ...args);
+    };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/overlays.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/overlays.js ***!
+  \********************************************************************/
+/*! exports provided: createOverlay, dismissOverlay, getTopOverlay, getHighestId, removeLastOverlay, present, dismiss, autoFocus, eventMethod, onceEvent, isCancel, BACKDROP */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createOverlay", function() { return createOverlay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dismissOverlay", function() { return dismissOverlay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTopOverlay", function() { return getTopOverlay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHighestId", function() { return getHighestId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeLastOverlay", function() { return removeLastOverlay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "present", function() { return present; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dismiss", function() { return dismiss; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autoFocus", function() { return autoFocus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventMethod", function() { return eventMethod; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onceEvent", function() { return onceEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCancel", function() { return isCancel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKDROP", function() { return BACKDROP; });
+let lastId = 1;
+function createOverlay(element, opts) {
+    // convert the passed in overlay options into props
+    // that get passed down into the new overlay
+    Object.assign(element, opts);
+    element.overlayId = lastId++;
+    // append the overlay element to the document body
+    const doc = element.ownerDocument;
+    const appRoot = doc.querySelector('ion-app') || doc.body;
+    appRoot.appendChild(element);
+    return element.componentOnReady();
+}
+function dismissOverlay(data, role, overlays, id) {
+    id = id >= 0 ? id : getHighestId(overlays);
+    const overlay = overlays.get(id);
+    if (!overlay) {
+        return Promise.reject('overlay does not exist');
+    }
+    return overlay.dismiss(data, role);
+}
+function getTopOverlay(overlays) {
+    return overlays.get(getHighestId(overlays));
+}
+function getHighestId(overlays) {
+    let minimum = -1;
+    overlays.forEach((_, id) => {
+        if (id > minimum) {
+            minimum = id;
+        }
+    });
+    return minimum;
+}
+function removeLastOverlay(overlays) {
+    const toRemove = getTopOverlay(overlays);
+    return toRemove ? toRemove.dismiss() : Promise.resolve();
+}
+async function present(overlay, name, iosEnterAnimation, mdEnterAnimation, opts) {
+    if (overlay.presented) {
+        return;
+    }
+    overlay.presented = true;
+    overlay.willPresent.emit();
+    // get the user's animation fn if one was provided
+    const animationBuilder = (overlay.enterAnimation)
+        ? overlay.enterAnimation
+        : overlay.config.get(name, overlay.mode === 'ios' ? iosEnterAnimation : mdEnterAnimation);
+    await overlayAnimation(overlay, animationBuilder, overlay.el, opts);
+    overlay.didPresent.emit();
+}
+async function dismiss(overlay, data, role, name, iosLeaveAnimation, mdLeaveAnimation, opts) {
+    if (!overlay.presented) {
+        return;
+    }
+    overlay.presented = false;
+    overlay.willDismiss.emit({ data, role });
+    const animationBuilder = (overlay.leaveAnimation)
+        ? overlay.leaveAnimation
+        : overlay.config.get(name, overlay.mode === 'ios' ? iosLeaveAnimation : mdLeaveAnimation);
+    await overlayAnimation(overlay, animationBuilder, overlay.el, opts);
+    overlay.didDismiss.emit({ data, role });
+    overlay.el.remove();
+}
+async function overlayAnimation(overlay, animationBuilder, baseEl, opts) {
+    if (overlay.keyboardClose) {
+        const activeElement = baseEl.ownerDocument.activeElement;
+        activeElement && activeElement.blur && activeElement.blur();
+    }
+    if (overlay.animation) {
+        overlay.animation.destroy();
+        overlay.animation = undefined;
+    }
+    const animation = overlay.animation = await overlay.animationCtrl.create(animationBuilder, baseEl, opts);
+    overlay.animation = animation;
+    if (!overlay.willAnimate) {
+        animation.duration(0);
+    }
+    await animation.playAsync();
+    animation.destroy();
+    overlay.animation = undefined;
+}
+function autoFocus(containerEl) {
+    const focusableEls = containerEl.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]');
+    if (focusableEls.length > 0) {
+        const el = focusableEls[0];
+        el.focus();
+        return el;
+    }
+    return null;
+}
+function eventMethod(element, eventName, callback) {
+    let resolve;
+    const promise = new Promise(r => resolve = r);
+    onceEvent(element, eventName, (event) => {
+        const detail = event.detail;
+        callback && callback(detail);
+        resolve(detail);
+    });
+    return promise;
+}
+function onceEvent(element, eventName, callback) {
+    const handler = (ev) => {
+        element.removeEventListener(eventName, handler);
+        callback(ev);
+    };
+    element.addEventListener(eventName, handler);
+}
+function isCancel(role) {
+    return role === 'cancel' || role === BACKDROP;
+}
+const BACKDROP = 'backdrop';
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/platform.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/platform.js ***!
+  \********************************************************************/
+/*! exports provided: isIpad, isIphone, isIOS, isAndroid, isPhablet, isTablet, isDevice, isHybrid, isCordova, isCapacitor, isElectron, needInputShims, testUserAgent, matchMedia */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isIpad", function() { return isIpad; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isIphone", function() { return isIphone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isIOS", function() { return isIOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAndroid", function() { return isAndroid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPhablet", function() { return isPhablet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTablet", function() { return isTablet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDevice", function() { return isDevice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isHybrid", function() { return isHybrid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCordova", function() { return isCordova; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCapacitor", function() { return isCapacitor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isElectron", function() { return isElectron; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "needInputShims", function() { return needInputShims; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "testUserAgent", function() { return testUserAgent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matchMedia", function() { return matchMedia; });
+function isIpad(win) {
+    return testUserAgent(win, /iPad/i);
+}
+function isIphone(win) {
+    return testUserAgent(win, /iPhone/i);
+}
+function isIOS(win) {
+    return testUserAgent(win, /iPad|iPhone|iPod/i);
+}
+function isAndroid(win) {
+    return !isIOS(win);
+}
+function isPhablet(win) {
+    const width = win.innerWidth;
+    const height = win.innerHeight;
+    const smallest = Math.min(width, height);
+    const largest = Math.max(width, height);
+    return (smallest > 390 && smallest < 520) &&
+        (largest > 620 && largest < 800);
+}
+function isTablet(win) {
+    const width = win.innerWidth;
+    const height = win.innerHeight;
+    const smallest = Math.min(width, height);
+    const largest = Math.max(width, height);
+    return (smallest > 460 && smallest < 820) &&
+        (largest > 780 && largest < 1400);
+}
+function isDevice(win) {
+    return matchMedia(win, '(any-pointer:coarse)');
+}
+function isHybrid(win) {
+    return isCordova(win) || isCapacitor(win);
+}
+function isCordova(window) {
+    const win = window;
+    return !!(win['cordova'] || win['phonegap'] || win['PhoneGap']);
+}
+function isCapacitor(window) {
+    const win = window;
+    return !!(win['Capacitor']);
+}
+function isElectron(win) {
+    return testUserAgent(win, /electron/);
+}
+function needInputShims(win) {
+    return isIOS(win) && isDevice(win);
+}
+function testUserAgent(win, expr) {
+    return expr.test(win.navigator.userAgent);
+}
+function matchMedia(win, query, fallback = false) {
+    return win.matchMedia
+        ? win.matchMedia(query).matches
+        : fallback;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/collection/utils/transition.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/collection/utils/transition.js ***!
+  \**********************************************************************/
+/*! exports provided: transition, lifecycle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transition", function() { return transition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lifecycle", function() { return lifecycle; });
+/* harmony import */ var _animations_ios_transition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animations/ios.transition */ "./node_modules/@ionic/core/dist/collection/utils/animations/ios.transition.js");
+/* harmony import */ var _animations_md_transition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animations/md.transition */ "./node_modules/@ionic/core/dist/collection/utils/animations/md.transition.js");
+
+
+function transition(opts) {
+    beforeTransition(opts);
+    const animationBuilder = getAnimationBuilder(opts);
+    return (animationBuilder)
+        ? animation(animationBuilder, opts)
+        : noAnimation(opts); // fast path for no animation
+}
+function getAnimationBuilder(opts) {
+    if (!opts.leavingEl || opts.animated === false || opts.duration === 0) {
+        return undefined;
+    }
+    if (opts.animationBuilder) {
+        return opts.animationBuilder;
+    }
+    return opts.mode === 'ios' ? _animations_ios_transition__WEBPACK_IMPORTED_MODULE_0__["default"] : _animations_md_transition__WEBPACK_IMPORTED_MODULE_1__["default"];
+}
+function beforeTransition(opts) {
+    const enteringEl = opts.enteringEl;
+    const leavingEl = opts.leavingEl;
+    setZIndex(enteringEl, leavingEl, opts.direction);
+    if (opts.showGoBack) {
+        enteringEl.classList.add('can-go-back');
+    }
+    else {
+        enteringEl.classList.remove('can-go-back');
+    }
+    enteringEl.hidden = false;
+    if (leavingEl) {
+        leavingEl.hidden = false;
+    }
+}
+async function animation(animationBuilder, opts) {
+    await waitForReady(opts, true);
+    const trns = await opts.animationCtrl.create(animationBuilder, opts.baseEl, opts);
+    fireWillEvents(opts.window, opts.enteringEl, opts.leavingEl);
+    await playTransition(trns, opts);
+    if (trns.hasCompleted) {
+        fireDidEvents(opts.window, opts.enteringEl, opts.leavingEl);
+    }
+    return trns;
+}
+async function noAnimation(opts) {
+    const enteringEl = opts.enteringEl;
+    const leavingEl = opts.leavingEl;
+    if (enteringEl) {
+        enteringEl.classList.remove('hide-page');
+    }
+    if (leavingEl) {
+        leavingEl.classList.remove('hide-page');
+    }
+    await waitForReady(opts, false);
+    fireWillEvents(opts.window, enteringEl, leavingEl);
+    fireDidEvents(opts.window, enteringEl, leavingEl);
+    return null;
+}
+async function waitForReady(opts, defaultDeep) {
+    const deep = opts.deepWait != null ? opts.deepWait : defaultDeep;
+    const promises = deep ? [
+        deepReady(opts.enteringEl),
+        deepReady(opts.leavingEl),
+    ] : [
+        shallowReady(opts.enteringEl),
+        shallowReady(opts.leavingEl),
+    ];
+    await Promise.all(promises);
+    await notifyViewReady(opts.viewIsReady, opts.enteringEl);
+}
+async function notifyViewReady(viewIsReady, enteringEl) {
+    if (viewIsReady) {
+        await viewIsReady(enteringEl);
+    }
+}
+function playTransition(transition, opts) {
+    const progressCallback = opts.progressCallback;
+    const promise = new Promise(resolve => transition.onFinish(resolve));
+    // cool, let's do this, start the transition
+    if (progressCallback) {
+        // this is a swipe to go back, just get the transition progress ready
+        // kick off the swipe animation start
+        transition.progressStart();
+        progressCallback(transition);
+    }
+    else {
+        // only the top level transition should actually start "play"
+        // kick it off and let it play through
+        // ******** DOM WRITE ****************
+        transition.play();
+    }
+    // create a callback for when the animation is done
+    return promise;
+}
+function fireWillEvents(win, enteringEl, leavingEl) {
+    lifecycle(win, leavingEl, "ionViewWillLeave" /* WillLeave */);
+    lifecycle(win, enteringEl, "ionViewWillEnter" /* WillEnter */);
+}
+function fireDidEvents(win, enteringEl, leavingEl) {
+    lifecycle(win, enteringEl, "ionViewDidEnter" /* DidEnter */);
+    lifecycle(win, leavingEl, "ionViewDidLeave" /* DidLeave */);
+}
+function lifecycle(win, el, eventName) {
+    if (el) {
+        const CEvent = win.CustomEvent;
+        const event = new CEvent(eventName, {
+            bubbles: false,
+            cancelable: false,
+        });
+        el.dispatchEvent(event);
+    }
+}
+function shallowReady(el) {
+    if (el && el.componentOnReady) {
+        return el.componentOnReady();
+    }
+    return Promise.resolve();
+}
+function deepReady(el) {
+    if (!el) {
+        return Promise.resolve();
+    }
+    if (customElements.get) {
+        if (customElements.get(el.tagName.toLowerCase())) {
+            return componentOnReady(el);
+        }
+        else {
+            return Promise.all(Array.from(el.children).map(deepReady));
+        }
+    }
+    return componentOnReady(el);
+}
+function componentOnReady(el) {
+    if (el.componentOnReady) {
+        return el.componentOnReady();
+    }
+    else {
+        return Promise.all(Array.from(el.children).map(deepReady));
+    }
+}
+function setZIndex(enteringEl, leavingEl, direction) {
+    if (enteringEl) {
+        enteringEl.style.zIndex = (direction === 'back')
+            ? '99'
+            : '101';
+    }
+    if (leavingEl) {
+        leavingEl.style.zIndex = '100';
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ngxs/devtools-plugin/fesm5/ngxs-devtools-plugin.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@ngxs/devtools-plugin/fesm5/ngxs-devtools-plugin.js ***!
+  \**************************************************************************/
+/*! exports provided: ɵb, ɵa, ɵd, NgxsReduxDevtoolsPluginModule, NgxsReduxDevtoolsPlugin */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return USER_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return devtoolsOptionsFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return NGXS_DEVTOOLS_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsReduxDevtoolsPluginModule", function() { return NgxsReduxDevtoolsPluginModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsReduxDevtoolsPlugin", function() { return NgxsReduxDevtoolsPlugin; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngxs/store */ "./node_modules/@ngxs/store/fesm5/ngxs-store.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+var NGXS_DEVTOOLS_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('NGXS_DEVTOOLS_OPTIONS');
+
+/**
+ * Adds support for the Redux Devtools extension:
+ * http://extension.remotedev.io/
+ */
+var NgxsReduxDevtoolsPlugin = /** @class */ (function () {
+    function NgxsReduxDevtoolsPlugin(_options, _state, _injector) {
+        var _this = this;
+        this._options = _options;
+        this._state = _state;
+        this._injector = _injector;
+        this.devtoolsExtension = null;
+        this.windowObj = typeof window !== 'undefined' ? window : {};
+        var globalDevtools = this.windowObj['__REDUX_DEVTOOLS_EXTENSION__'] || this.windowObj['devToolsExtension'];
+        if (globalDevtools) {
+            this.devtoolsExtension = globalDevtools.connect(_options);
+            this.devtoolsExtension.subscribe(function (a) { return _this.dispatched(a); });
+        }
+    }
+    /**
+       * Middleware handle function
+       */
+    NgxsReduxDevtoolsPlugin.prototype.handle = function (state, action, next) {
+        var _this = this;
+        var isDisabled = this._options && this._options.disabled;
+        if (!this.devtoolsExtension || isDisabled) {
+            return next(state, action);
+        }
+        return next(state, action).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (newState) {
+            // if init action, send initial state to dev tools
+            var isInitAction = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getActionTypeFromInstance"])(action) === '@@INIT';
+            if (isInitAction) {
+                _this.devtoolsExtension.init(state);
+            }
+            else {
+                var type = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getActionTypeFromInstance"])(action);
+                _this.devtoolsExtension.send(Object.assign({}, action, { type: type }), newState);
+            }
+        }));
+    };
+    /**
+       * Handle the action from the dev tools subscription
+       */
+    NgxsReduxDevtoolsPlugin.prototype.dispatched = function (action) {
+        if (action.type === 'DISPATCH') {
+            if (action.payload.type === 'JUMP_TO_ACTION' || action.payload.type === 'JUMP_TO_STATE') {
+                var prevState = JSON.parse(action.state);
+                this._state.next(prevState);
+            }
+            else if (action.payload.type === 'TOGGLE_ACTION') {
+                console.warn('Skip is not supported at this time.');
+            }
+        }
+        else if (action.type === 'ACTION') {
+            // Lazy get the store for circular depedency issues
+            var store = this._injector.get(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Store"]);
+            var actionPayload = JSON.parse(action.payload);
+            store.dispatch(actionPayload);
+        }
+    };
+    return NgxsReduxDevtoolsPlugin;
+}());
+NgxsReduxDevtoolsPlugin.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+NgxsReduxDevtoolsPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [NGXS_DEVTOOLS_OPTIONS,] },] },
+    { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_1__["StateStream"], },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
+]; };
+
+function devtoolsOptionsFactory(options) {
+    return Object.assign({ name: 'NGXS' }, options);
+}
+var USER_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('USER_OPTIONS');
+var NgxsReduxDevtoolsPluginModule = /** @class */ (function () {
+    function NgxsReduxDevtoolsPluginModule() {
+    }
+    NgxsReduxDevtoolsPluginModule.forRoot = function (options) {
+        return {
+            ngModule: NgxsReduxDevtoolsPluginModule,
+            providers: [
+                {
+                    provide: _ngxs_store__WEBPACK_IMPORTED_MODULE_1__["NGXS_PLUGINS"],
+                    useClass: NgxsReduxDevtoolsPlugin,
+                    multi: true
+                },
+                {
+                    provide: USER_OPTIONS,
+                    useValue: options
+                },
+                {
+                    provide: NGXS_DEVTOOLS_OPTIONS,
+                    useFactory: devtoolsOptionsFactory,
+                    deps: [USER_OPTIONS]
+                }
+            ]
+        };
+    };
+    return NgxsReduxDevtoolsPluginModule;
+}());
+NgxsReduxDevtoolsPluginModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                imports: [_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["NgxsModule"]]
+            },] },
+];
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=ngxs-devtools-plugin.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ngxs/form-plugin/fesm5/ngxs-form-plugin.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ngxs/form-plugin/fesm5/ngxs-form-plugin.js ***!
+  \******************************************************************/
+/*! exports provided: ɵa, NgxsFormPluginModule, NgxsFormPlugin, UpdateFormStatus, UpdateFormValue, UpdateForm, UpdateFormDirty, SetFormDirty, SetFormPristine, UpdateFormErrors, SetFormDisabled, SetFormEnabled */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return FormDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsFormPluginModule", function() { return NgxsFormPluginModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsFormPlugin", function() { return NgxsFormPlugin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateFormStatus", function() { return UpdateFormStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateFormValue", function() { return UpdateFormValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateForm", function() { return UpdateForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateFormDirty", function() { return UpdateFormDirty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetFormDirty", function() { return SetFormDirty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetFormPristine", function() { return SetFormPristine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateFormErrors", function() { return UpdateFormErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetFormDisabled", function() { return SetFormDisabled; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetFormEnabled", function() { return SetFormEnabled; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngxs/store */ "./node_modules/@ngxs/store/fesm5/ngxs-store.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+
+
+var UpdateFormStatus = /** @class */ (function () {
+    function UpdateFormStatus(payload) {
+        this.payload = payload;
+    }
+    return UpdateFormStatus;
+}());
+UpdateFormStatus.type = '[Forms] Update Form Status';
+var UpdateFormValue = /** @class */ (function () {
+    function UpdateFormValue(payload) {
+        this.payload = payload;
+    }
+    return UpdateFormValue;
+}());
+UpdateFormValue.type = '[Forms] Update Form Value';
+var UpdateForm = /** @class */ (function () {
+    function UpdateForm(payload) {
+        this.payload = payload;
+    }
+    return UpdateForm;
+}());
+UpdateForm.type = '[Forms] Update Form';
+var UpdateFormDirty = /** @class */ (function () {
+    function UpdateFormDirty(payload) {
+        this.payload = payload;
+    }
+    return UpdateFormDirty;
+}());
+UpdateFormDirty.type = '[Forms] Update Form Dirty';
+var SetFormDirty = /** @class */ (function () {
+    function SetFormDirty(payload) {
+        this.payload = payload;
+    }
+    return SetFormDirty;
+}());
+SetFormDirty.type = '[Forms] Set Form Dirty';
+var SetFormPristine = /** @class */ (function () {
+    function SetFormPristine(payload) {
+        this.payload = payload;
+    }
+    return SetFormPristine;
+}());
+SetFormPristine.type = '[Forms] Set Form Pristine';
+var UpdateFormErrors = /** @class */ (function () {
+    function UpdateFormErrors(payload) {
+        this.payload = payload;
+    }
+    return UpdateFormErrors;
+}());
+UpdateFormErrors.type = '[Forms] Update Form Errors';
+var SetFormDisabled = /** @class */ (function () {
+    function SetFormDisabled(payload) {
+        this.payload = payload;
+    }
+    return SetFormDisabled;
+}());
+SetFormDisabled.type = '[Forms] Set Form Disabled';
+var SetFormEnabled = /** @class */ (function () {
+    function SetFormEnabled(payload) {
+        this.payload = payload;
+    }
+    return SetFormEnabled;
+}());
+SetFormEnabled.type = '[Forms] Set Form Enabled';
+
+var NgxsFormPlugin = /** @class */ (function () {
+    function NgxsFormPlugin() {
+    }
+    NgxsFormPlugin.prototype.handle = function (state, event, next) {
+        var type = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getActionTypeFromInstance"])(event);
+        var nextState = state;
+        if (type === UpdateFormValue.type || type === UpdateForm.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload.path + ".model", Object.assign({}, event.payload.value));
+        }
+        if (type === UpdateFormStatus.type || type === UpdateForm.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload.path + ".status", event.payload.status);
+        }
+        if (type === UpdateFormErrors.type || type === UpdateForm.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload.path + ".errors", Object.assign({}, event.payload.errors));
+        }
+        if (type === UpdateFormDirty.type || type === UpdateForm.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload.path + ".dirty", event.payload.dirty);
+        }
+        if (type === SetFormDirty.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload + ".dirty", true);
+        }
+        if (type === SetFormPristine.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload + ".dirty", false);
+        }
+        if (type === SetFormDisabled.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload + ".disabled", true);
+        }
+        if (type === SetFormEnabled.type) {
+            nextState = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["setValue"])(nextState, event.payload + ".disabled", false);
+        }
+        return next(nextState, event);
+    };
+    return NgxsFormPlugin;
+}());
+NgxsFormPlugin.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+NgxsFormPlugin.ctorParameters = function () { return []; };
+
+var FormDirective = /** @class */ (function () {
+    function FormDirective(_store, _formGroupDirective, _cd) {
+        this._store = _store;
+        this._formGroupDirective = _formGroupDirective;
+        this._cd = _cd;
+        this.debounce = 100;
+        this._destroy$ = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this._updating = false;
+    }
+    FormDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._store
+            .select(function (state) { return Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getValue"])(state, _this.path + ".model"); })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._destroy$))
+            .subscribe(function (model) {
+            if (!_this._updating && model) {
+                _this._formGroupDirective.form.patchValue(model);
+                _this._cd.markForCheck();
+            }
+        });
+        // On first state change, sync form model, status and dirty with state
+        this._store
+            .select(function (state) { return Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getValue"])(state, "" + _this.path); })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._destroy$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])())
+            .subscribe(function (state) {
+            _this._store.dispatch([
+                new UpdateFormValue({
+                    path: _this.path,
+                    value: _this._formGroupDirective.form.getRawValue()
+                }),
+                new UpdateFormStatus({
+                    path: _this.path,
+                    status: _this._formGroupDirective.form.status
+                }),
+                new UpdateFormDirty({
+                    path: _this.path,
+                    dirty: _this._formGroupDirective.form.dirty
+                })
+            ]);
+        });
+        this._store
+            .select(function (state) { return Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getValue"])(state, _this.path + ".dirty"); })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._destroy$))
+            .subscribe(function (dirty) {
+            if (_this._formGroupDirective.form.dirty !== dirty) {
+                if (dirty === true) {
+                    _this._formGroupDirective.form.markAsDirty();
+                    _this._cd.markForCheck();
+                }
+                else if (dirty === false) {
+                    _this._formGroupDirective.form.markAsPristine();
+                    _this._cd.markForCheck();
+                }
+            }
+        });
+        this._store
+            .select(function (state) { return Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getValue"])(state, _this.path + ".disabled"); })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._destroy$))
+            .subscribe(function (disabled) {
+            if (_this._formGroupDirective.form.disabled !== disabled) {
+                if (disabled === true) {
+                    _this._formGroupDirective.form.disable();
+                    _this._cd.markForCheck();
+                }
+                else if (disabled === false) {
+                    _this._formGroupDirective.form.enable();
+                    _this._cd.markForCheck();
+                }
+            }
+        });
+        this._formGroupDirective.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(this.debounce), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._destroy$)).subscribe(function () {
+            var value = _this._formGroupDirective.control.getRawValue();
+            _this._updating = true;
+            _this._store
+                .dispatch([
+                new UpdateFormValue({
+                    path: _this.path,
+                    value: value
+                }),
+                new UpdateFormDirty({
+                    path: _this.path,
+                    dirty: _this._formGroupDirective.dirty
+                }),
+                new UpdateFormErrors({
+                    path: _this.path,
+                    errors: _this._formGroupDirective.errors
+                })
+            ])
+                .subscribe({
+                error: function () { return (_this._updating = false); },
+                complete: function () { return (_this._updating = false); }
+            });
+        });
+        this._formGroupDirective.statusChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(this.debounce), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this._destroy$))
+            .subscribe(function (status) {
+            _this._store.dispatch(new UpdateFormStatus({
+                status: status,
+                path: _this.path
+            }));
+        });
+    };
+    FormDirective.prototype.ngOnDestroy = function () {
+        this._destroy$.next();
+        this._destroy$.complete();
+        if (this.clearDestroy) {
+            this._store.dispatch(new UpdateForm({
+                path: this.path,
+                value: null,
+                dirty: null,
+                status: null,
+                errors: null
+            }));
+        }
+    };
+    return FormDirective;
+}());
+FormDirective.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{ selector: '[ngxsForm]' },] },
+];
+/** @nocollapse */
+FormDirective.ctorParameters = function () { return [
+    { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Store"], },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
+]; };
+FormDirective.propDecorators = {
+    "path": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngxsForm',] },],
+    "debounce": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngxsFormDebounce',] },],
+    "clearDestroy": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngxsFormClearOnDestroy',] },],
+};
+
+var NgxsFormPluginModule = /** @class */ (function () {
+    function NgxsFormPluginModule() {
+    }
+    NgxsFormPluginModule.forRoot = function () {
+        return {
+            ngModule: NgxsFormPluginModule,
+            providers: [
+                {
+                    provide: _ngxs_store__WEBPACK_IMPORTED_MODULE_1__["NGXS_PLUGINS"],
+                    useClass: NgxsFormPlugin,
+                    multi: true
+                }
+            ]
+        };
+    };
+    return NgxsFormPluginModule;
+}());
+NgxsFormPluginModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"]],
+                declarations: [FormDirective],
+                exports: [FormDirective]
+            },] },
+];
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=ngxs-form-plugin.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ngxs/logger-plugin/fesm5/ngxs-logger-plugin.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ngxs/logger-plugin/fesm5/ngxs-logger-plugin.js ***!
+  \**********************************************************************/
+/*! exports provided: ɵa, ɵb, ɵd, NgxsLoggerPluginModule, NgxsLoggerPlugin */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return USER_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return loggerOptionsFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return NGXS_LOGGER_PLUGIN_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsLoggerPluginModule", function() { return NgxsLoggerPluginModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsLoggerPlugin", function() { return NgxsLoggerPlugin; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngxs/store */ "./node_modules/@ngxs/store/fesm5/ngxs-store.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+var NGXS_LOGGER_PLUGIN_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('NGXS_LOGGER_PLUGIN_OPTIONS');
+
+var repeat = function (str, times) { return new Array(times + 1).join(str); };
+var pad = function (num, maxLength) { return repeat('0', maxLength - num.toString().length) + num; };
+
+var NgxsLoggerPlugin = /** @class */ (function () {
+    function NgxsLoggerPlugin(_options) {
+        this._options = _options;
+    }
+    NgxsLoggerPlugin.prototype.handle = function (state, event, next) {
+        var _this = this;
+        if (this._options.disabled) {
+            return next(state, event);
+        }
+        var options = this._options || {};
+        var logger = options.logger || console;
+        var actionName = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["getActionTypeFromInstance"])(event);
+        var time = new Date();
+        // tslint:disable-next-line
+        var formattedTime = " @ " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2) + "." + pad(time.getMilliseconds(), 3);
+        var message = "action " + actionName + formattedTime;
+        var startMessage = options.collapsed ? logger.groupCollapsed : logger.group;
+        try {
+            startMessage.call(logger, message);
+        }
+        catch (e) {
+            console.log(message);
+        }
+        if (typeof event.payload !== 'undefined') {
+            this.log('payload', 'color: #9E9E9E; font-weight: bold', event.payload);
+        }
+        this.log('prev state', 'color: #9E9E9E; font-weight: bold', state);
+        return next(state, event).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (nextState) {
+            _this.log('next state', 'color: #4CAF50; font-weight: bold', nextState);
+            try {
+                logger.groupEnd();
+            }
+            catch (e) {
+                logger.log('—— log end ——');
+            }
+        }));
+    };
+    NgxsLoggerPlugin.prototype.log = function (title, color, payload) {
+        var options = this._options || {};
+        var logger = options.logger || console;
+        if (this.isIE()) {
+            logger.log(title, payload);
+        }
+        else {
+            logger.log('%c ' + title, color, payload);
+        }
+    };
+    NgxsLoggerPlugin.prototype.isIE = function () {
+        var ua = typeof window !== 'undefined' && window.navigator.userAgent ? window.navigator.userAgent : '';
+        var ms_ie = false;
+        var old_ie = ua.indexOf('MSIE ');
+        var new_ie = ua.indexOf('Trident/');
+        if (old_ie > -1 || new_ie > -1) {
+            ms_ie = true;
+        }
+        return ms_ie;
+    };
+    return NgxsLoggerPlugin;
+}());
+NgxsLoggerPlugin.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+NgxsLoggerPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [NGXS_LOGGER_PLUGIN_OPTIONS,] },] },
+]; };
+
+var USER_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('LOGGER_USER_OPTIONS');
+function loggerOptionsFactory(options) {
+    return {
+        logger: console,
+        collapsed: false
+    };
+}
+var NgxsLoggerPluginModule = /** @class */ (function () {
+    function NgxsLoggerPluginModule() {
+    }
+    NgxsLoggerPluginModule.forRoot = function (options) {
+        return {
+            ngModule: NgxsLoggerPluginModule,
+            providers: [
+                {
+                    provide: _ngxs_store__WEBPACK_IMPORTED_MODULE_1__["NGXS_PLUGINS"],
+                    useClass: NgxsLoggerPlugin,
+                    multi: true
+                },
+                {
+                    provide: USER_OPTIONS,
+                    useValue: options
+                },
+                {
+                    provide: NGXS_LOGGER_PLUGIN_OPTIONS,
+                    useFactory: loggerOptionsFactory,
+                    deps: [USER_OPTIONS]
+                }
+            ]
+        };
+    };
+    return NgxsLoggerPluginModule;
+}());
+NgxsLoggerPluginModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"] },
+];
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=ngxs-logger-plugin.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@ngxs/store/fesm5/ngxs-store.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@ngxs/store/fesm5/ngxs-store.js ***!
+  \******************************************************/
+/*! exports provided: ɵe, ɵd, ɵi, ɵj, ɵb, ɵa, ɵk, ɵc, ɵh, ɵg, ɵf, NgxsModule, Action, Store, State, Select, Actions, ofAction, ofActionSuccessful, ofActionDispatched, ofActionErrored, Selector, getActionTypeFromInstance, actionMatcher, NGXS_PLUGINS, StateStream, setValue, getValue, InitState, UpdateState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵe", function() { return InternalActions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return OrderedSubject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵi", function() { return InternalDispatchedActionResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵj", function() { return InternalDispatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return NgxsFeatureModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return NgxsRootModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵk", function() { return PluginManager; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return SelectFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵh", function() { return StateFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵg", function() { return FEATURE_STATE_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵf", function() { return ROOT_STATE_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxsModule", function() { return NgxsModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Action", function() { return Action; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "State", function() { return State; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Select", function() { return Select; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Actions", function() { return Actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ofAction", function() { return ofAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ofActionSuccessful", function() { return ofActionSuccessful; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ofActionDispatched", function() { return ofActionDispatched; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ofActionErrored", function() { return ofActionErrored; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Selector", function() { return Selector; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getActionTypeFromInstance", function() { return getActionTypeFromInstance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionMatcher", function() { return actionMatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NGXS_PLUGINS", function() { return NGXS_PLUGINS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StateStream", function() { return StateStream; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setValue", function() { return setValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValue", function() { return getValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitState", function() { return InitState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateState", function() { return UpdateState; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+var ROOT_STATE_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('ROOT_STATE_TOKEN');
+var FEATURE_STATE_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('FEATURE_STATE_TOKEN');
+var META_KEY = 'NGXS_META';
+var NGXS_PLUGINS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('NGXS_PLUGINS');
+
+/**
+ * Ensures metadata is attached to the class and returns it.
+ *
+ * @ignore
+ */
+function ensureStoreMetadata(target) {
+    if (!target.hasOwnProperty(META_KEY)) {
+        var defaultMetadata = {
+            name: null,
+            actions: {},
+            defaults: {},
+            path: null,
+            children: [],
+            instance: null
+        };
+        Object.defineProperty(target, META_KEY, { value: defaultMetadata });
+    }
+    return target[META_KEY];
+}
+/**
+ * The generated function is faster than:
+ * - pluck (Observable operator)
+ * - memoize
+ *
+ * @ignore
+ */
+function fastPropGetter(paths) {
+    var segments = paths;
+    var seg = 'store.' + segments[0];
+    var i = 0;
+    var l = segments.length;
+    var expr = seg;
+    while (++i < l) {
+        expr = expr + ' && ' + (seg = seg + '.' + segments[i]);
+    }
+    var fn = new Function('store', 'return ' + expr + ';');
+    return fn;
+}
+/**
+ * Given an array of states, it will return a object graph. Example:
+ *    const states = [
+ *      Cart,
+ *      CartSaved,
+ *      CartSavedItems
+ *    ]
+ *
+ * would return:
+ *
+ *  const graph = {
+ *    cart: ['saved'],
+ *    saved: ['items'],
+ *    items: []
+ *  };
+ *
+ * @ignore
+ */
+function buildGraph(stateClasses) {
+    var findName = function (stateClass) {
+        var meta = stateClasses.find(function (g) { return g === stateClass; });
+        if (!meta) {
+            throw new Error("Child state not found: " + stateClass);
+        }
+        if (!meta[META_KEY]) {
+            throw new Error('States must be decorated with @State() decorator');
+        }
+        return meta[META_KEY].name;
+    };
+    return stateClasses.reduce(function (result, stateClass) {
+        if (!stateClass[META_KEY]) {
+            throw new Error('States must be decorated with @State() decorator');
+        }
+        var _a = stateClass[META_KEY], name = _a.name, children = _a.children;
+        result[name] = (children || []).map(findName);
+        return result;
+    }, {});
+}
+/**
+ * Given a states array, returns object graph
+ * returning the name and state metadata. Example:
+ *
+ *  const graph = {
+ *    cart: { metadata }
+ *  };
+ *
+ * @ignore
+ */
+function nameToState(states) {
+    return states.reduce(function (result, stateClass) {
+        if (!stateClass[META_KEY]) {
+            throw new Error('States must be decorated with @State() decorator');
+        }
+        var meta = stateClass[META_KEY];
+        result[meta.name] = stateClass;
+        return result;
+    }, {});
+}
+/**
+ * Given a object relationship graph will return the full path
+ * for the child items. Example:
+ *
+ *  const graph = {
+ *    cart: ['saved'],
+ *    saved: ['items'],
+ *    items: []
+ *  };
+ *
+ * would return:
+ *
+ *  const r = {
+ *    cart: 'cart',
+ *    saved: 'cart.saved',
+ *    items: 'cart.saved.items'
+ *  };
+ *
+ * @ignore
+ */
+function findFullParentPath(obj, newObj) {
+    if (newObj === void 0) { newObj = {}; }
+    var visit = function (child, keyToFind) {
+        for (var key in child) {
+            if (child.hasOwnProperty(key) && child[key].indexOf(keyToFind) >= 0) {
+                var parent_1 = visit(child, key);
+                return parent_1 !== null ? parent_1 + "." + key : key;
+            }
+        }
+        return null;
+    };
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            var parent_2 = visit(obj, key);
+            newObj[key] = parent_2 ? parent_2 + "." + key : key;
+        }
+    }
+    return newObj;
+}
+/**
+ * Given a object graph, it will return the items topologically sorted Example:
+ *
+ *  const graph = {
+ *    cart: ['saved'],
+ *    saved: ['items'],
+ *    items: []
+ *  };
+ *
+ * would return:
+ *
+ *  const results = [
+ *    'items',
+ *    'saved',
+ *    'cart'
+ *  ];
+ *
+ * @ignore
+ */
+function topologicalSort(graph) {
+    var sorted = [];
+    var visited = {};
+    var visit = function (name, ancestors) {
+        if (ancestors === void 0) { ancestors = []; }
+        if (!Array.isArray(ancestors)) {
+            ancestors = [];
+        }
+        ancestors.push(name);
+        visited[name] = true;
+        graph[name].forEach(function (dep) {
+            if (ancestors.indexOf(dep) >= 0) {
+                throw new Error("Circular dependency '" + dep + "' is required by '" + name + "': " + ancestors.join(' -> '));
+            }
+            if (visited[dep]) {
+                return;
+            }
+            visit(dep, ancestors.slice(0));
+        });
+        if (sorted.indexOf(name) < 0) {
+            sorted.push(name);
+        }
+    };
+    Object.keys(graph).forEach(function (k) { return visit(k); });
+    return sorted.reverse();
+}
+/**
+ * Returns if the parameter is a object or not.
+ *
+ * @ignore
+ */
+function isObject(obj) {
+    return (typeof obj === 'object' && obj !== null) || typeof obj === 'function';
+}
+
+/**
+ * Returns the type from an action instance.
+ * @ignore
+ */
+function getActionTypeFromInstance(action) {
+    if (action.constructor && action.constructor.type) {
+        return action.constructor.type;
+    }
+    return action.type;
+}
+/**
+ * Matches a action
+ * @ignore
+ */
+function actionMatcher(action1) {
+    var type1 = getActionTypeFromInstance(action1);
+    return function (action2) {
+        return type1 === getActionTypeFromInstance(action2);
+    };
+}
+/**
+ * Set a deeply nested value. Example:
+ *
+ *   setValue({ foo: { bar: { eat: false } } },
+ *      'foo.bar.eat', true) //=> { foo: { bar: { eat: true } } }
+ *
+ * While it traverses it also creates new objects from top down.
+ *
+ * @ignore
+ */
+var setValue = function (obj, prop, val) {
+    obj = Object.assign({}, obj);
+    var split = prop.split('.');
+    var last = split[split.length - 1];
+    split.reduce(function (acc, part) {
+        if (part === last) {
+            acc[part] = val;
+        }
+        else {
+            acc[part] = Object.assign({}, acc[part]);
+        }
+        return acc && acc[part];
+    }, obj);
+    return obj;
+};
+/**
+ * Get a deeply nested value. Example:
+ *
+ *    getValue({ foo: bar: [] }, 'foo.bar') //=> []
+ *
+ * @ignore
+ */
+var getValue = function (obj, prop) { return prop.split('.').reduce(function (acc, part) { return acc && acc[part]; }, obj); };
+
+/**
+ * RxJS operator for selecting out specific actions.
+ *
+ * This will grab actions that have just been dispatched as well as actions that have completed
+ */
+function ofAction() {
+    var allowedTypes = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        allowedTypes[_i] = arguments[_i];
+    }
+    return ofActionOperator(allowedTypes);
+}
+/**
+ * RxJS operator for selecting out specific actions.
+ *
+ * This will ONLY grab actions that have just been dispatched
+ */
+function ofActionDispatched() {
+    var allowedTypes = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        allowedTypes[_i] = arguments[_i];
+    }
+    return ofActionOperator(allowedTypes, "DISPATCHED" /* Dispatched */);
+}
+/**
+ * RxJS operator for selecting out specific actions.
+ *
+ * This will ONLY grab actions that have just been successfully completed
+ */
+function ofActionSuccessful() {
+    var allowedTypes = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        allowedTypes[_i] = arguments[_i];
+    }
+    return ofActionOperator(allowedTypes, "SUCCESSFUL" /* Successful */);
+}
+/**
+ * RxJS operator for selecting out specific actions.
+ *
+ * This will ONLY grab actions that have just thrown an error
+ */
+function ofActionErrored() {
+    var allowedTypes = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        allowedTypes[_i] = arguments[_i];
+    }
+    return ofActionOperator(allowedTypes, "ERRORED" /* Errored */);
+}
+function ofActionOperator(allowedTypes, status) {
+    var allowedMap = createAllowedMap(allowedTypes);
+    return function (o) {
+        return o.pipe(filterStatus(allowedMap, status), mapAction());
+    };
+}
+function filterStatus(allowedTypes, status) {
+    return Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (ctx) {
+        var actionType = getActionTypeFromInstance(ctx.action);
+        var type = allowedTypes[actionType];
+        return status ? type && ctx.status === status : type;
+    });
+}
+function mapAction() {
+    return Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (ctx) { return ctx.action; });
+}
+function createAllowedMap(types) {
+    return types.reduce(function (acc, klass) {
+        acc[getActionTypeFromInstance(klass)] = true;
+        return acc;
+    }, {});
+}
+
+/**
+ * Custom Subject that ensures that subscribers are notified of values in the order that they arrived.
+ * A standard Subject does not have this guarantee.
+ * For example, given the following code:
+ * ```typescript
+ *   const subject = new Subject<string>();
+     subject.subscribe(value => {
+       if (value === 'start') subject.next('end');
+     });
+     subject.subscribe(value => { });
+     subject.next('start');
+ * ```
+ * When `subject` is a standard `Subject<T>` the second subscriber would recieve `end` and then `start`.
+ * When `subject` is a `OrderedSubject<T>` the second subscriber would recieve `start` and then `end`.
+ */
+var OrderedSubject = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(OrderedSubject, _super);
+    function OrderedSubject() {
+        var _this = _super.apply(this, Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(arguments)) || this;
+        _this._itemQueue = [];
+        _this._busyPushingNext = false;
+        return _this;
+    }
+    OrderedSubject.prototype.next = function (value) {
+        if (this._busyPushingNext) {
+            this._itemQueue.unshift(value);
+            return;
+        }
+        this._busyPushingNext = true;
+        _super.prototype.next.call(this, value);
+        while (this._itemQueue.length > 0) {
+            var nextValue = this._itemQueue.pop();
+            _super.prototype.next.call(this, nextValue);
+        }
+        this._busyPushingNext = false;
+    };
+    return OrderedSubject;
+}(rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]));
+/**
+ * Internal Action stream that is emitted anytime an action is dispatched.
+ */
+var InternalActions = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(InternalActions, _super);
+    function InternalActions() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return InternalActions;
+}(OrderedSubject));
+InternalActions.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/**
+ * Action stream that is emitted anytime an action is dispatched.
+ *
+ * You can listen to this in services to react without stores.
+ */
+var Actions = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(Actions, _super);
+    function Actions(actions$) {
+        return _super.call(this, function (observer) {
+            actions$.subscribe(function (res) { return observer.next(res); }, function (err) { return observer.error(err); }, function () { return observer.complete(); });
+        }) || this;
+    }
+    return Actions;
+}(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]));
+Actions.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+Actions.ctorParameters = function () { return [
+    { type: InternalActions, },
+]; };
+
+/**
+ * Composes a array of functions from left to right. Example:
+ *
+ *      compose([fn, final])(state, action);
+ *
+ * then the funcs have a signature like:
+ *
+ *      function fn (state, action, next) {
+ *          console.log('here', state, action, next);
+ *          return next(state, action);
+ *      }
+ *
+ *      function final (state, action) {
+ *          console.log('here', state, action);
+ *          return state;
+ *      }
+ *
+ * the last function should not call `next`.
+ *
+ * @ignore
+ */
+var compose = function (funcs) { return function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var curr = funcs.shift();
+    return curr.apply(void 0, Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(args, [function () {
+            var nextArgs = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                nextArgs[_i] = arguments[_i];
+            }
+            return compose(funcs).apply(void 0, Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(nextArgs));
+        }]));
+}; };
+
+/**
+ * BehaviorSubject of the entire state.
+ * @ignore
+ */
+var StateStream = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(StateStream, _super);
+    function StateStream() {
+        return _super.call(this, {}) || this;
+    }
+    return StateStream;
+}(rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]));
+StateStream.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+StateStream.ctorParameters = function () { return []; };
+
+/**
+ * Plugin manager class
+ * @ignore
+ */
+var PluginManager = /** @class */ (function () {
+    function PluginManager(_parentManager, _plugins) {
+        this._parentManager = _parentManager;
+        this._plugins = _plugins;
+        this.plugins = [];
+        this.register();
+    }
+    PluginManager.prototype.register = function () {
+        if (!this._plugins) {
+            return;
+        }
+        this.plugins = this._plugins.map(function (plugin) {
+            if (plugin.handle) {
+                return plugin.handle.bind(plugin);
+            }
+            else {
+                return plugin;
+            }
+        });
+        if (this._parentManager) {
+            (_a = this._parentManager.plugins).push.apply(_a, Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(this.plugins));
+        }
+        var _a;
+    };
+    return PluginManager;
+}());
+PluginManager.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+PluginManager.ctorParameters = function () { return [
+    { type: PluginManager, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"] },] },
+    { type: Array, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [NGXS_PLUGINS,] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] },] },
+]; };
+
+/**
+ * Internal Action result stream that is emitted when an action is completed.
+ * This is used as a method of returning the action result to the dispatcher
+ * for the observable returned by the dispatch(...) call.
+ * The dispatcher then asynchronously pushes the result from this stream onto the main action stream as a result.
+ */
+var InternalDispatchedActionResults = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(InternalDispatchedActionResults, _super);
+    function InternalDispatchedActionResults() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return InternalDispatchedActionResults;
+}(rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]));
+InternalDispatchedActionResults.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+var InternalDispatcher = /** @class */ (function () {
+    function InternalDispatcher(_errorHandler, _actions, _actionResults, _pluginManager, _stateStream) {
+        this._errorHandler = _errorHandler;
+        this._actions = _actions;
+        this._actionResults = _actionResults;
+        this._pluginManager = _pluginManager;
+        this._stateStream = _stateStream;
+    }
+    /**
+       * Dispatches event(s).
+       */
+    InternalDispatcher.prototype.dispatch = function (event) {
+        var _this = this;
+        var result;
+        if (Array.isArray(event)) {
+            result = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["forkJoin"])(event.map(function (a) { return _this.dispatchSingle(a); }));
+        }
+        else {
+            result = this.dispatchSingle(event);
+        }
+        result = result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (err) {
+            _this._errorHandler.handleError(err);
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(err);
+        }));
+        result.subscribe();
+        return result;
+    };
+    InternalDispatcher.prototype.dispatchSingle = function (action) {
+        var _this = this;
+        var prevState = this._stateStream.getValue();
+        var plugins = this._pluginManager.plugins;
+        return compose(Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(plugins, [
+            function (nextState, nextAction) {
+                if (nextState !== prevState) {
+                    _this._stateStream.next(nextState);
+                }
+                var actionResult$ = _this.getActionResultStream(nextAction);
+                actionResult$.subscribe(function (ctx) { return _this._actions.next(ctx); });
+                _this._actions.next({ action: nextAction, status: "DISPATCHED" /* Dispatched */ });
+                return _this.createDispatchObservable(actionResult$);
+            }
+        ]))(prevState, action);
+    };
+    InternalDispatcher.prototype.getActionResultStream = function (action) {
+        return this._actionResults.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (ctx) { return ctx.action === action && ctx.status !== "DISPATCHED"; } /* Dispatched */), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["shareReplay"])());
+    };
+    InternalDispatcher.prototype.createDispatchObservable = function (actionResult$) {
+        var _this = this;
+        return actionResult$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["exhaustMap"])(function (ctx) {
+            switch (ctx.status) {
+                case "SUCCESSFUL" /* Successful */:
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(_this._stateStream.getValue());
+                case "ERRORED" /* Errored */:
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(ctx.error);
+                default:
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["empty"])();
+            }
+        }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["shareReplay"])());
+    };
+    return InternalDispatcher;
+}());
+InternalDispatcher.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+InternalDispatcher.ctorParameters = function () { return [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ErrorHandler"], },
+    { type: InternalActions, },
+    { type: InternalDispatchedActionResults, },
+    { type: PluginManager, },
+    { type: StateStream, },
+]; };
+
+/**
+ * State factory class
+ * @ignore
+ */
+var StateFactory = /** @class */ (function () {
+    function StateFactory(_injector, _parentFactory, _actions, _actionResults, _stateStream, _dispatcher) {
+        this._injector = _injector;
+        this._parentFactory = _parentFactory;
+        this._actions = _actions;
+        this._actionResults = _actionResults;
+        this._stateStream = _stateStream;
+        this._dispatcher = _dispatcher;
+        this._states = [];
+        this._connected = false;
+    }
+    Object.defineProperty(StateFactory.prototype, "states", {
+        get: function () {
+            return this._parentFactory ? this._parentFactory.states : this._states;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(StateFactory.prototype, "rootStateOperations", {
+        get: function () {
+            var _this = this;
+            return {
+                getState: function () { return _this._stateStream.getValue(); },
+                setState: function (newState) { return _this._stateStream.next(newState); },
+                dispatch: function (actions) { return _this._dispatcher.dispatch(actions); }
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+       * Add a new state to the global defs.
+       */
+    StateFactory.prototype.add = function (oneOrManyStateClasses) {
+        var stateClasses;
+        if (!Array.isArray(oneOrManyStateClasses)) {
+            stateClasses = [oneOrManyStateClasses];
+        }
+        else {
+            stateClasses = oneOrManyStateClasses;
+        }
+        var stateGraph = buildGraph(stateClasses);
+        var sortedStates = topologicalSort(stateGraph);
+        var depths = findFullParentPath(stateGraph);
+        var nameGraph = nameToState(stateClasses);
+        var mappedStores = [];
+        var _loop_1 = function (name_1) {
+            var stateClass = nameGraph[name_1];
+            if (!stateClass[META_KEY]) {
+                throw new Error('States must be decorated with @State() decorator');
+            }
+            var depth = depths[name_1];
+            var actions = stateClass[META_KEY].actions;
+            var defaults = stateClass[META_KEY].defaults;
+            stateClass[META_KEY].path = depth;
+            // ensure our store hasn't already been added
+            var has = this_1.states.find(function (s) { return s.name === name_1; });
+            if (has) {
+                throw new Error("Store has already been added: " + name_1);
+            }
+            // create new instance of defaults
+            if (Array.isArray(defaults)) {
+                defaults = Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(defaults);
+            }
+            else if (isObject(defaults)) {
+                defaults = Object.assign({}, defaults);
+            }
+            else if (defaults === undefined) {
+                defaults = {};
+            }
+            var instance = this_1._injector.get(stateClass);
+            mappedStores.push({
+                actions: actions,
+                instance: instance,
+                defaults: defaults,
+                name: name_1,
+                depth: depth
+            });
+        };
+        var this_1 = this;
+        try {
+            for (var sortedStates_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__values"])(sortedStates), sortedStates_1_1 = sortedStates_1.next(); !sortedStates_1_1.done; sortedStates_1_1 = sortedStates_1.next()) {
+                var name_1 = sortedStates_1_1.value;
+                _loop_1(name_1);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (sortedStates_1_1 && !sortedStates_1_1.done && (_a = sortedStates_1.return)) _a.call(sortedStates_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        (_b = this.states).push.apply(_b, Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(mappedStores));
+        return mappedStores;
+        var e_1, _a, _b;
+    };
+    /**
+       * Add a set of states to the store and return the defaulsts
+       */
+    StateFactory.prototype.addAndReturnDefaults = function (stateClasses) {
+        if (stateClasses) {
+            var states = this.add(stateClasses);
+            var defaults = states.reduce(function (result, meta) { return setValue(result, meta.depth, meta.defaults); }, {});
+            return { defaults: defaults, states: states };
+        }
+    };
+    /**
+       * Bind the actions to the handlers
+       */
+    StateFactory.prototype.connectActionHandlers = function () {
+        var _this = this;
+        if (this._connected)
+            return;
+        this._actions
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["filter"])(function (ctx) { return ctx.status === "DISPATCHED"; } /* Dispatched */), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["mergeMap"])(function (_a) {
+            var action = _a.action;
+            return _this.invokeActions(_this._actions, action).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { return ({ action: action, status: "SUCCESSFUL" /* Successful */ }); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["defaultIfEmpty"])({ action: action, status: "CANCELED" /* Canceled */ }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (error) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({ action: action, status: "ERRORED" /* Errored */, error: error }); }));
+        }))
+            .subscribe(function (ctx) { return _this._actionResults.next(ctx); });
+        this._connected = true;
+    };
+    /**
+       * Invoke the init function on the states.
+       */
+    StateFactory.prototype.invokeInit = function (stateMetadatas) {
+        try {
+            for (var stateMetadatas_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__values"])(stateMetadatas), stateMetadatas_1_1 = stateMetadatas_1.next(); !stateMetadatas_1_1.done; stateMetadatas_1_1 = stateMetadatas_1.next()) {
+                var metadata = stateMetadatas_1_1.value;
+                var instance = metadata.instance;
+                if (instance.ngxsOnInit) {
+                    var stateContext = this.createStateContext(metadata);
+                    instance.ngxsOnInit(stateContext);
+                }
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (stateMetadatas_1_1 && !stateMetadatas_1_1.done && (_a = stateMetadatas_1.return)) _a.call(stateMetadatas_1);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        var e_2, _a;
+    };
+    /**
+       * Invoke actions on the states.
+       */
+    StateFactory.prototype.invokeActions = function (actions$, action) {
+        var results = [];
+        try {
+            for (var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__values"])(this.states), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var metadata = _b.value;
+                var type = getActionTypeFromInstance(action);
+                var actionMetas = metadata.actions[type];
+                if (actionMetas) {
+                    try {
+                        for (var actionMetas_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__values"])(actionMetas), actionMetas_1_1 = actionMetas_1.next(); !actionMetas_1_1.done; actionMetas_1_1 = actionMetas_1.next()) {
+                            var actionMeta = actionMetas_1_1.value;
+                            var stateContext = this.createStateContext(metadata);
+                            try {
+                                var result = metadata.instance[actionMeta.fn](stateContext, action);
+                                if (result instanceof Promise) {
+                                    result = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["from"])(result);
+                                }
+                                if (result instanceof rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]) {
+                                    result = result.pipe(actionMeta.options.cancelUncompleted
+                                        ? Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(actions$.pipe(ofActionDispatched(action)))
+                                        : Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (r) { return r; })); // map acts like a noop
+                                }
+                                else {
+                                    result = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["shareReplay"])());
+                                }
+                                results.push(result);
+                            }
+                            catch (e) {
+                                results.push(Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(e));
+                            }
+                        }
+                    }
+                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                    finally {
+                        try {
+                            if (actionMetas_1_1 && !actionMetas_1_1.done && (_c = actionMetas_1.return)) _c.call(actionMetas_1);
+                        }
+                        finally { if (e_3) throw e_3.error; }
+                    }
+                }
+            }
+        }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_d = _a.return)) _d.call(_a);
+            }
+            finally { if (e_4) throw e_4.error; }
+        }
+        if (!results.length) {
+            results.push(Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])({}));
+        }
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["forkJoin"])(results);
+        var e_4, _d, e_3, _c;
+    };
+    /**
+       * Create the state context
+       */
+    StateFactory.prototype.createStateContext = function (metadata) {
+        var root = this.rootStateOperations;
+        return {
+            getState: function () {
+                var state = root.getState();
+                return getValue(state, metadata.depth);
+            },
+            patchState: function (val) {
+                if (Array.isArray(val)) {
+                    throw new Error('Patching arrays is not supported.');
+                }
+                var state = root.getState();
+                var local = getValue(state, metadata.depth);
+                var clone = Object.assign({}, local);
+                for (var k in val) {
+                    clone[k] = val[k];
+                }
+                var newState = setValue(state, metadata.depth, clone);
+                root.setState(newState);
+                return newState;
+            },
+            setState: function (val) {
+                var state = root.getState();
+                state = setValue(state, metadata.depth, val);
+                root.setState(state);
+                return state;
+            },
+            dispatch: function (actions) {
+                return root.dispatch(actions);
+            }
+        };
+    };
+    return StateFactory;
+}());
+StateFactory.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+StateFactory.ctorParameters = function () { return [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], },
+    { type: StateFactory, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"] },] },
+    { type: InternalActions, },
+    { type: InternalDispatchedActionResults, },
+    { type: StateStream, },
+    { type: InternalDispatcher, },
+]; };
+
+var Store = /** @class */ (function () {
+    function Store(_stateStream, _dispatcher) {
+        this._stateStream = _stateStream;
+        this._dispatcher = _dispatcher;
+    }
+    /**
+       * Dispatches event(s).
+       */
+    Store.prototype.dispatch = function (event) {
+        return this._dispatcher.dispatch(event);
+    };
+    Store.prototype.select = function (selector) {
+        if (selector[META_KEY] && selector[META_KEY].path) {
+            var getter = fastPropGetter(selector[META_KEY].path.split('.'));
+            return this._stateStream.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(getter), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["distinctUntilChanged"])());
+        }
+        return this._stateStream.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(selector), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (err) {
+            // if error is TypeError we swallow it to prevent usual errors with property access
+            if (err instanceof TypeError) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(undefined);
+            }
+            // rethrow other errors
+            throw err;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["distinctUntilChanged"])());
+    };
+    Store.prototype.selectOnce = function (selector) {
+        return this.select(selector).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1));
+    };
+    /**
+       * Select a snapshot from the state.
+       */
+    Store.prototype.selectSnapshot = function (selector) {
+        return selector(this._stateStream.getValue());
+    };
+    /**
+       * Allow the user to subscribe to the root of the state
+       */
+    Store.prototype.subscribe = function (fn) {
+        return this._stateStream.subscribe(fn);
+    };
+    /**
+       * Return the raw value of the state.
+       */
+    Store.prototype.snapshot = function () {
+        return this._stateStream.getValue();
+    };
+    return Store;
+}());
+Store.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+Store.ctorParameters = function () { return [
+    { type: StateStream, },
+    { type: InternalDispatcher, },
+]; };
+
+/**
+ * Allows the select decorator to get access to the DI store.
+ * @ignore
+ */
+var SelectFactory = /** @class */ (function () {
+    function SelectFactory(store) {
+        SelectFactory.store = store;
+    }
+    return SelectFactory;
+}());
+SelectFactory.store = undefined;
+SelectFactory.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/** @nocollapse */
+SelectFactory.ctorParameters = function () { return [
+    { type: Store, },
+]; };
+/**
+ * Decorator for selecting a slice of state from the store.
+ */
+function Select(selectorOrFeature) {
+    var paths = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        paths[_i - 1] = arguments[_i];
+    }
+    return function (target, name) {
+        var selectorFnName = '__' + name + '__selector';
+        if (!selectorOrFeature) {
+            // if foo$ => make it just foo
+            selectorOrFeature = name.lastIndexOf('$') === name.length - 1 ? name.substring(0, name.length - 1) : name;
+        }
+        var createSelect = function (fn) {
+            var store = SelectFactory.store;
+            if (!store) {
+                throw new Error('SelectFactory not connected to store!');
+            }
+            return store.select(fn);
+        };
+        var createSelector = function () {
+            if (typeof selectorOrFeature === 'string') {
+                var propsArray = paths.length ? Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])([selectorOrFeature], paths) : selectorOrFeature.split('.');
+                return fastPropGetter(propsArray);
+            }
+            else if (selectorOrFeature[META_KEY] && selectorOrFeature[META_KEY].path) {
+                return fastPropGetter(selectorOrFeature[META_KEY].path.split('.'));
+            }
+            else {
+                return selectorOrFeature;
+            }
+        };
+        if (target[selectorFnName]) {
+            throw new Error('You cannot use @Select decorator and a ' + selectorFnName + ' property.');
+        }
+        if (delete target[name]) {
+            Object.defineProperty(target, selectorFnName, {
+                writable: true,
+                enumerable: false,
+                configurable: true
+            });
+            Object.defineProperty(target, name, {
+                get: function () {
+                    return this[selectorFnName] || (this[selectorFnName] = createSelect.apply(this, [createSelector()]));
+                },
+                enumerable: true,
+                configurable: true
+            });
+        }
+    };
+}
+
+/**
+ * Init action
+ */
+var InitState = /** @class */ (function () {
+    function InitState() {
+    }
+    return InitState;
+}());
+InitState.type = '@@INIT';
+/**
+ * Update action
+ */
+var UpdateState = /** @class */ (function () {
+    function UpdateState() {
+    }
+    return UpdateState;
+}());
+UpdateState.type = '@@UPDATE_STATE';
+
+/**
+ * Root module
+ * @ignore
+ */
+var NgxsRootModule = /** @class */ (function () {
+    function NgxsRootModule(factory, stateStream, store, select, states) {
+        // add stores to the state graph and return their defaults
+        var results = factory.addAndReturnDefaults(states);
+        if (results) {
+            // get our current stream
+            var cur = stateStream.getValue();
+            // set the state to the current + new
+            stateStream.next(Object.assign({}, cur, results.defaults));
+        }
+        // connect our actions stream
+        factory.connectActionHandlers();
+        // dispatch the init action and invoke init function after
+        store.dispatch(new InitState()).subscribe(function () {
+            if (results) {
+                factory.invokeInit(results.states);
+            }
+        });
+    }
+    return NgxsRootModule;
+}());
+NgxsRootModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"] },
+];
+/** @nocollapse */
+NgxsRootModule.ctorParameters = function () { return [
+    { type: StateFactory, },
+    { type: StateStream, },
+    { type: Store, },
+    { type: SelectFactory, },
+    { type: Array, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [ROOT_STATE_TOKEN,] },] },
+]; };
+/**
+ * Feature module
+ * @ignore
+ */
+var NgxsFeatureModule = /** @class */ (function () {
+    function NgxsFeatureModule(store, stateStream, factory, states) {
+        // Since FEATURE_STATE_TOKEN is a multi token, we need to
+        // flatten it [[Feature1State, Feature2State], [Feature3State]]
+        var flattenedStates = [].concat.apply([], Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])(states));
+        // add stores to the state graph and return their defaults
+        var results = factory.addAndReturnDefaults(flattenedStates);
+        if (results) {
+            // get our current stream
+            var cur = stateStream.getValue();
+            // set the state to the current + new
+            stateStream.next(Object.assign({}, cur, results.defaults));
+        }
+        store.dispatch(new UpdateState()).subscribe(function () {
+            if (results) {
+                factory.invokeInit(results.states);
+            }
+        });
+    }
+    return NgxsFeatureModule;
+}());
+NgxsFeatureModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{},] },
+];
+/** @nocollapse */
+NgxsFeatureModule.ctorParameters = function () { return [
+    { type: Store, },
+    { type: StateStream, },
+    { type: StateFactory, },
+    { type: Array, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [FEATURE_STATE_TOKEN,] },] },
+]; };
+/**
+ * Ngxs Module
+ */
+var NgxsModule = /** @class */ (function () {
+    function NgxsModule() {
+    }
+    /**
+       * Root module factory
+       */
+    NgxsModule.forRoot = function (states) {
+        if (states === void 0) { states = []; }
+        return {
+            ngModule: NgxsRootModule,
+            providers: Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])([
+                StateFactory,
+                Actions,
+                InternalActions,
+                InternalDispatcher,
+                InternalDispatchedActionResults,
+                Store,
+                StateStream,
+                SelectFactory,
+                PluginManager
+            ], states, [
+                {
+                    provide: ROOT_STATE_TOKEN,
+                    useValue: states
+                }
+            ])
+        };
+    };
+    /**
+       * Feature module factory
+       */
+    NgxsModule.forFeature = function (states) {
+        return {
+            ngModule: NgxsFeatureModule,
+            providers: Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])([
+                StateFactory,
+                PluginManager
+            ], states, [
+                {
+                    provide: FEATURE_STATE_TOKEN,
+                    multi: true,
+                    useValue: states
+                }
+            ])
+        };
+    };
+    return NgxsModule;
+}());
+NgxsModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{},] },
+];
+
+/**
+ * Decorates a method with a action information.
+ */
+function Action(actions, options) {
+    return function (target, name, descriptor) {
+        var meta = ensureStoreMetadata(target.constructor);
+        if (!Array.isArray(actions)) {
+            actions = [actions];
+        }
+        try {
+            for (var actions_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__values"])(actions), actions_1_1 = actions_1.next(); !actions_1_1.done; actions_1_1 = actions_1.next()) {
+                var action = actions_1_1.value;
+                var type = action.type;
+                if (!action.type) {
+                    throw new Error("Action " + action.name + " is missing a static \"type\" property");
+                }
+                if (!meta.actions[type]) {
+                    meta.actions[type] = [];
+                }
+                meta.actions[type].push({
+                    fn: name,
+                    options: options || {},
+                    type: type
+                });
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (actions_1_1 && !actions_1_1.done && (_a = actions_1.return)) _a.call(actions_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        var e_1, _a;
+    };
+}
+
+var stateNameRegex = new RegExp('^[a-zA-Z0-9]+$');
+/**
+ * Error message
+ * @ignore
+ */
+var stateNameErrorMessage = function (name) { return name + " is not a valid state name. It needs to be a valid object property name."; };
+/**
+ * Decorates a class with ngxs state information.
+ */
+function State(options) {
+    return function (target) {
+        var meta = ensureStoreMetadata(target);
+        // Handle inheritance
+        if (target.__proto__.hasOwnProperty(META_KEY)) {
+            var parentMeta = target.__proto__[META_KEY];
+            meta.actions = Object.assign({}, meta.actions, parentMeta.actions);
+        }
+        meta.children = options.children;
+        meta.defaults = options.defaults;
+        meta.name = options.name;
+        if (!options.name) {
+            throw new Error("States must register a 'name' property");
+        }
+        if (!stateNameRegex.test(options.name)) {
+            throw new Error(stateNameErrorMessage(options.name));
+        }
+    };
+}
+
+/**
+ * Memoize a function.
+ * Oringinally from: https://github.com/lodash/lodash/blob/master/memoize.js with some modifications
+ *
+ * @ignore
+ */
+function memoize(func, resolver) {
+    var memoized = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var key = resolver ? resolver.apply(this, args) : args[0];
+        var cache = memoized.cache;
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+        var result = func.apply(this, args);
+        memoized.cache = cache.set(key, result) || cache;
+        return result;
+    };
+    memoized.cache = new WeakMap();
+    return memoized;
+}
+
+/**
+ * Decorator for memoizing a state selector.
+ */
+function Selector() {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    return function (target, key, descriptor) {
+        var metadata = ensureStoreMetadata(target);
+        if (descriptor.value !== null) {
+            var prev_1 = descriptor.value;
+            var fn_1 = function (state) {
+                var local = getValue(state, metadata.path);
+                // if the lambda tries to access a something on the state that doesn't exist, it will throw a TypeError.
+                // since this is quite usual behaviour, we simply return undefined if so.
+                try {
+                    return prev_1(local);
+                }
+                catch (ex) {
+                    if (ex instanceof TypeError) {
+                        return undefined;
+                    }
+                    throw ex;
+                }
+            };
+            return {
+                configurable: true,
+                get: function () {
+                    return memoize.apply(null, Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__spread"])([fn_1], args));
+                }
+            };
+        }
+        else {
+            throw new Error('Selectors only work on methods');
+        }
+    };
+}
+
+/**
+ * The public api for consumers of @ngxs/store
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+//# sourceMappingURL=ngxs-store.js.map
 
 
 /***/ }),
@@ -87726,6 +90768,262 @@ function __importStar(mod) {
 function __importDefault(mod) {
     return (mod && mod.__esModule) ? mod : { default: mod };
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/uuid/index.js":
+/*!************************************!*\
+  !*** ./node_modules/uuid/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var v1 = __webpack_require__(/*! ./v1 */ "./node_modules/uuid/v1.js");
+var v4 = __webpack_require__(/*! ./v4 */ "./node_modules/uuid/v4.js");
+
+var uuid = v4;
+uuid.v1 = v1;
+uuid.v4 = v4;
+
+module.exports = uuid;
+
+
+/***/ }),
+
+/***/ "./node_modules/uuid/lib/bytesToUuid.js":
+/*!**********************************************!*\
+  !*** ./node_modules/uuid/lib/bytesToUuid.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  return bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+
+/***/ "./node_modules/uuid/lib/rng-browser.js":
+/*!**********************************************!*\
+  !*** ./node_modules/uuid/lib/rng-browser.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+
+// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation.
+var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues.bind(crypto)) ||
+                      (typeof(msCrypto) != 'undefined' && msCrypto.getRandomValues.bind(msCrypto));
+if (getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+
+  module.exports = function whatwgRNG() {
+    getRandomValues(rnds8);
+    return rnds8;
+  };
+} else {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var rnds = new Array(16);
+
+  module.exports = function mathRNG() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/uuid/v1.js":
+/*!*********************************!*\
+  !*** ./node_modules/uuid/v1.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(/*! ./lib/rng */ "./node_modules/uuid/lib/rng-browser.js");
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ "./node_modules/uuid/lib/bytesToUuid.js");
+
+// **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+
+var _nodeId;
+var _clockseq;
+
+// Previous uuid creation time
+var _lastMSecs = 0;
+var _lastNSecs = 0;
+
+// See https://github.com/broofa/node-uuid for API details
+function v1(options, buf, offset) {
+  var i = buf && offset || 0;
+  var b = buf || [];
+
+  options = options || {};
+  var node = options.node || _nodeId;
+  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
+
+  // node and clockseq need to be initialized to random values if they're not
+  // specified.  We do this lazily to minimize issues related to insufficient
+  // system entropy.  See #189
+  if (node == null || clockseq == null) {
+    var seedBytes = rng();
+    if (node == null) {
+      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+      node = _nodeId = [
+        seedBytes[0] | 0x01,
+        seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]
+      ];
+    }
+    if (clockseq == null) {
+      // Per 4.2.2, randomize (14 bit) clockseq
+      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+    }
+  }
+
+  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
+
+  // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
+
+  // Time since last uuid creation (in msecs)
+  var dt = (msecs - _lastMSecs) + (nsecs - _lastNSecs)/10000;
+
+  // Per 4.2.1.2, Bump clockseq on clock regression
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  }
+
+  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  }
+
+  // Per 4.2.1.2 Throw error if too many uuids are requested
+  if (nsecs >= 10000) {
+    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq;
+
+  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+  msecs += 12219292800000;
+
+  // `time_low`
+  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff;
+
+  // `time_mid`
+  var tmh = (msecs / 0x100000000 * 10000) & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff;
+
+  // `time_high_and_version`
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+  b[i++] = tmh >>> 16 & 0xff;
+
+  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+  b[i++] = clockseq >>> 8 | 0x80;
+
+  // `clock_seq_low`
+  b[i++] = clockseq & 0xff;
+
+  // `node`
+  for (var n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf ? buf : bytesToUuid(b);
+}
+
+module.exports = v1;
+
+
+/***/ }),
+
+/***/ "./node_modules/uuid/v4.js":
+/*!*********************************!*\
+  !*** ./node_modules/uuid/v4.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(/*! ./lib/rng */ "./node_modules/uuid/lib/rng-browser.js");
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ "./node_modules/uuid/lib/bytesToUuid.js");
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options === 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
 
 
 /***/ })

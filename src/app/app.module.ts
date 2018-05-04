@@ -9,7 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+// import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -36,4 +36,4 @@ import { MoviesService } from './providers/movies-service';
   providers: [MoviesService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

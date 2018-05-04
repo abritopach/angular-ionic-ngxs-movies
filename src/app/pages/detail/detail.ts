@@ -36,4 +36,8 @@ export class DetailComponent {
     );
   }
 
+  watchTrailer() {
+    console.log('watchTrailer');
+  }
+
 }

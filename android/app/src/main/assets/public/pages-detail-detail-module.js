@@ -51,7 +51,7 @@ var DetailComponentRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n  <ion-toolbar color='primary'>\n      <ion-buttons slot=\"start\">\n        <ion-back-button text=\"home\"></ion-back-button>\n      </ion-buttons>\n      <ion-title>Movie Detail</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content no-bounce>\n    <ion-card *ngIf=\"movie\">\n        <ion-item>\n          <!--\n          <ion-avatar item-start>\n            <img [src]=\"movie?.image\">\n          </ion-avatar>\n          -->\n          <h2>{{ movie?.title }}</h2>\n        </ion-item>\n      \n        <img [src]=\"movie?.poster\" height=\"300px\">\n      \n        <ion-card-content>\n          <p>{{ movie?.notes }}</p>\n        </ion-card-content>\n      \n        <ion-row>\n          <ion-item>\n          <ion-button icon-left clear small class=\"action-button\">\n            <ion-icon name=\"thumbs-up\"></ion-icon>\n            <div>12 Likes</div>\n          </ion-button>\n          <ion-button icon-left clear small>\n            <ion-icon name=\"text\"></ion-icon>\n            <div>4 Comments</div>\n          </ion-button>\n          <ion-note slot=\"end\">\n            {{ movie?.year }}\n          </ion-note>\n          </ion-item>\n        </ion-row>\n      \n      </ion-card>\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar color=\"primary\">\n        <ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>\n        <ion-buttons slot=\"end\">\n          <div class=\"github-button\"><iframe allowtransparency=\"true\" scrolling=\"no\" frameborder=\"0\" src=\"https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach%2Fangular-ionic-master-detail&amp;title=&amp;aria-label=Star%20abritopach%2Fangular-ionic-master-detail%20on%20GitHub&amp;data-icon=octicon-star&amp;data-text=Star\" style=\"width: 50px; height: 20px; border: none;\"></iframe></div>\n          <div class=\"github-button\"><iframe allowtransparency=\"true\" scrolling=\"no\" frameborder=\"0\" src=\"https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach&amp;title=&amp;aria-label=Follow%20%40abritopach%20on%20GitHub&amp;data-text=GitHub\" style=\"width: 67px; height: 20px; border: none;\"></iframe></div>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-footer>\n"
+module.exports = "<ion-header no-border>\n  <ion-toolbar color='primary'>\n      <ion-buttons slot=\"start\">\n        <ion-back-button text=\"home\"></ion-back-button>\n      </ion-buttons>\n      <ion-title>Movie Detail</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content no-bounce>\n    <ion-grid>\n    <ion-row>\n    <ion-col col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3>\n      <ion-card *ngIf=\"movie\">\n          <ion-item>\n            <h2><b>{{ movie?.title }}</b></h2>\n            <ion-chip color=\"secondary\" slot=\"end\">\n              <ion-icon name=\"pricetag\" color=\"secondary\"></ion-icon>\n              <ion-label>{{ movie?.genre }}</ion-label>\n            </ion-chip>\n          </ion-item>\n        \n          <img *ngIf=\"movie.poster\" [src]=\"movie?.poster\" height=\"300px\">\n          <img *ngIf=\"!movie.poster\" src=\"https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg\" height=\"300px\">\n        \n          <ion-card-content>\n            <ion-item>\n              <p>{{ movie?.notes }}</p>\n              <ion-badge slot=\"end\" (click)=\"watchTrailer()\"><ion-icon name=\"eye\"></ion-icon> Watch Trailer</ion-badge>\n            </ion-item>\n          </ion-card-content>\n        \n          <ion-row>\n            <ion-item style=\"width: 100%\">\n              <ion-button icon-left clear small class=\"action-button\">\n                <ion-icon name=\"thumbs-up\"></ion-icon>\n                <div>12 Likes</div>\n              </ion-button>\n              <ion-button icon-left clear small>\n                <ion-icon name=\"text\"></ion-icon>\n                <div>4 Comments</div>\n              </ion-button>\n              <ion-note slot=\"end\">\n                {{ movie?.year }}\n              </ion-note>\n            </ion-item>\n          </ion-row>\n        \n        </ion-card>\n      </ion-col>\n      </ion-row>\n    </ion-grid>\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar color=\"primary\">\n        <ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>\n        <ion-buttons slot=\"end\">\n          <div class=\"github-button\"><iframe allowtransparency=\"true\" scrolling=\"no\" frameborder=\"0\" src=\"https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach%2Fangular-ionic-master-detail&amp;title=&amp;aria-label=Star%20abritopach%2Fangular-ionic-master-detail%20on%20GitHub&amp;data-icon=octicon-star&amp;data-text=Star\" style=\"width: 50px; height: 20px; border: none;\"></iframe></div>\n          <div class=\"github-button\"><iframe allowtransparency=\"true\" scrolling=\"no\" frameborder=\"0\" src=\"https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach&amp;title=&amp;aria-label=Follow%20%40abritopach%20on%20GitHub&amp;data-text=GitHub\" style=\"width: 67px; height: 20px; border: none;\"></iframe></div>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -109,7 +109,7 @@ var DetailModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".action-button {\n  padding-right: 10px; }\n\n.github-button {\n  width: 49px;\n  height: 20px;\n  padding-right: 5px;\n  display: inline; }\n"
+module.exports = ".action-button {\n  padding-right: 10px; }\n\n.github-button {\n  width: 49px;\n  height: 20px;\n  padding-right: 5px;\n  display: inline; }\n\n/* Large desktops and laptops */\n\n@media (min-width: 1200px) {\n  ion-card img {\n    width: calc(100% - 250px);\n    margin: auto; } }\n"
 
 /***/ }),
 
@@ -124,8 +124,7 @@ module.exports = ".action-button {\n  padding-right: 10px; }\n\n.github-button {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailComponent", function() { return DetailComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _providers_movies_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../providers/movies-service */ "./src/app/providers/movies-service.ts");
+/* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngxs/store */ "./node_modules/@ngxs/store/fesm5/ngxs-store.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -137,28 +136,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
 var DetailComponent = /** @class */ (function () {
-    function DetailComponent(route, movieService) {
-        this.route = route;
-        this.movieService = movieService;
+    function DetailComponent(store) {
+        this.store = store;
     }
     DetailComponent.prototype.ionViewWillEnter = function () {
-        console.log('ionViewWillEnter');
-        console.log('this.route.snapshot', this.route.snapshot);
-        var movieTitle = this.route.snapshot.paramMap.get('title');
-        console.log('movieTitle', movieTitle);
-        this.getMovie(movieTitle);
-    };
-    DetailComponent.prototype.getMovie = function (title) {
+        // console.log('ionViewWillEnter');
         var _this = this;
-        this.movieService.getMovie(title)
-            .subscribe(function (data) {
-            console.log('movie', data);
-            _this.movie = data[0];
+        this.selectedMovie = this.store.select(function (state) { return state.catalog.selectedMovie; });
+        this.selectedMovie.subscribe(function (data) {
+            // console.log(data);
+            _this.movie = data;
         }, function (error) {
             console.log(error);
         });
+    };
+    DetailComponent.prototype.watchTrailer = function () {
+        console.log('watchTrailer');
     };
     DetailComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -167,7 +161,7 @@ var DetailComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./detail.scss */ "./src/app/pages/detail/detail.scss")],
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _providers_movies_service__WEBPACK_IMPORTED_MODULE_2__["MoviesService"]])
+        __metadata("design:paramtypes", [_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Store"]])
     ], DetailComponent);
     return DetailComponent;
 }());
