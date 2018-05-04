@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class DetailComponent {
 
+  currentYear = new Date().getFullYear();
   selectedMovie: Observable<Movie>;
   movie: Movie;
 

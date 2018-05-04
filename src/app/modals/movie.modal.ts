@@ -41,7 +41,7 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
   // Reads the name of the store from the store class.
   movieForm$: Observable<Movie[]>;
 
-  constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, private navParams: NavParams, private store: Store,
+  constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, public navParams: NavParams, private store: Store,
               private actions$: Actions, private renderer: Renderer2) {
     this.emptyMovie = this.movie;
     this.createForm();

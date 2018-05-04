@@ -27,6 +27,7 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  currentYear = new Date().getFullYear();
   // Reads the name of the store from the store class.
   // @Select(MoviesStateModel) movies$: Observable<Movie[]>;
   movies$: Observable<Movie[]>;
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController) {
+    console.log('constructor home');
     this.start = 0;
     this.end = 20;
     this.movies$ = this.store.select(state => state.catalog.movies);
@@ -47,8 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    /*
     console.log('ngOnInit home');
+    /*
      // Check if we have movies in local storage.
      if (localStorage.getItem('@@STATE') !== 'undefined') {
       const state = JSON.parse(localStorage.getItem('@@STATE'));

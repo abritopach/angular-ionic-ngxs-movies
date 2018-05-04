@@ -9,7 +9,8 @@ import { Movie } from '../models/movie.model';
 @Injectable()
 export class MoviesService {
 
-  private readonly URL_BASE: string = 'http://localhost:3000/';
+  // private readonly URL_BASE: string = 'http://localhost:3000/';
+  private readonly URL_BASE: string = 'https://d22ae591.ngrok.io/';
 
   constructor(private http: HttpClient) {
   }
