@@ -6,7 +6,7 @@ import { MoviesService } from '../../providers/movies-service';
 import { Movie } from '../../models/movie.model';
 import { MoviesStateModel } from '../../store/state/movies.state';
 
-import { InfiniteScroll, ModalController, PopoverController } from '@ionic/angular';
+import { InfiniteScroll, ModalController, PopoverController, LoadingController } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   // movies: Movie[];
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
-              private actions$: Actions, private popoverCtrl: PopoverController) {
+              private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
     console.log('constructor home');
     this.start = 0;
     this.end = 20;
@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit {
   }
 
   fetchMovies(name, url) {
+    // this.presentLoading();
     this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe((result) => {
       // console.log(result);
       // this.movies = result.catalog.movies;
@@ -160,6 +161,15 @@ export class HomeComponent implements OnInit {
       console.log('data popover.onWillDismiss', data);
     }
 
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      content: 'Please wait, loading movies...',
+    });
+    await loading.present();
+
+    const { data } = await loading.onWillDismiss();
   }
 
   scrollToTop() {

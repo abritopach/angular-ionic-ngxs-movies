@@ -7,50 +7,136 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content no-bounce>
-    <ion-grid>
-    <ion-row>
-    <ion-col col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3>
-      <ion-card *ngIf="movie">
-          <ion-item>
-            <h2><b>{{ movie?.title }}</b></h2>
-            <ion-chip color="secondary" slot="end">
-              <ion-icon name="pricetag" color="secondary"></ion-icon>
-              <ion-label>{{ movie?.genre }}</ion-label>
-            </ion-chip>
-          </ion-item>
-        
-          <img *ngIf="movie.poster" [src]="movie?.poster" height="300px">
-          <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px">
-        
-          <ion-card-content>
-            <ion-item>
-              <p>{{ movie?.notes }}</p>
-              <ion-badge slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
-            </ion-item>
-          </ion-card-content>
-        
-          <ion-row>
-            <ion-item style="width: 100%">
-              <ion-button icon-left clear small class="action-button">
-                <ion-icon name="thumbs-up"></ion-icon>
-                <div>12 Likes</div>
-              </ion-button>
-              <ion-button icon-left clear small>
-                <ion-icon name="text"></ion-icon>
-                <div>4 Comments</div>
-              </ion-button>
-              <ion-note slot="end">
-                {{ movie?.year }}
-              </ion-note>
-            </ion-item>
-          </ion-row>
-        
-        </ion-card>
-      </ion-col>
+<ion-content class="outer-content">
+    <ion-list>
+      <ion-grid fixed>
+        <ion-row align-items-stretch>
+        <ion-col col-12 align-self-stretch align-self-center>
+          <ion-card *ngIf="movie">
+              <ion-item>
+                <h2><b>{{ movie?.title }}</b></h2>
+                <ion-chip color="secondary" slot="end">
+                  <ion-icon name="pricetag" color="secondary"></ion-icon>
+                  <ion-label>{{ movie?.genre }}</ion-label>
+                </ion-chip>
+              </ion-item>
+            
+              <ion-item>
+                  <img *ngIf="movie.poster" [src]="movie?.poster" height="300px" alt="Movie Poster Detail Page">
+                  <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px" alt="Empty Movie Poster Detail Page">
+              </ion-item>
+            
+              <ion-card-content>
+                <ion-item>
+                  <p>{{ movie?.notes }}</p>
+                  <ion-badge slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
+                </ion-item>
+              </ion-card-content>
+            
+              <ion-row>
+                <ion-item style="width: 100%">
+                  <ion-button icon-left clear small class="action-button">
+                    <ion-icon name="thumbs-up"></ion-icon>
+                    <div>12 Likes</div>
+                  </ion-button>
+                  <ion-button icon-left clear small>
+                    <ion-icon name="text"></ion-icon>
+                    <div>4 Comments</div>
+                  </ion-button>
+                  <ion-note slot="end">
+                    {{ movie?.year }}
+                  </ion-note>
+                </ion-item>
+              </ion-row>
+
+              <ion-row no-padding justify-content-center>
+                  <ion-col col-auto text-left>
+                    <ion-button fill="clear" size="small" color="primary">
+                      <ion-icon name="thumbs-up" slot="start"></ion-icon>
+                      Like
+                    </ion-button>
+                  </ion-col>
+                  <ion-col col-auto text-right>
+                      <ion-button fill="clear" size="small" color="primary">
+                        <ion-icon name='chatboxes' slot="start"></ion-icon>
+                        Comment
+                      </ion-button>
+                  </ion-col>
+                  <ion-col col-auto text-center>
+                    <ion-button fill="clear" size="small" color="primary">
+                      <ion-icon name='share-alt' slot="start"></ion-icon>
+                      Share
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+            
+            </ion-card>
+          </ion-col>
       </ion-row>
     </ion-grid>
+    </ion-list>
 </ion-content>
+
+
+<!--
+<ion-content class="outer-content">
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row align-items-stretch>
+
+        <ion-col col-12 col-md-6 align-self-stretch align-self-center *ngFor="let speaker of speakers">
+
+          <ion-card class="speaker-card">
+            <ion-card-header>
+              <ion-item detail-none button (click)="goToSpeakerDetail(speaker)">
+                <ion-avatar slot="start">
+                  <img [src]="speaker.profilePic" alt="Speaker profile pic">
+                </ion-avatar>
+                {{speaker.name}}
+              </ion-item>
+            </ion-card-header>
+
+            <ion-card-content>
+              <ion-list>
+                <ion-item *ngFor="let session of speaker.sessions" button (click)="goToSessionDetail(session)">
+                  <h3>{{session.name}}</h3>
+                </ion-item>
+
+                <ion-item button (click)="goToSpeakerDetail(speaker)">
+                  <h3>About {{speaker.name}}</h3>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+            <ion-row no-padding justify-content-center>
+              <ion-col col-auto text-left>
+                <ion-button fill="clear" size="small" color="primary" (click)="goToSpeakerTwitter(speaker)">
+                  <ion-icon name="logo-twitter" slot="start"></ion-icon>
+                  Tweet
+                </ion-button>
+              </ion-col>
+              <ion-col col-auto text-center>
+                <ion-button fill="clear" size="small" color="primary" (click)="openSpeakerShare(speaker)">
+                  <ion-icon name='share-alt' slot="start"></ion-icon>
+                  Share
+                </ion-button>
+              </ion-col>
+              <ion-col col-auto text-right>
+                <ion-button fill="clear" size="small" color="primary" (click)="openContact(speaker)">
+                  <ion-icon name='chatboxes' slot="start"></ion-icon>
+                  Contact
+                </ion-button>
+              </ion-col>
+            </ion-row>
+
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</ion-content>
+-->
 
 <ion-footer>
     <ion-toolbar color="primary">

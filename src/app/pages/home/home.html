@@ -3,7 +3,7 @@
       <ion-title>Movies List</ion-title>
       <ion-buttons slot='end'>
         <ion-button (click)="presentPopover($event)">
-          <ion-icon slot="icon-only" name="funnel"></ion-icon>
+          <ion-icon slot="icon-only" name="options"></ion-icon>
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
@@ -36,7 +36,7 @@
     <ion-item-sliding *ngFor="let movie of movies$ | async; let i = index">
       <ion-item tappable (click)="viewMovieDetails(movie)">
       <ion-thumbnail slot="start">
-        <img [src]="movie.poster" alt="">
+        <img [src]="movie.poster" alt="Movie Poster">
       </ion-thumbnail>
       <ion-label>
         <h2>{{ movie.title }}</h2>

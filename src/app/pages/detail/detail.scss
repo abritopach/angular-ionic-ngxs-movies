@@ -9,10 +9,20 @@
     display: inline;
 }
 
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    ion-item img {
+        width: calc(100% - 400px);;
+        margin: auto;
+    }
+}
+
 /* Large desktops and laptops */
+
 @media (min-width: 1200px) {
-    ion-card img {
-        width: calc(100% - 250px);;
+    ion-item img {
+        width: calc(100% - 500px);;
         margin: auto;
     }
 }
