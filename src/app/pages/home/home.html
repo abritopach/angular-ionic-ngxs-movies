@@ -29,10 +29,11 @@
   </ion-item>
 
   <!-- Movies List. -->
-  <ion-list *ngIf="!showSkeleton">
+  <!--<ion-list *ngIf="!showSkeleton">-->
+    <ion-list>
     <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
-    <ion-item-sliding *ngFor="let movie of movies$ | async; let i = index" detail="true">
-
+    <!--<ion-item-sliding *ngFor="let movie of movies; let i = index">-->
+    <ion-item-sliding *ngFor="let movie of movies$ | async; let i = index">
       <ion-item tappable (click)="viewMovieDetails(movie)">
       <ion-thumbnail slot="start">
         <img [src]="movie.poster" alt="">
@@ -56,6 +57,7 @@
     </ion-item-sliding>
   </ion-list> 
 
+  <!--
   <ion-list *ngIf="showSkeleton">
 
     <ion-item *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
@@ -73,6 +75,7 @@
     </ion-item>
 
   </ion-list>
+  -->
 
   <!-- Infinite Scroll. -->
   <ion-infinite-scroll #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
@@ -81,7 +84,7 @@
       loadingText="Loading more movies...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-</ion-content>
+  </ion-content>
 
 <ion-footer>
     <ion-toolbar color="primary">

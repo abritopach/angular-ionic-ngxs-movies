@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -25,7 +25,7 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
   currentYear = new Date().getFullYear();
   // Reads the name of the store from the store class.
@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   showScrollTop: Boolean = false;
   // infiniteScroll: any;
   @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
-  showSkeleton: Boolean = true;
+  // showSkeleton: Boolean = true;
+  // movies: Movie[];
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController) {
@@ -44,6 +45,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.start = 0;
     this.end = 20;
     this.movies$ = this.store.select(state => state.catalog.movies);
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
     this.fetchMovies(this.start, this.end);
   }
 
@@ -79,16 +84,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     // this.infiniteScroll = document.getElementById('infinite-scroll');
   }
 
-  ngOnDestroy() {
-    console.log('ngOnDestroy home');
-    // localStorage.removeItem('@@STATE');
-  }
-
   fetchMovies(name, url) {
-    this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe(() => {
+    this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe((result) => {
+      // console.log(result);
+      // this.movies = result.catalog.movies;
+      /*
       setTimeout( () => {
         this.showSkeleton = false;
       }, 2000);
+      */
       if (this.infiniteScroll) {
         this.infiniteScroll.nativeElement.complete();
       }
@@ -134,7 +138,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   doInfinite() {
     // console.log('Begin async operation');
-    this.showSkeleton = true;
+    // this.showSkeleton = true;
     this.start = this.end;
     this.end += 20;
     this.showScrollTop = true;
