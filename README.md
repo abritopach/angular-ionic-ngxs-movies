@@ -24,6 +24,10 @@ Technologies: Angular, Ionic, Capacitor, NGXS, TypeScript.
 
 ![Technologies](readme_resources/technologies.jpg "Technologies")
 
+## App Example
+
+![App](readme_resources/app.gif "App")
+
 ## Start fake json server
 
 ```bash
