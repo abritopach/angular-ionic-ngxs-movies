@@ -106,4 +106,15 @@ export class MoviesService {
     strFilters += typeof filters['years'] !== 'undefined' ? `year_gte=${filters.years.lower}&year_lte=${filters.years.upper}&` : '';
     return strFilters;
   }
+
+  searchMovies(queryText: string): Observable<Movie[]> {
+    console.log(this.URL_BASE + `movies?q=${queryText}&_limit=20`);
+    return this.http
+    // Type-checking the response => .get<Movie[]>
+    .get<Movie[]>(this.URL_BASE + `movies?q=${queryText}&_limit=20`)
+    .pipe(
+      retryWhen(error => error.pipe(delay(500))),
+      timeout(5000)
+    );
+  }
 }

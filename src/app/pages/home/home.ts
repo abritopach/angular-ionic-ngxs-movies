@@ -11,7 +11,7 @@ import { InfiniteScroll, ModalController, PopoverController, LoadingController }
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 
-import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie } from '../../store/actions/movies.actions';
+import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie, SearchMovies } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie.modal';
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
   // showSkeleton: Boolean = true;
   // movies: Movie[];
+  queryText = '';
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
@@ -82,6 +83,13 @@ export class HomeComponent implements OnInit {
     });
 
     // this.infiniteScroll = document.getElementById('infinite-scroll');
+  }
+
+  searchMovies() {
+    // console.log('searchMovies', this.queryText);
+    if (this.queryText.length >= 3) {
+      this.store.dispatch(new SearchMovies({queryText: this.queryText}));
+    }
   }
 
   fetchMovies(name, url) {

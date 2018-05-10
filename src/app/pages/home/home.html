@@ -7,6 +7,10 @@
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="queryText" (ionInput)="searchMovies()" placeholder="Search">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content no-bounce>

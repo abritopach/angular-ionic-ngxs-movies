@@ -1,7 +1,8 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Movie } from '../../models/movie.model';
-import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies } from './../actions/movies.actions';
+import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
+         SearchMovies } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 
@@ -150,5 +151,19 @@ export class MovieState {
             ...state,
             filter: {...payload}
         });
+    }
+
+    @Action(SearchMovies, { cancelUncompleted: true })
+    searchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        return this.moviesService.searchMovies(payload.queryText).pipe(tap((result) => {
+            const state = getState();
+            setState({
+                ...state,
+                movies: [ ...result ]
+            });
+        },
+        (error) => {
+            console.log('error', error.message);
+        }));
     }
 }
