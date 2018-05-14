@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MoviesService } from './providers/movies-service';
+import { YoutubeApiService } from './providers/youtube-api-service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { MoviesService } from './providers/movies-service';
     // NgxsLoggerPluginModule.forRoot(),
     NgxsFormPluginModule.forRoot()
   ],
-  providers: [MoviesService],
+  providers: [MoviesService, YoutubeApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

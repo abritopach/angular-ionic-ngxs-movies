@@ -2,9 +2,10 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         SearchMovies } from './../actions/movies.actions';
+         SearchMovies, GetMovieTrailer } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
+import { YoutubeApiService } from '../../providers/youtube-api-service';
 
 export class MoviesStateModel {
     movies: Movie[];
@@ -47,7 +48,7 @@ export class MoviesStateModel {
 
 export class MovieState {
 
-    constructor(private moviesService: MoviesService) {}
+    constructor(private moviesService: MoviesService, private youtubeApiService: YoutubeApiService) {}
 
     @Selector()
     static getMovies(state: MoviesStateModel) {
@@ -161,6 +162,16 @@ export class MovieState {
                 ...state,
                 movies: [ ...result ]
             });
+        },
+        (error) => {
+            console.log('error', error.message);
+        }));
+    }
+
+    @Action(GetMovieTrailer, { cancelUncompleted: true })
+    getMovieTrailer({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        return this.youtubeApiService.searchMovieTrailer(payload.movieTitle).pipe(tap((result) => {
+            console.log(result);
         },
         (error) => {
             console.log('error', error.message);

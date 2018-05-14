@@ -19,6 +19,7 @@ This project shows you how to:
         * Update movie.
         * Delete movie.
     * Infinite scroll in movies list.
+    * Use YouTube Data API to search movie trailer.
 
 Technologies: Angular, Ionic, Capacitor, NGXS, TypeScript.
 

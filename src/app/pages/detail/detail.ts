@@ -4,6 +4,9 @@ import { Movie } from '../../models/movie.model';
 
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { YoutubeApiService } from '../../providers/youtube-api-service';
 
 @Component({
   selector: 'app-page-detail',
@@ -17,7 +20,7 @@ export class DetailComponent {
   selectedMovie: Observable<Movie>;
   movie: Movie;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private youtubeApiService: YoutubeApiService) {
 
   }
 
@@ -39,6 +42,13 @@ export class DetailComponent {
 
   watchTrailer() {
     console.log('watchTrailer');
+    this.youtubeApiService.searchMovieTrailer(this.movie.title).subscribe(result => {
+      if (result.items.length > 0) {
+        console.log(result);
+        const { videoId } = result.items[0].id;
+        window.open('https://www.youtube.com/watch?v=' + videoId);
+      }
+    });
   }
 
 }
