@@ -19,6 +19,8 @@ import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
 
+import { Content } from '@ionic/angular';
+
 @Component({
   selector: 'app-page-home',
   templateUrl: './home.html',
@@ -39,6 +41,7 @@ export class HomeComponent implements OnInit {
   // showSkeleton: Boolean = true;
   // movies: Movie[];
   queryText = '';
+  @ViewChild(Content) content: Content;
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
@@ -181,8 +184,7 @@ export class HomeComponent implements OnInit {
   }
 
   scrollToTop() {
-    console.log('scrollToTop');
-    setTimeout( () => {window.scrollTo(0, 0); }, 1000);
+    this.content.scrollToTop();
   }
 
 }
