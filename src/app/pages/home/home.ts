@@ -21,6 +21,8 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
 
 import { Content } from '@ionic/angular';
 
+import { withLatestFrom } from 'rxjs/operators';
+
 @Component({
   selector: 'app-page-home',
   templateUrl: './home.html',
@@ -31,8 +33,8 @@ export class HomeComponent implements OnInit {
 
   currentYear = new Date().getFullYear();
   // Reads the name of the store from the store class.
-  // @Select(MoviesStateModel) movies$: Observable<Movie[]>;
-  movies$: Observable<Movie[]>;
+  @Select(state => state.catalog.movies) movies$: Observable<Movie[]>;
+  // movies$: Observable<Movie[]>;
   start: number;
   end: number;
   showScrollTop: Boolean = false;
@@ -48,7 +50,7 @@ export class HomeComponent implements OnInit {
     console.log('constructor home');
     this.start = 0;
     this.end = 20;
-    this.movies$ = this.store.select(state => state.catalog.movies);
+    // this.movies$ = this.store.select(state => state.catalog.movies);
   }
 
   ionViewWillEnter() {
@@ -97,7 +99,7 @@ export class HomeComponent implements OnInit {
 
   fetchMovies(name, url) {
     // this.presentLoading();
-    this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe((result) => {
+    // this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe((result) => {
       // console.log(result);
       // this.movies = result.catalog.movies;
       /*
@@ -105,10 +107,17 @@ export class HomeComponent implements OnInit {
         this.showSkeleton = false;
       }, 2000);
       */
-      if (this.infiniteScroll) {
-        this.infiniteScroll.nativeElement.complete();
-      }
-    });
+    // if (this.infiniteScroll) {
+    //   this.infiniteScroll.nativeElement.complete();
+    //  }
+    // });
+
+    this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).pipe(withLatestFrom(this.movies$))
+      .subscribe(([movies]) => {
+        if (this.infiniteScroll) {
+          this.infiniteScroll.nativeElement.complete();
+        }
+      });
   }
 
   viewMovieDetails(movie: Movie) {
