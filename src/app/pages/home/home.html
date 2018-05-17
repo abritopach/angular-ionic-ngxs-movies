@@ -17,13 +17,13 @@
 
   <!-- Add movie fab button. -->
   <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-    <ion-fab-button mini color="secondary" (click)="addMovie()">
+    <ion-fab-button mini color="tertiary" (click)="addMovie()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab [hidden]="!showScrollTop" vertical="bottom" horizontal="end" edge slot="fixed">
-    <ion-fab-button mini color="secondary" (click)="scrollToTop()">
+    <ion-fab-button mini color="tertiary" (click)="scrollToTop()">
       <ion-icon name="arrow-dropup"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -54,7 +54,7 @@
 
       <!-- Sliding options. -->
       <ion-item-options side="end">
-        <ion-item-option color="secondary" (click)="editMovie(movie, i)"><ion-icon name="create"></ion-icon></ion-item-option>
+        <ion-item-option color="primary" (click)="editMovie(movie, i)"><ion-icon name="create"></ion-icon></ion-item-option>
         <ion-item-option color="danger" (click)="deleteMovie(movie)"><ion-icon name="trash"></ion-icon></ion-item-option>
       </ion-item-options>
   

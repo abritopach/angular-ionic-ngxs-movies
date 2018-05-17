@@ -1,6 +1,6 @@
 .item-info {
     padding: 5px;
-    color: darkgray;
+    color: var(--ion-color-medium);
 }
 
 .github-button {
@@ -32,7 +32,7 @@
 }
 
 .skeleton-thumbnail {
-   background-color: lightgrey;
+   background-color: var(--ion-color-light-shade);
    opacity: 0.5;
 } 
 

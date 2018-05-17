@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="tertiary">
         <ion-buttons slot="end">
             <ion-icon name="close" (click)="dismiss(movieForm.value)" color="light"></ion-icon>
         </ion-buttons>
@@ -52,7 +52,7 @@
         </ion-item>
         <ion-item class="take-picture">
             <p><b>NOTE</b>: Select movie picture from your device or take a movie picture.</p>
-            <ion-button (click)="takePicture()" color="secondary">Select / Take Picture</ion-button>
+            <ion-button (click)="takePicture()" color="tertiary">Select / Take Picture</ion-button>
         </ion-item>
     </ion-list>
     <ion-button type="submit" color="primary" [disabled]='!movieForm.valid' >{{ modal.buttonText }}</ion-button>

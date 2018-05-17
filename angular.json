@@ -33,8 +33,18 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/izitoast/dist/css/iziToast.min.css"
+              {
+                "input": "src/styles.css"
+              },
+              {
+                "input": "node_modules/izitoast/dist/css/iziToast.min.css"
+              },
+              {
+                "input": "src/theme/variables.scss"
+              },
+              {
+                "input": "src/global.scss"
+              }
             ],
             "scripts": []
           },
