@@ -10,6 +10,8 @@ import { YoutubeApiService } from '../../providers/youtube-api-service';
 
 import { Plugins, Capacitor } from '@capacitor/core';
 
+import {default as iziToast, IziToastSettings} from 'izitoast';
+
 @Component({
   selector: 'app-page-detail',
   templateUrl: './detail.html',
@@ -44,7 +46,8 @@ export class DetailComponent {
 
   watchTrailer() {
     console.log('watchTrailer');
-    this.youtubeApiService.searchMovieTrailer(this.movie.title).subscribe(result => {
+    this.youtubeApiService.searchMovieTrailer(this.movie.title)
+    .subscribe(result => {
       if (result.items.length > 0) {
         console.log(result);
         const { videoId } = result.items[0].id;
@@ -55,6 +58,20 @@ export class DetailComponent {
           window.open('https://www.youtube.com/watch?v=' + videoId, '_blank');
         }
       }
+    },
+    error => {
+      iziToast.show({
+        color: 'red',
+        title: 'Watch Trailer',
+        icon: 'ico-error',
+        message: 'Sorry, an error has occurred.',
+        position: 'bottomLeft',
+        transitionIn: 'flipInX',
+        transitionOut: 'flipOutX',
+        image: 'assets/avatar.png',
+        imageWidth: 70,
+        layout: 2,
+      });
     });
   }
 

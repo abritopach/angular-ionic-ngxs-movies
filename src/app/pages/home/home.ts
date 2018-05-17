@@ -44,6 +44,18 @@ export class HomeComponent implements OnInit {
   // movies: Movie[];
   queryText = '';
   @ViewChild(Content) content: Content;
+  defaultIziToastSettings: IziToastSettings = {
+    color: 'green',
+    title: '',
+    icon: 'ico-success',
+    message: '',
+    position: 'bottomLeft',
+    transitionIn: 'flipInX',
+    transitionOut: 'flipOutX',
+    image: 'assets/avatar.png',
+    imageWidth: 70,
+    layout: 2,
+  };
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
@@ -71,20 +83,20 @@ export class HomeComponent implements OnInit {
     */
 
     this.actions$.pipe(ofActionSuccessful(AddMovie)).subscribe(() => {
-      const {title, message, position} = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
+      const newSettings: IziToastSettings = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
       this.modalCtrl.dismiss();
-      iziToast.success({title, message, position} as IziToastSettings);
+      iziToast.show({...this.defaultIziToastSettings, ...newSettings});
     });
 
     this.actions$.pipe(ofActionSuccessful(EditMovie)).subscribe(() => {
       this.modalCtrl.dismiss();
-      const {title, message, position} = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
-      iziToast.success({title, message, position} as IziToastSettings);
+      const newSettings: IziToastSettings = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
+      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
     });
 
     this.actions$.pipe(ofActionSuccessful(DeleteMovie)).subscribe(() => {
-      const {title, message, position} = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
-      iziToast.success({title, message, position} as IziToastSettings);
+      const newSettings: IziToastSettings = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
+      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
     });
 
     // this.infiniteScroll = document.getElementById('infinite-scroll');
