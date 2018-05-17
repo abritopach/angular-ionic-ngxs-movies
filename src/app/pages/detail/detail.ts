@@ -8,6 +8,8 @@ import { tap } from 'rxjs/operators';
 
 import { YoutubeApiService } from '../../providers/youtube-api-service';
 
+import { Plugins, Capacitor } from '@capacitor/core';
+
 @Component({
   selector: 'app-page-detail',
   templateUrl: './detail.html',
@@ -46,7 +48,12 @@ export class DetailComponent {
       if (result.items.length > 0) {
         console.log(result);
         const { videoId } = result.items[0].id;
-        window.open('https://www.youtube.com/watch?v=' + videoId);
+
+        if (Capacitor.platform === 'web') {
+          window.open('https://www.youtube.com/watch?v=' + videoId);
+        } else { // TODO: Use capacitor-youtube-player plugin.
+          window.open('https://www.youtube.com/watch?v=' + videoId, '_blank');
+        }
       }
     });
   }

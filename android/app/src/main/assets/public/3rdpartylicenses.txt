@@ -252,7 +252,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@angular/common@6.0.1
+@angular/forms@6.0.2
 MIT
 MIT
 
@@ -313,6 +313,10 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 9. Accepting Warranty or Additional Liability. While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your accepting any such warranty or additional liability.
 
 END OF TERMS AND CONDITIONS
+
+@angular/common@6.0.2
+MIT
+MIT
 
 rxjs@6.1.0
 Apache-2.0
@@ -518,11 +522,7 @@ Apache License
  See the License for the specific language governing permissions and
  limitations under the License.
 
-@angular/platform-browser@6.0.1
-MIT
-MIT
-
-@angular/forms@6.0.1
+@angular/platform-browser@6.0.2
 MIT
 MIT
 
@@ -554,11 +554,11 @@ SOFTWARE.
 MIT
 MIT
 
-@angular/router@6.0.1
+@angular/router@6.0.2
 MIT
 MIT
 
-@angular/core@6.0.1
+@angular/core@6.0.2
 MIT
 MIT
 
