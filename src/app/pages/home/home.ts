@@ -86,18 +86,21 @@ export class HomeComponent implements OnInit {
       const newSettings: IziToastSettings = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
       this.modalCtrl.dismiss();
       iziToast.show({...this.defaultIziToastSettings, ...newSettings});
-    });
+    },
+    err => console.log('HomePage::ngOnInit ofActionSuccessful(AddMovie) | method called -> received error' + err));
 
     this.actions$.pipe(ofActionSuccessful(EditMovie)).subscribe(() => {
       this.modalCtrl.dismiss();
       const newSettings: IziToastSettings = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
       iziToast.success({...this.defaultIziToastSettings, ...newSettings});
-    });
+    },
+    err => console.log('HomePage::ngOnInit ofActionSuccessful(EditMovie) | method called -> received error' + err));
 
     this.actions$.pipe(ofActionSuccessful(DeleteMovie)).subscribe(() => {
       const newSettings: IziToastSettings = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
       iziToast.success({...this.defaultIziToastSettings, ...newSettings});
-    });
+    },
+    err => console.log('HomePage::ngOnInit ofActionSuccessful(DeleteMovie) | method called -> received error' + err));
 
     // this.infiniteScroll = document.getElementById('infinite-scroll');
   }
@@ -129,7 +132,9 @@ export class HomeComponent implements OnInit {
         if (this.infiniteScroll) {
           this.infiniteScroll.nativeElement.complete();
         }
-      });
+      },
+      err => console.log('HomePage::fetchMovies() | method called -> received error' + err)
+    );
   }
 
   viewMovieDetails(movie: Movie) {

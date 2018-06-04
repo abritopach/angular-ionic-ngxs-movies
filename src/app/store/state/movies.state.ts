@@ -1,5 +1,6 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
          SearchMovies, GetMovieTrailer } from './../actions/movies.actions';
@@ -57,9 +58,15 @@ export class MovieState {
 
     @Action(FetchMovies, { cancelUncompleted: true })
     fetchMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
+        // console.log('MovieState::fetchMovies() | method called');
         // console.log('fetchMovies payload', payload);
         const { start, end } = payload;
-        return this.moviesService.getMovies(start, end).pipe(tap((result) => {
+        return this.moviesService.getMovies(start, end).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             // console.log('fetchMovies result', result);
             const state = getState();
             // console.log('state', state);
@@ -77,7 +84,12 @@ export class MovieState {
     selectedMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('selectedMovie payload', payload);
         const { title } = payload;
-        return this.moviesService.getMovie(title).pipe(tap((result) => {
+        return this.moviesService.getMovie(title).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             // console.log('result selectedMovie', result);
             const state = getState();
             setState({
@@ -90,7 +102,12 @@ export class MovieState {
     @Action(AddMovie)
     addMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('payload', payload);
-        return this.moviesService.addMovie(payload).pipe(tap((result) => {
+        return this.moviesService.addMovie(payload).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             // console.log('result addMovie', result);
             const state = getState();
             setState({
@@ -103,7 +120,12 @@ export class MovieState {
     @Action(EditMovie)
     editMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('payload', payload);
-        return this.moviesService.editMovie(payload).pipe(tap((result) => {
+        return this.moviesService.editMovie(payload).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             // console.log('result editMovie', result);
             const state = getState();
             const movies = state.movies;
@@ -119,7 +141,12 @@ export class MovieState {
     @Action(DeleteMovie)
     deleteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('payload', payload);
-        return this.moviesService.deleteMovie(payload).pipe(tap((result) => {
+        return this.moviesService.deleteMovie(payload).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             // console.log('result deleteMovie', result);
             const state = getState();
             setState({
@@ -131,7 +158,12 @@ export class MovieState {
 
     @Action(FilterMovies, { cancelUncompleted: true })
     filterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        return this.moviesService.filterMovies(payload).pipe(tap((result) => {
+        return this.moviesService.filterMovies(payload).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             // console.log('filterMovies result', result);
             const state = getState();
             setState({
@@ -156,7 +188,12 @@ export class MovieState {
 
     @Action(SearchMovies, { cancelUncompleted: true })
     searchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        return this.moviesService.searchMovies(payload.queryText).pipe(tap((result) => {
+        return this.moviesService.searchMovies(payload.queryText).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             const state = getState();
             setState({
                 ...state,
@@ -170,7 +207,12 @@ export class MovieState {
 
     @Action(GetMovieTrailer, { cancelUncompleted: true })
     getMovieTrailer({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        return this.youtubeApiService.searchMovieTrailer(payload.movieTitle).pipe(tap((result) => {
+        return this.youtubeApiService.searchMovieTrailer(payload.movieTitle).pipe(
+            catchError((x, caught) => {
+                // console.log('inside catchError', x);
+                return throwError(x);
+            }),
+            tap((result) => {
             console.log(result);
         },
         (error) => {
