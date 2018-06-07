@@ -12,6 +12,9 @@ import { Plugins, Capacitor } from '@capacitor/core';
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
 
+import { ModalController } from '@ionic/angular';
+import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
+
 @Component({
   selector: 'app-page-detail',
   templateUrl: './detail.html',
@@ -24,7 +27,7 @@ export class DetailComponent {
   selectedMovie: Observable<Movie>;
   movie: Movie;
 
-  constructor(private store: Store, private youtubeApiService: YoutubeApiService) {
+  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController) {
 
   }
 
@@ -45,18 +48,31 @@ export class DetailComponent {
   }
 
   watchTrailer() {
-    console.log('watchTrailer');
+    console.log('DetailsPage::watchTrailer | method called');
+
+    // Code to use Youtube Api Service: providers/youtube-api-service.ts
     this.youtubeApiService.searchMovieTrailer(this.movie.title)
     .subscribe(result => {
       if (result.items.length > 0) {
         console.log(result);
         const { videoId } = result.items[0].id;
+        this.movie.videoId = videoId;
 
+        // Code to use capacitor-youtube-player plugin.
+        console.log('DetailsPage::watchTrailer -> platform: ' + Capacitor.platform);
+        if (Capacitor.platform === 'web') {
+          this.presentModal();
+        } else { // Native
+          this.testYoutubePlayerPlugin();
+        }
+
+        /*
         if (Capacitor.platform === 'web') {
           window.open('https://www.youtube.com/watch?v=' + videoId);
         } else { // TODO: Use capacitor-youtube-player plugin.
           window.open('https://www.youtube.com/watch?v=' + videoId, '_blank');
         }
+        */
       }
     },
     error => {
@@ -73,6 +89,33 @@ export class DetailComponent {
         layout: 2,
       });
     });
+
+  }
+
+  async presentModal() {
+    console.log('DetailsPage::presentModal | method called -> movie', this.movie);
+    const componentProps = { modalProps: { item: this.movie}};
+    const modal = await this.modalCtrl.create({
+      component: YoutubeModalComponent,
+      componentProps: componentProps
+    });
+    await modal.present();
+
+    const {data} = await modal.onWillDismiss();
+    if (data) {
+      console.log('data', data);
+    }
+  }
+
+  async testYoutubePlayerPlugin() {
+
+    const { YoutubePlayer } = Plugins;
+
+    const result = await YoutubePlayer.echo({value: 'hola' });
+    console.log('result', result);
+
+    const options = {width: 640, height: 360, videoId: this.movie.videoId};
+    const playerReady = await YoutubePlayer.initialize(options);
   }
 
 }

@@ -7,7 +7,7 @@ import { timeout, retryWhen, delay, map, filter } from 'rxjs/operators';
 export class YoutubeApiService {
 
   private readonly URL_BASE: string = 'https://www.googleapis.com/youtube/v3/search';
-  private readonly API_KEY: string = 'YOUR_API_KEY';
+  private readonly API_KEY: string = 'AIzaSyDxuxEANLFVy5q4sG1NrAUJNhoX6nW4VQ4';
 
   constructor(private http: HttpClient) {
   }

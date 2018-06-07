@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home';
-import { MovieModalComponent  } from '../../modals/movie.modal';
+import { MovieModalComponent  } from '../../modals/movie-modal/movie.modal';
 import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
 import { HomeComponentRoutingModule } from './home-routing.module';
 

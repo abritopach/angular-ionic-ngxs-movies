@@ -3,8 +3,8 @@ import { ModalController, NavParams } from '@ionic/angular';
 
 import { Store, Actions } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
-import { AddMovie, EditMovie } from '../store/actions/movies.actions';
-import { Movie } from '../models/movie.model';
+import { AddMovie, EditMovie } from '../../store/actions/movies.actions';
+import { Movie } from '../../models/movie.model';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -27,7 +27,8 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
     cast: '',
     genre: '',
     notes: '',
-    poster: ''
+    poster: '',
+    videoId: ''
   };
   emptyMovie: any;
 

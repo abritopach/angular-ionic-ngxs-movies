@@ -7,4 +7,5 @@ export interface Movie {
     genre: string | null;
     notes: string | null;
     poster: string | null;
+    videoId: string | null;
 }

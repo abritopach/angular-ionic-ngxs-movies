@@ -14,7 +14,7 @@ import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie, SearchMovies } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
-import { MovieModalComponent } from '../../modals/movie.modal';
+import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
 import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
