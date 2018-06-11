@@ -8,7 +8,7 @@
       </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-searchbar [(ngModel)]="queryText" (ionInput)="searchMovies()" placeholder="Search">
+    <ion-searchbar [formControl]="searchControl" animated="true" show-cancel-button (ionInput)="searchMovies($event)" (ionCancel)="cancelSearch($event)" placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>

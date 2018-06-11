@@ -53,3 +53,9 @@ export class GetMovieTrailer {
 
     constructor(public payload: { movieTitle: string}) {}
 }
+
+export class ClearMovies {
+    static readonly type = '[Movies] Clear movies';
+
+    constructor() {}
+}

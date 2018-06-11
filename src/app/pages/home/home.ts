@@ -11,7 +11,8 @@ import { InfiniteScroll, ModalController, PopoverController, LoadingController }
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 
-import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie, SearchMovies } from '../../store/actions/movies.actions';
+import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie, SearchMovies,
+         ClearMovies } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
@@ -22,6 +23,9 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
 import { Content } from '@ionic/angular';
 
 import { withLatestFrom } from 'rxjs/operators';
+
+import { FormControl } from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-page-home',
@@ -42,7 +46,6 @@ export class HomeComponent implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
   // showSkeleton: Boolean = true;
   // movies: Movie[];
-  queryText = '';
   @ViewChild(Content) content: Content;
   defaultIziToastSettings: IziToastSettings = {
     color: 'green',
@@ -56,18 +59,37 @@ export class HomeComponent implements OnInit {
     imageWidth: 70,
     layout: 2,
   };
+  searchControl: FormControl;
+  searching: Boolean = false;
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
     console.log('constructor home');
     this.start = 0;
     this.end = 20;
+    this.searchControl = new FormControl();
     // this.movies$ = this.store.select(state => state.catalog.movies);
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter');
     this.fetchMovies(this.start, this.end);
+    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+      // console.log('this.searchControl.valueChanges', search);
+      this.searching = false;
+
+      if (search === '') {
+        this.start = 0;
+        this.end = 20;
+        this.store.dispatch([
+          new ClearMovies(),
+          new FetchMovies({start: this.start, end: this.end})
+        ]);
+      } else {
+        this.store.dispatch(new SearchMovies({queryText: search}));
+      }
+    });
+
   }
 
   ngOnInit() {
@@ -105,14 +127,16 @@ export class HomeComponent implements OnInit {
     // this.infiniteScroll = document.getElementById('infinite-scroll');
   }
 
-  searchMovies() {
-    // console.log('searchMovies', this.queryText);
-    if (this.queryText.length >= 3) {
-      this.store.dispatch(new SearchMovies({queryText: this.queryText}));
-    }
+  searchMovies(ev: any) {
+    console.log('HomePage::searchMovies() | method called', ev.target.value);
+    this.searching = true;
   }
 
-  fetchMovies(name, url) {
+  cancelSearch(ev: any) {
+    console.log('HomePage::cancelSearch | method called');
+  }
+
+  fetchMovies(start, end) {
     // this.presentLoading();
     // this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe((result) => {
       // console.log(result);
@@ -127,8 +151,9 @@ export class HomeComponent implements OnInit {
     //  }
     // });
 
-    this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).pipe(withLatestFrom(this.movies$))
+    this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
       .subscribe(([movies]) => {
+        console.log(movies);
         if (this.infiniteScroll) {
           this.infiniteScroll.nativeElement.complete();
         }

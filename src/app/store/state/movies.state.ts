@@ -3,7 +3,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         SearchMovies, GetMovieTrailer } from './../actions/movies.actions';
+         SearchMovies, GetMovieTrailer, ClearMovies } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 import { YoutubeApiService } from '../../providers/youtube-api-service';
@@ -218,5 +218,15 @@ export class MovieState {
         (error) => {
             console.log('error', error.message);
         }));
+    }
+
+    @Action(ClearMovies)
+    clearMovies({ getState, setState }: StateContext<MoviesStateModel>) {
+        console.log('MovieState::clearMovies() | action called');
+        const state = getState();
+        setState({
+            ...state,
+            movies: []
+        });
     }
 }
