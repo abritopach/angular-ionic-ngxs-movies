@@ -7,12 +7,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 This project shows you how to:
 
     * Use Capacitor in Ionic 4.
+    * Use Capacitor Youtube Player (Works on web, android and ios).
     * Use NGXS for state management in Ionic 4.
     * Use NGXS plugins:
         * Devtools: Plugin with integration with the Redux Devtools extension.
         * Logger: A simple console log plugin to log actions as they are processed.
         * Forms: Plugin that helps to keep your forms and state in sync.
     * Show movies list.
+    * Show skeleton when the movies list is being downloaded.
     * Show movie detail.
     * CRUD operations:
         * Add movie.
