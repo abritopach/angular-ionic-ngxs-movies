@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   showScrollTop: Boolean = false;
   // infiniteScroll: any;
   @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
-  // showSkeleton: Boolean = true;
+  showSkeleton: Boolean = true;
   // movies: Movie[];
   @ViewChild(Content) content: Content;
   defaultIziToastSettings: IziToastSettings = {
@@ -154,6 +154,9 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
       .subscribe(([movies]) => {
         console.log(movies);
+        setTimeout( () => {
+          this.showSkeleton = false;
+        }, 2000);
         if (this.infiniteScroll) {
           this.infiniteScroll.nativeElement.complete();
         }
@@ -201,7 +204,7 @@ export class HomeComponent implements OnInit {
 
   doInfinite() {
     // console.log('Begin async operation');
-    // this.showSkeleton = true;
+    this.showSkeleton = true;
     this.start = this.end;
     this.end += 20;
     this.showScrollTop = true;
