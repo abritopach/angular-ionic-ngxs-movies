@@ -9,7 +9,11 @@
     display: inline;
 }
 
-
+.genre-image {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+}
 
 @media (min-width: 992px) and (max-width: 1199px) {
     ion-item img {

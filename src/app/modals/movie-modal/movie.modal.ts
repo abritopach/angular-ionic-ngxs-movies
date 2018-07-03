@@ -28,7 +28,8 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
     genre: '',
     notes: '',
     poster: '',
-    videoId: ''
+    videoId: '',
+    genreImage: ''
   };
   emptyMovie: any;
 

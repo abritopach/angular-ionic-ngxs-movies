@@ -26,6 +26,8 @@ export class DetailComponent {
   currentYear = new Date().getFullYear();
   selectedMovie: Observable<Movie>;
   movie: Movie;
+  genreImages: string[] = ['action', 'comedy', 'crime', 'documentary', 'drama', 'fantasy', 'film noir',
+                           'horror', 'romance', 'science fiction', 'westerns'];
 
   constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController) {
 
@@ -40,6 +42,9 @@ export class DetailComponent {
       data => {
           // console.log(data);
           this.movie = data;
+          if (this.genreImages.indexOf(this.movie.genre.toLowerCase()) !== -1) {
+            this.movie.genreImage = 'assets/movies-genres/' + this.movie.genre.toLowerCase() + '.png';
+          }
       },
       error => {
           console.log(<any>error);

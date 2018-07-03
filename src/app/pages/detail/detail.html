@@ -16,7 +16,8 @@
               <ion-item>
                 <h2><b>{{ movie?.title }}</b></h2>
                 <ion-chip color="tertiary" slot="end">
-                  <ion-icon name="pricetag" color="tertiary"></ion-icon>
+                  <ion-icon *ngIf="!movie.genreImage" name="pricetag" color="tertiary"></ion-icon>
+                  <ion-img *ngIf="movie.genreImage" [src]="movie.genreImage" class="genre-image"></ion-img>
                   <ion-label>{{ movie?.genre }}</ion-label>
                 </ion-chip>
               </ion-item>
