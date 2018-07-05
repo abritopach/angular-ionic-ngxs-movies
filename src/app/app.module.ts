@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { MoviesService } from './providers/movies-service';
 import { YoutubeApiService } from './providers/youtube-api-service';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -8,11 +8,14 @@ import { MovieModalComponent  } from '../../modals/movie-modal/movie.modal';
 import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
 import { HomeComponentRoutingModule } from './home-routing.module';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     HomeComponentRoutingModule,
+    NgSelectModule,
     ReactiveFormsModule,
     FormsModule
   ],

@@ -15,6 +15,8 @@
 // or .wp mode classes. The mode class is automatically applied to the <body>
 // element in the app.
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 ion-popover {
     z-index: 99999999!important;
 }

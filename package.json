@@ -30,6 +30,7 @@
     "@ionic/angular": "4.0.0-alpha.7",
     "@ionic/cli-hooks": "1.0.0-rc.1",
     "@ionic/schematics-angular": "^1.0.0-rc.9",
+    "@ng-select/ng-select": "^2.3.2",
     "@ngxs/form-plugin": "^3.1.4",
     "@ngxs/storage-plugin": "^3.1.4",
     "@ngxs/store": "^3.1.4",

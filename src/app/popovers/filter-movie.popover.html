@@ -5,7 +5,6 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-      
 <ion-content>
   <ion-list>
     <!--<ion-list-header>Filter by</ion-list-header>-->
@@ -24,6 +23,31 @@
           <ion-select-option value="Westerns">Westerns</ion-select-option>
       </ion-select>
     </ion-item>
+    <!--
+    <ion-item>
+    <ion-label class="yearsLabel">Cities</ion-label>
+        <ng-select [items]="cities3"
+                   bindLabel="name"
+                   bindValue="name"
+                   placeholder="Select city"
+                   [(ngModel)]="selectedCityName">
+            <ng-template ng-header-tmp>
+              Custom header
+            </ng-template>
+            <ng-template ng-label-tmp let-item="item">
+                <img height="15" width="15" [src]="item.avatar"/>
+                <b>{{item.name}}</b> is cool
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+                <img height="15" width="15" [src]="item.avatar"/>
+                <b>{{item.name}}</b>
+            </ng-template>
+            <ng-template ng-footer-tmp>
+              Custom footer
+            </ng-template>
+        </ng-select>
+      </ion-item>
+      -->
     <ion-item>
       <ion-label class="yearsLabel">Years</ion-label>
     </ion-item>
@@ -36,10 +60,10 @@
   </ion-list>
   <ion-row>
     <ion-col col-6>
-        <ion-button (click)="filterMovies()">Accept</ion-button>      
+        <ion-button (click)="filterMovies()">Accept</ion-button>
     </ion-col>
     <ion-col col-6>
-        <ion-button color="danger" (click)="clearFilterMovies()">Clear</ion-button>      
+        <ion-button color="danger" (click)="clearFilterMovies()">Clear</ion-button>
     </ion-col>
   </ion-row>
 </ion-content>
