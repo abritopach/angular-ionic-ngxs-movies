@@ -31,6 +31,11 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   filter$: Observable<any>;
   filterSubscription: any;
 
+  customPopoverOptions: any = {
+    header: 'Genre',
+    subHeader: 'Select movie genre',
+  };
+
   constructor(private popoverCtrl: PopoverController, private store: Store, private zone: NgZone) {
   }
 

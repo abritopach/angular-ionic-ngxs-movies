@@ -107,6 +107,7 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
 
   movieFormSubmit() {
     this.movie = this.movieForm.value;
+    this.movie.genre = this.movie.genre.toString();
     if (this.navParams.data.option === 'add') {
       console.log('movieFormSubmit add');
       this.store.dispatch(

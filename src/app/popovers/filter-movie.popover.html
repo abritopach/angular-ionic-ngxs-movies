@@ -11,7 +11,7 @@
     <!--<ion-list-header>Filter by</ion-list-header>-->
     <ion-item>
       <ion-label>Genre</ion-label>
-      <ion-select id="genre" [(ngModel)]="filters.genre" placeholder="Select One" interface="popover">
+      <ion-select [interfaceOptions]="customPopoverOptions" id="genre" [(ngModel)]="filters.genre" placeholder="Select One" interface="popover">
           <ion-select-option value="Action">Action</ion-select-option>
           <ion-select-option value="Adventure">Adventure</ion-select-option>
           <ion-select-option value="Comedy">Comedy</ion-select-option>

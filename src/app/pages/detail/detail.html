@@ -21,19 +21,16 @@
                   <ion-label>{{ movie?.genre }}</ion-label>
                 </ion-chip>
               </ion-item>
-            
               <ion-item>
                   <img *ngIf="movie.poster" [src]="movie?.poster" height="300px" alt="Movie Poster Detail Page">
                   <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px" alt="Empty Movie Poster Detail Page">
               </ion-item>
-            
               <ion-card-content>
                 <ion-item>
                   <p>{{ movie?.notes }}</p>
                   <ion-badge slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
                 </ion-item>
               </ion-card-content>
-            
               <ion-row>
                 <ion-item style="width: 100%">
                   <ion-button icon-left clear small class="action-button">
@@ -70,7 +67,6 @@
                     </ion-button>
                   </ion-col>
                 </ion-row>
-            
             </ion-card>
           </ion-col>
       </ion-row>

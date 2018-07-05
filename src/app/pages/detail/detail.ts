@@ -40,7 +40,7 @@ export class DetailComponent {
 
     this.selectedMovie.subscribe(
       data => {
-          // console.log(data);
+          console.log(data);
           this.movie = data;
           if (this.movie !== null) {
             const genre = this.movie.genre.toLowerCase().split(',', 1)[0];

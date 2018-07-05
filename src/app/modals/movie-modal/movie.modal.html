@@ -40,7 +40,21 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Genre</ion-label>
+          <!--
           <ion-input type="text" formControlName="genre"></ion-input>
+          -->
+          <ion-select id="genre" formControlName="genre" interface="popover" multiple="true">
+            <ion-select-option value="Action">Action</ion-select-option>
+            <ion-select-option value="Adventure">Adventure</ion-select-option>
+            <ion-select-option value="Comedy">Comedy</ion-select-option>
+            <ion-select-option value="Crime">Crime</ion-select-option>
+            <ion-select-option value="Drama">Drama</ion-select-option>
+            <ion-select-option value="Horror">Horror</ion-select-option>
+            <ion-select-option value="Musicals">Musicals</ion-select-option>
+            <ion-select-option value="Science Fiction">Science Fiction</ion-select-option>
+            <ion-select-option value="War">War</ion-select-option>
+            <ion-select-option value="Westerns">Westerns</ion-select-option>
+        </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="floating">Notes</ion-label>
