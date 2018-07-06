@@ -25,7 +25,7 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
       lower: 1900,
       upper: new Date().getFullYear()
     },
-    genre: ''
+    genre: 'Action'
   };
 
   filter$: Observable<any>;
@@ -36,19 +36,18 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
     subHeader: 'Select movie genre',
   };
 
-  cities3 = [
-    {id: 1, name: 'Vilnius', avatar: '//www.gravatar.com/avatar/b0d8c6e5ea589e6fc3d3e08afb1873bb?d=retro&r=g&s=30 2x'},
-    {id: 2, name: 'Kaunas', avatar: '//www.gravatar.com/avatar/ddac2aa63ce82315b513be9dc93336e5?d=retro&r=g&s=15'},
-    {id: 3, name: 'Pavilnys', avatar: '//www.gravatar.com/avatar/6acb7abf486516ab7fb0a6efa372042b?d=retro&r=g&s=15'},
-    {id: 4, name: 'Vilnius', avatar: '//www.gravatar.com/avatar/b0d8c6e5ea589e6fc3d3e08afb1873bb?d=retro&r=g&s=30 2x'},
-    {id: 5, name: 'Kaunas', avatar: '//www.gravatar.com/avatar/ddac2aa63ce82315b513be9dc93336e5?d=retro&r=g&s=15'},
-    {id: 6, name: 'Pavilnys', avatar: '//www.gravatar.com/avatar/6acb7abf486516ab7fb0a6efa372042b?d=retro&r=g&s=15'},
-    {id: 7, name: 'Vilnius', avatar: '//www.gravatar.com/avatar/b0d8c6e5ea589e6fc3d3e08afb1873bb?d=retro&r=g&s=30 2x'},
-    {id: 8, name: 'Kaunas', avatar: '//www.gravatar.com/avatar/ddac2aa63ce82315b513be9dc93336e5?d=retro&r=g&s=15'},
-    {id: 9, name: 'Pavilnys', avatar: '//www.gravatar.com/avatar/6acb7abf486516ab7fb0a6efa372042b?d=retro&r=g&s=15'},
-    {id: 10, name: 'Vilnius', avatar: '//www.gravatar.com/avatar/b0d8c6e5ea589e6fc3d3e08afb1873bb?d=retro&r=g&s=30 2x'},
-    {id: 11, name: 'Kaunas', avatar: '//www.gravatar.com/avatar/ddac2aa63ce82315b513be9dc93336e5?d=retro&r=g&s=15'},
-    {id: 12, name: 'Pavilnys', avatar: '//www.gravatar.com/avatar/6acb7abf486516ab7fb0a6efa372042b?d=retro&r=g&s=15'}
+  genres = [
+    {id: 1, name: 'Action', image: 'assets/movies-genres/action.png'},
+    {id: 2, name: 'Comedy', image: 'assets/movies-genres/comedy.png'},
+    {id: 3, name: 'Crime', image: 'assets/movies-genres/crime.png'},
+    {id: 4, name: 'Documentary', image: 'assets/movies-genres/documentary.png'},
+    {id: 5, name: 'Drama', image: 'assets/movies-genres/drama.png'},
+    {id: 6, name: 'Fantasy', image: 'assets/movies-genres/fantasy.png'},
+    {id: 7, name: 'Film noir', image: 'assets/movies-genres/film noir.png'},
+    {id: 8, name: 'Horror', image: 'assets/movies-genres/horror.png'},
+    {id: 9, name: 'Romance', image: 'assets/movies-genres/romance.png'},
+    {id: 10, name: 'Science fiction', image: 'assets/movies-genres/science fiction.png'},
+    {id: 11, name: 'Westerns', image: 'assets/movies-genres/westerns.png'}
 ];
 
   constructor(private popoverCtrl: PopoverController, private store: Store, private zone: NgZone) {
@@ -57,7 +56,6 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.filter$ = this.store.select(state => state.catalog.filter);
     this.filterSubscription = this.filter$.subscribe((filter => {
-      // console.log('filter', filter);
       this.filters = {...filter};
     }));
   }

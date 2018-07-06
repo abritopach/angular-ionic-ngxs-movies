@@ -7,8 +7,9 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <!--<ion-list-header>Filter by</ion-list-header>-->
-    <ion-item>
+    <ion-list-header>Filter by</ion-list-header>
+    <!--
+    <ion-item lines="full">
       <ion-label>Genre</ion-label>
       <ion-select [interfaceOptions]="customPopoverOptions" id="genre" [(ngModel)]="filters.genre" placeholder="Select One" interface="popover">
           <ion-select-option value="Action">Action</ion-select-option>
@@ -23,35 +24,28 @@
           <ion-select-option value="Westerns">Westerns</ion-select-option>
       </ion-select>
     </ion-item>
-    <!--
-    <ion-item>
-    <ion-label class="yearsLabel">Cities</ion-label>
-        <ng-select [items]="cities3"
-                   bindLabel="name"
-                   bindValue="name"
-                   placeholder="Select city"
-                   [(ngModel)]="selectedCityName">
-            <ng-template ng-header-tmp>
-              Custom header
-            </ng-template>
-            <ng-template ng-label-tmp let-item="item">
-                <img height="15" width="15" [src]="item.avatar"/>
-                <b>{{item.name}}</b> is cool
-            </ng-template>
-            <ng-template ng-option-tmp let-item="item" let-index="index">
-                <img height="15" width="15" [src]="item.avatar"/>
-                <b>{{item.name}}</b>
-            </ng-template>
-            <ng-template ng-footer-tmp>
-              Custom footer
-            </ng-template>
-        </ng-select>
-      </ion-item>
-      -->
+    -->
+    <ion-item lines="full">
+      <ion-label class="yearsLabel">Genre</ion-label>
+      <ng-select [items]="genres"
+                  bindLabel="name"
+                  bindValue="name"
+                  placeholder="Select"
+                  [(ngModel)]="filters.genre">
+          <ng-template ng-label-tmp let-item="item">
+              <img height="25" width="25" [src]="item.image"/>
+              <b>{{item.name}}</b>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index">
+              <img height="25" width="25" [src]="item.image"/>
+              <b> {{item.name}}</b>
+          </ng-template>
+      </ng-select>
+    </ion-item>
     <ion-item>
       <ion-label class="yearsLabel">Years</ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item lines="full">
       <ion-range dualKnobs="true" pin="true" color="primary" [min]="range.lower" [max]="range.upper" step="1" [(ngModel)]="filters.years">
         <ion-icon small name="remove" slot="start"></ion-icon>
         <ion-icon class="iconRangeRight" name="add" slot="end"></ion-icon>

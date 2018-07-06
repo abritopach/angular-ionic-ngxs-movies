@@ -38,11 +38,9 @@
           <ion-label position="floating">Cast</ion-label>
           <ion-textarea formControlName="cast"></ion-textarea>
         </ion-item>
+        <!--
         <ion-item>
           <ion-label position="floating">Genre</ion-label>
-          <!--
-          <ion-input type="text" formControlName="genre"></ion-input>
-          -->
           <ion-select id="genre" formControlName="genre" interface="popover" multiple="true">
             <ion-select-option value="Action">Action</ion-select-option>
             <ion-select-option value="Adventure">Adventure</ion-select-option>
@@ -56,6 +54,24 @@
             <ion-select-option value="Westerns">Westerns</ion-select-option>
         </ion-select>
         </ion-item>
+        -->
+        <ion-item class="genreItem" lines="full">
+            <ion-label class="genreLabel">Genre</ion-label>
+            <ng-select [items]="genres"
+                        bindLabel="name"
+                        bindValue="name"
+                        placeholder="Select"
+                        formControlName="genre">
+                <ng-template ng-label-tmp let-item="item">
+                    <img height="25" width="25" [src]="item.image"/>
+                    <b>{{item.name}}</b>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index">
+                    <img height="25" width="25" [src]="item.image"/>
+                    <b> {{item.name}}</b>
+                </ng-template>
+            </ng-select>
+            </ion-item>
         <ion-item>
             <ion-label position="floating">Notes</ion-label>
             <ion-textarea formControlName="notes"></ion-textarea>

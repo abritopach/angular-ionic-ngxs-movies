@@ -38,7 +38,7 @@ export class MoviesStateModel {
             errors: {}
         },
         filter: {
-            genre: '',
+            genre: 'Action',
             years: {
                 lower: 1900,
                 upper: new Date().getFullYear()
