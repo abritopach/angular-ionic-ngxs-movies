@@ -33,9 +33,9 @@
               </ion-card-content>
               <ion-row>
                 <ion-item style="width: 100%">
-                  <ion-button icon-left clear small class="action-button">
+                  <ion-button icon-left clear small class="action-button" *ngIf="movie.likes !== undefined">
                     <ion-icon name="thumbs-up"></ion-icon>
-                    <div>12 Likes</div>
+                    <div>{{ movie?.likes }} Likes</div>
                   </ion-button>
                   <ion-button icon-left clear small>
                     <ion-icon name="text"></ion-icon>
@@ -55,7 +55,7 @@
                     </ion-button>
                   </ion-col>
                   <ion-col col-auto text-right>
-                      <ion-button fill="clear" size="small" color="primary">
+                      <ion-button fill="clear" size="small" color="primary" (click)="onClickComment()">
                         <ion-icon name='chatboxes' slot="start"></ion-icon>
                         Comment
                       </ion-button>

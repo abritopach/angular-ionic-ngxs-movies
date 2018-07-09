@@ -45,7 +45,7 @@
       <ion-label>
         <h2>{{ movie.title }}</h2>
         <h3 class="notes"><ion-icon name="calendar" color="primary" slot="start"></ion-icon>{{ movie.year }}</h3>
-        <h5 class="notes"><ion-icon name="thumbs-up" color="primary" slot="start"></ion-icon>{{ movie.likes }} | <ion-icon name="star" color="tertiary" slot="start"></ion-icon>6.5</h5>
+        <h5 class="notes"><span *ngIf="movie.likes !== undefined"><ion-icon name="thumbs-up" color="primary" slot="start"></ion-icon>{{ movie.likes }} | </span><ion-icon name="star" color="tertiary" slot="start"></ion-icon>6.5</h5>
         <h4 class="notes">{{ movie.notes }}</h4>
       </ion-label>
       <ion-note slot="end">
