@@ -59,3 +59,9 @@ export class ClearMovies {
 
     constructor() {}
 }
+
+export class LikeMovie {
+    static readonly type = '[Movies] Like movie';
+
+    constructor(public payload: Movie) {}
+}

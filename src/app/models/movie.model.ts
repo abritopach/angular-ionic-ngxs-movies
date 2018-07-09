@@ -9,4 +9,5 @@ export interface Movie {
     poster: string | null;
     videoId: string | null;
     genreImage: string | null;
+    likes: number | 0;
 }

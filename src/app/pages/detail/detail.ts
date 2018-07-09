@@ -15,6 +15,8 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
 import { ModalController } from '@ionic/angular';
 import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
 
+import { LikeMovie } from '../../store/actions/movies.actions';
+
 @Component({
   selector: 'app-page-detail',
   templateUrl: './detail.html',
@@ -124,6 +126,17 @@ export class DetailComponent {
 
     const options = {width: 640, height: 360, videoId: this.movie.videoId};
     const playerReady = await YoutubePlayer.initialize(options);
+  }
+
+  onClickLike() {
+    console.log('DetailsPage::onClickLike');
+    console.log(this.movie);
+    if (typeof this.movie.likes === 'undefined') {
+      this.movie.likes = 0;
+    }
+    console.log(this.movie.likes);
+    this.movie.likes += 1;
+    this.store.dispatch(new LikeMovie(this.movie));
   }
 
 }
