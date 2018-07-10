@@ -43,7 +43,7 @@ export class DetailComponent {
 
     this.selectedMovie.subscribe(
       data => {
-          console.log(data);
+          // console.log(data);
           this.movie = data;
           if (this.movie !== null) {
             const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
@@ -142,9 +142,12 @@ export class DetailComponent {
 
   async presentCommentModal() {
     console.log('DetailsPage::presentCommentModal');
+
+    const componentProps = { modalProps: { title: 'Comment', movie: this.movie}};
+
     const modal = await this.modalCtrl.create({
       component: CommentModalComponent,
-      // componentProps: componentProps
+      componentProps: componentProps
     });
     await modal.present();
 

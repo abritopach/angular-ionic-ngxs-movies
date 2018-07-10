@@ -65,3 +65,9 @@ export class LikeMovie {
 
     constructor(public payload: Movie) {}
 }
+
+export class CommentMovie {
+    static readonly type = '[Movies] Comment movie';
+
+    constructor(public payload: Movie) {}
+}

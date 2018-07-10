@@ -1,7 +1,10 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { EditMovie } from '../../store/actions/movies.actions';
+import { Store, Actions } from '@ngxs/store';
 
 @Component({
   selector: 'app-comment-modal',
@@ -13,7 +16,11 @@ export class CommentModalComponent implements OnInit {
 
   commentForm: FormGroup;
 
-  constructor(private modalCtrl: ModalController, private formBuilder: FormBuilder) {
+  modal: any = {
+    title: '',
+  };
+
+  constructor(private modalCtrl: ModalController, private formBuilder: FormBuilder, private navParams: NavParams, private store: Store) {
     this.createForm();
   }
 
@@ -25,6 +32,7 @@ export class CommentModalComponent implements OnInit {
 
 
   ngOnInit() {
+    this.modal = { ...this.navParams.data.modalProps};
   }
 
   dismiss() {
@@ -35,6 +43,19 @@ export class CommentModalComponent implements OnInit {
   }
 
   commentFormSubmit() {
+    console.log('CommentModalComponent::commentFormSubmit | method called');
+    // console.log(this.modal.movie);
+    // console.log(this.commentForm.value);
+    let comments;
+    if (typeof this.modal.movie.comments === 'undefined') {
+      comments = [];
+    } else {
+      comments = this.modal.movie.comments;
+    }
+    // console.log('comments', comments);
+    comments.push(this.commentForm.value.comment);
+    this.modal.movie.comments = comments;
+    this.store.dispatch(new EditMovie(this.modal.movie));
   }
 
 }

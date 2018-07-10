@@ -37,9 +37,9 @@
                     <ion-icon name="thumbs-up"></ion-icon>
                     <div>{{ movie?.likes }} Likes</div>
                   </ion-button>
-                  <ion-button icon-left clear small>
+                  <ion-button icon-left clear small *ngIf="movie.comments !== undefined">
                     <ion-icon name="text"></ion-icon>
-                    <div>4 Comments</div>
+                    <div>{{ movie?.comments.length }} Comments</div>
                   </ion-button>
                   <ion-note slot="end">
                     {{ movie?.year }}
