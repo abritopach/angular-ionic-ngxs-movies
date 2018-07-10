@@ -8,11 +8,15 @@ import { DetailComponentRoutingModule } from './detail-routing.module';
 import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
 import { CommentModalComponent } from '../../modals/comment-modal/comment.modal';
 
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    DetailComponentRoutingModule
+    DetailComponentRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [DetailComponent, YoutubeModalComponent, CommentModalComponent],
   entryComponents: [DetailComponent, YoutubeModalComponent, CommentModalComponent],

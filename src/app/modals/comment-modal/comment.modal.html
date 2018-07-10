@@ -10,5 +10,13 @@
 </ion-header>
       
 <ion-content class="outer-content" padding>
-    <p>Comment modal</p>
+    <form [formGroup]="commentForm" novalidate (ngSubmit)="commentFormSubmit()">
+        <ion-list inset>
+            <ion-item>
+              <ion-label position="floating">Comment</ion-label>
+              <ion-textarea formControlName="comment"></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <ion-button type="submit" color="primary" [disabled]='!commentForm.valid' >Accept</ion-button>
+    </form>
 </ion-content>

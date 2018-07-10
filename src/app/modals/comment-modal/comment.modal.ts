@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-comment-modal',
   templateUrl: 'comment.modal.html',
@@ -9,7 +11,16 @@ import { ModalController } from '@ionic/angular';
 })
 export class CommentModalComponent implements OnInit {
 
-  constructor(private modalCtrl: ModalController) {
+  commentForm: FormGroup;
+
+  constructor(private modalCtrl: ModalController, private formBuilder: FormBuilder) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.commentForm = this.formBuilder.group({
+      comment: new FormControl('', Validators.required),
+    });
   }
 
 
@@ -21,6 +32,9 @@ export class CommentModalComponent implements OnInit {
     // can "dismiss" itself and pass back data.
     // console.log('dismiss', data);
     this.modalCtrl.dismiss();
+  }
+
+  commentFormSubmit() {
   }
 
 }

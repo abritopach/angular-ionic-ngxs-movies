@@ -1,8 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, AfterViewInit } from '@angular/core';
 import { ModalController, NavParams} from '@ionic/angular';
 
-import { Plugins, Capacitor } from '@capacitor/core';
-import { YoutubePlayerPlugin, YoutubePlayerWeb } from 'capacitor-youtube-player';
+import { YoutubePlayerWeb } from 'capacitor-youtube-player';
 
 @Component({
   selector: 'app-youtube-modal',
