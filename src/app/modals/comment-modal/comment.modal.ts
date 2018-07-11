@@ -27,6 +27,7 @@ export class CommentModalComponent implements OnInit {
   createForm() {
     this.commentForm = this.formBuilder.group({
       comment: new FormControl('', Validators.required),
+      rating: new FormControl('')
     });
   }
 
@@ -46,12 +47,22 @@ export class CommentModalComponent implements OnInit {
     console.log('CommentModalComponent::commentFormSubmit | method called');
     // console.log(this.modal.movie);
     // console.log(this.commentForm.value);
+    console.log(this.commentForm.value.rating);
     let comments;
     if (typeof this.modal.movie.comments === 'undefined') {
       comments = [];
     } else {
       comments = this.modal.movie.comments;
     }
+
+    if (typeof this.modal.movie.rate === 'undefined') {
+      this.modal.movie.rate = this.commentForm.value.rating;
+      this.modal.movie.numVotes = 1;
+    } else {
+      this.modal.movie.numVotes += 1;
+      this.modal.movie.rate = (this.modal.movie.rate + this.commentForm.value.rating) / this.modal.movie.numVotes;
+    }
+
     // console.log('comments', comments);
     comments.push(this.commentForm.value.comment);
     this.modal.movie.comments = comments;

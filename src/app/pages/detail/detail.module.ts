@@ -11,13 +11,16 @@ import { ShowCommentsModalComponent } from '../../modals/show-comments-modal/sho
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+import { StarRatingModule } from 'angular-star-rating';
+
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     DetailComponentRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StarRatingModule.forRoot()
   ],
   declarations: [DetailComponent, YoutubeModalComponent, CommentModalComponent, ShowCommentsModalComponent],
   entryComponents: [DetailComponent, YoutubeModalComponent, CommentModalComponent, ShowCommentsModalComponent],

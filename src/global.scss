@@ -17,6 +17,8 @@
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+@import '~css-star-rating/scss/star-rating';
+
 ion-popover {
     z-index: 99999999!important;
 }
