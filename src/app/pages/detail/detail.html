@@ -37,7 +37,7 @@
                     <ion-icon name="thumbs-up"></ion-icon>
                     <div>{{ movie?.likes }} Likes</div>
                   </ion-button>
-                  <ion-button icon-left clear small *ngIf="movie.comments !== undefined">
+                  <ion-button icon-left clear small *ngIf="movie.comments !== undefined" (click)="onClickShowComment()">
                     <ion-icon name="text"></ion-icon>
                     <div>{{ movie?.comments.length }} Comments</div>
                   </ion-button>

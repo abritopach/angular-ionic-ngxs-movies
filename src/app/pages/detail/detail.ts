@@ -15,6 +15,7 @@ import {default as iziToast, IziToastSettings} from 'izitoast';
 import { ModalController } from '@ionic/angular';
 import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
 import { CommentModalComponent } from '../../modals/comment-modal/comment.modal';
+import { ShowCommentsModalComponent } from '../../modals/show-comments-modal/show.comments.modal';
 
 import { LikeMovie } from '../../store/actions/movies.actions';
 
@@ -160,6 +161,28 @@ export class DetailComponent {
   onClickComment() {
     console.log('DetailsPage::onClickComment');
     this.presentCommentModal();
+  }
+
+  async presentShowCommentsModal() {
+    console.log('DetailsPage::presentShowCommentsModal');
+
+    const componentProps = { modalProps: { title: 'Comments', movie: this.movie}};
+
+    const modal = await this.modalCtrl.create({
+      component: ShowCommentsModalComponent,
+      componentProps: componentProps
+    });
+    await modal.present();
+
+    const {data} = await modal.onWillDismiss();
+    if (data) {
+      console.log('data', data);
+    }
+  }
+
+  onClickShowComment() {
+    console.log('DetailsPage::onClickShowComment');
+    this.presentShowCommentsModal();
   }
 
 }

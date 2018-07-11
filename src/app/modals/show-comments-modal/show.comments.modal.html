@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+        <ion-buttons slot="end">
+            <ion-icon name="close" (click)="dismiss()" color="light"></ion-icon>
+        </ion-buttons>
+        <ion-title>
+            {{ modal.title }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+      
+<ion-content class="outer-content" padding>
+   <ion-list>
+    <ion-item *ngFor="let comment of modal.movie.comments">
+        <ion-avatar slot='start'>
+            <img src="https://cdn1.iconfinder.com/data/icons/unique-round-blue/93/user-512.png"/>
+        </ion-avatar>
+        <ion-label>
+            <h2><b>Anonymous user</b></h2>
+            <h3>{{comment}}</h3>
+        </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
