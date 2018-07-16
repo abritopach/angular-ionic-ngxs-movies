@@ -2,10 +2,11 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy, NgZone } from '@angula
 import { PopoverController } from '@ionic/angular';
 
 import { Store } from '@ngxs/store';
-import { FilterMovies, FetchMovies, SaveFilterMovies } from '../store/actions/movies.actions';
+import { FilterMovies, SaveFilterMovies } from '../store/actions/movies.actions';
 
 import { Observable } from 'rxjs';
-import { withLatestFrom } from 'rxjs/operators';
+
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-filter-movie-popover',
@@ -20,6 +21,7 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
     upper: new Date().getFullYear()
   };
 
+  /*
   filters: any = {
     years: {
       lower: 1900,
@@ -28,9 +30,12 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
     genre: 'Action',
     rating: 0
   };
+  */
 
   filter$: Observable<any>;
   filterSubscription: any;
+
+  filterForm: FormGroup;
 
   customPopoverOptions: any = {
     header: 'Genre',
@@ -51,13 +56,27 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
     {id: 11, name: 'Westerns', image: 'assets/movies-genres/westerns.png'}
 ];
 
-  constructor(private popoverCtrl: PopoverController, private store: Store, private zone: NgZone) {
+  constructor(private popoverCtrl: PopoverController, private store: Store, private zone: NgZone, private formBuilder: FormBuilder) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.filterForm = this.formBuilder.group({
+      rate: new FormControl(''),
+      years: new FormControl(''),
+      genre: new FormControl('')
+    });
   }
 
   ngOnInit() {
     this.filter$ = this.store.select(state => state.catalog.filter);
     this.filterSubscription = this.filter$.subscribe((filter => {
-      this.filters = {...filter};
+      // console.log(filter);
+      if (filter.genre === '') {
+        filter.genre = 'Action';
+      }
+      this.filterForm.setValue(filter);
+      // this.filters = {...filter};
     }));
   }
 
@@ -66,18 +85,23 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   }
 
   filterMovies() {
+    // console.log(this.filterForm.value);
     this.store.dispatch([
-      new FilterMovies(this.filters),
-      new SaveFilterMovies(this.filters)
+      new FilterMovies(this.filterForm.value/*this.filters*/),
+      new SaveFilterMovies(this.filterForm.value/*this.filters*/)
     ]);
     this.popoverCtrl.dismiss();
   }
 
   clearFilterMovies() {
-    this.filters = {};
+    this.filterForm.value.rate = 0;
+    this.filterForm.value.years.lower = 1900;
+    this.filterForm.value.years.upper = new Date().getFullYear();
+    this.filterForm.value.genre = '';
+    // this.filters = {};
     this.store.dispatch([
-      new FilterMovies(this.filters),
-      new SaveFilterMovies(this.filters)
+      new FilterMovies(this.filterForm.value/*this.filters*/),
+      new SaveFilterMovies(this.filterForm.value/*this.filters*/)
     ]);
     this.popoverCtrl.dismiss();
   }

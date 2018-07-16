@@ -22,7 +22,8 @@ export class MoviesStateModel {
         years: {
             lower: number,
             upper: number
-        }
+        },
+        rate: number
     };
 }
 
@@ -42,7 +43,8 @@ export class MoviesStateModel {
             years: {
                 lower: 1900,
                 upper: new Date().getFullYear()
-            }
+            },
+            rate: 0
         }
     }
 })

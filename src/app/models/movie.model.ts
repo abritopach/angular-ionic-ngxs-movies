@@ -10,4 +10,5 @@ export interface Movie {
     videoId: string | null;
     genreImage: string | null;
     likes: number | 0;
+    rate: number | 0;
 }

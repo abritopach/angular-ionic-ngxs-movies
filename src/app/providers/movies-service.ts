@@ -102,8 +102,9 @@ export class MoviesService {
 
   checkFilters(filters: any) {
     let strFilters = '';
-    strFilters += typeof filters['genre'] !== 'undefined' ? `?genre=${filters.genre}&` : '?';
+    strFilters += typeof filters['genre'] !== 'undefined' && filters['genre'] !== ''  ? `?genre=${filters.genre}&` : '?';
     strFilters += typeof filters['years'] !== 'undefined' ? `year_gte=${filters.years.lower}&year_lte=${filters.years.upper}&` : '';
+    strFilters += typeof filters['rate'] !== 'undefined' ? `rate=${filters.rate}&` : '';
     return strFilters;
   }
 
