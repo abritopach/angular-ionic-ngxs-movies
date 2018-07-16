@@ -10,6 +10,8 @@ import { HomeComponentRoutingModule } from './home-routing.module';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { StarRatingModule } from 'angular-star-rating';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     HomeComponentRoutingModule,
     NgSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StarRatingModule.forRoot()
   ],
   declarations: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent],
   entryComponents: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent],

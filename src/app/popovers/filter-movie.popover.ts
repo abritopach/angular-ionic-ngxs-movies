@@ -25,7 +25,8 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
       lower: 1900,
       upper: new Date().getFullYear()
     },
-    genre: 'Action'
+    genre: 'Action',
+    rating: 0
   };
 
   filter$: Observable<any>;
