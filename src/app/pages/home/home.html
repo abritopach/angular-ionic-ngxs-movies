@@ -86,7 +86,7 @@
   </ion-list>
 
   <!-- Infinite Scroll. -->
-  <ion-infinite-scroll #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
+  <ion-infinite-scroll *ngIf="iconView === 'apps'" #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Loading more movies...">
@@ -95,22 +95,22 @@
 
 
   <ion-grid *ngIf="iconView === 'list'">
-      <ion-row align-items-start>
-          <ion-col size="6" *ngFor="let movie of movies$ | async; let i = index">
-      <ion-card style="width: 300px;" (click)="viewMovieDetails(movie)">
-          <ion-item>
-            <h2><b>{{ movie?.title }}</b></h2>
-          </ion-item>
-          <ion-item>
-              <ion-img [src]="movie.poster"></ion-img>
-              </ion-item>
-          <ion-card-content>
-            <ion-item>
-              <p>{{ movie?.notes }}</p>
-            </ion-item>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
+      <ion-row>
+          <ion-col align-self-center size="6" *ngFor="let movie of movies$ | async; let i = index">
+            <ion-card style="width: 300px;" (click)="viewMovieDetails(movie)">
+                <ion-item>
+                  <h2><b>{{ movie?.title }}</b></h2>
+                </ion-item>
+                <ion-item>
+                    <ion-img [src]="movie.poster"></ion-img>
+                    </ion-item>
+                <ion-card-content>
+                  <ion-item>
+                    <p>{{ movie?.notes }}</p>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+          </ion-col>
       </ion-row>
     </ion-grid>
 
