@@ -2,6 +2,9 @@
   <ion-toolbar color='primary'>
       <ion-title>Movies List</ion-title>
       <ion-buttons slot='end'>
+        <ion-button (click)="changeView()">
+            <ion-icon slot="icon-only" [name]="iconView"></ion-icon>
+        </ion-button>
         <ion-button (click)="presentPopover($event)">
           <ion-icon slot="icon-only" name="options"></ion-icon>
         </ion-button>
@@ -34,7 +37,7 @@
 
   <!-- Movies List. -->
   <!--<ion-list *ngIf="!showSkeleton">-->
-    <ion-list>
+    <ion-list *ngIf="iconView === 'apps'">
     <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
     <!--<ion-item-sliding *ngFor="let movie of movies; let i = index">-->
     <ion-item-sliding *ngFor="let movie of movies$ | async; let i = index">
@@ -64,7 +67,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-list *ngIf="showSkeleton">
+  <ion-list *ngIf="showSkeleton && iconView === 'apps'">
 
     <ion-item *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
       <ion-thumbnail slot="start">
@@ -89,6 +92,28 @@
       loadingText="Loading more movies...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+
+  <ion-grid *ngIf="iconView === 'list'">
+      <ion-row align-items-start>
+          <ion-col size="6" *ngFor="let movie of movies$ | async; let i = index">
+      <ion-card style="width: 300px;" (click)="viewMovieDetails(movie)">
+          <ion-item>
+            <h2><b>{{ movie?.title }}</b></h2>
+          </ion-item>
+          <ion-item>
+              <ion-img [src]="movie.poster"></ion-img>
+              </ion-item>
+          <ion-card-content>
+            <ion-item>
+              <p>{{ movie?.notes }}</p>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </ion-content>
 
 <ion-footer>

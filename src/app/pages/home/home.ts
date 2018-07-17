@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
   };
   searchControl: FormControl;
   searching: Boolean = false;
+  iconView: String = 'apps';
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
@@ -239,6 +240,11 @@ export class HomeComponent implements OnInit {
 
   scrollToTop() {
     this.content.scrollToTop();
+  }
+
+  changeView() {
+    console.log('HomePage::changeView() | method called');
+    this.iconView =  this.iconView === 'apps' ? 'list' : 'apps';
   }
 
 }
