@@ -35,7 +35,7 @@
       <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
   </ion-item>
 
-  <!-- Movies List. -->
+  <!-- Movies List View. -->
   <!--<ion-list *ngIf="!showSkeleton">-->
     <ion-list *ngIf="iconView === 'apps'">
     <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
@@ -67,6 +67,7 @@
     </ion-item-sliding>
   </ion-list>
 
+  <!-- Skeleton list. -->
   <ion-list *ngIf="showSkeleton && iconView === 'apps'">
 
     <ion-item *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
@@ -85,15 +86,7 @@
 
   </ion-list>
 
-  <!-- Infinite Scroll. -->
-  <ion-infinite-scroll *ngIf="iconView === 'apps'" #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more movies...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
-
+  <!-- Movies Grid view. -->
   <ion-grid *ngIf="iconView === 'list'">
       <ion-row>
           <ion-col align-self-center size="6" *ngFor="let movie of movies$ | async; let i = index">
@@ -102,8 +95,8 @@
                   <h2><b>{{ movie?.title }}</b></h2>
                 </ion-item>
                 <ion-item>
-                    <ion-img [src]="movie.poster"></ion-img>
-                    </ion-item>
+                    <ion-img style="width: 300px;" [src]="movie.poster"></ion-img>
+                </ion-item>
                 <ion-card-content>
                   <ion-item>
                     <p>{{ movie?.notes }}</p>
@@ -113,6 +106,35 @@
           </ion-col>
       </ion-row>
     </ion-grid>
+
+  <!-- Skeleton Grid. -->
+  <ion-grid *ngIf="showSkeleton && iconView === 'list'">
+    <ion-row>
+        <ion-col align-self-center size="6" *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
+          <ion-card style="width: 300px;">
+              <ion-item>
+                <h2><ion-skeleton-text width=200px></ion-skeleton-text></h2>
+              </ion-item>
+              <ion-item>
+                  <div style="width: 300px; height: 200px;" class="skeleton-thumbnail"></div>
+                </ion-item>
+              <ion-card-content>
+                <ion-item>
+                  <p><ion-skeleton-text width=200px></ion-skeleton-text></p>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Infinite Scroll. -->
+  <ion-infinite-scroll #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more movies...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
   </ion-content>
 
