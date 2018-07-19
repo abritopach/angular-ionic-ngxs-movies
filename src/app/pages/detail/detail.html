@@ -21,15 +21,20 @@
                   <ion-label>{{ movie?.genre }}</ion-label>
                 </ion-chip>
               </ion-item>
-              <ion-item>
+              <ion-item class="image">
                   <img *ngIf="movie.poster" [src]="movie?.poster" height="300px" alt="Movie Poster Detail Page">
                   <img *ngIf="!movie.poster" src="https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg" height="300px" alt="Empty Movie Poster Detail Page">
               </ion-item>
               <ion-card-content>
                 <ion-item>
-                  <p>{{ movie?.notes }}</p>
-                  <ion-badge slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Watch Trailer</ion-badge>
+                  <p><ion-icon name="information-circle-outline"></ion-icon> {{ movie?.notes }}</p>
+                  <ion-badge slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Trailer</ion-badge>
                 </ion-item>
+                <ion-row>
+                  <ion-item>
+                    <p><ion-icon name="people"></ion-icon> {{ movie?.cast }}</p>
+                  </ion-item>
+                </ion-row>
               </ion-card-content>
               <ion-row>
                 <ion-item style="width: 100%">
@@ -42,7 +47,7 @@
                     <div>{{ movie?.comments.length }} Comments</div>
                   </ion-button>
                   <ion-note slot="end">
-                    {{ movie?.year }}
+                    {{ movie?.year }} <ion-icon name='calendar' slot="start"></ion-icon>
                   </ion-note>
                 </ion-item>
               </ion-row>
