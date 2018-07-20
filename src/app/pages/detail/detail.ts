@@ -17,7 +17,7 @@ import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal'
 import { CommentModalComponent } from '../../modals/comment-modal/comment.modal';
 import { ShowCommentsModalComponent } from '../../modals/show-comments-modal/show.comments.modal';
 
-import { LikeMovie } from '../../store/actions/movies.actions';
+import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
 
 @Component({
   selector: 'app-page-detail',
@@ -183,6 +183,11 @@ export class DetailComponent {
   onClickShowComment() {
     console.log('DetailsPage::onClickShowComment');
     this.presentShowCommentsModal();
+  }
+
+  onClickFavorite() {
+    console.log('DetailsPage::onClickFavorite');
+    this.store.dispatch(new FavoriteMovie(this.movie));
   }
 
 }

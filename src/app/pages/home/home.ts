@@ -96,14 +96,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
     console.log('ngOnInit home');
-    /*
      // Check if we have movies in local storage.
      if (localStorage.getItem('@@STATE') !== 'undefined') {
       const state = JSON.parse(localStorage.getItem('@@STATE'));
-      const { movies } = state.catalog;
-      console.log('movies', movies);
+      console.log('state', state);
+      // const { movies } = state.catalog;
+      // console.log('movies', movies);
     }
-    */
 
     this.actions$.pipe(ofActionSuccessful(AddMovie)).subscribe(() => {
       const newSettings: IziToastSettings = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};

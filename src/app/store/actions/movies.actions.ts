@@ -71,3 +71,9 @@ export class CommentMovie {
 
     constructor(public payload: Movie) {}
 }
+
+export class FavoriteMovie {
+    static readonly type = '[Movies] Favorite movie';
+
+    constructor(public payload: Movie) {}
+}

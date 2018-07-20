@@ -3,7 +3,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         SearchMovies, GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie } from './../actions/movies.actions';
+         SearchMovies, GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 import { YoutubeApiService } from '../../providers/youtube-api-service';
@@ -25,6 +25,7 @@ export class MoviesStateModel {
         },
         rate: number
     };
+    favorites: Movie[];
 }
 
 @State<MoviesStateModel>({
@@ -45,7 +46,8 @@ export class MoviesStateModel {
                 upper: new Date().getFullYear()
             },
             rate: 0
-        }
+        },
+        favorites:  []
     }
 })
 
@@ -264,5 +266,14 @@ export class MovieState {
                 movies: [ ...movies ]
             });
         }));
+    }
+
+    @Action(FavoriteMovie)
+    favoriteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        const state = getState();
+        setState({
+            ...state,
+            favorites: [...state.favorites, ...payload]
+        });
     }
 }
