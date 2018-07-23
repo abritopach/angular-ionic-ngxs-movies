@@ -2,15 +2,15 @@
   <ion-toolbar color='primary'>
       <ion-title>Movies List</ion-title>
       <ion-buttons slot='end'>
+        <ion-button (click)="showFavoritesMovies()">
+            <ion-icon slot="icon-only" name="heart"></ion-icon>
+        </ion-button>
         <ion-button (click)="changeView()">
             <ion-icon slot="icon-only" [name]="iconView"></ion-icon>
         </ion-button>
         <ion-button (click)="presentPopover($event)">
           <ion-icon slot="icon-only" name="options"></ion-icon>
         </ion-button>
-        <ion-button>
-            <ion-icon slot="icon-only" name="menu"></ion-icon>
-          </ion-button>
       </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="primary">

@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 
 import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
 import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
+import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-modal/favorites.movies.modal';
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
 
@@ -244,6 +245,26 @@ export class HomeComponent implements OnInit {
   changeView() {
     console.log('HomePage::changeView() | method called');
     this.iconView =  this.iconView === 'apps' ? 'list' : 'apps';
+  }
+
+  showFavoritesMovies() {
+    console.log('HomePage::showFavoritesMovies() | method called');
+    const state = JSON.parse(localStorage.getItem('@@STATE'));
+    const componentProps = { modalProps: { title: 'Favorites Movies', favoritesMovies: state.catalog.favorites}};
+    this.presentFavoritesModal(componentProps);
+  }
+
+  async presentFavoritesModal(componentProps: any) {
+    const modal = await this.modalCtrl.create({
+      component: FavoritesMoviesModalComponent,
+      componentProps: componentProps
+    });
+    await modal.present();
+
+    const {data} = await modal.onWillDismiss();
+    if (data) {
+      console.log('data', data);
+    }
   }
 
 }

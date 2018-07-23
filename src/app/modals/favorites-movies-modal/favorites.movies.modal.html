@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+        <ion-buttons slot="end">
+            <ion-icon name="close" (click)="dismiss()" color="light"></ion-icon>
+        </ion-buttons>
+        <ion-title>
+            {{ modal.title }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+      
+<ion-content class="outer-content" padding>
+   <ion-list>
+    <ion-item *ngFor="let movie of modal.favoritesMovies" tappable (click)="viewMovieDetails(movie)">
+        <ion-thumbnail slot="start">
+            <img [src]="movie.poster" alt="Movie Poster">
+        </ion-thumbnail>
+        <ion-label>
+            <h2><b>{{ movie.title }}</b></h2>
+            <h3>{{ movie.notes }}</h3>
+        </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
