@@ -151,7 +151,7 @@ export class HomeComponent implements OnInit {
     //   this.infiniteScroll.nativeElement.complete();
     //  }
     // });
-
+      console.log('HomePage::fetchMovies | method called', start, end);
     this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
       .subscribe(([movies]) => {
         console.log(movies);

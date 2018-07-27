@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@capacitor/android/capacitor/android-capacitor-android.iml" filepath="$PROJECT_DIR$/../node_modules/@capacitor/android/capacitor/android-capacitor-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/capacitor-youtube-player/android/capacitor-youtube-player/android-capacitor-youtube-player.iml" filepath="$PROJECT_DIR$/../node_modules/capacitor-youtube-player/android/capacitor-youtube-player/android-capacitor-youtube-player.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@capacitor/cli/assets/capacitor-android-plugins/assets-capacitor-android-plugins.iml" filepath="$PROJECT_DIR$/../node_modules/@capacitor/cli/assets/capacitor-android-plugins/assets-capacitor-android-plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/@capacitor/android/capacitor/capacitor-android.iml" filepath="$PROJECT_DIR$/../node_modules/@capacitor/android/capacitor/capacitor-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/@capacitor/cli/assets/capacitor-android-plugins/capacitor-android-plugins.iml" filepath="$PROJECT_DIR$/../node_modules/@capacitor/cli/assets/capacitor-android-plugins/capacitor-android-plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/capacitor-youtube-player/android/capacitor-youtube-player/capacitor-youtube-player.iml" filepath="$PROJECT_DIR$/../node_modules/capacitor-youtube-player/android/capacitor-youtube-player/capacitor-youtube-player.iml" />
