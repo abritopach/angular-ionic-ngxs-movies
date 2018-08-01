@@ -33,3 +33,8 @@
 ion-popover {
     z-index: 99999999!important;
 }
+
+.popover-content {
+    display: block;
+    height: 350px;
+}
