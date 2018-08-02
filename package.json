@@ -27,9 +27,9 @@
     "@capacitor/cli": "^1.0.0-beta.3",
     "@capacitor/core": "^1.0.0-beta.3",
     "@capacitor/ios": "^1.0.0-beta.3",
-    "@ionic/angular": "4.0.0-beta.0",
+    "@ionic/angular": "4.0.0-beta.1",
     "@ionic/cli-hooks": "1.0.0-rc.1",
-    "@ionic/schematics-angular": "^1.0.2",
+    "@ionic/schematics-angular": "^1.0.3",
     "@ng-select/ng-select": "^2.3.6",
     "@ngxs/form-plugin": "^3.2.0",
     "@ngxs/storage-plugin": "^3.2.0",
@@ -45,8 +45,8 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.7.1",
-    "@angular/cli": "~6.1.1",
+    "@angular-devkit/build-angular": "0.7.2",
+    "@angular/cli": "~6.1.2",
     "@angular/compiler": "^6.1.0",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",
