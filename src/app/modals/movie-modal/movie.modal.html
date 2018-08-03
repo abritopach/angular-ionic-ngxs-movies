@@ -15,7 +15,7 @@
     <form [formGroup]="movieForm" novalidate ngxsForm="catalog.movieForm" (ngSubmit)="movieFormSubmit()">
     <ion-list inset>
         <ion-item [class.has-error]="movieForm.get('title').hasError('required') && movieForm.get('title').touched">
-          <ion-label position="floating">Title *</ion-label>
+          <ion-label floating>Title *</ion-label>
           <ion-input #myInput id='myInput' type="text" formControlName="title" required></ion-input>
         </ion-item>
         <ion-item *ngIf="movieForm.get('title').hasError('required') && movieForm.get('title').touched" no-lines>
@@ -24,7 +24,7 @@
           </div>
         </ion-item>
         <ion-item [class.has-error]="movieForm.get('year').hasError('required') && movieForm.get('year').touched">
-          <ion-label position="floating">Year *</ion-label>
+          <ion-label floating>Year *</ion-label>
           <ion-input type="number" formControlName="year" required></ion-input>
         </ion-item>
         <ion-item *ngIf="movieForm.get('year').hasError('required') && movieForm.get('year').touched" no-lines>
@@ -33,11 +33,11 @@
             </div>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Director</ion-label>
+          <ion-label floating>Director</ion-label>
           <ion-input type="text" formControlName="director"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Cast</ion-label>
+          <ion-label floating>Cast</ion-label>
           <ion-textarea formControlName="cast"></ion-textarea>
         </ion-item>
         <!--
@@ -75,11 +75,11 @@
             </ng-select>
             </ion-item>
         <ion-item>
-            <ion-label position="floating">Notes</ion-label>
+            <ion-label floating>Notes</ion-label>
             <ion-textarea formControlName="notes"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">URL Poster</ion-label>
+          <ion-label floating>URL Poster</ion-label>
           <ion-input type="text" formControlName="poster"></ion-input>
         </ion-item>
         <ion-item class="take-picture">
