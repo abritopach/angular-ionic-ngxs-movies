@@ -216,7 +216,7 @@ export class HomeComponent implements OnInit {
     // console.log('presentPopover');
     const popover = await this.popoverCtrl.create({
       component: FilterMoviePopoverComponent,
-      ev: event
+      event: event
     });
 
     await popover.present();
