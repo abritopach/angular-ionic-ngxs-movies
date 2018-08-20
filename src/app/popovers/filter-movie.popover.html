@@ -5,27 +5,10 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content>
-  <form [formGroup]="filterForm" novalidate (ngSubmit)="filterMovies()">
+<ion-content padding>
+  <form [formGroup]="filterForm" novalidate (ngSubmit)="filterMovies()" slot="fixed">
   <ion-list>
     <ion-list-header>Filter by</ion-list-header>
-    <!--
-    <ion-item lines="full">
-      <ion-label>Genre</ion-label>
-      <ion-select [interfaceOptions]="customPopoverOptions" id="genre" [(ngModel)]="filters.genre" placeholder="Select One" interface="popover">
-          <ion-select-option value="Action">Action</ion-select-option>
-          <ion-select-option value="Adventure">Adventure</ion-select-option>
-          <ion-select-option value="Comedy">Comedy</ion-select-option>
-          <ion-select-option value="Crime">Crime</ion-select-option>
-          <ion-select-option value="Drama">Drama</ion-select-option>
-          <ion-select-option value="Horror">Horror</ion-select-option>
-          <ion-select-option value="Musicals">Musicals</ion-select-option>
-          <ion-select-option value="Science Fiction">Science Fiction</ion-select-option>
-          <ion-select-option value="War">War</ion-select-option>
-          <ion-select-option value="Westerns">Westerns</ion-select-option>
-      </ion-select>
-    </ion-item>
-    -->
     <ion-item lines="full">
       <ion-label class="yearsLabel">Genre</ion-label>
       <ng-select [items]="genres"

@@ -29,12 +29,3 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
-
-ion-popover {
-    z-index: 99999999!important;
-}
-
-.popover-content {
-    display: block;
-    height: 350px;
-}
