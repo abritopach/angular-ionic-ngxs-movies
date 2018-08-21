@@ -3,7 +3,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         SearchMovies, GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie } from './../actions/movies.actions';
+         SearchMovies, GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
+         DeleteFavoriteMovie } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 import { YoutubeApiService } from '../../providers/youtube-api-service';
@@ -274,6 +275,15 @@ export class MovieState {
         setState({
             ...state,
             favorites: [...state.favorites, ...payload]
+        });
+    }
+
+    @Action(DeleteFavoriteMovie)
+    deleteFavoriteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+        const state = getState();
+        setState({
+            ...state,
+            favorites: state.favorites.filter(movie => movie.title !== payload.title)
         });
     }
 }

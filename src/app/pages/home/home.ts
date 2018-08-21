@@ -239,7 +239,7 @@ export class HomeComponent implements OnInit {
   }
 
   scrollToTop() {
-    // this.content.scrollToTop();
+    this.content.scrollToTop();
   }
 
   changeView() {

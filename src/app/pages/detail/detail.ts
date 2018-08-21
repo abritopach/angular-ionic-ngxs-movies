@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { Movie } from '../../models/movie.model';
 
-import { Store } from '@ngxs/store';
+import { Store, Actions, ofActionSuccessful } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -25,16 +25,37 @@ import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
   styleUrls: ['./detail.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
 
   currentYear = new Date().getFullYear();
   selectedMovie: Observable<Movie>;
   movie: Movie;
   genreImages: string[] = ['action', 'comedy', 'crime', 'documentary', 'drama', 'fantasy', 'film noir',
                            'horror', 'romance', 'science fiction', 'westerns', 'animation'];
+  defaultIziToastSettings: IziToastSettings = {
+    color: 'green',
+    title: '',
+    icon: 'ico-success',
+    message: '',
+    position: 'bottomLeft',
+    transitionIn: 'flipInX',
+    transitionOut: 'flipOutX',
+    image: 'assets/avatar.png',
+    imageWidth: 70,
+    layout: 2,
+  };
 
-  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController) {
+  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController,
+              private actions$: Actions) {
 
+  }
+
+  ngOnInit() {
+    this.actions$.pipe(ofActionSuccessful(FavoriteMovie)).subscribe(() => {
+      const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'Favorite Movie added.', position: 'bottomLeft'};
+      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+    },
+    err => console.log('HomePage::ngOnInit ofActionSuccessful(EditMovie) | method called -> received error' + err));
   }
 
   ionViewWillEnter() {
