@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, AlertController } from '@ionic/angular';
 
 import { Store } from '@ngxs/store';
 import { Movie } from '../../models/movie.model';
 
-import { SelectedMovie, DeleteFavoriteMovie } from '../../store/actions/movies.actions';
+import { SelectedMovie, DeleteFavoriteMovie, DeleteAllFavoritesMovies } from '../../store/actions/movies.actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,8 @@ export class FavoritesMoviesModalComponent implements OnInit {
     title: ''
   };
 
-  constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private router: Router) {
+  constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private router: Router,
+              private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -45,6 +46,41 @@ export class FavoritesMoviesModalComponent implements OnInit {
     console.log('FavoritesMoviesModalComponent::deleteFavoriteMovie() | method called');
     this.store.dispatch(new DeleteFavoriteMovie(movie));
     this.modal.favoritesMovies = this.modal.favoritesMovies.filter(m => m.title !== movie.title);
+  }
+
+  deleteAll() {
+    console.log('FavoritesMoviesModalComponent::deleteAll() | method called');
+    this.modal.favoritesMovies = [];
+    const state = JSON.parse(localStorage.getItem('@@STATE'));
+    console.log('state', state);
+    state.catalog.favorites = [];
+    // TODO: Dispatch deleteAll action.
+    this.store.dispatch(new DeleteAllFavoritesMovies());
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertCtrl.create({
+      header: 'Delete all favorites',
+      message: 'Are you sure you want to delete all the favorites?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.deleteAll();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

@@ -83,3 +83,9 @@ export class DeleteFavoriteMovie {
 
     constructor(public payload: Movie) {}
 }
+
+export class DeleteAllFavoritesMovies {
+    static readonly type = '[Movies] Delete All Favorites movies';
+
+    constructor() {}
+}
