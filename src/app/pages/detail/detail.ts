@@ -1,10 +1,9 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { Movie } from '../../models/movie.model';
 
-import { Store, Actions, ofActionSuccessful } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { YoutubeApiService } from '../../providers/youtube-api-service';
 
@@ -25,7 +24,7 @@ import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
   styleUrls: ['./detail.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent {
 
   currentYear = new Date().getFullYear();
   selectedMovie: Observable<Movie>;
@@ -45,17 +44,7 @@ export class DetailComponent implements OnInit {
     layout: 2,
   };
 
-  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController,
-              private actions$: Actions) {
-
-  }
-
-  ngOnInit() {
-    this.actions$.pipe(ofActionSuccessful(FavoriteMovie)).subscribe(() => {
-      const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'Favorite Movie added.', position: 'bottomLeft'};
-      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
-    },
-    err => console.log('HomePage::ngOnInit ofActionSuccessful(EditMovie) | method called -> received error' + err));
+  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController) {
   }
 
   ionViewWillEnter() {
@@ -208,7 +197,11 @@ export class DetailComponent implements OnInit {
 
   onClickFavorite() {
     console.log('DetailsPage::onClickFavorite');
-    this.store.dispatch(new FavoriteMovie(this.movie));
+    this.store.dispatch(
+      new FavoriteMovie(this.movie)).subscribe(() => {
+      const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'Favorite Movie added.', position: 'bottomLeft'};
+      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+    });
   }
 
 }
