@@ -13,6 +13,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { StarRatingModule } from 'angular-star-rating';
 
+import { GenreCarouselComponent } from '../../components/genre-carousel/genre-carousel.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +25,7 @@ import { StarRatingModule } from 'angular-star-rating';
     FormsModule,
     StarRatingModule.forRoot()
   ],
-  declarations: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent],
-  entryComponents: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent],
+  declarations: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent, GenreCarouselComponent],
+  entryComponents: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent, GenreCarouselComponent],
 })
 export class HomeModule {}

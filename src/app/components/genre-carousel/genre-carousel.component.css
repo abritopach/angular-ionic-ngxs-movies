@@ -1,0 +1,13 @@
+.image-thumbnail {
+      display: flex;
+      justify-content: space-between;
+      overflow: auto;
+      overflow-y: hidden;
+}
+  
+.image-thumbnail ion-img {
+      width: 100px;
+      height: 100px;
+      padding: 1px;
+      border: 1px solid grey;
+}
