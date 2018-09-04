@@ -75,11 +75,9 @@ export class HomeComponent implements OnInit {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter');
-    this.fetchMovies(this.start, this.end);
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
       // console.log('this.searchControl.valueChanges', search);
       this.searching = false;
-
       if (search === '') {
         this.start = 0;
         this.end = 20;
@@ -95,8 +93,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
     console.log('ngOnInit home');
+    this.fetchMovies(this.start, this.end);
      // Check if we have movies in local storage.
      if (localStorage.getItem('@@STATE') !== 'undefined') {
       const state = JSON.parse(localStorage.getItem('@@STATE'));
@@ -151,10 +149,10 @@ export class HomeComponent implements OnInit {
     //   this.infiniteScroll.nativeElement.complete();
     //  }
     // });
-      console.log('HomePage::fetchMovies | method called', start, end);
+    console.log('HomePage::fetchMovies | method called', start, end);
     this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
       .subscribe(([movies]) => {
-        console.log(movies);
+        console.log('movies', movies);
         setTimeout( () => {
           this.showSkeleton = false;
         }, 2000);
