@@ -229,7 +229,7 @@ export class HomeComponent implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
-      content: 'Please wait, loading movies...',
+      message: 'Please wait, loading movies...',
     });
     await loading.present();
 

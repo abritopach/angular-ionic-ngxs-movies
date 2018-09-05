@@ -27,9 +27,9 @@
     "@capacitor/cli": "^1.0.0-beta.7",
     "@capacitor/core": "^1.0.0-beta.7",
     "@capacitor/ios": "^1.0.0-beta.7",
-    "@ionic/angular": "4.0.0-beta.3",
+    "@ionic/angular": "4.0.0-beta.7",
     "@ionic/cli-hooks": "1.0.0-rc.1",
-    "@ionic/schematics-angular": "^1.0.5",
+    "@ionic/schematics-angular": "^1.0.6",
     "@ng-select/ng-select": "^2.6.0",
     "@ngxs/form-plugin": "^3.2.0",
     "@ngxs/storage-plugin": "^3.2.0",
@@ -40,8 +40,8 @@
     "css-star-rating": "^1.2.4",
     "hoek": "^5.0.4",
     "izitoast": "^1.4.0",
-    "rxjs": "6.3.1",
-    "rxjs-compat": "6.3.1",
+    "rxjs": "6.3.2",
+    "rxjs-compat": "6.3.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
@@ -66,7 +66,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.1",
     "tslint": "~5.11.0",
-    "tslint-ionic-rules": "0.0.17",
-    "typescript": "~2.7.2"
+    "tslint-ionic-rules": "0.0.18",
+    "typescript": "~2.9.2"
   }
 }
