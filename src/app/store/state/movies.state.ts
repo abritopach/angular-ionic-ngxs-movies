@@ -79,6 +79,11 @@ export class MovieState {
                 ...state,
                 movies: [ ...state.movies, ...result ]
             });
+            /*
+            patchState({
+                movies: concatItems(result)
+              });
+            */
         },
         (error) => {
             console.log('error', error.message);
