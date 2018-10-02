@@ -20,6 +20,9 @@ This project shows you how to:
         * Add movie.
         * Update movie.
         * Delete movie.
+    * Add movies to my favorites list.
+    * Movies view mode in home: list view / card view.
+    * Genre carousel for filtering movies.
     * Infinite scroll in movies list.
     * Use YouTube Data API to search movie trailer.
 
