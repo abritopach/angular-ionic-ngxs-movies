@@ -6,7 +6,7 @@ import { MoviesService } from '../../providers/movies-service';
 import { Movie } from '../../models/movie.model';
 import { MoviesStateModel } from '../../store/state/movies.state';
 
-import { InfiniteScroll, ModalController, PopoverController, LoadingController } from '@ionic/angular';
+import { InfiniteScroll, ModalController, PopoverController, LoadingController, Content } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
@@ -20,8 +20,6 @@ import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover
 import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-modal/favorites.movies.modal';
 
 import {default as iziToast, IziToastSettings} from 'izitoast';
-
-import { Content } from '@ionic/angular';
 
 import { withLatestFrom } from 'rxjs/operators';
 
