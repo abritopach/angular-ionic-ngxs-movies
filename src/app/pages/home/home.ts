@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   end: number;
   showScrollTop: Boolean = false;
   // infiniteScroll: any;
-  @ViewChild('infiniteScroll') infiniteScroll: ElementRef;
+  @ViewChild('infiniteScroll') infiniteScroll: InfiniteScroll;
   showSkeleton: Boolean = true;
   // movies: Movie[];
   @ViewChild(Content) content: Content;
@@ -155,7 +155,7 @@ export class HomeComponent implements OnInit {
           this.showSkeleton = false;
         }, 2000);
         if (this.infiniteScroll) {
-          this.infiniteScroll.nativeElement.complete();
+          this.infiniteScroll.complete();
         }
       },
       err => console.log('HomePage::fetchMovies() | method called -> received error' + err)
