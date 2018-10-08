@@ -197,11 +197,30 @@ export class DetailComponent {
 
   onClickFavorite() {
     console.log('DetailsPage::onClickFavorite');
-    this.store.dispatch(
-      new FavoriteMovie(this.movie)).subscribe(() => {
-      const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'Favorite Movie added.', position: 'bottomLeft'};
-      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
-    });
+
+    if (typeof localStorage.getItem('@@STATE') !== 'undefined') {
+      const state = JSON.parse(localStorage.getItem('@@STATE'));
+      const favorites = state.catalog.favorites;
+
+      if (typeof favorites !== 'undefined') {
+
+        const exist = favorites.filter(item => {
+          return item.title === this.movie.title;
+        });
+
+        if (exist.length === 0) {
+          this.store.dispatch(
+            new FavoriteMovie(this.movie)).subscribe(() => {
+            const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'Favorite Movie added.', position: 'bottomLeft'};
+            iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+          });
+        } else {
+          const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'The movie has already been added.',
+          position: 'bottomLeft', color: 'red', icon: 'ico-error'};
+          iziToast.show({...this.defaultIziToastSettings, ...newSettings});
+        }
+      }
+    }
   }
 
 }
