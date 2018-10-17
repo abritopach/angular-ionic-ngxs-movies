@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
   searchControl: FormControl;
   searching: Boolean = false;
   iconView: String = 'apps';
+  loading: any;
 
   constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
@@ -152,6 +153,7 @@ export class HomeComponent implements OnInit {
       .subscribe(([movies]) => {
         console.log('movies', movies);
         setTimeout( () => {
+          // this.dismissLoading();
           this.showSkeleton = false;
         }, 2000);
         if (this.infiniteScroll) {
@@ -226,12 +228,15 @@ export class HomeComponent implements OnInit {
   }
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    this.loading = await this.loadingCtrl.create({
       message: 'Please wait, loading movies...',
     });
-    await loading.present();
 
-    const { data } = await loading.onWillDismiss();
+    return await this.loading.present();
+  }
+
+  async dismissLoading() {
+    this.loading.dismiss();
   }
 
   scrollToTop() {
