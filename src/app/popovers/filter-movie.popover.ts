@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { Subject } from 'rxjs/Subject';
+import { takeUntil, first } from 'rxjs/operators';
+
 @Component({
   selector: 'app-filter-movie-popover',
   templateUrl: 'filter-movie.popover.html',
@@ -34,6 +37,7 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
 
   filter$: Observable<any>;
   filterSubscription: any;
+  private unsubscribe$ = new Subject<void>();
 
   filterForm: FormGroup;
 
@@ -78,10 +82,31 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
       this.filterForm.setValue(filter);
       // this.filters = {...filter};
     }));
+
+    // TODO: necessary testing.
+    /*
+    this.store
+      .select(state => state.catalog.filter)
+      .pipe(
+          takeUntil(this.unsubscribe$), // Unsubscribe to prevent memory leak.
+          first()
+      )
+      .subscribe(filter => { // Unwrap observable.
+        console.log(filter);
+        if (filter.genre === '') {
+          filter.genre = 'Action';
+        }
+        this.filterForm.setValue(filter);
+        // this.filters = {...filter};
+      });
+    */
   }
 
   ngOnDestroy() {
     this.filterSubscription.unsubscribe();
+    // TODO: necessary testing.
+    // this.unsubscribe$.next();
+    // this.unsubscribe$.complete();
   }
 
   filterMovies() {
