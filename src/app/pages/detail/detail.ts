@@ -15,6 +15,7 @@ import { ModalController } from '@ionic/angular';
 import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
 import { CommentModalComponent } from '../../modals/comment-modal/comment.modal';
 import { ShowCommentsModalComponent } from '../../modals/show-comments-modal/show.comments.modal';
+import { ShowActorsModalComponent } from './../../modals/show-actors-modal/show.actors.modal';
 
 import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
 
@@ -220,6 +221,26 @@ export class DetailComponent {
           iziToast.show({...this.defaultIziToastSettings, ...newSettings});
         }
       }
+    }
+  }
+
+  showActors() {
+    console.log('DetailsPage::showActors | method called');
+    this.presentShowActorsModal();
+  }
+
+  async presentShowActorsModal() {
+    console.log('DetailsPage::presentShowActorsModal | method called');
+    // const componentProps = { modalProps: { item: this.movie}};
+    const modal = await this.modalCtrl.create({
+      component: ShowActorsModalComponent,
+      // componentProps: componentProps
+    });
+    await modal.present();
+
+    const {data} = await modal.onWillDismiss();
+    if (data) {
+      console.log('data', data);
     }
   }
 

@@ -28,11 +28,12 @@
               <ion-card-content>
                 <ion-item>
                   <p><ion-icon name="information-circle-outline"></ion-icon> {{ movie?.notes }}</p>
-                  <ion-badge slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Trailer</ion-badge>
+                  <ion-badge tappable slot="end" (click)="watchTrailer()"><ion-icon name="eye"></ion-icon> Trailer</ion-badge>
                 </ion-item>
                 <ion-row>
                   <ion-item>
                     <p><ion-icon name="people"></ion-icon> {{ movie?.cast }}</p>
+                    <ion-badge tappable slot="end" (click)="showActors()"><ion-icon name="eye"></ion-icon> Actors</ion-badge>
                   </ion-item>
                 </ion-row>
               </ion-card-content>
