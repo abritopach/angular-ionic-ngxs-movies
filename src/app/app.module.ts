@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 
 import { MoviesService } from './providers/movies-service';
 import { YoutubeApiService } from './providers/youtube-api-service';
+import { SearchImageService } from './providers/search-image-service';
 // import { GenreCarouselComponent } from './components/genre-carousel/genre-carousel.component';
 
 @NgModule({
@@ -35,7 +36,7 @@ import { YoutubeApiService } from './providers/youtube-api-service';
     // NgxsLoggerPluginModule.forRoot(),
     NgxsFormPluginModule.forRoot()
   ],
-  providers: [MoviesService, YoutubeApiService],
+  providers: [MoviesService, YoutubeApiService, SearchImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -224,17 +224,17 @@ export class DetailComponent {
     }
   }
 
-  showActors() {
+  showActors(movie) {
     console.log('DetailsPage::showActors | method called');
-    this.presentShowActorsModal();
+    this.presentShowActorsModal(movie);
   }
 
-  async presentShowActorsModal() {
+  async presentShowActorsModal(movie) {
     console.log('DetailsPage::presentShowActorsModal | method called');
-    // const componentProps = { modalProps: { item: this.movie}};
+    const componentProps = { modalProps: { actors: this.movie.cast}};
     const modal = await this.modalCtrl.create({
       component: ShowActorsModalComponent,
-      // componentProps: componentProps
+      componentProps: componentProps
     });
     await modal.present();
 

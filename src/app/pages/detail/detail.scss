@@ -15,6 +15,10 @@
     padding: 3px;
 }
 
+ion-card {
+    width: auto;
+}
+
 @media (min-width: 992px) and (max-width: 1199px) {
     ion-item img {
         width: calc(100% - 400px);;
