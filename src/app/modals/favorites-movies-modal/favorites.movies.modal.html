@@ -15,7 +15,7 @@
 </ion-header>
       
 <ion-content class="outer-content" padding>
-   <ion-list>
+   <ion-list *ngIf="modal.favoritesMovies.length !== 0">
     <ion-item *ngFor="let movie of modal.favoritesMovies">
         <ion-thumbnail slot="start" tappable (click)="viewMovieDetails(movie)">
             <img [src]="movie.poster" alt="Movie Poster">
