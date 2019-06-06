@@ -11,7 +11,7 @@ import { ModalController, PopoverController, LoadingController } from '@ionic/an
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 
-import { FetchMovies, SelectedMovie, DeleteMovie, AddMovie, EditMovie, SearchMovies,
+import { FetchMovies, DeleteMovie, AddMovie, EditMovie, SearchMovies,
          ClearMovies } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
@@ -168,8 +168,9 @@ export class HomeComponent implements OnInit {
 
   viewMovieDetails(movie: Movie) {
     // console.log('viewMovieDetails', movie);
-    this.store.dispatch(new SelectedMovie({title: movie.title}));
-    this.router.navigateByUrl(`/detail`);
+    // this.store.dispatch(new SelectedMovie({title: movie.title}));
+    const movieDetailsURL = `/detail/${movie.id}`;
+    this.router.navigate([movieDetailsURL]);
   }
 
   async presentModal(componentProps: any) {
@@ -191,9 +192,8 @@ export class HomeComponent implements OnInit {
     this.presentModal(componentProps);
   }
 
-  editMovie(movie: Movie, index: number) {
-    // console.log('editMovie', movie, 'index', index);
-    movie['index'] = index;
+  editMovie(movie: Movie) {
+    // console.log('editMovie', movie);
     const componentProps = { modalProps: { title: 'Edit Movie', buttonText: 'Edit Movie', movie: movie}, option: 'edit'};
     this.presentModal(componentProps);
   }

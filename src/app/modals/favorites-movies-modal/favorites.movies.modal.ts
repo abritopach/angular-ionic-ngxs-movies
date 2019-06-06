@@ -4,7 +4,7 @@ import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { Store } from '@ngxs/store';
 import { Movie } from '../../models/movie.model';
 
-import { SelectedMovie, DeleteFavoriteMovie, DeleteAllFavoritesMovies } from '../../store/actions/movies.actions';
+import { DeleteFavoriteMovie, DeleteAllFavoritesMovies } from '../../store/actions/movies.actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -37,8 +37,8 @@ export class FavoritesMoviesModalComponent implements OnInit {
 
   viewMovieDetails(movie: Movie) {
     // console.log('viewMovieDetails', movie);
-    this.store.dispatch(new SelectedMovie({title: movie.title}));
-    this.router.navigateByUrl(`/detail`);
+    const movieDetailsURL = `/detail/${movie.id}`;
+    this.router.navigate([movieDetailsURL]);
     this.modalCtrl.dismiss();
   }
 

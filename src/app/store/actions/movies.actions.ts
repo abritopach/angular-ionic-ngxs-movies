@@ -6,12 +6,6 @@ export class FetchMovies {
     constructor(public payload: {start: number, end: number}) {}
 }
 
-export class SelectedMovie {
-    static readonly type = '[Movies] Selected movie';
-
-    constructor(public payload: { title: string}) {}
-}
-
 export class AddMovie {
     static readonly type = '[Movies] Add movie';
 

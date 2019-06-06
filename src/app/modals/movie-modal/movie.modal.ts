@@ -31,7 +31,8 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
     videoId: '',
     genreImage: '',
     likes: 0,
-    rate: 0
+    rate: 0,
+    comments: []
   };
   emptyMovie: any;
 
@@ -68,7 +69,6 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
   createForm() {
     this.movieForm = this.formBuilder.group({
       id: '',
-      index: 0,
       title: new FormControl('', Validators.required),
       year: new FormControl(new Date().getFullYear(), Validators.required),
       director: new FormControl(''),

@@ -1,8 +1,9 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { patch, append, removeItem, insertItem, updateItem } from '@ngxs/store/operators';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
-import { FetchMovies, SelectedMovie, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
+import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
          SearchMovies, GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
          DeleteFavoriteMovie, DeleteAllFavoritesMovies } from './../actions/movies.actions';
 
@@ -61,6 +62,13 @@ export class MovieState {
         return state.movies;
     }
 
+    @Selector()
+    static movieById(state: MoviesStateModel) {
+        return (id: string) => {
+            return state.movies.filter(movie => movie.id === id)[0];
+        };
+    }
+
     @Action(FetchMovies, { cancelUncompleted: true })
     fetchMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('MovieState::fetchMovies() | method called');
@@ -75,10 +83,12 @@ export class MovieState {
             // console.log('fetchMovies result', result);
             const state = getState();
             // console.log('state', state);
-            setState({
-                ...state,
-                movies: [ ...state.movies, ...result ]
-            });
+            if (state.movies.length === 0) {
+                setState({
+                    ...state,
+                    movies: [ ...state.movies, ...result ]
+                });
+            }
             /*
             patchState({
                 movies: concatItems(result)
@@ -90,79 +100,51 @@ export class MovieState {
         }));
     }
 
-    @Action(SelectedMovie)
-    selectedMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        // console.log('selectedMovie payload', payload);
-        const { title } = payload;
-        return this.moviesService.getMovie(title).pipe(
-            catchError((x, caught) => {
-                // console.log('inside catchError', x);
-                return throwError(x);
-            }),
-            tap((result) => {
-            // console.log('result selectedMovie', result);
-            const state = getState();
-            setState({
-                ...state,
-                selectedMovie: {...result[0]}
-            });
-        }));
-    }
-
     @Action(AddMovie)
     addMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        // console.log('payload', payload);
         return this.moviesService.addMovie(payload).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
-            // console.log('result addMovie', result);
             const state = getState();
-            setState({
-                ...state,
-                movies: [ result, ...state.movies ]
-            });
+            setState(
+                patch({
+                    movies: append([result])
+                })
+            );
         }));
     }
 
     @Action(EditMovie)
     editMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        // console.log('payload', payload);
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
-            // console.log('result editMovie', result);
             const state = getState();
-            const movies = state.movies;
-            movies[result['index']] = result;
-            setState({
-                ...state,
-                movies: [ ...movies ]
-            });
-            // state.movies[result['index']] = {...result};
+            setState(
+                patch({
+                    movies: updateItem<Movie>(movie => movie.id === result.id, result)
+                })
+            );
         }));
     }
 
     @Action(DeleteMovie)
     deleteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        // console.log('payload', payload);
         return this.moviesService.deleteMovie(payload).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
-            // console.log('result deleteMovie', result);
             const state = getState();
-            setState({
-                 ...state,
-                movies: state.movies.filter(movie => movie.title !== payload.title)
-             });
+            setState(
+                patch({
+                    movies: removeItem<Movie>(movie => movie.id === result.id)
+                })
+            );
         }));
     }
 
@@ -248,12 +230,11 @@ export class MovieState {
             }),
             tap((result) => {
             const state = getState();
-            const movies = state.movies;
-            movies[result['index']] = result;
-            setState({
-                ...state,
-                movies: [ ...movies ]
-            });
+           setState(
+            patch({
+                movies: updateItem<Movie>(movie => movie.id === result.id, result)
+            })
+        );
         }));
     }
 
@@ -265,12 +246,11 @@ export class MovieState {
             }),
             tap((result) => {
             const state = getState();
-            const movies = state.movies;
-            movies[result['index']] = result;
-            setState({
-                ...state,
-                movies: [ ...movies ]
-            });
+           setState(
+            patch({
+                movies: updateItem<Movie>(movie => movie.id === result.id, result)
+            })
+        );
         }));
     }
 
@@ -285,11 +265,11 @@ export class MovieState {
 
     @Action(DeleteFavoriteMovie)
     deleteFavoriteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        const state = getState();
-        setState({
-            ...state,
-            favorites: state.favorites.filter(movie => movie.title !== payload.title)
-        });
+        setState(
+            patch({
+                favorites: removeItem<Movie>(movie => movie.id === payload.id)
+            })
+        );
     }
 
     @Action(DeleteAllFavoritesMovies)

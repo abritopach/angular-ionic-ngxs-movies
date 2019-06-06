@@ -18,6 +18,9 @@ import { ShowCommentsModalComponent } from '../../modals/show-comments-modal/sho
 import { ShowActorsModalComponent } from './../../modals/show-actors-modal/show.actors.modal';
 
 import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
+import { MovieState } from '../../store/state/movies.state';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-page-detail',
@@ -45,12 +48,14 @@ export class DetailComponent {
     layout: 2,
   };
 
-  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController) {
+  constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ionViewWillEnter() {
     // console.log('ionViewWillEnter');
 
+    /*
     this.selectedMovie = this.store.select(state => state.catalog.selectedMovie);
 
     this.selectedMovie.subscribe(
@@ -68,6 +73,23 @@ export class DetailComponent {
           console.log(<any>error);
       }
     );
+    */
+   const id = this.activatedRoute.snapshot.paramMap.get('id');
+   this.getMovieDetails(id);
+  }
+
+  getMovieDetails(id: string) {
+    this.selectedMovie= this.store.select(MovieState.movieById).pipe(map(filterFn => filterFn(id)));
+    this.selectedMovie.subscribe(movie => {
+      console.log(movie);
+      this.movie = movie;
+      if (this.movie !== null) {
+        const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
+        if (this.genreImages.indexOf(genre) !== -1) {
+          this.movie.genreImage = 'assets/movies-genres/' + genre + '.png';
+        }
+      }
+    });
   }
 
   watchTrailer() {
