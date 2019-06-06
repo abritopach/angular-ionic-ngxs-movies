@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 // NGXS
 import { MovieState } from '../app/store/state/movies.state';
 import { NgxsModule } from '@ngxs/store';
-// import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-// import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
@@ -32,8 +32,8 @@ import { SearchImageService } from './providers/search-image-service';
     IonicModule.forRoot(),
     NgxsModule.forRoot([ MovieState ]),
     NgxsStoragePluginModule.forRoot(),
-    // NgxsReduxDevtoolsPluginModule.forRoot(),
-    // NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     NgxsFormPluginModule.forRoot()
   ],
   providers: [MoviesService, YoutubeApiService, SearchImageService],

@@ -1,12 +1,9 @@
 import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MoviesService } from '../../providers/movies-service';
-
 import { Movie } from '../../models/movie.model';
-import { MoviesStateModel } from '../../store/state/movies.state';
 
-import { ModalController, PopoverController, LoadingController } from '@ionic/angular';
+import { ModalController, PopoverController, LoadingController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
@@ -41,11 +38,10 @@ export class HomeComponent implements OnInit {
   start: number;
   end: number;
   showScrollTop: Boolean = false;
-  // infiniteScroll: any;
-  // @ViewChild('infiniteScroll', { read: ElementRef, static: true }) infiniteScroll: InfiniteScroll;
+  @ViewChild('infiniteScroll', { read: ElementRef, static: true }) infiniteScroll: IonInfiniteScroll;
   showSkeleton: Boolean = true;
   // movies: Movie[];
-  // @ViewChild(Content, { read: ElementRef, static: true }) content: Content;
+  @ViewChild(IonContent, { read: ElementRef, static: true }) content: IonContent;
   defaultIziToastSettings: IziToastSettings = {
     color: 'green',
     title: '',
@@ -63,13 +59,12 @@ export class HomeComponent implements OnInit {
   iconView: String = 'apps';
   loading: any;
 
-  constructor(private moviesService: MoviesService, private store: Store, private router: Router, private modalCtrl: ModalController,
+  constructor(private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
     console.log('constructor home');
     this.start = 0;
     this.end = 20;
     this.searchControl = new FormControl();
-    // this.movies$ = this.store.select(state => state.catalog.movies);
   }
 
   ionViewWillEnter() {
@@ -121,8 +116,6 @@ export class HomeComponent implements OnInit {
       iziToast.success({...this.defaultIziToastSettings, ...newSettings});
     },
     err => console.log('HomePage::ngOnInit ofActionSuccessful(DeleteMovie) | method called -> received error' + err));
-
-    // this.infiniteScroll = document.getElementById('infinite-scroll');
   }
 
   searchMovies(ev: any) {
@@ -156,11 +149,10 @@ export class HomeComponent implements OnInit {
           // this.dismissLoading();
           this.showSkeleton = false;
         }, 2000);
-        /*
         if (this.infiniteScroll) {
+          console.log('infiniteScroll', this.infiniteScroll);
           this.infiniteScroll.complete();
         }
-        */
       },
       err => console.log('HomePage::fetchMovies() | method called -> received error' + err)
     );
@@ -168,14 +160,13 @@ export class HomeComponent implements OnInit {
 
   viewMovieDetails(movie: Movie) {
     // console.log('viewMovieDetails', movie);
-    // this.store.dispatch(new SelectedMovie({title: movie.title}));
     const movieDetailsURL = `/detail/${movie.id}`;
     this.router.navigate([movieDetailsURL]);
   }
 
-  async presentModal(componentProps: any) {
+  async presentModal(componentProps: any, component) {
     const modal = await this.modalCtrl.create({
-      component: MovieModalComponent,
+      component: component,
       componentProps: componentProps
     });
     await modal.present();
@@ -189,13 +180,13 @@ export class HomeComponent implements OnInit {
   addMovie() {
     // console.log('addMovie');
     const componentProps = { modalProps: { title: 'Add Movie', buttonText: 'Add Movie'}, option: 'add'};
-    this.presentModal(componentProps);
+    this.presentModal(componentProps, MovieModalComponent);
   }
 
   editMovie(movie: Movie) {
     // console.log('editMovie', movie);
     const componentProps = { modalProps: { title: 'Edit Movie', buttonText: 'Edit Movie', movie: movie}, option: 'edit'};
-    this.presentModal(componentProps);
+    this.presentModal(componentProps, MovieModalComponent);
   }
 
   deleteMovie(movie: Movie) {
@@ -242,7 +233,7 @@ export class HomeComponent implements OnInit {
   }
 
   scrollToTop() {
-    // this.content.scrollToTop();
+    this.content.scrollToTop();
   }
 
   changeView() {
@@ -254,20 +245,7 @@ export class HomeComponent implements OnInit {
     console.log('HomePage::showFavoritesMovies() | method called');
     const state = JSON.parse(localStorage.getItem('@@STATE'));
     const componentProps = { modalProps: { title: 'Favorites Movies', favoritesMovies: state.catalog.favorites}};
-    this.presentFavoritesModal(componentProps);
-  }
-
-  async presentFavoritesModal(componentProps: any) {
-    const modal = await this.modalCtrl.create({
-      component: FavoritesMoviesModalComponent,
-      componentProps: componentProps
-    });
-    await modal.present();
-
-    const {data} = await modal.onWillDismiss();
-    if (data) {
-      console.log('data', data);
-    }
+    this.presentModal(componentProps, FavoritesMoviesModalComponent);
   }
 
 }

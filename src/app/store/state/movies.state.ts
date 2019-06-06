@@ -83,12 +83,10 @@ export class MovieState {
             // console.log('fetchMovies result', result);
             const state = getState();
             // console.log('state', state);
-            if (state.movies.length === 0) {
-                setState({
-                    ...state,
-                    movies: [ ...state.movies, ...result ]
-                });
-            }
+            setState({
+                ...state,
+                movies: [ ...state.movies, ...result ]
+            });
             /*
             patchState({
                 movies: concatItems(result)
