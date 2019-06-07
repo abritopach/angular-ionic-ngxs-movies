@@ -33,7 +33,7 @@
                 <ion-row>
                   <ion-item *ngIf="movie.cast.length !== 0">
                     <p><ion-icon name="people"></ion-icon> {{ movie?.cast }}</p>
-                    <ion-badge tappable slot="end" (click)="showActors(movie)"><ion-icon name="eye"></ion-icon> Actors</ion-badge>
+                    <ion-badge tappable slot="end" (click)="showActors()"><ion-icon name="eye"></ion-icon> Actors</ion-badge>
                   </ion-item>
                 </ion-row>
               </ion-card-content>

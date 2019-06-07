@@ -8,7 +8,6 @@ import { Movie } from '../../models/movie.model';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import {default as iziToast, IziToastSettings} from 'izitoast';
 import { Observable } from 'rxjs';
 
 @Component({

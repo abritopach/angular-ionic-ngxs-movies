@@ -6,7 +6,6 @@ import { Movie } from '../../models/movie.model';
 import { ModalController, PopoverController, LoadingController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
-import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
 
 import { FetchMovies, DeleteMovie, AddMovie, EditMovie, SearchMovies,
          ClearMovies } from '../../store/actions/movies.actions';
@@ -16,12 +15,12 @@ import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
 import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
 import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-modal/favorites.movies.modal';
 
-import {default as iziToast, IziToastSettings} from 'izitoast';
-
 import { withLatestFrom } from 'rxjs/operators';
 
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
+
+import { IziToastService } from '../../providers/izi-toast.service';
 
 @Component({
   selector: 'app-page-home',
@@ -42,25 +41,13 @@ export class HomeComponent implements OnInit {
   showSkeleton: Boolean = true;
   // movies: Movie[];
   @ViewChild(IonContent, { read: ElementRef, static: true }) content: IonContent;
-  defaultIziToastSettings: IziToastSettings = {
-    color: 'green',
-    title: '',
-    icon: 'ico-success',
-    message: '',
-    position: 'bottomLeft',
-    transitionIn: 'flipInX',
-    transitionOut: 'flipOutX',
-    image: 'assets/avatar.png',
-    imageWidth: 70,
-    layout: 2,
-  };
   searchControl: FormControl;
-  searching: Boolean = false;
-  iconView: String = 'apps';
+  iconView = 'apps';
   loading: any;
 
   constructor(private store: Store, private router: Router, private modalCtrl: ModalController,
-              private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController) {
+              private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController,
+              private iziToast: IziToastService) {
     console.log('constructor home');
     this.start = 0;
     this.end = 20;
@@ -71,7 +58,6 @@ export class HomeComponent implements OnInit {
     console.log('ionViewWillEnter');
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
       // console.log('this.searchControl.valueChanges', search);
-      this.searching = false;
       if (search === '') {
         this.start = 0;
         this.end = 20;
@@ -98,33 +84,21 @@ export class HomeComponent implements OnInit {
     }
 
     this.actions$.pipe(ofActionSuccessful(AddMovie)).subscribe(() => {
-      const newSettings: IziToastSettings = {title: 'Add movie', message: 'Movie added successfully.', position: 'bottomLeft'};
       this.modalCtrl.dismiss();
-      iziToast.show({...this.defaultIziToastSettings, ...newSettings});
+      this.iziToast.success('Add movie', 'Movie added successfully.');
     },
     err => console.log('HomePage::ngOnInit ofActionSuccessful(AddMovie) | method called -> received error' + err));
 
     this.actions$.pipe(ofActionSuccessful(EditMovie)).subscribe(() => {
       this.modalCtrl.dismiss();
-      const newSettings: IziToastSettings = {title: 'Edit movie', message: 'Movie updated successfully.', position: 'bottomLeft'};
-      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+      this.iziToast.success('Edit movie', 'Movie updated successfully.');
     },
     err => console.log('HomePage::ngOnInit ofActionSuccessful(EditMovie) | method called -> received error' + err));
 
     this.actions$.pipe(ofActionSuccessful(DeleteMovie)).subscribe(() => {
-      const newSettings: IziToastSettings = {title: 'Delete movie', message: 'Movie deleted successfully.', position: 'bottomLeft'};
-      iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+      this.iziToast.success('Delete movie', 'Movie deleted successfully.');
     },
     err => console.log('HomePage::ngOnInit ofActionSuccessful(DeleteMovie) | method called -> received error' + err));
-  }
-
-  searchMovies(ev: any) {
-    console.log('HomePage::searchMovies() | method called', ev.target.value);
-    this.searching = true;
-  }
-
-  cancelSearch(ev: any) {
-    console.log('HomePage::cancelSearch | method called');
   }
 
   fetchMovies(start, end) {

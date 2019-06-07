@@ -9,8 +9,6 @@ import { YoutubeApiService } from '../../providers/youtube-api-service';
 
 import { Plugins, Capacitor } from '@capacitor/core';
 
-import {default as iziToast, IziToastSettings} from 'izitoast';
-
 import { ModalController } from '@ionic/angular';
 import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
 import { CommentModalComponent } from '../../modals/comment-modal/comment.modal';
@@ -21,6 +19,8 @@ import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
 import { MovieState } from '../../store/state/movies.state';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+
+import { IziToastService } from '../../providers/izi-toast.service';
 
 @Component({
   selector: 'app-page-detail',
@@ -35,21 +35,9 @@ export class DetailComponent {
   movie: Movie;
   genreImages: string[] = ['action', 'comedy', 'crime', 'documentary', 'drama', 'fantasy', 'film noir',
                            'horror', 'romance', 'science fiction', 'westerns', 'animation'];
-  defaultIziToastSettings: IziToastSettings = {
-    color: 'green',
-    title: '',
-    icon: 'ico-success',
-    message: '',
-    position: 'bottomLeft',
-    transitionIn: 'flipInX',
-    transitionOut: 'flipOutX',
-    image: 'assets/avatar.png',
-    imageWidth: 70,
-    layout: 2,
-  };
 
   constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute, private iziToast: IziToastService) {
   }
 
   ionViewWillEnter() {
@@ -79,7 +67,7 @@ export class DetailComponent {
   }
 
   getMovieDetails(id: string) {
-    this.selectedMovie= this.store.select(MovieState.movieById).pipe(map(filterFn => filterFn(id)));
+    this.selectedMovie = this.store.select(MovieState.movieById).pipe(map(filterFn => filterFn(id)));
     this.selectedMovie.subscribe(movie => {
       console.log(movie);
       this.movie = movie;
@@ -106,7 +94,8 @@ export class DetailComponent {
         // Code to use capacitor-youtube-player plugin.
         console.log('DetailsPage::watchTrailer -> platform: ' + Capacitor.platform);
         if (Capacitor.platform === 'web') {
-          this.presentModal();
+          const componentProps = { modalProps: { item: this.movie}};
+          this.presentModal(componentProps, YoutubeModalComponent);
         } else { // Native
           this.testYoutubePlayerPlugin();
         }
@@ -121,27 +110,16 @@ export class DetailComponent {
       }
     },
     error => {
-      iziToast.show({
-        color: 'red',
-        title: 'Watch Trailer',
-        icon: 'ico-error',
-        message: 'Sorry, an error has occurred.',
-        position: 'bottomLeft',
-        transitionIn: 'flipInX',
-        transitionOut: 'flipOutX',
-        image: 'assets/avatar.png',
-        imageWidth: 70,
-        layout: 2,
-      });
+      this.iziToast.show('Watch Trailer', 'Sorry, an error has occurred.', 'red', 'ico-error', 'assets/avatar.png');
     });
 
   }
 
-  async presentModal() {
+  async presentModal(componentProps: any, component) {
     console.log('DetailsPage::presentModal | method called -> movie', this.movie);
-    const componentProps = { modalProps: { item: this.movie}};
+    // const componentProps = { modalProps: { item: this.movie}};
     const modal = await this.modalCtrl.create({
-      component: YoutubeModalComponent,
+      component: component,
       componentProps: componentProps
     });
     await modal.present();
@@ -174,48 +152,16 @@ export class DetailComponent {
     this.store.dispatch(new LikeMovie(this.movie));
   }
 
-  async presentCommentModal() {
-    console.log('DetailsPage::presentCommentModal');
-
-    const componentProps = { modalProps: { title: 'Comment', movie: this.movie}};
-
-    const modal = await this.modalCtrl.create({
-      component: CommentModalComponent,
-      componentProps: componentProps
-    });
-    await modal.present();
-
-    const {data} = await modal.onWillDismiss();
-    if (data) {
-      console.log('data', data);
-    }
-  }
-
   onClickComment() {
     console.log('DetailsPage::onClickComment');
-    this.presentCommentModal();
-  }
-
-  async presentShowCommentsModal() {
-    console.log('DetailsPage::presentShowCommentsModal');
-
-    const componentProps = { modalProps: { title: 'Comments', movie: this.movie}};
-
-    const modal = await this.modalCtrl.create({
-      component: ShowCommentsModalComponent,
-      componentProps: componentProps
-    });
-    await modal.present();
-
-    const {data} = await modal.onWillDismiss();
-    if (data) {
-      console.log('data', data);
-    }
+    const componentProps = { modalProps: { title: 'Comment', movie: this.movie}};
+    this.presentModal(componentProps, CommentModalComponent);
   }
 
   onClickShowComment() {
     console.log('DetailsPage::onClickShowComment');
-    this.presentShowCommentsModal();
+    const componentProps = { modalProps: { title: 'Comments', movie: this.movie}};
+    this.presentModal(componentProps, ShowCommentsModalComponent);
   }
 
   onClickFavorite() {
@@ -234,36 +180,19 @@ export class DetailComponent {
         if (exist.length === 0) {
           this.store.dispatch(
             new FavoriteMovie(this.movie)).subscribe(() => {
-            const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'Favorite Movie added.', position: 'bottomLeft'};
-            iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+            this.iziToast.success('Favorite movie', 'Favorite Movie added.');
           });
         } else {
-          const newSettings: IziToastSettings = {title: 'Favorite movie', message: 'The movie has already been added.',
-          position: 'bottomLeft', color: 'red', icon: 'ico-error'};
-          iziToast.show({...this.defaultIziToastSettings, ...newSettings});
+          this.iziToast.show('Favorite movie', 'The movie has already been added.', 'red', 'ico-error', 'assets/avatar.png');
         }
       }
     }
   }
 
-  showActors(movie) {
+  showActors() {
     console.log('DetailsPage::showActors | method called');
-    this.presentShowActorsModal(movie);
-  }
-
-  async presentShowActorsModal(movie) {
-    console.log('DetailsPage::presentShowActorsModal | method called');
     const componentProps = { modalProps: { actors: this.movie.cast}};
-    const modal = await this.modalCtrl.create({
-      component: ShowActorsModalComponent,
-      componentProps: componentProps
-    });
-    await modal.present();
-
-    const {data} = await modal.onWillDismiss();
-    if (data) {
-      console.log('data', data);
-    }
+    this.presentModal(componentProps, ShowActorsModalComponent);
   }
 
 }
