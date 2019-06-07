@@ -102,20 +102,8 @@ export class HomeComponent implements OnInit {
   }
 
   fetchMovies(start, end) {
-    // this.presentLoading();
-    // this.store.dispatch(new FetchMovies({start: this.start, end: this.end})).subscribe((result) => {
-      // console.log(result);
-      // this.movies = result.catalog.movies;
-      /*
-      setTimeout( () => {
-        this.showSkeleton = false;
-      }, 2000);
-      */
-    // if (this.infiniteScroll) {
-    //   this.infiniteScroll.nativeElement.complete();
-    //  }
-    // });
     console.log('HomePage::fetchMovies | method called', start, end);
+    // this.presentLoading();
     this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
       .subscribe(([movies]) => {
         console.log('movies', movies);
@@ -123,10 +111,6 @@ export class HomeComponent implements OnInit {
           // this.dismissLoading();
           this.showSkeleton = false;
         }, 2000);
-        if (this.infiniteScroll) {
-          console.log('infiniteScroll', this.infiniteScroll);
-          this.infiniteScroll.complete();
-        }
       },
       err => console.log('HomePage::fetchMovies() | method called -> received error' + err)
     );
@@ -168,8 +152,9 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(new DeleteMovie(movie));
   }
 
-  doInfinite() {
-    // console.log('Begin async operation');
+  doInfinite(event) {
+    console.log('doInfinite', event);
+    event.target.complete();
     this.showSkeleton = true;
     this.start = this.end;
     this.end += 20;
@@ -207,7 +192,8 @@ export class HomeComponent implements OnInit {
   }
 
   scrollToTop() {
-    this.content.scrollToTop();
+    // console.log('scrollToTop', this.content);
+    this.content['nativeElement'].scrollToTop();
   }
 
   changeView() {

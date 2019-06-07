@@ -19,7 +19,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [scrollEvents]="true">
+<ion-content>
 
   <!-- Add movie fab button. -->
   <ion-fab vertical="top" horizontal="end" edge slot="fixed">
@@ -138,7 +138,7 @@
   </ion-grid>
 
   <!-- Infinite Scroll. -->
-  <ion-infinite-scroll #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite()">
+  <ion-infinite-scroll #infiniteScroll id="infinite-scroll" threshold="100px" (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Loading more movies...">
