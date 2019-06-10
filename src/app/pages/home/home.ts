@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Movie } from '../../models/movie.model';
 
-import { ModalController, PopoverController, LoadingController, IonInfiniteScroll, IonContent } from '@ionic/angular';
+import { ModalController, PopoverController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 
@@ -43,10 +43,9 @@ export class HomeComponent implements OnInit {
   @ViewChild(IonContent, { read: ElementRef, static: true }) content: IonContent;
   searchControl: FormControl;
   iconView = 'apps';
-  loading: any;
 
   constructor(private store: Store, private router: Router, private modalCtrl: ModalController,
-              private actions$: Actions, private popoverCtrl: PopoverController, private loadingCtrl: LoadingController,
+              private actions$: Actions, private popoverCtrl: PopoverController,
               private iziToast: IziToastService) {
     console.log('constructor home');
     this.start = 0;
@@ -177,18 +176,6 @@ export class HomeComponent implements OnInit {
       console.log('data popover.onWillDismiss', data);
     }
 
-  }
-
-  async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Please wait, loading movies...',
-    });
-
-    return await this.loading.present();
-  }
-
-  async dismissLoading() {
-    this.loading.dismiss();
   }
 
   scrollToTop() {

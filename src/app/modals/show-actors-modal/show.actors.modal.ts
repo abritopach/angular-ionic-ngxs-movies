@@ -1,8 +1,10 @@
 import { forkJoin } from 'rxjs';
 import { Component, ViewEncapsulation, OnInit, AfterViewInit } from '@angular/core';
-import { ModalController, NavParams, LoadingController} from '@ionic/angular';
+import { ModalController, NavParams} from '@ionic/angular';
 
 import { SearchImageService } from './../../providers/search-image-service';
+
+import { LoaderService } from '../../providers/loader.service';
 
 @Component({
   selector: 'app-show-actors-modal',
@@ -13,17 +15,16 @@ import { SearchImageService } from './../../providers/search-image-service';
 export class ShowActorsModalComponent implements OnInit {
 
   actors: any = [];
-  loading: any;
 
   constructor(private modalCtrl: ModalController, private navParams: NavParams, private searchImageService: SearchImageService,
-              private loadingCtrl: LoadingController) {
+              private loaderService: LoaderService) {
     console.log('ShowActorsModalComponent::constructor | method called');
   }
 
   ngOnInit() {
     console.log('ShowActorsModalComponent::ngOnInit | method called');
 
-    this.presentLoading();
+    this.loaderService.present('Please wait, loading actors...');
     let actors = this.navParams.data.modalProps.actors;
     actors = actors.split(',');
     // console.log('actors', actors);
@@ -54,7 +55,7 @@ export class ShowActorsModalComponent implements OnInit {
           // console.log(result);
           this.actors.push({name: actors[index], image: result['items'][0].image.thumbnailLink});
         });
-        this.dismissLoading();
+        this.loaderService.dismiss();
       }
     });
   }
@@ -64,18 +65,6 @@ export class ShowActorsModalComponent implements OnInit {
     // can "dismiss" itself and pass back data.
     // console.log('dismiss', data);
     this.modalCtrl.dismiss();
-  }
-
-  async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Please wait, loading actors...',
-    });
-
-    return await this.loading.present();
-  }
-
-  async dismissLoading() {
-    this.loading.dismiss();
   }
 
 }
