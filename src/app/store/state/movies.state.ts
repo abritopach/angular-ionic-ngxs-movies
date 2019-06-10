@@ -1,11 +1,11 @@
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector, NgxsOnInit } from '@ngxs/store';
 import { patch, append, removeItem, insertItem, updateItem } from '@ngxs/store/operators';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
          /*SearchMovies,*/ GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
-         DeleteFavoriteMovie, DeleteAllFavoritesMovies } from './../actions/movies.actions';
+         DeleteFavoriteMovie, DeleteAllFavoritesMovies, ClearState } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
 import { YoutubeApiService } from '../../providers/youtube-api-service';
@@ -51,7 +51,7 @@ export class MoviesStateModel {
     }
 })
 
-export class MovieState {
+export class MovieState implements NgxsOnInit {
 
     constructor(private moviesService: MoviesService, private youtubeApiService: YoutubeApiService) {}
 
@@ -65,6 +65,32 @@ export class MovieState {
         return (id: string) => {
             return state.movies.filter(movie => movie.id === id)[0];
         };
+    }
+
+    ngxsOnInit(ctx: StateContext<MoviesStateModel>) {
+        console.log('State initialized.');
+        ctx.dispatch(new ClearState());
+    }
+
+    @Action(ClearState)
+    clearState({ setState, getState }: StateContext<MoviesStateModel>) {
+        setState({
+            movies: [],
+            movieForm: {
+                model: null,
+                dirty: false,
+                status: '',
+                errors: {}
+            },
+            filter: {
+                genre: 'Action',
+                years: {
+                    lower: 1900,
+                    upper: new Date().getFullYear()
+                },
+                rate: 0
+            },
+        favorites:  []});
     }
 
     @Action(FetchMovies, { cancelUncompleted: true })

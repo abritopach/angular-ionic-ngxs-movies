@@ -85,3 +85,7 @@ export class DeleteAllFavoritesMovies {
 
     constructor() {}
 }
+
+export class ClearState {
+    static readonly type = '[Movies] Clear state';
+}
