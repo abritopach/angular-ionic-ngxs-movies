@@ -36,11 +36,13 @@ export class SaveFilterMovies {
     constructor(public payload: {filters: {}}) {}
 }
 
+/*
 export class SearchMovies {
     static readonly type = '[Movies] Search movies';
 
     constructor(public payload: { queryText: string}) {}
 }
+*/
 
 export class GetMovieTrailer {
     static readonly type = '[Movies] Get Movie Trailer';

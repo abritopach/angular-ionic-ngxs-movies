@@ -10,7 +10,7 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-      
+
 <ion-content class="outer-content" padding>
     <form [formGroup]="movieForm" novalidate ngxsForm="catalog.movieForm" (ngSubmit)="movieFormSubmit()">
     <ion-list inset>
@@ -40,23 +40,6 @@
           <ion-label position="floating">Cast</ion-label>
           <ion-textarea formControlName="cast"></ion-textarea>
         </ion-item>
-        <!--
-        <ion-item>
-          <ion-label position="floating">Genre</ion-label>
-          <ion-select id="genre" formControlName="genre" interface="popover" multiple="true">
-            <ion-select-option value="Action">Action</ion-select-option>
-            <ion-select-option value="Adventure">Adventure</ion-select-option>
-            <ion-select-option value="Comedy">Comedy</ion-select-option>
-            <ion-select-option value="Crime">Crime</ion-select-option>
-            <ion-select-option value="Drama">Drama</ion-select-option>
-            <ion-select-option value="Horror">Horror</ion-select-option>
-            <ion-select-option value="Musicals">Musicals</ion-select-option>
-            <ion-select-option value="Science Fiction">Science Fiction</ion-select-option>
-            <ion-select-option value="War">War</ion-select-option>
-            <ion-select-option value="Westerns">Westerns</ion-select-option>
-        </ion-select>
-        </ion-item>
-        -->
         <ion-item class="genreItem" lines="full">
             <ion-label class="genreLabel">Genre</ion-label>
             <ng-select [items]="genres"
@@ -88,6 +71,6 @@
         </ion-item>
     </ion-list>
     <ion-button type="submit" color="primary" [disabled]='!movieForm.valid' >{{ modal.buttonText }}</ion-button>
-    <ion-button color="danger" [disabled]='!movieForm.valid' (click)="clearMovieForm()" *ngIf="navParams.data.option === 'add'">Clear</ion-button>
+    <ion-button color="danger" [disabled]='!movieForm.valid' (click)="clearMovieForm()" *ngIf="navParams['data'].option === 'add'">Clear</ion-button>
     </form>
 </ion-content>

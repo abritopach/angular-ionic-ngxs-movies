@@ -14,7 +14,7 @@
       </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-searchbar [formControl]="searchControl" animated="true" show-cancel-button placeholder="Search">
+    <ion-searchbar #search [formControl]="searchControl" animated="true" show-cancel-button placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -49,7 +49,7 @@
     <ion-list *ngIf="iconView === 'apps'">
     <!--<ion-item *ngFor="let movie of movies$ | async" detail="true" tappable routerLink="/detail/{{ movie.title }}">-->
     <!--<ion-item-sliding *ngFor="let movie of movies; let i = index">-->
-    <ion-item-sliding *ngFor="let movie of movies$ | async; let i = index">
+    <ion-item-sliding *ngFor="let movie of movies$ | async | filter:search.value:movie; let i = index">
       <ion-item tappable (click)="viewMovieDetails(movie)">
       <ion-thumbnail slot="start">
         <img [src]="movie.poster" alt="Movie Poster">

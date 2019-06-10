@@ -7,7 +7,7 @@ import { ModalController, PopoverController, IonInfiniteScroll, IonContent } fro
 
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 
-import { FetchMovies, DeleteMovie, AddMovie, EditMovie, SearchMovies,
+import { FetchMovies, DeleteMovie, AddMovie, EditMovie, /*SearchMovies,*/
          ClearMovies } from '../../store/actions/movies.actions';
 import { Observable } from 'rxjs';
 
@@ -55,6 +55,8 @@ export class HomeComponent implements OnInit {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter');
+
+    /*
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
       // console.log('this.searchControl.valueChanges', search);
       if (search === '') {
@@ -68,6 +70,7 @@ export class HomeComponent implements OnInit {
         this.store.dispatch(new SearchMovies({queryText: search}));
       }
     });
+    */
 
   }
 

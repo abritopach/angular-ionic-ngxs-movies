@@ -4,7 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         SearchMovies, GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
+         /*SearchMovies,*/ GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
          DeleteFavoriteMovie, DeleteAllFavoritesMovies } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -12,7 +12,6 @@ import { YoutubeApiService } from '../../providers/youtube-api-service';
 
 export class MoviesStateModel {
     movies: Movie[];
-    selectedMovie: Movie;
     movieForm: {
         model: Movie,
         dirty: boolean,
@@ -34,7 +33,6 @@ export class MoviesStateModel {
     name: 'catalog',
     defaults: {
         movies: [],
-        selectedMovie: null,
         movieForm: {
             model: null,
             dirty: false,
@@ -171,6 +169,7 @@ export class MovieState {
         });
     }
 
+    /*
     @Action(SearchMovies, { cancelUncompleted: true })
     searchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.searchMovies(payload.queryText).pipe(
@@ -189,6 +188,7 @@ export class MovieState {
             console.log('error', error.message);
         }));
     }
+    */
 
     @Action(GetMovieTrailer, { cancelUncompleted: true })
     getMovieTrailer({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
