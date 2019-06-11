@@ -73,7 +73,7 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(ClearState)
-    clearState({ setState, getState }: StateContext<MoviesStateModel>) {
+    clearState({ setState }: StateContext<MoviesStateModel>) {
         setState({
             movies: [],
             movieForm: {
@@ -94,7 +94,7 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(FetchMovies, { cancelUncompleted: true })
-    fetchMovies({ getState, setState, patchState }: StateContext<MoviesStateModel>, { payload }) {
+    fetchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         // console.log('MovieState::fetchMovies() | method called');
         // console.log('fetchMovies payload', payload);
         const { start, end } = payload;
@@ -118,13 +118,12 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(AddMovie)
-    addMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+    addMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.addMovie(payload).pipe(
             catchError((x, caught) => {
                 return throwError(x);
             }),
             tap((result) => {
-            const state = getState();
             setState(
                 patch({
                     movies: append([result])
@@ -134,13 +133,12 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(EditMovie)
-    editMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+    editMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
                 return throwError(x);
             }),
             tap((result) => {
-            const state = getState();
             setState(
                 patch({
                     movies: updateItem<Movie>(movie => movie.id === result.id, result)
@@ -150,13 +148,12 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(DeleteMovie)
-    deleteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+    deleteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.deleteMovie(payload).pipe(
             catchError((x, caught) => {
                 return throwError(x);
             }),
             tap((result) => {
-            const state = getState();
             setState(
                 patch({
                     movies: removeItem<Movie>(movie => movie.id === result.id)
@@ -179,6 +176,13 @@ export class MovieState implements NgxsOnInit {
                 ...state,
                 movies: [ ...result ]
             });
+            /*
+            setState(
+                patch({
+                  movies: append(result)
+                })
+            );
+            */
         },
         (error) => {
             console.log('error', error.message);
@@ -186,13 +190,12 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(SaveFilterMovies)
-    saveFilterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        // console.log('payload saveFilterMovies', payload);
-        const state = getState();
-        setState({
-            ...state,
-            filter: {...payload}
-        });
+    saveFilterMovies({ setState }: StateContext<MoviesStateModel>, { payload }) {
+        setState(
+            patch({
+                filter: {...payload}
+            })
+          );
     }
 
     /*
@@ -242,13 +245,12 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(LikeMovie)
-    likeMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+    likeMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
                 return throwError(x);
             }),
             tap((result) => {
-            const state = getState();
            setState(
             patch({
                 movies: updateItem<Movie>(movie => movie.id === result.id, result)
@@ -258,13 +260,12 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(CommentMovie)
-    commentMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+    commentMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
                 return throwError(x);
             }),
             tap((result) => {
-            const state = getState();
            setState(
             patch({
                 movies: updateItem<Movie>(movie => movie.id === result.id, result)
@@ -274,16 +275,16 @@ export class MovieState implements NgxsOnInit {
     }
 
     @Action(FavoriteMovie)
-    favoriteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        const state = getState();
-        setState({
-            ...state,
-            favorites: [...state.favorites, ...payload]
-        });
+    favoriteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+        setState(
+            patch({
+                favorites: append([payload])
+            })
+        );
     }
 
     @Action(DeleteFavoriteMovie)
-    deleteFavoriteMovie({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
+    deleteFavoriteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         setState(
             patch({
                 favorites: removeItem<Movie>(movie => movie.id === payload.id)
