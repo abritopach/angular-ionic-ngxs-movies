@@ -189,6 +189,21 @@ export class DetailComponent {
     }
   }
 
+  onClickShare() {
+    console.log('DetailsPage::onClickShare');
+    if (navigator['share']) {
+      navigator['share']({
+        title: 'WebShare API Demo',
+        url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+      .catch(console.error);
+    } else {
+      // fallback
+    }
+  }
+
   showActors() {
     console.log('DetailsPage::showActors | method called');
     const componentProps = { modalProps: { actors: this.movie.cast}};
