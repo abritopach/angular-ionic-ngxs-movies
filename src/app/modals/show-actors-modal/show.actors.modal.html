@@ -11,7 +11,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="outer-content" padding>
+<ion-content class="outer-content ion-padding">
 
     <ion-row>
         <ion-col  *ngFor="let actor of actors" size="6" size-sm>
@@ -24,7 +24,7 @@
                     </ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                    <h1 text-center>{{actor.name}}</h1>
+                    <h1 class="ion-text-center">{{actor.name}}</h1>
                 </ion-card-content>
             </ion-card>
         </ion-col>

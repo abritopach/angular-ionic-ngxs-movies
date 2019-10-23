@@ -14,7 +14,7 @@
       </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-searchbar #search [formControl]="searchControl" animated="true" show-cancel-button placeholder="Search">
+    <ion-searchbar #search [formControl]="searchControl" animated="true" show-cancel-button="focus" placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -98,7 +98,7 @@
   <!-- Movies Grid view. -->
   <ion-grid *ngIf="iconView === 'list'">
       <ion-row>
-          <ion-col align-self-center size="6" *ngFor="let movie of movies$ | async; let i = index">
+          <ion-col class="ion-align-self-center" size="6" *ngFor="let movie of movies$ | async; let i = index">
             <ion-card style="width: 300px;" (click)="viewMovieDetails(movie)">
                 <ion-item>
                   <h2><b>{{ movie?.title }}</b></h2>
@@ -119,7 +119,7 @@
   <!-- Skeleton Grid. -->
   <ion-grid *ngIf="showSkeleton && iconView === 'list'">
     <ion-row>
-        <ion-col align-self-center size="6" *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
+        <ion-col class="ion-align-self-center" size="6" *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]">
           <ion-card style="width: 300px;">
               <ion-item>
                 <h2><ion-skeleton-text width=200px></ion-skeleton-text></h2>

@@ -11,7 +11,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="outer-content" padding>
+<ion-content class="outer-content ion-padding">
     <form [formGroup]="movieForm" novalidate ngxsForm="catalog.movieForm" (ngSubmit)="movieFormSubmit()">
     <ion-list inset>
         <ion-item [class.has-error]="movieForm.get('title').hasError('required') && movieForm.get('title').touched">
