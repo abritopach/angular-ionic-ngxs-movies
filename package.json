@@ -27,6 +27,7 @@
     "@capacitor/cli": "^1.2.1",
     "@capacitor/core": "^1.2.1",
     "@capacitor/ios": "^1.2.1",
+    "@ctrl/ngx-github-buttons": "^3.2.4",
     "@ionic/angular": "4.11.2",
     "@ionic/cli-hooks": "1.0.0-rc.1",
     "@ionic/schematics-angular": "^1.0.7",

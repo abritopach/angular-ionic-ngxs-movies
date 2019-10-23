@@ -14,6 +14,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { StarRatingModule } from 'angular-star-rating';
 
+import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { StarRatingModule } from 'angular-star-rating';
     DetailComponentRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    NtkmeButtonModule
   ],
   declarations: [DetailComponent, YoutubeModalComponent, CommentModalComponent, ShowCommentsModalComponent,
   ShowActorsModalComponent],

@@ -17,6 +17,8 @@ import { GenreCarouselComponent } from '../../components/genre-carousel/genre-ca
 
 import { FilterPipe } from '../../pipes/filter.pipe';
 
+import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { FilterPipe } from '../../pipes/filter.pipe';
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    NtkmeButtonModule
   ],
   declarations: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent, GenreCarouselComponent,
                  FilterPipe],
