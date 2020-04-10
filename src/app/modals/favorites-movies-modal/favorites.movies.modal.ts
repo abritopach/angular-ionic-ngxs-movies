@@ -25,18 +25,15 @@ export class FavoritesMoviesModalComponent implements OnInit {
 
   ngOnInit() {
     this.modal = { ...this.navParams.data.modalProps};
-    console.log(this.modal);
   }
 
   dismiss() {
     // Using the injected ModalController this page
     // can "dismiss" itself and pass back data.
-    // console.log('dismiss', data);
     this.modalCtrl.dismiss();
   }
 
   viewMovieDetails(movie: Movie) {
-    // console.log('viewMovieDetails', movie);
     const movieDetailsURL = `/detail/${movie.id}`;
     this.router.navigate([movieDetailsURL]);
     this.modalCtrl.dismiss();
@@ -52,7 +49,6 @@ export class FavoritesMoviesModalComponent implements OnInit {
     console.log('FavoritesMoviesModalComponent::deleteAll() | method called');
     this.modal.favoritesMovies = [];
     const state = JSON.parse(localStorage.getItem('@@STATE'));
-    console.log('state', state);
     state.catalog.favorites = [];
     // TODO: Dispatch deleteAll action.
     this.store.dispatch(new DeleteAllFavoritesMovies());
@@ -68,12 +64,10 @@ export class FavoritesMoviesModalComponent implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Okay',
           handler: () => {
-            console.log('Confirm Okay');
             this.deleteAll();
           }
         }

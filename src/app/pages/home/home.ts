@@ -47,14 +47,12 @@ export class HomeComponent implements OnInit {
   constructor(private store: Store, private router: Router, private modalCtrl: ModalController,
               private actions$: Actions, private popoverCtrl: PopoverController,
               private iziToast: IziToastService) {
-    console.log('constructor home');
     this.start = 0;
     this.end = 20;
     this.searchControl = new FormControl();
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
 
     /*
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
@@ -75,14 +73,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit home');
     this.fetchMovies(this.start, this.end);
      // Check if we have movies in local storage.
      if (localStorage.getItem('@@STATE') !== 'undefined') {
       const state = JSON.parse(localStorage.getItem('@@STATE'));
-      console.log('state', state);
-      // const { movies } = state.catalog;
-      // console.log('movies', movies);
     }
 
     this.actions$.pipe(ofActionSuccessful(AddMovie)).subscribe(() => {
@@ -108,7 +102,6 @@ export class HomeComponent implements OnInit {
     // this.presentLoading();
     this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
       .subscribe(([movies]) => {
-        console.log('movies', movies);
         setTimeout( () => {
           // this.dismissLoading();
           this.showSkeleton = false;
@@ -119,7 +112,6 @@ export class HomeComponent implements OnInit {
   }
 
   viewMovieDetails(movie: Movie) {
-    // console.log('viewMovieDetails', movie);
     const movieDetailsURL = `/detail/${movie.id}`;
     this.router.navigate([movieDetailsURL]);
   }
@@ -138,24 +130,20 @@ export class HomeComponent implements OnInit {
   }
 
   addMovie() {
-    // console.log('addMovie');
     const componentProps = { modalProps: { title: 'Add Movie', buttonText: 'Add Movie'}, option: 'add'};
     this.presentModal(componentProps, MovieModalComponent);
   }
 
   editMovie(movie: Movie) {
-    // console.log('editMovie', movie);
     const componentProps = { modalProps: { title: 'Edit Movie', buttonText: 'Edit Movie', movie: movie}, option: 'edit'};
     this.presentModal(componentProps, MovieModalComponent);
   }
 
   deleteMovie(movie: Movie) {
-    // console.log('deleteMovie', movie);
     this.store.dispatch(new DeleteMovie(movie));
   }
 
   doInfinite(event) {
-    console.log('doInfinite', event);
     event.target.complete();
     this.showSkeleton = true;
     this.start = this.end;
@@ -165,7 +153,6 @@ export class HomeComponent implements OnInit {
   }
 
   async presentPopover(event) {
-    // console.log('presentPopover');
     const popover = await this.popoverCtrl.create({
       component: FilterMoviePopoverComponent,
       event: event
@@ -182,7 +169,6 @@ export class HomeComponent implements OnInit {
   }
 
   scrollToTop() {
-    // console.log('scrollToTop', this.content);
     this.content['nativeElement'].scrollToTop();
   }
 

@@ -44,7 +44,7 @@
                     <div>{{ movie?.likes }} Likes</div>
                   </ion-button>
                   <ion-button icon-left clear small *ngIf="movie.comments !== undefined" (click)="onClickShowComment()">
-                    <ion-icon name="text"></ion-icon>
+                    <ion-icon name="chatbubble-ellipses"></ion-icon>
                     <div>{{ movie?.comments.length }} Comments</div>
                   </ion-button>
                   <ion-note slot="end">
@@ -62,7 +62,7 @@
                   </ion-col>
                   <ion-col col-auto class="ion-text-right">
                       <ion-button fill="clear" size="small" color="primary" (click)="onClickComment()">
-                        <ion-icon name='chatboxes' slot="start"></ion-icon>
+                        <ion-icon name='chatbubbles' slot="start"></ion-icon>
                         Comment
                       </ion-button>
                   </ion-col>
@@ -74,7 +74,7 @@
                   </ion-col>
                   <ion-col col-auto class="ion-text-center">
                     <ion-button fill="clear" size="small" color="primary" (click)="onClickShare()">
-                      <ion-icon name='share-alt' slot="start"></ion-icon>
+                      <ion-icon name='share-social' slot="start"></ion-icon>
                       Share
                     </ion-button>
                   </ion-col>
@@ -126,13 +126,13 @@
               </ion-col>
               <ion-col col-auto class="ion-text-center">
                 <ion-button fill="clear" size="small" color="primary" (click)="openSpeakerShare(speaker)">
-                  <ion-icon name='share-alt' slot="start"></ion-icon>
+                  <ion-icon name='share-social' slot="start"></ion-icon>
                   Share
                 </ion-button>
               </ion-col>
               <ion-col col-auto class="ion-text-right">
                 <ion-button fill="clear" size="small" color="primary" (click)="openContact(speaker)">
-                  <ion-icon name='chatboxes' slot="start"></ion-icon>
+                  <ion-icon name='chatbubbles' slot="start"></ion-icon>
                   Contact
                 </ion-button>
               </ion-col>

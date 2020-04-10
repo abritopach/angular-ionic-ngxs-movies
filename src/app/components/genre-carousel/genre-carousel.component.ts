@@ -42,8 +42,7 @@ export class GenreCarouselComponent implements OnInit {
   }
 
   selectGenre(genre, index) {
-    console.log('GenreCarouselComponent::selectGenre() | method called');
-    console.log(genre);
+    console.log('GenreCarouselComponent::selectGenre() | method called', genre);
     this.selected = index;
     this.filters.genre = genre.text;
     this.store.dispatch([

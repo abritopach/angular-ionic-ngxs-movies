@@ -41,14 +41,12 @@ export class DetailComponent {
   }
 
   ionViewWillEnter() {
-    // console.log('ionViewWillEnter');
 
     /*
     this.selectedMovie = this.store.select(state => state.catalog.selectedMovie);
 
     this.selectedMovie.subscribe(
       data => {
-          // console.log(data);
           this.movie = data;
           if (this.movie !== null) {
             const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
@@ -69,7 +67,6 @@ export class DetailComponent {
   getMovieDetails(id: string) {
     this.selectedMovie = this.store.select(MovieState.movieById).pipe(map(filterFn => filterFn(id)));
     this.selectedMovie.subscribe(movie => {
-      console.log(movie);
       this.movie = movie;
       if (this.movie !== null) {
         const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
@@ -87,7 +84,6 @@ export class DetailComponent {
     this.youtubeApiService.searchMovieTrailer(this.movie.title)
     .subscribe(result => {
       if (result.items.length > 0) {
-        console.log(result);
         const { videoId } = result.items[0].id;
         this.movie.videoId = videoId;
 

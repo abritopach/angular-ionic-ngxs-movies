@@ -9,6 +9,7 @@ import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilter
 
 import { MoviesService } from '../../providers/movies-service';
 import { YoutubeApiService } from '../../providers/youtube-api-service';
+import { Injectable } from '@angular/core';
 
 export class MoviesStateModel {
     movies: Movie[];
@@ -51,6 +52,7 @@ export class MoviesStateModel {
     }
 })
 
+@Injectable()
 export class MovieState implements NgxsOnInit {
 
     constructor(private moviesService: MoviesService, private youtubeApiService: YoutubeApiService) {}
@@ -68,7 +70,6 @@ export class MovieState implements NgxsOnInit {
     }
 
     ngxsOnInit(ctx: StateContext<MoviesStateModel>) {
-        console.log('State initialized.');
         ctx.dispatch(new ClearState());
     }
 
@@ -95,18 +96,13 @@ export class MovieState implements NgxsOnInit {
 
     @Action(FetchMovies, { cancelUncompleted: true })
     fetchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        // console.log('MovieState::fetchMovies() | method called');
-        // console.log('fetchMovies payload', payload);
         const { start, end } = payload;
         return this.moviesService.getMovies(start, end).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
-            // console.log('fetchMovies result', result);
             const state = getState();
-            // console.log('state', state);
             setState({
                 ...state,
                 movies: [ ...state.movies, ...result ]
@@ -166,23 +162,14 @@ export class MovieState implements NgxsOnInit {
     filterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.filterMovies(payload).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
-            // console.log('filterMovies result', result);
             const state = getState();
             setState({
                 ...state,
                 movies: [ ...result ]
             });
-            /*
-            setState(
-                patch({
-                  movies: append(result)
-                })
-            );
-            */
         },
         (error) => {
             console.log('error', error.message);
@@ -203,7 +190,6 @@ export class MovieState implements NgxsOnInit {
     searchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.searchMovies(payload.queryText).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
@@ -223,11 +209,9 @@ export class MovieState implements NgxsOnInit {
     getMovieTrailer({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.youtubeApiService.searchMovieTrailer(payload.movieTitle).pipe(
             catchError((x, caught) => {
-                // console.log('inside catchError', x);
                 return throwError(x);
             }),
             tap((result) => {
-            console.log(result);
         },
         (error) => {
             console.log('error', error.message);
@@ -236,7 +220,6 @@ export class MovieState implements NgxsOnInit {
 
     @Action(ClearMovies)
     clearMovies({ getState, setState }: StateContext<MoviesStateModel>) {
-        console.log('MovieState::clearMovies() | action called');
         const state = getState();
         setState({
             ...state,

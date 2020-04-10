@@ -75,7 +75,6 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.filter$ = this.store.select(state => state.catalog.filter);
     this.filterSubscription = this.filter$.subscribe((filter => {
-      // console.log(filter);
       if (filter.genre === '') {
         filter.genre = 'Action';
       }
@@ -92,7 +91,6 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
           first()
       )
       .subscribe(filter => { // Unwrap observable.
-        console.log(filter);
         if (filter.genre === '') {
           filter.genre = 'Action';
         }
@@ -110,7 +108,6 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   }
 
   filterMovies() {
-    console.log(this.filterForm.value);
     this.store.dispatch([
       new FilterMovies(this.filterForm.value/*this.filters*/),
       new SaveFilterMovies(this.filterForm.value/*this.filters*/)

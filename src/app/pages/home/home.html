@@ -30,12 +30,12 @@
 
   <ion-fab [hidden]="!showScrollTop" vertical="bottom" horizontal="end" edge slot="fixed">
     <ion-fab-button mini color="tertiary" (click)="scrollToTop()">
-      <ion-icon name="arrow-dropup"></ion-icon>
+      <ion-icon name="arrow-up"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-item no-lines class="item-info">
-      <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).</h2>
+      <h2>Sample project that shows how to build a Movies Catalog APP with Angular, Ionic, Capacitor and NGXS (State Management).</h2>
   </ion-item>
 
   <app-genre-carousel></app-genre-carousel>
@@ -64,7 +64,7 @@
         <h4 class="notes">{{ movie.notes }}</h4>
       </ion-label>
       <ion-note slot="end">
-          <ion-icon name="swap"></ion-icon>
+          <ion-icon name="swap-horizontal"></ion-icon>
       </ion-note>
       </ion-item>
 
@@ -89,7 +89,7 @@
         <h4><ion-skeleton-text width=500px></ion-skeleton-text></h4>
       </ion-label>
       <ion-note slot="end">
-        <ion-icon name="swap"></ion-icon>
+        <ion-icon name="swap-horizontal"></ion-icon>
       </ion-note>
     </ion-item>
 

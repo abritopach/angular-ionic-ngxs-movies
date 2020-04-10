@@ -95,16 +95,13 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit movie.modal');
     const element = this.renderer.selectRootElement('#myInput');
-    console.log('element', element);
     setTimeout(() => element.focus(), 3000);
   }
 
   dismiss(data?: any) {
     // Using the injected ModalController this page
     // can "dismiss" itself and pass back data.
-    // console.log('dismiss', data);
     if (this.navParams.data.option === 'add') {
       this.store.dispatch([
         new UpdateFormValue({
@@ -124,20 +121,17 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
     this.movie = this.movieForm.value;
     this.movie.genre = this.movie.genre.toString();
     if (this.navParams.data.option === 'add') {
-      console.log('movieFormSubmit add');
       this.store.dispatch(
         new AddMovie(this.movie)
       ).subscribe(() => this.clearMovieForm()
       );
 
     } else if (this.navParams.data.option === 'edit') {
-      console.log('movieFormSubmit edit');
       this.store.dispatch(new EditMovie(this.movie));
     }
   }
 
   clearMovieForm() {
-    console.log('clearMovieForm');
     this.movieForm.reset();
     this.store.dispatch([
       new UpdateFormValue({

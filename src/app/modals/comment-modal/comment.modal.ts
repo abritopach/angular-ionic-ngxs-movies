@@ -39,15 +39,11 @@ export class CommentModalComponent implements OnInit {
   dismiss() {
     // Using the injected ModalController this page
     // can "dismiss" itself and pass back data.
-    // console.log('dismiss', data);
     this.modalCtrl.dismiss();
   }
 
   commentFormSubmit() {
     console.log('CommentModalComponent::commentFormSubmit | method called');
-    // console.log(this.modal.movie);
-    // console.log(this.commentForm.value);
-    console.log(this.commentForm.value.rating);
     let comments;
     if (typeof this.modal.movie.comments === 'undefined') {
       comments = [];
@@ -63,7 +59,6 @@ export class CommentModalComponent implements OnInit {
       this.modal.movie.rate = (this.modal.movie.rate + this.commentForm.value.rating) / this.modal.movie.numVotes;
     }
 
-    // console.log('comments', comments);
     comments.push(this.commentForm.value.comment);
     this.modal.movie.comments = comments;
     this.store.dispatch(new EditMovie(this.modal.movie));

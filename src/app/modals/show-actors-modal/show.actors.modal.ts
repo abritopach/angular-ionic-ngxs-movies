@@ -27,21 +27,6 @@ export class ShowActorsModalComponent implements OnInit {
     this.loaderService.present('Please wait, loading actors...');
     let actors = this.navParams.data.modalProps.actors;
     actors = actors.split(',');
-    // console.log('actors', actors);
-
-    /*
-    actors.map(actor => {
-      // Code to use Google Custom Search Api.
-      this.searchImageService.searchImage(actor)
-      .subscribe(result => {
-        if (result.items.length > 0) {
-          // console.log(result);
-          this.actors.push({name: actor, image: result.items[0].image.thumbnailLink});
-          this.dismissLoading();
-        }
-      });
-    });
-    */
 
     forkJoin(
       actors.map(actor => {
@@ -49,10 +34,8 @@ export class ShowActorsModalComponent implements OnInit {
         return this.searchImageService.searchImage(actor);
       })
     ).subscribe(results => {
-      // console.log(results);
       if (results.length > 0) {
         results.map((result, index) => {
-          // console.log(result);
           this.actors.push({name: actors[index], image: result['items'][0].image.thumbnailLink});
         });
         this.loaderService.dismiss();
@@ -63,7 +46,6 @@ export class ShowActorsModalComponent implements OnInit {
   dismiss() {
     // Using the injected ModalController this page
     // can "dismiss" itself and pass back data.
-    // console.log('dismiss', data);
     this.modalCtrl.dismiss();
   }
 

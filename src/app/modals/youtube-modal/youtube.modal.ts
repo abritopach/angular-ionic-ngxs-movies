@@ -20,7 +20,6 @@ export class YoutubeModalComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     console.log('YoutubeModalComponent::ngOnInit | method called');
     this.item = this.navParams.data.modalProps.item;
-    console.log(this.item);
   }
 
   ngAfterViewInit() {
@@ -30,7 +29,6 @@ export class YoutubeModalComponent implements OnInit, AfterViewInit {
   dismiss() {
     // Using the injected ModalController this page
     // can "dismiss" itself and pass back data.
-    // console.log('dismiss', data);
     this.destroyYoutubePlayer();
     this.modalCtrl.dismiss();
   }

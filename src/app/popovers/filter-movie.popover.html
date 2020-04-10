@@ -6,11 +6,11 @@
     </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <form [formGroup]="filterForm" novalidate (ngSubmit)="filterMovies()" slot="fixed">
+  <form [formGroup]="filterForm" novalidate (ngSubmit)="filterMovies()">
   <ion-list>
     <ion-list-header>Filter by</ion-list-header>
     <ion-item lines="full">
-      <ion-label class="yearsLabel">Genre</ion-label>
+      <ion-label class="label">Genre</ion-label>
       <ng-select [items]="genres"
                   bindLabel="name"
                   bindValue="name"
@@ -27,12 +27,12 @@
       </ng-select>
     </ion-item>
     <ion-item>
-      <ion-label class="yearsLabel">Years</ion-label>
+      <ion-label class="label">Years</ion-label>
     </ion-item>
     <ion-item lines="full">
       <ion-range dualKnobs="true" pin="true" color="primary" [min]="range.lower" [max]="range.upper" step="1" formControlName="years">
         <ion-icon small name="remove" slot="start"></ion-icon>
-        <ion-icon class="iconRangeRight" name="add" slot="end"></ion-icon>
+        <ion-icon name="add" slot="end"></ion-icon>
       </ion-range>
     </ion-item>
     <ion-item lines="full" class="rating">

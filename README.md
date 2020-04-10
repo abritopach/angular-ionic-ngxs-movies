@@ -1,6 +1,10 @@
 # AngularIonicNGXSMovies
 
-Sample project that shows how to build a Movies Catalog APP with Angular, Ionic 4, Capacitor and NGXS (State Management).
+**If this project has been useful to you and you want to help me to keep contributing to the open source with projects, examples, plugins,... collaborate and buy me a coffee.**
+
+<a href="https://www.buymeacoffee.com/h6WVj4HcD" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee"></a>
+
+Sample project that shows how to build a Movies Catalog APP with Angular 9, Ionic 5, Capacitor and NGXS (State Management).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 

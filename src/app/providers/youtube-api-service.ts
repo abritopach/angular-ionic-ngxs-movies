@@ -13,7 +13,6 @@ export class YoutubeApiService {
   }
 
   searchMovieTrailer(movieTitle: string): Observable<any> {
-    console.log(this.URL_BASE + `?key=${this.API_KEY}&q=${movieTitle}&type=video&part=snippet,id&maxResults=5`);
     return this.http
     .get(encodeURI(this.URL_BASE + `?key=${this.API_KEY}&q=${movieTitle}&type=video&part=snippet,id&maxResults=5`))
     .pipe(
