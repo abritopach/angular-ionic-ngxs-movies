@@ -49,6 +49,7 @@
     "@angular/compiler": "^9.1.1",
     "@angular/compiler-cli": "^9.1.1",
     "@angular/language-service": "^9.1.1",
+    "@ionic/v4-migration-tslint": "^1.7.1",
     "@ngxs/devtools-plugin": "^3.6.2",
     "@ngxs/logger-plugin": "^3.6.2",
     "@types/jasmine": "^3.5.10",

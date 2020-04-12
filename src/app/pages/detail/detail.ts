@@ -69,7 +69,9 @@ export class DetailComponent {
     this.selectedMovie.subscribe(movie => {
       this.movie = movie;
       if (this.movie !== null) {
+        console.log(this.movie);
         const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
+        console.log(genre);
         if (this.genreImages.indexOf(genre) !== -1) {
           this.movie.genreImage = 'assets/movies-genres/' + genre + '.png';
         }
@@ -131,7 +133,6 @@ export class DetailComponent {
     const { YoutubePlayer } = Plugins;
 
     const result = await YoutubePlayer.echo({value: 'hola' });
-    console.log('result', result);
 
     const options = {width: 640, height: 360, videoId: this.movie.videoId};
     const playerReady = await YoutubePlayer.initialize(options);
@@ -139,11 +140,9 @@ export class DetailComponent {
 
   onClickLike() {
     console.log('DetailsPage::onClickLike');
-    console.log(this.movie);
     if (typeof this.movie.likes === 'undefined') {
       this.movie.likes = 0;
     }
-    console.log(this.movie.likes);
     this.movie.likes += 1;
     this.store.dispatch(new LikeMovie(this.movie));
   }

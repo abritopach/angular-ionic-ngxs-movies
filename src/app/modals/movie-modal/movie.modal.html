@@ -18,7 +18,7 @@
           <ion-label position="floating">Title *</ion-label>
           <ion-input #myInput id='myInput' type="text" formControlName="title" required></ion-input>
         </ion-item>
-        <ion-item *ngIf="movieForm.get('title').hasError('required') && movieForm.get('title').touched" no-lines>
+        <ion-item lines="none" *ngIf="movieForm.get('title').hasError('required') && movieForm.get('title').touched">
           <div class="error-message">
               This field is required.
           </div>
@@ -27,7 +27,7 @@
           <ion-label position="floating">Year *</ion-label>
           <ion-input type="number" formControlName="year" required></ion-input>
         </ion-item>
-        <ion-item *ngIf="movieForm.get('year').hasError('required') && movieForm.get('year').touched" no-lines>
+        <ion-item lines="none" *ngIf="movieForm.get('year').hasError('required') && movieForm.get('year').touched">
             <div class="error-message">
                 This field is required.
             </div>

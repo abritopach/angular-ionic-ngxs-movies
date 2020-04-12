@@ -4,7 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         /*SearchMovies,*/ GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
+         GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
          DeleteFavoriteMovie, DeleteAllFavoritesMovies, ClearState } from './../actions/movies.actions';
 
 import { MoviesService } from '../../providers/movies-service';
@@ -184,26 +184,6 @@ export class MovieState implements NgxsOnInit {
             })
           );
     }
-
-    /*
-    @Action(SearchMovies, { cancelUncompleted: true })
-    searchMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
-        return this.moviesService.searchMovies(payload.queryText).pipe(
-            catchError((x, caught) => {
-                return throwError(x);
-            }),
-            tap((result) => {
-            const state = getState();
-            setState({
-                ...state,
-                movies: [ ...result ]
-            });
-        },
-        (error) => {
-            console.log('error', error.message);
-        }));
-    }
-    */
 
     @Action(GetMovieTrailer, { cancelUncompleted: true })
     getMovieTrailer({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {

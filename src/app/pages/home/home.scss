@@ -1,31 +1,17 @@
-.item-info {
-    padding: 5px;
-    color: var(--ion-color-medium);
-}
-
-/*
-.item-option-md {
-    border-radius: 25px;
-    width: 40px;
-    height: 40px;
-    margin-top: 25px;
-    margin-right: 2px;
-}
-*/
-
 .round-button {
     width: 30px;
     height: 30px;
     margin-top: 25px;
     margin-right: 2px;
+    border-radius: 50%;
 }
 
 .skeleton-text span {
-    background-image: 
+    background-image:
         linear-gradient( 100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 80% ),
         linear-gradient( rgb(94, 87, 87) 20px, transparent 0 );
-	background-repeat: repeat-y; 
-    background-size: 50px 1em, /* highlight */ 
+	background-repeat: repeat-y;
+    background-size: 50px 1em, /* highlight */
                      100% 1em;
     background-position: -50px 0, /* highlight */
                          0 0;
@@ -37,27 +23,7 @@
    opacity: 0.5;
 }
 
-@keyframes shine {
-    to {
-        background-position:
-            120% 0, /* move highlight to right */
-            0 0
-    }
-}
-
-.notes {
-    color: rgb(131, 127, 127);
-}
-
 ion-col {
     display: flex;
     justify-content: center;
-}
-
-.card .image .item-md {
-    padding-left: 0px;
-}
-
-.card .image .item-md .item-inner {
-    padding-right: 0px;
 }

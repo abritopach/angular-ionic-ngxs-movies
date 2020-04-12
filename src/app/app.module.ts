@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { MoviesService } from './providers/movies-service';
 import { YoutubeApiService } from './providers/youtube-api-service';
 import { SearchImageService } from './providers/search-image-service';
+import { environment } from '../environments/environment';
 // import { GenreCarouselComponent } from './components/genre-carousel/genre-carousel.component';
 
 @NgModule({
@@ -30,7 +31,7 @@ import { SearchImageService } from './providers/search-image-service';
     HttpClientModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    NgxsModule.forRoot([ MovieState ]),
+    NgxsModule.forRoot([ MovieState ], { developmentMode: !environment.production }),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
