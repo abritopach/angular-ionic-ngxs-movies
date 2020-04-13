@@ -9,6 +9,7 @@ import { Movie } from '../../models/movie.model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
+import { FormErrorHandlerService } from '../../services/form-error-hanlder/form-error-handler.service';
 
 @Component({
   selector: 'app-movie-modal',
@@ -41,6 +42,7 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
   };
 
   movieForm: FormGroup;
+  errorsForm: any = {};
 
   // Reads the name of the store from the store class.
   movieForm$: Observable<Movie[]>;
@@ -59,10 +61,12 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
     {id: 11, name: 'Westerns', image: 'assets/movies-genres/westerns.png'}
 ];
 
-  constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, public navParams: NavParams, private store: Store,
-              private actions$: Actions, private renderer: Renderer2) {
+  constructor(private formBuilder: FormBuilder, private modalCtrl: ModalController, public navParams: NavParams,
+              private store: Store, private actions$: Actions, private renderer: Renderer2,
+              private formErrorHandler: FormErrorHandlerService) {
     this.emptyMovie = this.movie;
     this.createForm();
+    this.formErrorHandler.handleErrors(this.movieForm, this.errorsForm);
   }
 
   createForm() {
