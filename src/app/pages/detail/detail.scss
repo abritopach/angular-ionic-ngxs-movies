@@ -1,44 +1,9 @@
-.action-button {
-    padding-right: 10px;
-}
-
-.github-button {
-    width: 49px;
-    height: 20px;
-    padding-right: 5px;
-    display: inline;
-}
-
 .genre-image {
     width: 30px;
     height: 30px;
     padding: 3px;
 }
 
-ion-card {
-    width: auto;
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    ion-item img {
-        width: calc(100% - 400px);;
-        margin: auto;
-    }
-}
-
-/* Large desktops and laptops */
-
-@media (min-width: 1200px) {
-    ion-item img {
-        width: calc(100% - 500px);;
-        margin: auto;
-    }
-}
-
-.card .image .item-md {
-    padding-left: 0px;
-}
-
-.card .image .item-md .item-inner {
-    padding-right: 0px;
+ion-item img {
+    margin: auto;
 }

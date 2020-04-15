@@ -15,9 +15,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
-import { MoviesService } from './providers/movies-service';
-import { YoutubeApiService } from './providers/youtube-api-service';
-import { SearchImageService } from './providers/search-image-service';
+import { MoviesService } from './services/movies/movies-service';
+import { YoutubeApiService } from './services/youtube-api/youtube-api-service';
+import { SearchImageService } from './services/search-image/search-image-service';
 import { environment } from '../environments/environment';
 // import { GenreCarouselComponent } from './components/genre-carousel/genre-carousel.component';
 

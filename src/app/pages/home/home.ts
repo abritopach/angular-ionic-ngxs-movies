@@ -18,7 +18,7 @@ import { withLatestFrom } from 'rxjs/operators';
 
 import 'rxjs/add/operator/debounceTime';
 
-import { IziToastService } from '../../providers/izi-toast.service';
+import { IziToastService } from '../../services/izi-toast/izi-toast.service';
 
 @Component({
     selector: 'app-page-home',

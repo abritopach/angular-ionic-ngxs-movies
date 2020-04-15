@@ -4,11 +4,11 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '../../models/movie.model';
 import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
-         GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
-         DeleteFavoriteMovie, DeleteAllFavoritesMovies, ClearState } from './../actions/movies.actions';
+            GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
+            DeleteFavoriteMovie, DeleteAllFavoritesMovies, ClearState } from './../actions/movies.actions';
 
-import { MoviesService } from '../../providers/movies-service';
-import { YoutubeApiService } from '../../providers/youtube-api-service';
+import { MoviesService } from '../../services/movies/movies-service';
+import { YoutubeApiService } from '../../services/youtube-api/youtube-api-service';
 import { Injectable } from '@angular/core';
 
 export class MoviesStateModel {
