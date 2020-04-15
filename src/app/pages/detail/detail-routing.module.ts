@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetailComponent } from './detail';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DetailComponent
-  }
+    {
+        path: '',
+        component: DetailComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class DetailComponentRoutingModule { }

@@ -33,33 +33,12 @@ export class DetailComponent {
     currentYear = new Date().getFullYear();
     selectedMovie: Observable<Movie>;
     movie: Movie;
-    genreImages: string[] = ['action', 'comedy', 'crime', 'documentary', 'drama', 'fantasy', 'film noir',
-        'horror', 'romance', 'science fiction', 'westerns', 'animation'];
 
     constructor(private store: Store, private youtubeApiService: YoutubeApiService, private modalCtrl: ModalController,
                 private activatedRoute: ActivatedRoute, private iziToast: IziToastService) {
     }
 
     ionViewWillEnter() {
-
-        /*
-        this.selectedMovie = this.store.select(state => state.catalog.selectedMovie);
-
-        this.selectedMovie.subscribe(
-        data => {
-            this.movie = data;
-            if (this.movie !== null) {
-                const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
-                if (this.genreImages.indexOf(genre) !== -1) {
-                this.movie.genreImage = 'assets/movies-genres/' + genre + '.png';
-                }
-            }
-        },
-        error => {
-            console.log(<any>error);
-        }
-        );
-        */
         const id = this.activatedRoute.snapshot.paramMap.get('id');
         this.getMovieDetails(id);
     }
@@ -67,15 +46,7 @@ export class DetailComponent {
     getMovieDetails(id: string) {
         this.selectedMovie = this.store.select(MovieState.movieById).pipe(map(filterFn => filterFn(id)));
         this.selectedMovie.subscribe(movie => {
-        this.movie = movie;
-        if (this.movie !== null) {
-            console.log(this.movie);
-            const genre = this.movie.genre.toLowerCase().split(',', 1)[0];
-            console.log(genre);
-            if (this.genreImages.indexOf(genre) !== -1) {
-                this.movie.genreImage = 'assets/movies-genres/' + genre + '.png';
-            }
-        }
+            this.movie = movie;
         });
     }
 
@@ -128,11 +99,8 @@ export class DetailComponent {
     }
 
     async testYoutubePlayerPlugin() {
-
         const { YoutubePlayer } = Plugins;
-
         const result = await YoutubePlayer.echo({value: 'hola' });
-
         const options = {width: 640, height: 360, videoId: this.movie.videoId};
         const playerReady = await YoutubePlayer.initialize(options);
     }

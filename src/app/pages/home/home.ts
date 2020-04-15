@@ -16,8 +16,6 @@ import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-mod
 
 import { withLatestFrom } from 'rxjs/operators';
 
-import 'rxjs/add/operator/debounceTime';
-
 import { IziToastService } from '../../services/izi-toast/izi-toast.service';
 
 @Component({

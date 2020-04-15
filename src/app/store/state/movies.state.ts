@@ -55,6 +55,9 @@ export class MoviesStateModel {
 @Injectable()
 export class MovieState implements NgxsOnInit {
 
+    private readonly GENRES: string[] = ['action', 'comedy', 'crime', 'documentary', 'drama', 'fantasy',
+        'film noir', 'horror', 'romance', 'science fiction', 'westerns', 'animation'];
+
     constructor(private moviesService: MoviesService, private youtubeApiService: YoutubeApiService) {}
 
     @Selector()
@@ -101,16 +104,25 @@ export class MovieState implements NgxsOnInit {
             catchError((x, caught) => {
                 return throwError(x);
             }),
-            tap((result) => {
-            const state = getState();
-            setState({
-                ...state,
-                movies: [ ...state.movies, ...result ]
-            });
-        },
-        (error) => {
-            console.log('error', error.message);
-        }));
+            tap((movies) => {
+
+                movies.forEach((movie) => {
+                    const genre = movie.genre.toLowerCase().split(',', 1)[0];
+                    if (this.GENRES.indexOf(genre) !== -1) {
+                        movie.genreImage = 'assets/movies-genres/' + genre + '.png';
+                    }
+                });
+
+                const state = getState();
+                setState({
+                    ...state,
+                    movies: [ ...state.movies, ...movies ]
+                });
+            },
+            (error) => {
+                console.log('error', error.message);
+            })
+        );
     }
 
     @Action(AddMovie)
@@ -182,7 +194,7 @@ export class MovieState implements NgxsOnInit {
             patch({
                 filter: {...payload}
             })
-          );
+        );
     }
 
     @Action(GetMovieTrailer, { cancelUncompleted: true })
@@ -214,11 +226,11 @@ export class MovieState implements NgxsOnInit {
                 return throwError(x);
             }),
             tap((result) => {
-           setState(
-            patch({
-                movies: updateItem<Movie>(movie => movie.id === result.id, result)
-            })
-        );
+            setState(
+                patch({
+                    movies: updateItem<Movie>(movie => movie.id === result.id, result)
+                })
+            );
         }));
     }
 
@@ -229,11 +241,11 @@ export class MovieState implements NgxsOnInit {
                 return throwError(x);
             }),
             tap((result) => {
-           setState(
-            patch({
-                movies: updateItem<Movie>(movie => movie.id === result.id, result)
-            })
-        );
+            setState(
+                patch({
+                    movies: updateItem<Movie>(movie => movie.id === result.id, result)
+                })
+            );
         }));
     }
 
