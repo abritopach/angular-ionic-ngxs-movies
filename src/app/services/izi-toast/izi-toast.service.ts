@@ -21,9 +21,7 @@ export class IziToastService {
     displayMode: 2
   };
 
-  constructor() {
-    console.log('IziToastService::constructor() | method called', iziToast);
-  }
+  constructor() {}
 
   show(title, message, color, icon, image) {
     const newSettings: IziToastSettings = {title: title, message: message, color: color, icon: icon, image: image};

@@ -74,11 +74,10 @@ export class HomeComponent implements OnInit {
 
     fetchMovies(start: number, end: number) {
         console.log('HomePage::fetchMovies | method called', start, end);
-        // this.presentLoading();
-        this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(withLatestFrom(this.movies$))
+        this.store.dispatch(new FetchMovies({start: start, end: end})).pipe(
+            withLatestFrom(this.movies$))
         .subscribe(([movies]) => {
             setTimeout( () => {
-                // this.dismissLoading();
                 this.showSkeleton = false;
             }, 2000);
         },
@@ -149,7 +148,7 @@ export class HomeComponent implements OnInit {
 
     changeView() {
         console.log('HomePage::changeView() | method called');
-        this.iconView =  this.iconView === 'apps' ? 'list' : 'apps';
+        this.iconView = this.iconView === 'apps' ? 'list' : 'apps';
     }
 
     showFavoritesMovies() {

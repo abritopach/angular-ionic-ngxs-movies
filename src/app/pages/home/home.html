@@ -21,7 +21,7 @@
 
 <ion-content>
 
-  <!-- Add movie fab button. -->
+    <!-- Add movie fab button. -->
     <ion-fab vertical="top" horizontal="end" edge slot="fixed">
         <ion-fab-button mini color="tertiary" (click)="addMovie()">
         <ion-icon name="add"></ion-icon>
@@ -56,12 +56,12 @@
                 <ion-label>
                     <h2>{{ movie.title }}</h2>
                     <ion-text color="medium">
-                        <h3><ion-icon name="calendar" color="primary" slot="start"></ion-icon>{{ movie.year }}</h3>
+                        <h3><ion-icon name="calendar" color="primary" slot="start"></ion-icon> {{ movie.year }}</h3>
                     </ion-text>
                     <ion-text color="medium">
                     <h5>
-                        <span *ngIf="movie.likes !== undefined"><ion-icon name="thumbs-up" color="primary" slot="start"></ion-icon>{{ movie.likes }} | </span>
-                        <span *ngIf="movie.rate !== undefined"><ion-icon name="star" color="tertiary" slot="start"></ion-icon>{{ movie.rate }}</span>
+                        <span *ngIf="movie.likes"><ion-icon name="thumbs-up" color="primary" slot="start"></ion-icon> {{ movie.likes }} | </span>
+                        <span *ngIf="movie.rate"><ion-icon name="star" color="tertiary" slot="start"></ion-icon> {{ movie.rate }}</span>
                     </h5>
                     </ion-text>
                     <ion-text color="medium">

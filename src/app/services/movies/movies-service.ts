@@ -10,7 +10,7 @@ import { Movie } from '../../models/movie.model';
 export class MoviesService {
 
   // private readonly URL_BASE: string = 'http://localhost:3000/';
-  private readonly URL_BASE: string = 'https://4887ea89.ngrok.io/';
+  private readonly URL_BASE: string = 'https://511978a8.ngrok.io/';
 
   constructor(private http: HttpClient) {
   }
@@ -84,6 +84,7 @@ export class MoviesService {
 
   filterMovies(filters): Observable<Movie[]> {
     const strFilters = this.checkFilters(filters);
+    console.log(this.URL_BASE + `movies${strFilters}_sort=year,title&_order=desc,asc&_limit=20`);
     return this.http
     // Type-checking the response => .get<Movie[]>
     .get<Movie[]>(this.URL_BASE + `movies${strFilters}_sort=year,title&_order=desc,asc&_limit=20`)
@@ -97,7 +98,7 @@ export class MoviesService {
     let strFilters = '';
     strFilters += typeof filters['genre'] !== 'undefined' && filters['genre'] !== ''  ? `?genre=${filters.genre}&` : '?';
     strFilters += typeof filters['years'] !== 'undefined' ? `year_gte=${filters.years.lower}&year_lte=${filters.years.upper}&` : '';
-    strFilters += typeof filters['rate'] !== 'undefined' ? `rate=${filters.rate}&` : '';
+    strFilters += typeof filters['rate'] !== 'undefined' && filters['rate'] !== 0 ? `rate=${filters.rate}&` : '';
     return strFilters;
   }
 

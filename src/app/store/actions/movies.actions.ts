@@ -27,13 +27,13 @@ export class DeleteMovie {
 export class FilterMovies {
     static readonly type = '[Movies] Filter movies';
 
-    constructor(public payload: {filters: {}}) {}
+    constructor(public payload: any) {}
 }
 
 export class SaveFilterMovies {
     static readonly type = '[Movies] Save Filter movies';
 
-    constructor(public payload: {filters: {}}) {}
+    constructor(public payload: any) {}
 }
 
 export class GetMovieTrailer {
