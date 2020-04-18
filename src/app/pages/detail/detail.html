@@ -38,13 +38,13 @@
                         </ion-card-content>
                         <ion-row>
                             <ion-item style="width: 100%">
-                            <ion-button icon-left clear small *ngIf="movie.likes !== undefined">
-                                <ion-icon name="thumbs-up"></ion-icon>
-                                <div>{{ movie?.likes }} Likes</div>
+                            <ion-button small *ngIf="movie.likes">
+                                <ion-icon slot="start" name="thumbs-up"></ion-icon>
+                                {{ movie?.likes }} Likes
                             </ion-button>
-                            <ion-button icon-left clear small *ngIf="movie.comments !== undefined" (click)="onClickShowComment()">
-                                <ion-icon name="chatbubble-ellipses"></ion-icon>
-                                <div>{{ movie?.comments.length }} Comments</div>
+                            <ion-button small *ngIf="movie.comments" (click)="onClickShowComment()">
+                                <ion-icon slot="start" name="chatbubble-ellipses"></ion-icon>
+                                {{ movie?.comments.length }} Comments
                             </ion-button>
                             <ion-badge color="tertiary" slot="end">
                                 {{ movie?.year }}

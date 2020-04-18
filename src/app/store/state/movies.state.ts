@@ -127,6 +127,7 @@ export class MovieState implements NgxsOnInit {
 
     @Action(AddMovie)
     addMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+        payload.poster = payload.poster === '' ? 'https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg' : payload.poster;
         return this.moviesService.addMovie(payload).pipe(
             catchError((x, caught) => {
                 return throwError(x);
@@ -162,11 +163,11 @@ export class MovieState implements NgxsOnInit {
                 return throwError(x);
             }),
             tap((result) => {
-            setState(
-                patch({
-                    movies: removeItem<Movie>(movie => movie.id === result.id)
-                })
-            );
+                setState(
+                    patch({
+                        movies: removeItem<Movie>(movie => movie.id === payload.id)
+                    })
+                );
         }));
     }
 

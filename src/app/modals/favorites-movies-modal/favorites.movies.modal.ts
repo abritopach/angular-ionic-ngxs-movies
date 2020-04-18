@@ -8,73 +8,72 @@ import { DeleteFavoriteMovie, DeleteAllFavoritesMovies } from '../../store/actio
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-favorites-movies-modal',
-  templateUrl: 'favorites.movies.modal.html',
-  styleUrls: ['./favorites.movies.modal.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-favorites-movies-modal',
+    templateUrl: 'favorites.movies.modal.html',
+    styleUrls: ['./favorites.movies.modal.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class FavoritesMoviesModalComponent implements OnInit {
 
-  modal: any = {
-    title: ''
-  };
+    modal: any = {
+        title: ''
+    };
 
-  constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private router: Router,
-              private alertCtrl: AlertController) {
-  }
+    constructor(private modalCtrl: ModalController, private navParams: NavParams, private store: Store, private router: Router,
+                private alertCtrl: AlertController) {
+    }
 
-  ngOnInit() {
-    this.modal = { ...this.navParams.data.modalProps};
-  }
+    ngOnInit() {
+        this.modal = { ...this.navParams.data.modalProps};
+    }
 
-  dismiss() {
-    // Using the injected ModalController this page
-    // can "dismiss" itself and pass back data.
-    this.modalCtrl.dismiss();
-  }
+    dismiss() {
+        // Using the injected ModalController this page
+        // can "dismiss" itself and pass back data.
+        this.modalCtrl.dismiss();
+    }
 
-  viewMovieDetails(movie: Movie) {
-    const movieDetailsURL = `/detail/${movie.id}`;
-    this.router.navigate([movieDetailsURL]);
-    this.modalCtrl.dismiss();
-  }
+    viewMovieDetails(movie: Movie) {
+        const movieDetailsURL = `/detail/${movie.id}`;
+        this.router.navigate([movieDetailsURL]);
+        this.modalCtrl.dismiss();
+    }
 
-  deleteFavoriteMovie(movie: Movie) {
-    console.log('FavoritesMoviesModalComponent::deleteFavoriteMovie() | method called');
-    this.store.dispatch(new DeleteFavoriteMovie(movie));
-    this.modal.favoritesMovies = this.modal.favoritesMovies.filter(m => m.title !== movie.title);
-  }
+    deleteFavoriteMovie(movie: Movie) {
+        console.log('FavoritesMoviesModalComponent::deleteFavoriteMovie() | method called');
+        this.store.dispatch(new DeleteFavoriteMovie(movie));
+        this.modal.favoritesMovies = this.modal.favoritesMovies.filter(m => m.title !== movie.title);
+    }
 
-  deleteAll() {
-    console.log('FavoritesMoviesModalComponent::deleteAll() | method called');
-    this.modal.favoritesMovies = [];
-    const state = JSON.parse(localStorage.getItem('@@STATE'));
-    state.catalog.favorites = [];
-    // TODO: Dispatch deleteAll action.
-    this.store.dispatch(new DeleteAllFavoritesMovies());
-  }
+    deleteAll() {
+        console.log('FavoritesMoviesModalComponent::deleteAll() | method called');
+        this.modal.favoritesMovies = [];
+        const state = JSON.parse(localStorage.getItem('@@STATE'));
+        state.catalog.favorites = [];
+        this.store.dispatch(new DeleteAllFavoritesMovies());
+    }
 
-  async presentAlertConfirm() {
-    const alert = await this.alertCtrl.create({
-      header: 'Delete all favorites',
-      message: 'Are you sure you want to delete all the favorites?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-          }
-        }, {
-          text: 'Okay',
-          handler: () => {
-            this.deleteAll();
-          }
-        }
-      ]
-    });
+    async presentAlertConfirm() {
+        const alert = await this.alertCtrl.create({
+            header: 'Delete all favorites',
+            message: 'Are you sure you want to delete all the favorites?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                    }
+                }, {
+                    text: 'Okay',
+                    handler: () => {
+                        this.deleteAll();
+                    }
+                }
+            ]
+        });
 
-    await alert.present();
-  }
+        await alert.present();
+    }
 
 }

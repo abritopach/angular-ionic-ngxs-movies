@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
         // Check if we have movies in local storage.
         if (localStorage.getItem('@@STATE') !== 'undefined') {
             const state = JSON.parse(localStorage.getItem('@@STATE'));
+            console.log('state', state);
         }
 
         this.actions$.pipe(ofActionSuccessful(AddMovie)).subscribe(() => {
@@ -154,6 +155,7 @@ export class HomeComponent implements OnInit {
     showFavoritesMovies() {
         console.log('HomePage::showFavoritesMovies() | method called');
         const state = JSON.parse(localStorage.getItem('@@STATE'));
+        console.log('state', state);
         const componentProps = { modalProps: { title: 'Favorites Movies', favoritesMovies: state.catalog.favorites}};
         this.presentModal(componentProps, FavoritesMoviesModalComponent);
     }

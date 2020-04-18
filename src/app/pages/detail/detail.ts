@@ -135,7 +135,7 @@ export class DetailComponent {
 
             if (typeof favorites !== 'undefined') {
                 const condition = (item) => (item.title === this.movie.title);
-                if (favorites.some(condition)) {
+                if (!favorites.some(condition)) {
                     this.store.dispatch(
                         new FavoriteMovie(this.movie)).subscribe(() => {
                         this.iziToast.success('Favorite movie', 'Favorite Movie added.');

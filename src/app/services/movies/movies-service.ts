@@ -10,7 +10,7 @@ import { Movie } from '../../models/movie.model';
 export class MoviesService {
 
   // private readonly URL_BASE: string = 'http://localhost:3000/';
-  private readonly URL_BASE: string = 'https://511978a8.ngrok.io/';
+  private readonly URL_BASE: string = 'https://6e40564c.ngrok.io/';
 
   constructor(private http: HttpClient) {
   }
