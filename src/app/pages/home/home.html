@@ -103,7 +103,7 @@
     <!-- Movies Grid view. -->
     <ion-grid *ngIf="iconView === 'list'">
         <ion-row>
-            <ion-col class="ion-align-self-center" size="6" *ngFor="let movie of movies$ | async; let i = index">
+            <ion-col class="ion-align-self-center" size-lg="3" size-md="4" size-sm="6" size-xs="12" *ngFor="let movie of movies$ | async; let i = index">
                 <ion-card style="width: 300px;" (click)="viewMovieDetails(movie)">
                     <ion-item lines="none">
                         <h2><strong>{{ movie?.title }}</strong></h2>
