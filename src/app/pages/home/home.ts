@@ -1,21 +1,23 @@
+// Angular
 import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Movie } from '../../models/movie.model';
-
+// Ionic
 import { ModalController, PopoverController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 
-import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
-
-import { FetchMovies, DeleteMovie, AddMovie, EditMovie } from '../../store/actions/movies.actions';
+// Rx
 import { Observable } from 'rxjs';
-
-import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
-import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
-import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-modal/favorites.movies.modal';
-
 import { withLatestFrom } from 'rxjs/operators';
 
+// Third parties
+import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
+
+// Project
+import { FetchMovies, DeleteMovie, AddMovie, EditMovie } from '../../store/actions/movies.actions';
+import { Movie } from '../../models/movie.model';
+import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
+import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-modal/favorites.movies.modal';
+import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
 import { IziToastService } from '../../services/izi-toast/izi-toast.service';
 
 @Component({
@@ -26,15 +28,17 @@ import { IziToastService } from '../../services/izi-toast/izi-toast.service';
 })
 export class HomeComponent implements OnInit {
 
-    currentYear = new Date().getFullYear();
+    @ViewChild('infiniteScroll', { read: ElementRef, static: true }) infiniteScroll: IonInfiniteScroll;
+    @ViewChild(IonContent, { read: ElementRef, static: true }) content: IonContent;
+
     // Reads the name of the store from the store class.
     @Select(state => state.catalog.movies) movies$: Observable<Movie[]>;
+
+    currentYear = new Date().getFullYear();
     start: number;
     end: number;
     showScrollTop: Boolean = false;
-    @ViewChild('infiniteScroll', { read: ElementRef, static: true }) infiniteScroll: IonInfiniteScroll;
     showSkeleton: Boolean = true;
-    @ViewChild(IonContent, { read: ElementRef, static: true }) content: IonContent;
     iconView = 'apps';
 
     constructor(private store: Store, private router: Router, private modalCtrl: ModalController,
@@ -119,12 +123,14 @@ export class HomeComponent implements OnInit {
     }
 
     doInfinite(event) {
-        event.target.complete();
-        this.showSkeleton = true;
-        this.start = this.end;
-        this.end += 20;
-        this.showScrollTop = true;
-        this.fetchMovies(this.start, this.end);
+        setTimeout(() => {
+            event.target.complete();
+            this.showSkeleton = true;
+            this.start = this.end;
+            this.end += 20;
+            this.showScrollTop = true;
+            this.fetchMovies(this.start, this.end);
+        }, 500);
     }
 
     async presentPopover(event) {
