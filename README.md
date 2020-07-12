@@ -38,11 +38,23 @@ Technologies: Angular, Ionic, Capacitor, NGXS, TypeScript.
 
 ![App](readme_resources/app.gif "App")
 
-## Start fake json server
+## API used in this project
+
+You can launch the movies API in two ways:
+
+  * [NEW] Use the following project in Deno that I created to learn & practice my skills: [Movies Rest API with Deno](https://github.com/abritopach/deno-movies-api-rest)
+
+  * Use the option I initially used when developing the project: [JSON Server](https://github.com/typicode/json-server)
+
+
+### Start movies rest API with Deno
+
+Check out the instructions in the [repository](https://github.com/typicode/json-server)
+
+### Start fake json server
 
 ```bash
-    
-    $ cd json-server 
+    $ cd json-server
     $ json-server --watch db.json
 ```
 
