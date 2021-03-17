@@ -2,11 +2,11 @@ import { Component, ViewEncapsulation, OnInit, Renderer2, AfterViewInit } from '
 import { ModalController, NavParams } from '@ionic/angular';
 import { Store } from '@ngxs/store';
 import { UpdateFormValue, UpdateFormStatus } from '@ngxs/form-plugin';
-import { AddMovie, EditMovie } from '../../store/actions/movies.actions';
-import { Movie } from '../../models/movie.model';
+import { AddMovie, EditMovie } from '@store/actions/movies.actions';
+import { Movie } from '@models/movie.model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { FormErrorHandlerService } from '../../services/form-error-hanlder/form-error-handler.service';
+import { FormErrorHandlerService } from '@services/form-error-hanlder/form-error-handler.service';
 
 @Component({
     selector: 'app-movie-modal',

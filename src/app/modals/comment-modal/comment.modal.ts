@@ -3,7 +3,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { EditMovie } from '../../store/actions/movies.actions';
+import { EditMovie } from '@store/actions/movies.actions';
 import { Store, Actions } from '@ngxs/store';
 
 @Component({

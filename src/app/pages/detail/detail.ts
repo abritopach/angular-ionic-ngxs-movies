@@ -1,26 +1,26 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { Movie } from '../../models/movie.model';
+import { Movie } from '@models/movie.model';
 
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { YoutubeApiService } from '../../services/youtube-api/youtube-api-service';
+import { YoutubeApiService } from '@services/youtube-api/youtube-api-service';
 
 import { Plugins, Capacitor } from '@capacitor/core';
 
 import { ModalController } from '@ionic/angular';
-import { YoutubeModalComponent } from '../../modals/youtube-modal/youtube.modal';
-import { CommentModalComponent } from '../../modals/comment-modal/comment.modal';
-import { ShowCommentsModalComponent } from '../../modals/show-comments-modal/show.comments.modal';
-import { ShowActorsModalComponent } from './../../modals/show-actors-modal/show.actors.modal';
+import { YoutubeModalComponent } from '@modals/youtube-modal/youtube.modal';
+import { CommentModalComponent } from '@modals/comment-modal/comment.modal';
+import { ShowCommentsModalComponent } from '@modals/show-comments-modal/show.comments.modal';
+import { ShowActorsModalComponent } from '@modals/show-actors-modal/show.actors.modal';
 
-import { LikeMovie, FavoriteMovie } from '../../store/actions/movies.actions';
-import { MovieState } from '../../store/state/movies.state';
+import { LikeMovie, FavoriteMovie } from '@store/actions/movies.actions';
+import { MovieState } from '@store/state/movies.state';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-import { IziToastService } from '../../services/izi-toast/izi-toast.service';
+import { IziToastService } from '@services/izi-toast/izi-toast.service';
 
 @Component({
     selector: 'app-page-detail',

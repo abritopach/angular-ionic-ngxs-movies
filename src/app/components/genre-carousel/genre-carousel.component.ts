@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngxs/store';
-import { FilterMovies } from '../../store/actions/movies.actions';
+import { FilterMovies } from '@store/actions/movies.actions';
 
 @Component({
   selector: 'app-genre-carousel',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { timeout, retryWhen, delay, map, filter } from 'rxjs/operators';
+import { timeout, retryWhen, delay } from 'rxjs/operators';
 
 @Injectable()
 export class YoutubeApiService {

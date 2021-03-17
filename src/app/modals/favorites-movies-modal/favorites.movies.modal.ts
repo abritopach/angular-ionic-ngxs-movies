@@ -2,9 +2,9 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ModalController, NavParams, AlertController } from '@ionic/angular';
 
 import { Store } from '@ngxs/store';
-import { Movie } from '../../models/movie.model';
+import { Movie } from '@models/movie.model';
 
-import { DeleteFavoriteMovie, DeleteAllFavoritesMovies } from '../../store/actions/movies.actions';
+import { DeleteFavoriteMovie, DeleteAllFavoritesMovies } from '@store/actions/movies.actions';
 import { Router } from '@angular/router';
 
 @Component({

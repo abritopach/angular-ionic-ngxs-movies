@@ -1,6 +1,19 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/app/components/*"],
+      "@environments/*": ["src/environments/*"],
+      "@features/*": ["src/app/features/*"],
+      "@models/*": ["src/app/models/*"],
+      "@modals/*": ["src/app/modals/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@pipes/*": ["src/app/pipes/*"],
+      "@popovers/*": ["src/app/popovers/*"],
+      "@services/*": ["src/app/services/*"],
+      "@store/*": ["src/app/store/*"],
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,6 +27,6 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
   }
 }

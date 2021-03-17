@@ -1,10 +1,10 @@
 import { forkJoin } from 'rxjs';
-import { Component, ViewEncapsulation, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ModalController, NavParams} from '@ionic/angular';
 
-import { SearchImageService } from '../../services/search-image/search-image-service';
+import { SearchImageService } from '@services/search-image/search-image-service';
 
-import { LoaderService } from '../../services/loader/loader.service';
+import { LoaderService } from '@services/loader/loader.service';
 
 @Component({
   selector: 'app-show-actors-modal',

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { timeout, retryWhen, delay, map, filter } from 'rxjs/operators';
+import { timeout, retryWhen, delay } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
-
-import { Movie } from '../../models/movie.model';
+import { Movie } from '@models/movie.model';
 
 @Injectable()
 export class MoviesService {

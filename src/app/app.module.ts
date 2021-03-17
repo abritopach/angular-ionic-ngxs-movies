@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 
 // NGXS
-import { MovieState } from '../app/store/state/movies.state';
+import { MovieState } from '@store/state/movies.state';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -15,10 +15,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
-import { MoviesService } from './services/movies/movies-service';
-import { YoutubeApiService } from './services/youtube-api/youtube-api-service';
-import { SearchImageService } from './services/search-image/search-image-service';
-import { environment } from '../environments/environment';
+import { MoviesService } from '@services/movies/movies-service';
+import { YoutubeApiService } from '@services/youtube-api/youtube-api-service';
+import { SearchImageService } from '@services/search-image/search-image-service';
+import { environment } from '@environments/environment';
 // import { GenreCarouselComponent } from './components/genre-carousel/genre-carousel.component';
 
 @NgModule({

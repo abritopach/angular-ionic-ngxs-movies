@@ -13,12 +13,12 @@ import { withLatestFrom } from 'rxjs/operators';
 import { Store, Select, Actions, ofActionSuccessful } from '@ngxs/store';
 
 // Project
-import { FetchMovies, DeleteMovie, AddMovie, EditMovie } from '../../store/actions/movies.actions';
-import { Movie } from '../../models/movie.model';
-import { MovieModalComponent } from '../../modals/movie-modal/movie.modal';
-import { FavoritesMoviesModalComponent } from '../../modals/favorites-movies-modal/favorites.movies.modal';
-import { FilterMoviePopoverComponent } from '../../popovers/filter-movie.popover';
-import { IziToastService } from '../../services/izi-toast/izi-toast.service';
+import { FetchMovies, DeleteMovie, AddMovie, EditMovie } from '@store/actions/movies.actions';
+import { MovieModalComponent } from '@modals/movie-modal/movie.modal';
+import { FavoritesMoviesModalComponent } from '@modals/favorites-movies-modal/favorites.movies.modal';
+import { FilterMoviePopoverComponent } from '@popovers/filter-movie.popover';
+import { Movie } from '@models/movie.model';
+import { IziToastService } from '@services/izi-toast/izi-toast.service';
 
 @Component({
     selector: 'app-page-home',

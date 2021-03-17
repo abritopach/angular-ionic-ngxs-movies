@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Store } from '@ngxs/store';
-import { FilterMovies, SaveFilterMovies } from '../store/actions/movies.actions';
 import { Observable, Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FilterMovies, SaveFilterMovies } from '@store/actions/movies.actions';
 
 @Component({
     selector: 'app-filter-movie-popover',

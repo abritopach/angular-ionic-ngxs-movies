@@ -2,13 +2,13 @@ import { State, Action, StateContext, Selector, NgxsOnInit } from '@ngxs/store';
 import { patch, append, removeItem, insertItem, updateItem } from '@ngxs/store/operators';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { Movie } from '../../models/movie.model';
+import { Movie } from '@models/movie.model';
 import { FetchMovies, AddMovie, EditMovie, DeleteMovie, FilterMovies, SaveFilterMovies,
             GetMovieTrailer, ClearMovies, LikeMovie, CommentMovie, FavoriteMovie,
-            DeleteFavoriteMovie, DeleteAllFavoritesMovies, ClearState } from './../actions/movies.actions';
+            DeleteFavoriteMovie, DeleteAllFavoritesMovies, ClearState } from '@store/actions/movies.actions';
 
-import { MoviesService } from '../../services/movies/movies-service';
-import { YoutubeApiService } from '../../services/youtube-api/youtube-api-service';
+import { MoviesService } from '@services/movies/movies-service';
+import { YoutubeApiService } from '@services/youtube-api/youtube-api-service';
 import { Injectable } from '@angular/core';
 
 export class MoviesStateModel {
