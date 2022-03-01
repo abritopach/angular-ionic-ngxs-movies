@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, AfterViewInit } from '@angular/core';
 import { ModalController, NavParams} from '@ionic/angular';
 
-import { YoutubePlayerWeb } from 'capacitor-youtube-player';
+import { YoutubePlayer } from 'capacitor-youtube-player';
 
 @Component({
   selector: 'app-youtube-modal',
@@ -35,12 +35,12 @@ export class YoutubeModalComponent implements OnInit, AfterViewInit {
 
   async initializeYoutubePlayerPluginWeb() {
     const options = {playerId: this.item.id, playerSize: {width: 640, height: 360}, videoId: this.item.videoId};
-    const result = await YoutubePlayerWeb.initialize(options);
+    const result = await YoutubePlayer.initialize(options);
     console.log('playerReady', result);
   }
 
   async destroyYoutubePlayer() {
-    const result = await YoutubePlayerWeb.destroy(this.item.id);
+    const result = await YoutubePlayer.destroy(this.item.id);
     console.log('destroyYoutubePlayer', result);
   }
 

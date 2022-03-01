@@ -33,7 +33,7 @@ export class ShowActorsModalComponent implements OnInit {
         // Code to use Google Custom Search Api.
         return this.searchImageService.searchImage(actor);
       })
-    ).subscribe(results => {
+    ).subscribe((results: any) => {
       if (results.length > 0) {
         results.map((result, index) => {
           this.actors.push({name: actors[index], image: result['items'][0].image.thumbnailLink});

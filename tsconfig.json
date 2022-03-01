@@ -31,7 +31,8 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts",
@@ -45,4 +46,3 @@
     "strictTemplates": true
   }
 }
-
