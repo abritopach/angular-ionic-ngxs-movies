@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { timeout, retryWhen, delay } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
 import { Movie } from '@models/movie.model';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class MoviesService {
 
-  // private readonly URL_BASE: string = 'http://localhost:3000/';
-  private readonly URL_BASE: string = 'https://ef0da6f2961c.ngrok.io/';
+  private readonly URL_BASE: string = environment.API_URL_BASE;
 
   constructor(private http: HttpClient) {
   }

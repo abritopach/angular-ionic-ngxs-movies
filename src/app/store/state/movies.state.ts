@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector, NgxsOnInit } from '@ngxs/store';
-import { patch, append, removeItem, insertItem, updateItem } from '@ngxs/store/operators';
+import { patch, append, removeItem, updateItem } from '@ngxs/store/operators';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Movie } from '@models/movie.model';
@@ -102,25 +102,25 @@ export class MovieState implements NgxsOnInit {
         const { start, end } = payload;
         return this.moviesService.getMovies(start, end).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((movies) => {
-
-                movies.forEach((movie) => {
-                    const genre = movie.genre.toLowerCase().split(',', 1)[0];
-                    if (this.GENRES.indexOf(genre) !== -1) {
-                        movie.genreImage = 'assets/movies-genres/' + genre + '.png';
-                    }
-                });
-
-                const state = getState();
-                setState({
-                    ...state,
-                    movies: [ ...state.movies, ...movies ]
-                });
-            },
-            (error) => {
-                console.log('error', error.message);
+            tap({
+                next: movies => {
+                    movies.forEach((movie) => {
+                        const genre = movie.genre.toLowerCase().split(',', 1)[0];
+                        if (this.GENRES.indexOf(genre) !== -1) {
+                            movie.genreImage = 'assets/movies-genres/' + genre + '.png';
+                        }
+                    });
+                    const state = getState();
+                    setState({
+                        ...state,
+                        movies: [ ...state.movies, ...movies ]
+                    });
+                },
+                error: error => {
+                    console.log('error', error.message);
+                }
             })
         );
     }
@@ -130,63 +130,75 @@ export class MovieState implements NgxsOnInit {
         payload.poster = payload.poster === '' ? 'https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg' : payload.poster;
         return this.moviesService.addMovie(payload).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-            setState(
-                patch({
-                    movies: append([result])
-                })
-            );
-        }));
+            tap({
+                next: result => {
+                    setState(
+                        patch({
+                            movies: append([result])
+                        })
+                    );
+                }
+            })
+        );
     }
 
     @Action(EditMovie)
     editMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-            setState(
-                patch({
-                    movies: updateItem<Movie>(movie => movie.id === result.id, result)
-                })
-            );
-        }));
+            tap({
+                next: result => {
+                    setState(
+                        patch({
+                            movies: updateItem<Movie>(movie => movie.id === result.id, result)
+                        })
+                    );
+                }
+            })
+        );
     }
 
     @Action(DeleteMovie)
     deleteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.deleteMovie(payload).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-                setState(
-                    patch({
-                        movies: removeItem<Movie>(movie => movie.id === payload.id)
-                    })
-                );
-        }));
+            tap({
+                next: result => {
+                    setState(
+                        patch({
+                            movies: removeItem<Movie>(movie => movie.id === payload.id)
+                        })
+                    );
+                }
+            })
+        );
     }
 
     @Action(FilterMovies, { cancelUncompleted: true })
     filterMovies({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.filterMovies(payload).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-            const state = getState();
-            setState({
-                ...state,
-                movies: [ ...result ]
-            });
-        },
-        (error) => {
-            console.log('error', error.message);
-        }));
+            tap({
+                next: result => {
+                    const state = getState();
+                    setState({
+                        ...state,
+                        movies: [ ...result ]
+                    });
+                },
+                error: error => {
+                    console.log('error', error.message);
+                }
+            })
+        );
     }
 
     @Action(SaveFilterMovies)
@@ -202,13 +214,16 @@ export class MovieState implements NgxsOnInit {
     getMovieTrailer({ getState, setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.youtubeApiService.searchMovieTrailer(payload.movieTitle).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-        },
-        (error) => {
-            console.log('error', error.message);
-        }));
+            tap({
+                next: result => {
+                },
+                error: error => {
+                    console.log('error', error.message);
+                }
+            })
+        );
     }
 
     @Action(ClearMovies)
@@ -224,30 +239,42 @@ export class MovieState implements NgxsOnInit {
     likeMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-            setState(
-                patch({
-                    movies: updateItem<Movie>(movie => movie.id === result.id, result)
-                })
-            );
-        }));
+            tap({
+                next: result => {
+                    setState(
+                        patch({
+                            movies: updateItem<Movie>(movie => movie.id === result.id, result)
+                        })
+                    );
+                },
+                error: error => {
+                    console.log('error', error.message);
+                }
+            })
+        );
     }
 
     @Action(CommentMovie)
     commentMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
         return this.moviesService.editMovie(payload).pipe(
             catchError((x, caught) => {
-                return throwError(x);
+                return throwError(() => new Error(x));
             }),
-            tap((result) => {
-            setState(
-                patch({
-                    movies: updateItem<Movie>(movie => movie.id === result.id, result)
-                })
-            );
-        }));
+            tap({
+                next: result => {
+                    setState(
+                        patch({
+                            movies: updateItem<Movie>(movie => movie.id === result.id, result)
+                        })
+                    );
+                },
+                error: error => {
+                    console.log('error', error.message);
+                }
+            })
+        );
     }
 
     @Action(FavoriteMovie)
