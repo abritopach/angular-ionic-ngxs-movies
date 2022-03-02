@@ -62,8 +62,6 @@ export class FavoritesMoviesModalComponent implements OnInit {
                     text: 'Cancel',
                     role: 'cancel',
                     cssClass: 'secondary',
-                    handler: () => {
-                    }
                 }, {
                     text: 'Okay',
                     handler: () => {
