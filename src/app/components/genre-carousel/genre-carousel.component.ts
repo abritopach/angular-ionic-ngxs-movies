@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Store } from '@ngxs/store';
 import { FilterMovies } from '@store/actions/movies.actions';
@@ -8,7 +8,7 @@ import { FilterMovies } from '@store/actions/movies.actions';
   templateUrl: './genre-carousel.component.html',
   styleUrls: ['./genre-carousel.component.css']
 })
-export class GenreCarouselComponent implements OnInit {
+export class GenreCarouselComponent {
 
   genres: any;
   filters: any = {
@@ -36,9 +36,6 @@ export class GenreCarouselComponent implements OnInit {
       {text: 'Fantasy', src: 'assets/movies-genres/image11.png'},
       {text: 'Horror', src: 'assets/movies-genres/image12.png'},
     ];
-  }
-
-  ngOnInit() {
   }
 
   selectGenre(genre, index) {

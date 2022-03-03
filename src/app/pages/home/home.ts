@@ -19,6 +19,7 @@ import { FavoritesMoviesModalComponent } from '@modals/favorites-movies-modal/fa
 import { FilterMoviePopoverComponent } from '@popovers/filter-movie.popover';
 import { Movie } from '@models/movie.model';
 import { IziToastService } from '@services/izi-toast/izi-toast.service';
+import { AsyncEvent } from '@models/custom-event.model';
 
 @Component({
     selector: 'app-page-home',
@@ -126,9 +127,10 @@ export class HomeComponent implements OnInit {
         this.store.dispatch(new DeleteMovie(movie));
     }
 
-    doInfinite(event) {
+    doInfinite(event: Event) {
+        const customEvent = event as AsyncEvent;
         setTimeout(() => {
-            event.target.complete();
+            customEvent.target.complete();
             this.showSkeleton = true;
             this.start = this.end;
             this.end += 20;
@@ -137,7 +139,7 @@ export class HomeComponent implements OnInit {
         }, 500);
     }
 
-    async presentPopover(event) {
+    async presentPopover(event: MouseEvent) {
         const popover = await this.popoverCtrl.create({
             component: FilterMoviePopoverComponent,
             event: event

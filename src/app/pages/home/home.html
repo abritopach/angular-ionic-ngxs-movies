@@ -48,7 +48,7 @@
 
     <!-- Movies List View. -->
     <ion-list *ngIf="iconView === 'apps'">
-        <ion-item-sliding *ngFor="let movie of movies$ | async | filter:search.value:movie; let i = index">
+        <ion-item-sliding *ngFor="let movie of movies$ | async | filter:search.value; let i = index">
             <ion-item tappable (click)="viewMovieDetails(movie)">
                 <ion-thumbnail slot="start">
                     <img [src]="movie.poster" alt="Movie Poster">
