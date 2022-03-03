@@ -6,12 +6,13 @@ describe('GenreCarouselComponent', () => {
   let component: GenreCarouselComponent;
   let fixture: ComponentFixture<GenreCarouselComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GenreCarouselComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [GenreCarouselComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GenreCarouselComponent);

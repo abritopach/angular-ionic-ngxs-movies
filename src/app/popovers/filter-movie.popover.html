@@ -1,49 +1,59 @@
 <ion-header>
-    <ion-toolbar color="tertiary">
-        <ion-title>
-            Filter Movies
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="tertiary">
+    <ion-title> Filter Movies </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <form [formGroup]="filterForm" novalidate (ngSubmit)="filterMovies()">
-        <ion-list>
-            <ion-list-header>Filter by</ion-list-header>
-            <ion-item lines="full">
-                <ion-label class="label">Genre</ion-label>
-                <ng-select [items]="genres"
-                            bindLabel="name"
-                            bindValue="name"
-                            placeholder="Select"
-                            formControlName="genre">
-                    <ng-template ng-label-tmp let-item="item">
-                        <img height="25" width="25" [src]="item.image"/>
-                        <b>{{item.name}}</b>
-                    </ng-template>
-                    <ng-template ng-option-tmp let-item="item" let-index="index">
-                        <img height="25" width="25" [src]="item.image" alt="Genre Icon"/>
-                        <b> {{item.name}}</b>
-                    </ng-template>
-                </ng-select>
-            </ion-item>
-            <ion-item>
-                <ion-label class="label">Years</ion-label>
-            </ion-item>
-            <ion-item lines="full">
-                <ion-range dualKnobs="true" pin="true" color="primary" [min]="range.lower" [max]="range.upper" step="1" formControlName="years">
-                    <ion-icon small name="remove" slot="start"></ion-icon>
-                    <ion-icon name="add" slot="end"></ion-icon>
-                </ion-range>
-            </ion-item>
-        </ion-list>
-        <ion-row>
-            <ion-col col-6>
-                <ion-button type="submit">Accept</ion-button>
-            </ion-col>
-            <ion-col col-6>
-                <ion-button color="danger" (click)="clearFilterMovies()">Clear</ion-button>
-            </ion-col>
-        </ion-row>
-    </form>
+  <form [formGroup]="filterForm" novalidate (ngSubmit)="filterMovies()">
+    <ion-list>
+      <ion-list-header>Filter by</ion-list-header>
+      <ion-item lines="full">
+        <ion-label class="label">Genre</ion-label>
+        <ng-select
+          [items]="genres"
+          bindLabel="name"
+          bindValue="name"
+          placeholder="Select"
+          formControlName="genre"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <img height="25" width="25" [src]="item.image" />
+            <b>{{item.name}}</b>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index">
+            <img height="25" width="25" [src]="item.image" alt="Genre Icon" />
+            <b> {{item.name}}</b>
+          </ng-template>
+        </ng-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Years</ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-range
+          dualKnobs="true"
+          pin="true"
+          color="primary"
+          [min]="range.lower"
+          [max]="range.upper"
+          step="1"
+          formControlName="years"
+        >
+          <ion-icon small name="remove" slot="start"></ion-icon>
+          <ion-icon name="add" slot="end"></ion-icon>
+        </ion-range>
+      </ion-item>
+    </ion-list>
+    <ion-row>
+      <ion-col col-6>
+        <ion-button type="submit">Accept</ion-button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-button color="danger" (click)="clearFilterMovies()"
+          >Clear</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

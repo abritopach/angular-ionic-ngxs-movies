@@ -1,19 +1,17 @@
 <ion-header>
-    <ion-toolbar color="tertiary">
-        <ion-buttons slot="end">
-            <ion-button (click)="dismiss()">
-                <ion-icon name="close" color="light"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>
-          Youtube video
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Youtube video </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="outer-content ion-padding">
-    <ion-item>
-        <!-- The <iframe> (and video player) will replace this <div> tag. -->
-        <div [id]="item.id"></div>
-    </ion-item>
+  <ion-item>
+    <!-- The <iframe> (and video player) will replace this <div> tag. -->
+    <div [id]="item.id"></div>
+  </ion-item>
 </ion-content>

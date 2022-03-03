@@ -6,7 +6,9 @@ describe('FormErrorHandlerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FormErrorHandlerService = TestBed.get(FormErrorHandlerService);
+    const service: FormErrorHandlerService = TestBed.get(
+      FormErrorHandlerService
+    );
     expect(service).toBeTruthy();
   });
 });

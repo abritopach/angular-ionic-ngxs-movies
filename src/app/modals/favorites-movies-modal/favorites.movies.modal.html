@@ -1,32 +1,30 @@
 <ion-header>
-    <ion-toolbar color="tertiary">
-        <ion-buttons slot="end">
-            <ion-button (click)="presentAlertConfirm()">
-                <ion-icon name="trash" color="light"></ion-icon>
-            </ion-button>
-            <ion-button (click)="dismiss()">
-                <ion-icon name="close" color="light"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>
-            {{ modal.title }}
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="end">
+      <ion-button (click)="presentAlertConfirm()">
+        <ion-icon name="trash" color="light"></ion-icon>
+      </ion-button>
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ modal.title }} </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-   <ion-list *ngIf="modal.favoritesMovies.length !== 0">
-        <ion-item *ngFor="let movie of modal.favoritesMovies">
-            <ion-thumbnail slot="start" tappable (click)="viewMovieDetails(movie)">
-                <img [src]="movie.poster" alt="Movie Poster">
-            </ion-thumbnail>
-            <ion-label>
-                <h2><b>{{ movie.title }}</b></h2>
-                <h3>{{ movie.notes }}</h3>
-            </ion-label>
-            <ion-note slot="end">
-                <ion-icon name="trash" (click)="deleteFavoriteMovie(movie)"></ion-icon>
-            </ion-note>
-        </ion-item>
-    </ion-list>
+  <ion-list *ngIf="modal.favoritesMovies.length !== 0">
+    <ion-item *ngFor="let movie of modal.favoritesMovies">
+      <ion-thumbnail slot="start" tappable (click)="viewMovieDetails(movie)">
+        <img [src]="movie.poster" alt="Movie Poster" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2><b>{{ movie.title }}</b></h2>
+        <h3>{{ movie.notes }}</h3>
+      </ion-label>
+      <ion-note slot="end">
+        <ion-icon name="trash" (click)="deleteFavoriteMovie(movie)"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>

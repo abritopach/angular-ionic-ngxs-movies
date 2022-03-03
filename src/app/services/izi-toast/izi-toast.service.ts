@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import {default as iziToast, IziToastSettings} from 'izitoast';
+import { default as iziToast, IziToastSettings } from 'izitoast';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IziToastService {
-
   defaultIziToastSettings: IziToastSettings = {
     color: 'green',
     title: '',
@@ -24,13 +23,23 @@ export class IziToastService {
   constructor() {}
 
   show(title, message, color, icon, image) {
-    const newSettings: IziToastSettings = {title: title, message: message, color: color, icon: icon, image: image};
-    iziToast.show({...this.defaultIziToastSettings, ...newSettings});
+    const newSettings: IziToastSettings = {
+      title: title,
+      message: message,
+      color: color,
+      icon: icon,
+      image: image
+    };
+    iziToast.show({ ...this.defaultIziToastSettings, ...newSettings });
   }
 
   success(title, message) {
-    const newSettings: IziToastSettings = {title: title, message: message, position: 'bottomCenter'};
-    iziToast.success({...this.defaultIziToastSettings, ...newSettings});
+    const newSettings: IziToastSettings = {
+      title: title,
+      message: message,
+      position: 'bottomCenter'
+    };
+    iziToast.success({ ...this.defaultIziToastSettings, ...newSettings });
   }
 
   destroy() {

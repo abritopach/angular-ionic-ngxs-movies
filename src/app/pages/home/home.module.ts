@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home';
-import { MovieModalComponent  } from '@modals/movie-modal/movie.modal';
+import { MovieModalComponent } from '@modals/movie-modal/movie.modal';
 import { FavoritesMoviesModalComponent } from '@modals/favorites-movies-modal/favorites.movies.modal';
 import { FilterMoviePopoverComponent } from '@popovers/filter-movie.popover';
 import { HomeComponentRoutingModule } from './home-routing.module';
@@ -27,8 +27,20 @@ import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
     FormsModule,
     NtkmeButtonModule
   ],
-  declarations: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent, GenreCarouselComponent,
-                  FilterPipe],
-  entryComponents: [HomeComponent, MovieModalComponent, FilterMoviePopoverComponent, FavoritesMoviesModalComponent, GenreCarouselComponent],
+  declarations: [
+    HomeComponent,
+    MovieModalComponent,
+    FilterMoviePopoverComponent,
+    FavoritesMoviesModalComponent,
+    GenreCarouselComponent,
+    FilterPipe
+  ],
+  entryComponents: [
+    HomeComponent,
+    MovieModalComponent,
+    FilterMoviePopoverComponent,
+    FavoritesMoviesModalComponent,
+    GenreCarouselComponent
+  ]
 })
 export class HomeModule {}

@@ -8,16 +8,17 @@ import { ModalController, NavParams } from '@ionic/angular';
   encapsulation: ViewEncapsulation.None
 })
 export class ShowCommentsModalComponent implements OnInit {
-
   modal: any = {
     title: ''
   };
 
-  constructor(private modalCtrl: ModalController, private navParams: NavParams) {
-  }
+  constructor(
+    private modalCtrl: ModalController,
+    private navParams: NavParams
+  ) {}
 
   ngOnInit() {
-    this.modal = { ...this.navParams.data.modalProps};
+    this.modal = { ...this.navParams.data.modalProps };
   }
 
   dismiss() {
@@ -25,5 +26,4 @@ export class ShowCommentsModalComponent implements OnInit {
     // can "dismiss" itself and pass back data.
     this.modalCtrl.dismiss();
   }
-
 }

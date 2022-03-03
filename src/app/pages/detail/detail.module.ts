@@ -15,17 +15,27 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        IonicModule,
-        DetailComponentRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NtkmeButtonModule
-    ],
-    declarations: [DetailComponent, YoutubeModalComponent, CommentModalComponent, ShowCommentsModalComponent,
-    ShowActorsModalComponent],
-    entryComponents: [DetailComponent, YoutubeModalComponent, CommentModalComponent, ShowCommentsModalComponent,
-    ShowActorsModalComponent],
+  imports: [
+    CommonModule,
+    IonicModule,
+    DetailComponentRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NtkmeButtonModule
+  ],
+  declarations: [
+    DetailComponent,
+    YoutubeModalComponent,
+    CommentModalComponent,
+    ShowCommentsModalComponent,
+    ShowActorsModalComponent
+  ],
+  entryComponents: [
+    DetailComponent,
+    YoutubeModalComponent,
+    CommentModalComponent,
+    ShowCommentsModalComponent,
+    ShowActorsModalComponent
+  ]
 })
 export class DetailModule {}

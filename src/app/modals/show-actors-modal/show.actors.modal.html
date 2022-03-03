@@ -1,32 +1,29 @@
 <ion-header>
-    <ion-toolbar color="tertiary">
-        <ion-buttons slot="end">
-            <ion-button (click)="dismiss()">
-                <ion-icon name="close" color="light"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>
-          Actors
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Actors </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="outer-content ion-padding">
-
-    <ion-row>
-        <ion-col  *ngFor="let actor of actors" size="6" size-sm>
-            <ion-card tappable>
-                <ion-card-header>
-                    <ion-card-title>
-                        <ion-avatar>
-                            <img [src]="actor.image">
-                        </ion-avatar>
-                    </ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <h1 class="ion-text-center">{{actor.name}}</h1>
-                </ion-card-content>
-            </ion-card>
-        </ion-col>
-    </ion-row>
+  <ion-row>
+    <ion-col *ngFor="let actor of actors" size="6" size-sm>
+      <ion-card tappable>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-avatar>
+              <img [src]="actor.image" />
+            </ion-avatar>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <h1 class="ion-text-center">{{actor.name}}</h1>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>

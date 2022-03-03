@@ -1,7 +1,12 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from '@angular/forms';
 
 import { EditMovie } from '@store/actions/movies.actions';
 import { Store, Actions } from '@ngxs/store';
@@ -13,14 +18,18 @@ import { Store, Actions } from '@ngxs/store';
   encapsulation: ViewEncapsulation.None
 })
 export class CommentModalComponent implements OnInit {
-
   commentForm: FormGroup;
 
   modal: any = {
-    title: '',
+    title: ''
   };
 
-  constructor(private modalCtrl: ModalController, private formBuilder: FormBuilder, private navParams: NavParams, private store: Store) {
+  constructor(
+    private modalCtrl: ModalController,
+    private formBuilder: FormBuilder,
+    private navParams: NavParams,
+    private store: Store
+  ) {
     this.createForm();
   }
 
@@ -31,9 +40,8 @@ export class CommentModalComponent implements OnInit {
     });
   }
 
-
   ngOnInit() {
-    this.modal = { ...this.navParams.data.modalProps};
+    this.modal = { ...this.navParams.data.modalProps };
   }
 
   dismiss() {
@@ -56,12 +64,13 @@ export class CommentModalComponent implements OnInit {
       this.modal.movie.numVotes = 1;
     } else {
       this.modal.movie.numVotes += 1;
-      this.modal.movie.rate = (this.modal.movie.rate + this.commentForm.value.rating) / this.modal.movie.numVotes;
+      this.modal.movie.rate =
+        (this.modal.movie.rate + this.commentForm.value.rating) /
+        this.modal.movie.numVotes;
     }
 
     comments.push(this.commentForm.value.comment);
     this.modal.movie.comments = comments;
     this.store.dispatch(new EditMovie(this.modal.movie));
   }
-
 }
