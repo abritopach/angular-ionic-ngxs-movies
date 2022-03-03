@@ -23,7 +23,7 @@ import { environment } from '@environments/environment';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
     // GenreCarouselComponent,
   ],
   imports: [
@@ -31,7 +31,9 @@ import { environment } from '@environments/environment';
     HttpClientModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    NgxsModule.forRoot([ MovieState ], { developmentMode: !environment.production }),
+    NgxsModule.forRoot([MovieState], {
+      developmentMode: !environment.production
+    }),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

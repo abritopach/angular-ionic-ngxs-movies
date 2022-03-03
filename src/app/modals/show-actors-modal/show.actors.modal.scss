@@ -1,13 +1,11 @@
 app-show-actors-modal {
+  ion-card {
+    width: 200px;
+  }
 
-    ion-card {
-        width: 200px;
-    }
-
-    ion-avatar {
-        margin: auto;
-        width: 120px;
-        height: 120px;
-    }
-
+  ion-avatar {
+    margin: auto;
+    width: 120px;
+    height: 120px;
+  }
 }

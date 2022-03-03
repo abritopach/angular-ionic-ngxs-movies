@@ -11,6 +11,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
+    "eslint": "npx eslint 'src/**/*.{ts,html}' --quiet --fix",
+    "format": "npx prettier 'src/**/*.{ts,html,css,scss}' --write",
     "e2e": "ng e2e"
   },
   "private": true,

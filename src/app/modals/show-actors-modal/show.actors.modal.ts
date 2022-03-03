@@ -1,6 +1,6 @@
 import { forkJoin } from 'rxjs';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ModalController, NavParams} from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 import { SearchImageService } from '@services/search-image/search-image-service';
 
@@ -13,11 +13,14 @@ import { LoaderService } from '@services/loader/loader.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ShowActorsModalComponent implements OnInit {
-
   actors: any = [];
 
-  constructor(private modalCtrl: ModalController, private navParams: NavParams, private searchImageService: SearchImageService,
-              private loaderService: LoaderService) {
+  constructor(
+    private modalCtrl: ModalController,
+    private navParams: NavParams,
+    private searchImageService: SearchImageService,
+    private loaderService: LoaderService
+  ) {
     console.log('ShowActorsModalComponent::constructor | method called');
   }
 
@@ -29,14 +32,17 @@ export class ShowActorsModalComponent implements OnInit {
     actors = actors.split(',');
 
     forkJoin(
-      actors.map(actor => {
+      actors.map((actor) => {
         // Code to use Google Custom Search Api.
         return this.searchImageService.searchImage(actor);
       })
     ).subscribe((results: any) => {
       if (results.length > 0) {
         results.map((result, index) => {
-          this.actors.push({name: actors[index], image: result['items'][0].image.thumbnailLink});
+          this.actors.push({
+            name: actors[index],
+            image: result['items'][0].image.thumbnailLink
+          });
         });
         this.loaderService.dismiss();
       }
@@ -48,5 +54,4 @@ export class ShowActorsModalComponent implements OnInit {
     // can "dismiss" itself and pass back data.
     this.modalCtrl.dismiss();
   }
-
 }
