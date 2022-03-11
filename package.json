@@ -18,6 +18,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abritopach/star-rating-webcomponent": "0.0.1",
     "@angular/animations": "^13.2.4",
     "@angular/common": "^13.2.4",
     "@angular/core": "^13.2.4",
