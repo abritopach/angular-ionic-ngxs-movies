@@ -12,6 +12,9 @@
 <ion-content class="outer-content ion-padding">
   <form [formGroup]="commentForm" novalidate (ngSubmit)="commentFormSubmit()">
     <ion-list inset>
+      <ion-item class="rating">
+        <star-rating-component stars="5" rating="0"></star-rating-component>
+      </ion-item>
       <ion-item>
         <ion-label position="floating">Comment</ion-label>
         <ion-textarea formControlName="comment"></ion-textarea>
