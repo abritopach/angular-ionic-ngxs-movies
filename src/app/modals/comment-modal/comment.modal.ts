@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 
 import { EditMovie } from '@store/actions/movies.actions';
-import { Store, Actions } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-comment-modal',
@@ -51,26 +51,36 @@ export class CommentModalComponent implements OnInit {
   }
 
   commentFormSubmit() {
-    console.log('CommentModalComponent::commentFormSubmit | method called');
     let comments;
+    let movieToUpdate = { ...this.modal.movie };
     if (typeof this.modal.movie.comments === 'undefined') {
       comments = [];
     } else {
-      comments = this.modal.movie.comments;
+      comments = [...this.modal.movie.comments];
     }
 
     if (typeof this.modal.movie.rate === 'undefined') {
-      this.modal.movie.rate = this.commentForm.value.rating;
-      this.modal.movie.numVotes = 1;
+      movieToUpdate = {
+        ...movieToUpdate,
+        rate: this.commentForm.value.rating,
+        numVotes: 1
+      };
     } else {
-      this.modal.movie.numVotes += 1;
-      this.modal.movie.rate =
-        (this.modal.movie.rate + this.commentForm.value.rating) /
-        this.modal.movie.numVotes;
+      movieToUpdate = {
+        ...movieToUpdate,
+        numVotes: movieToUpdate.numVotes + 1,
+        rate:
+          (movieToUpdate.rate + this.commentForm.value.rating) /
+          movieToUpdate.numVotes
+      };
     }
 
     comments.push(this.commentForm.value.comment);
-    this.modal.movie.comments = comments;
-    this.store.dispatch(new EditMovie(this.modal.movie));
+    movieToUpdate.comments = comments;
+    this.store.dispatch(new EditMovie(movieToUpdate));
+  }
+
+  onRatingChange(event) {
+    this.commentForm.patchValue({ rating: event.detail });
   }
 }

@@ -45,7 +45,11 @@
         </ion-range>
       </ion-item>
       <ion-item lines="full" class="rating">
-        <star-rating-component stars="5" rating="0"></star-rating-component>
+        <star-rating-component
+          stars="5"
+          rating="0"
+          (ratingChange)="onRatingChange($event)"
+        ></star-rating-component>
       </ion-item>
     </ion-list>
     <ion-row>
