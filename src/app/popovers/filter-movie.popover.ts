@@ -87,6 +87,7 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
   }
 
   filterMovies() {
+    console.log(this.filterForm.value);
     this.store.dispatch([
       new FilterMovies(this.filterForm.value),
       new SaveFilterMovies(this.filterForm.value)
@@ -105,5 +106,9 @@ export class FilterMoviePopoverComponent implements OnInit, OnDestroy {
       new SaveFilterMovies(this.filterForm.value)
     ]);
     this.popoverCtrl.dismiss();
+  }
+
+  onRatingChange(event) {
+    this.filterForm.patchValue({ rate: event.detail });
   }
 }
