@@ -71,7 +71,7 @@ export class CommentModalComponent implements OnInit {
         numVotes: movieToUpdate.numVotes + 1,
         rate:
           (movieToUpdate.rate + this.commentForm.value.rating) /
-          movieToUpdate.numVotes
+          (movieToUpdate.numVotes + 1)
       };
     }
 
