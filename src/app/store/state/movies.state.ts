@@ -23,6 +23,8 @@ import {
 import { MoviesService } from '@services/movies/movies-service';
 import { YoutubeApiService } from '@services/youtube-api/youtube-api-service';
 import { Injectable } from '@angular/core';
+import { attachAction } from '@ngxs-labs/attach-action';
+import { addMovie, fetchMovies } from '@store/actions/movies.actions.impl';
 
 export class MoviesStateModel {
   movies: Movie[];
@@ -66,25 +68,13 @@ export class MoviesStateModel {
 })
 @Injectable()
 export class MovieState implements NgxsOnInit {
-  private readonly GENRES: string[] = [
-    'action',
-    'comedy',
-    'crime',
-    'documentary',
-    'drama',
-    'fantasy',
-    'film noir',
-    'horror',
-    'romance',
-    'science fiction',
-    'westerns',
-    'animation'
-  ];
-
   constructor(
     private moviesService: MoviesService,
     private youtubeApiService: YoutubeApiService
-  ) {}
+  ) {
+    attachAction(MovieState, FetchMovies, fetchMovies(moviesService));
+    attachAction(MovieState, AddMovie, addMovie(moviesService));
+  }
 
   @Selector()
   static getMovies(state: MoviesStateModel) {
@@ -122,59 +112,6 @@ export class MovieState implements NgxsOnInit {
       },
       favorites: []
     });
-  }
-
-  @Action(FetchMovies, { cancelUncompleted: true })
-  fetchMovies(
-    { getState, setState }: StateContext<MoviesStateModel>,
-    { payload }
-  ) {
-    const { start, end } = payload;
-    return this.moviesService.getMovies(start, end).pipe(
-      catchError((x, caught) => {
-        return throwError(() => new Error(x));
-      }),
-      tap({
-        next: (movies) => {
-          movies.forEach((movie) => {
-            const genre = movie.genre.toLowerCase().split(',', 1)[0];
-            if (this.GENRES.indexOf(genre) !== -1) {
-              movie.genreImage = 'assets/movies-genres/' + genre + '.png';
-            }
-          });
-          const state = getState();
-          setState({
-            ...state,
-            movies: [...state.movies, ...movies]
-          });
-        },
-        error: (error) => {
-          console.log('error', error.message);
-        }
-      })
-    );
-  }
-
-  @Action(AddMovie)
-  addMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
-    payload.poster =
-      payload.poster === ''
-        ? 'https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg'
-        : payload.poster;
-    return this.moviesService.addMovie(payload).pipe(
-      catchError((x, caught) => {
-        return throwError(() => new Error(x));
-      }),
-      tap({
-        next: (result) => {
-          setState(
-            patch({
-              movies: append([result])
-            })
-          );
-        }
-      })
-    );
   }
 
   @Action(EditMovie)
