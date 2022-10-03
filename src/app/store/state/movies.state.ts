@@ -24,7 +24,12 @@ import { MoviesService } from '@services/movies/movies-service';
 import { YoutubeApiService } from '@services/youtube-api/youtube-api-service';
 import { Injectable } from '@angular/core';
 import { attachAction } from '@ngxs-labs/attach-action';
-import { addMovie, fetchMovies } from '@store/actions/movies.actions.impl';
+import {
+  addMovie,
+  deleteMovie,
+  editMovie,
+  fetchMovies
+} from '@store/actions/movies.actions.impl';
 
 export class MoviesStateModel {
   movies: Movie[];
@@ -74,6 +79,8 @@ export class MovieState implements NgxsOnInit {
   ) {
     attachAction(MovieState, FetchMovies, fetchMovies(moviesService));
     attachAction(MovieState, AddMovie, addMovie(moviesService));
+    attachAction(MovieState, EditMovie, editMovie(moviesService));
+    attachAction(MovieState, DeleteMovie, deleteMovie(moviesService));
   }
 
   @Selector()
@@ -112,45 +119,6 @@ export class MovieState implements NgxsOnInit {
       },
       favorites: []
     });
-  }
-
-  @Action(EditMovie)
-  editMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
-    return this.moviesService.editMovie(payload).pipe(
-      catchError((x, caught) => {
-        return throwError(() => new Error(x));
-      }),
-      tap({
-        next: (result) => {
-          setState(
-            patch({
-              movies: updateItem<Movie>(
-                (movie) => movie.id === result.id,
-                result
-              )
-            })
-          );
-        }
-      })
-    );
-  }
-
-  @Action(DeleteMovie)
-  deleteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
-    return this.moviesService.deleteMovie(payload).pipe(
-      catchError((x, caught) => {
-        return throwError(() => new Error(x));
-      }),
-      tap({
-        next: (result) => {
-          setState(
-            patch({
-              movies: removeItem<Movie>((movie) => movie.id === payload.id)
-            })
-          );
-        }
-      })
-    );
   }
 
   @Action(FilterMovies, { cancelUncompleted: true })

@@ -1,5 +1,6 @@
+import { Movie } from '@models/movie.model';
 import { StateContext } from '@ngxs/store';
-import { append, patch } from '@ngxs/store/operators';
+import { append, patch, removeItem, updateItem } from '@ngxs/store/operators';
 import { MoviesService } from '@services/movies/movies-service';
 import { MoviesStateModel } from '@store/state/movies.state';
 import { catchError, tap, throwError } from 'rxjs';
@@ -68,6 +69,47 @@ export const addMovie =
           setState(
             patch({
               movies: append([result])
+            })
+          );
+        }
+      })
+    );
+  };
+
+export const editMovie =
+  (moviesService: MoviesService) =>
+  ({ setState }: StateContext<MoviesStateModel>, { payload }) => {
+    return moviesService.editMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: updateItem<Movie>(
+                (movie) => movie.id === result.id,
+                result
+              )
+            })
+          );
+        }
+      })
+    );
+  };
+
+export const deleteMovie =
+  (moviesService: MoviesService) =>
+  ({ setState }: StateContext<MoviesStateModel>, { payload }) => {
+    return moviesService.deleteMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: removeItem<Movie>((movie) => movie.id === payload.id)
             })
           );
         }
