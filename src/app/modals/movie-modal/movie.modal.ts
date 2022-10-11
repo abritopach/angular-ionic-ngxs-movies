@@ -18,6 +18,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { FormErrorHandlerService } from '@services/form-error-hanlder/form-error-handler.service';
+import { MovieForm } from '@models/form.model';
 
 @Component({
   selector: 'app-movie-modal',
@@ -72,15 +73,21 @@ export class MovieModalComponent implements OnInit, AfterViewInit {
   }
 
   createForm() {
-    this.movieForm = this.formBuilder.group({
-      id: '',
-      title: new FormControl('', Validators.required),
-      year: new FormControl(new Date().getFullYear(), Validators.required),
-      director: new FormControl(''),
-      cast: new FormControl(''),
-      genre: new FormControl('Action'),
-      notes: new FormControl(''),
-      poster: new FormControl('')
+    this.movieForm = this.formBuilder.group<MovieForm>({
+      id: new FormControl('', { nonNullable: true }),
+      title: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required]
+      }),
+      year: new FormControl(new Date().getFullYear(), {
+        nonNullable: true,
+        validators: [Validators.required]
+      }),
+      director: new FormControl('', { nonNullable: true }),
+      cast: new FormControl('', { nonNullable: true }),
+      genre: new FormControl('Action', { nonNullable: true }),
+      notes: new FormControl('', { nonNullable: true }),
+      poster: new FormControl('', { nonNullable: true })
     });
 
     this.movieForm$ = this.store.select((state) => state.catalog.movieForm);
