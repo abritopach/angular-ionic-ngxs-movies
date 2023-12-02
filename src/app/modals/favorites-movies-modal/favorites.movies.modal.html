@@ -13,8 +13,10 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list *ngIf="modal.favoritesMovies.length !== 0">
-    <ion-item *ngFor="let movie of modal.favoritesMovies">
+  @if (modal.favoritesMovies.length !== 0) {
+  <ion-list>
+    @for (movie of modal.favoritesMovies; track movie.id) {
+    <ion-item>
       <ion-thumbnail slot="start" tappable (click)="viewMovieDetails(movie)">
         <img [src]="movie.poster" alt="Movie Poster" />
       </ion-thumbnail>
@@ -26,5 +28,7 @@
         <ion-icon name="trash" (click)="deleteFavoriteMovie(movie)"></ion-icon>
       </ion-note>
     </ion-item>
+    }
   </ion-list>
+  }
 </ion-content>

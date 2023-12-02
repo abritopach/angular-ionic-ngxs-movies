@@ -11,7 +11,8 @@
 
 <ion-content class="outer-content ion-padding">
   <ion-list>
-    <ion-item *ngFor="let comment of modal.movie.comments">
+    @for (comment of modal.movie.comments; track comment) {
+    <ion-item>
       <ion-avatar slot="start">
         <img
           src="https://cdn1.iconfinder.com/data/icons/unique-round-blue/93/user-512.png"
@@ -22,5 +23,6 @@
         <h3>{{comment}}</h3>
       </ion-label>
     </ion-item>
+    }
   </ion-list>
 </ion-content>

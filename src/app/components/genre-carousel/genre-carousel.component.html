@@ -1,13 +1,11 @@
 <div class="image-thumbnail">
-  <div
-    *ngFor="let genre of genres; let i = index"
-    tappable
-    (click)="selectGenre(genre, i)"
-  >
-    <ion-img
-      [ngStyle]="{ border: i === selected ? '1px solid grey' : 'none' }"
-      [src]="genre.src"
-    ></ion-img>
-    <p class="ion-text-center">{{ genre.text }}</p>
-  </div>
+  @for (genre of genres; track genre; let i = $index) {
+    <div tappable (click)="selectGenre(genre, i)">
+      <ion-img
+        [ngStyle]="{ border: i === selected ? '1px solid grey' : 'none' }"
+        [src]="genre.src"
+      ></ion-img>
+      <p class="ion-text-center">{{ genre.text }}</p>
+    </div>
+  }
 </div>
