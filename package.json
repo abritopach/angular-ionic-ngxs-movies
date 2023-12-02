@@ -34,7 +34,6 @@
     "@ctrl/ngx-github-buttons": "^8.0.0",
     "@ionic/angular": "^6.4.0",
     "@ng-select/ng-select": "^9.1.0",
-    "@ngxs-labs/attach-action": "^0.1.3",
     "@ngxs/form-plugin": "^3.7.6",
     "@ngxs/storage-plugin": "^3.7.6",
     "@ngxs/store": "^3.7.6",
