@@ -11,7 +11,8 @@
 
 <ion-content class="outer-content ion-padding">
   <ion-row>
-    <ion-col *ngFor="let actor of actors" size="6" size-sm>
+    @for (actor of actors; track actor) {
+    <ion-col size="6" size-sm>
       <ion-card tappable>
         <ion-card-header>
           <ion-card-title>
@@ -25,5 +26,6 @@
         </ion-card-content>
       </ion-card>
     </ion-col>
+    }
   </ion-row>
 </ion-content>

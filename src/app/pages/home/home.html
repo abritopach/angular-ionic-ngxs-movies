@@ -55,15 +55,17 @@
 
   <app-genre-carousel></app-genre-carousel>
 
-  <ion-item *ngIf="movies$ | async; let movies">
+  @if (movies$ | async; as movies) {
+  <ion-item>
     <ion-badge item-end slot="end">Results {{ movies.length }}</ion-badge>
   </ion-item>
+  }
 
   <!-- Movies List View. -->
-  <ion-list *ngIf="iconView === 'apps'">
-    <ion-item-sliding
-      *ngFor="let movie of movies$ | async | filter:search.value; let i = index"
-    >
+  @if (iconView === 'apps') {
+  <ion-list>
+    @for (movie of movies$ | async | filter:search.value; track movie) {
+    <ion-item-sliding>
       <ion-item tappable (click)="viewMovieDetails(movie)">
         <ion-thumbnail slot="start">
           <img [src]="movie.poster" alt="Movie Poster" />
@@ -78,7 +80,8 @@
           </ion-text>
           <ion-text color="medium">
             <h5>
-              <span *ngIf="movie.likes"
+              @if (movie.likes) {
+              <span
                 ><ion-icon
                   name="thumbs-up"
                   color="primary"
@@ -86,10 +89,12 @@
                 ></ion-icon>
                 {{ movie.likes }} |
               </span>
-              <span *ngIf="movie.rate"
+              } @if (movie.rate) {
+              <span
                 ><ion-icon name="star" color="tertiary" slot="start"></ion-icon>
                 {{ movie.rate | number:'1.0-0' }}</span
               >
+              }
             </h5>
           </ion-text>
           <ion-text color="medium">
@@ -117,13 +122,16 @@
         ></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+    }
   </ion-list>
+  }
 
   <!-- Skeleton list. -->
-  <ion-list *ngIf="showSkeleton && iconView === 'apps'">
-    <ion-item
-      *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]"
-    >
+  @if (showSkeleton && iconView === 'apps') {
+  <ion-list>
+    @for (number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]; track
+    number) {
+    <ion-item>
       <ion-thumbnail slot="start">
         <img [src]="" alt="" class="skeleton-thumbnail" />
       </ion-thumbnail>
@@ -136,18 +144,21 @@
         <ion-icon name="swap-horizontal"></ion-icon>
       </ion-note>
     </ion-item>
+    }
   </ion-list>
+  }
 
   <!-- Movies Grid view. -->
-  <ion-grid *ngIf="iconView === 'list'">
+  @if (iconView === 'list') {
+  <ion-grid>
     <ion-row>
+      @for (movie of movies$ | async; track movie) {
       <ion-col
         class="ion-align-self-center"
         size-lg="3"
         size-md="4"
         size-sm="6"
         size-xs="12"
-        *ngFor="let movie of movies$ | async; let i = index"
       >
         <ion-card style="width: 300px" (click)="viewMovieDetails(movie)">
           <ion-item lines="none">
@@ -163,17 +174,18 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
+      }
     </ion-row>
   </ion-grid>
+  }
 
   <!-- Skeleton Grid. -->
-  <ion-grid *ngIf="showSkeleton && iconView === 'list'">
+  @if (showSkeleton && iconView === 'list') {
+  <ion-grid>
     <ion-row>
-      <ion-col
-        class="ion-align-self-center"
-        size="6"
-        *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]"
-      >
+      @for (number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]; track
+      number) {
+      <ion-col class="ion-align-self-center" size="6">
         <ion-card style="width: 300px">
           <ion-item>
             <h2><ion-skeleton-text width="200px"></ion-skeleton-text></h2>
@@ -191,12 +203,14 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
+      }
     </ion-row>
   </ion-grid>
+  }
 
   <!-- Infinite Scroll. -->
+  @if (!search.value) {
   <ion-infinite-scroll
-    *ngIf="!search.value"
     #infiniteScroll
     id="infinite-scroll"
     threshold="100px"
@@ -208,6 +222,7 @@
     >
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  }
 </ion-content>
 
 <ion-footer>
