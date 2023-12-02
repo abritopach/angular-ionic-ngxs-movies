@@ -30,13 +30,6 @@ import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
     ShowCommentsModalComponent,
     ShowActorsModalComponent
   ],
-  entryComponents: [
-    DetailComponent,
-    YoutubeModalComponent,
-    CommentModalComponent,
-    ShowCommentsModalComponent,
-    ShowActorsModalComponent
-  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DetailModule {}
