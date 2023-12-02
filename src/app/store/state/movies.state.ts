@@ -1,4 +1,7 @@
 import { State, Action, StateContext, Selector, NgxsOnInit } from '@ngxs/store';
+import { patch, append, removeItem, updateItem } from '@ngxs/store/operators';
+import { tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { Movie } from '@models/movie.model';
 import {
   FetchMovies,
@@ -20,22 +23,6 @@ import {
 import { MoviesService } from '@services/movies/movies-service';
 import { YoutubeApiService } from '@services/youtube-api/youtube-api-service';
 import { Injectable } from '@angular/core';
-import { attachAction } from '@ngxs-labs/attach-action';
-import {
-  addMovie,
-  clearMovies,
-  commentMovie,
-  deleteAllFavoritesMovies,
-  deleteFavoriteMovie,
-  deleteMovie,
-  editMovie,
-  favoriteMovie,
-  fetchMovies,
-  filterMovies,
-  getMovieTrailer,
-  likeMovie,
-  saveFilterMovies
-} from '@store/actions/movies.actions.impl';
 
 export class MoviesStateModel {
   movies: Movie[];
@@ -79,32 +66,25 @@ export class MoviesStateModel {
 })
 @Injectable()
 export class MovieState implements NgxsOnInit {
+  private readonly GENRES: string[] = [
+    'action',
+    'comedy',
+    'crime',
+    'documentary',
+    'drama',
+    'fantasy',
+    'film noir',
+    'horror',
+    'romance',
+    'science fiction',
+    'westerns',
+    'animation'
+  ];
+
   constructor(
     private moviesService: MoviesService,
     private youtubeApiService: YoutubeApiService
-  ) {
-    attachAction(MovieState, FetchMovies, fetchMovies(moviesService));
-    attachAction(MovieState, AddMovie, addMovie(moviesService));
-    attachAction(MovieState, EditMovie, editMovie(moviesService));
-    attachAction(MovieState, DeleteMovie, deleteMovie(moviesService));
-    attachAction(MovieState, FilterMovies, filterMovies(moviesService));
-    attachAction(MovieState, SaveFilterMovies, saveFilterMovies);
-    attachAction(
-      MovieState,
-      GetMovieTrailer,
-      getMovieTrailer(youtubeApiService)
-    );
-    attachAction(MovieState, ClearMovies, clearMovies);
-    attachAction(MovieState, LikeMovie, likeMovie(moviesService));
-    attachAction(MovieState, CommentMovie, commentMovie(moviesService));
-    attachAction(MovieState, FavoriteMovie, favoriteMovie);
-    attachAction(MovieState, DeleteFavoriteMovie, deleteFavoriteMovie);
-    attachAction(
-      MovieState,
-      DeleteAllFavoritesMovies,
-      deleteAllFavoritesMovies
-    );
-  }
+  ) {}
 
   @Selector()
   static getMovies(state: MoviesStateModel) {
@@ -140,6 +120,239 @@ export class MovieState implements NgxsOnInit {
         },
         rate: 0
       },
+      favorites: []
+    });
+  }
+
+  @Action(FetchMovies, { cancelUncompleted: true })
+  fetchMovies(
+    { getState, setState }: StateContext<MoviesStateModel>,
+    { payload }
+  ) {
+    const { start, end } = payload;
+    return this.moviesService.getMovies(start, end).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (movies) => {
+          movies.forEach((movie) => {
+            const genre = movie.genre.toLowerCase().split(',', 1)[0];
+            if (this.GENRES.indexOf(genre) !== -1) {
+              movie.genreImage = 'assets/movies-genres/' + genre + '.png';
+            }
+          });
+          const state = getState();
+          setState({
+            ...state,
+            movies: [...state.movies, ...movies]
+          });
+        },
+        error: (error) => {
+          console.log('error', error.message);
+        }
+      })
+    );
+  }
+
+  @Action(AddMovie)
+  addMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    payload.poster =
+      payload.poster === ''
+        ? 'https://in.bmscdn.com/iedb/movies/images/website/poster/large/ela-cheppanu-et00016781-24-03-2017-18-31-40.jpg'
+        : payload.poster;
+    return this.moviesService.addMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: append([result])
+            })
+          );
+        }
+      })
+    );
+  }
+
+  @Action(EditMovie)
+  editMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    return this.moviesService.editMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: updateItem<Movie>(
+                (movie) => movie.id === result.id,
+                result
+              )
+            })
+          );
+        }
+      })
+    );
+  }
+
+  @Action(DeleteMovie)
+  deleteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    return this.moviesService.deleteMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: removeItem<Movie>((movie) => movie.id === payload.id)
+            })
+          );
+        }
+      })
+    );
+  }
+
+  @Action(FilterMovies, { cancelUncompleted: true })
+  filterMovies(
+    { getState, setState }: StateContext<MoviesStateModel>,
+    { payload }
+  ) {
+    return this.moviesService.filterMovies(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          const state = getState();
+          setState({
+            ...state,
+            movies: [...result]
+          });
+        },
+        error: (error) => {
+          console.log('error', error.message);
+        }
+      })
+    );
+  }
+
+  @Action(SaveFilterMovies)
+  saveFilterMovies({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    setState(
+      patch({
+        filter: { ...payload }
+      })
+    );
+  }
+
+  @Action(GetMovieTrailer, { cancelUncompleted: true })
+  getMovieTrailer(
+    { getState, setState }: StateContext<MoviesStateModel>,
+    { payload }
+  ) {
+    return this.youtubeApiService.searchMovieTrailer(payload.movieTitle).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {},
+        error: (error) => {
+          console.log('error', error.message);
+        }
+      })
+    );
+  }
+
+  @Action(ClearMovies)
+  clearMovies({ getState, setState }: StateContext<MoviesStateModel>) {
+    const state = getState();
+    setState({
+      ...state,
+      movies: []
+    });
+  }
+
+  @Action(LikeMovie)
+  likeMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    return this.moviesService.editMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: updateItem<Movie>(
+                (movie) => movie.id === result.id,
+                result
+              )
+            })
+          );
+        },
+        error: (error) => {
+          console.log('error', error.message);
+        }
+      })
+    );
+  }
+
+  @Action(CommentMovie)
+  commentMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    return this.moviesService.editMovie(payload).pipe(
+      catchError((x, caught) => {
+        return throwError(() => new Error(x));
+      }),
+      tap({
+        next: (result) => {
+          setState(
+            patch({
+              movies: updateItem<Movie>(
+                (movie) => movie.id === result.id,
+                result
+              )
+            })
+          );
+        },
+        error: (error) => {
+          console.log('error', error.message);
+        }
+      })
+    );
+  }
+
+  @Action(FavoriteMovie)
+  favoriteMovie({ setState }: StateContext<MoviesStateModel>, { payload }) {
+    setState(
+      patch({
+        favorites: append([payload])
+      })
+    );
+  }
+
+  @Action(DeleteFavoriteMovie)
+  deleteFavoriteMovie(
+    { setState }: StateContext<MoviesStateModel>,
+    { payload }
+  ) {
+    setState(
+      patch({
+        favorites: removeItem<Movie>((movie) => movie.id === payload.id)
+      })
+    );
+  }
+
+  @Action(DeleteAllFavoritesMovies)
+  deleteAllFavoritesMovies({
+    getState,
+    setState
+  }: StateContext<MoviesStateModel>) {
+    const state = getState();
+    setState({
+      ...state,
       favorites: []
     });
   }
