@@ -35,13 +35,6 @@ import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
     GenreCarouselComponent,
     FilterPipe
   ],
-  entryComponents: [
-    HomeComponent,
-    MovieModalComponent,
-    FilterMoviePopoverComponent,
-    FavoritesMoviesModalComponent,
-    GenreCarouselComponent
-  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule {}
